@@ -197,6 +197,28 @@ p { color: var(--text-secondary); line-height: 1.7; }
   border: 1px solid rgba(200,164,92,0.2);
 }
 
+.navbar-logout {
+  width: 34px; height: 34px; border-radius: 50%;
+  background: transparent; border: 1px solid rgba(200,164,92,0.2);
+  color: var(--text-muted); font-size: 1rem;
+  cursor: pointer; display: flex;
+  align-items: center; justify-content: center;
+  transition: all var(--transition-base);
+}
+.navbar-logout:hover {
+  background: var(--vermelho-light);
+  border-color: rgba(232,92,92,0.3);
+  color: var(--vermelho);
+}
+
+.mobile-menu-logout {
+  color: var(--vermelho) !important;
+  border-top: 1px solid var(--border) !important;
+  border-bottom: none !important;
+  margin-top: var(--space-sm);
+  padding-top: var(--space-md) !important;
+}
+
 .navbar-hamburger {
   display: none; flex-direction: column; gap: 5px;
   cursor: pointer; padding: 8px; background: none; border: none;
