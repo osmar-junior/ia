@@ -116,14 +116,14 @@ const App = (() => {
       });
     }
 
-    // Botão de logout
-    const logoutBtn = document.getElementById('btnLogout');
-    if (logoutBtn) {
-      logoutBtn.addEventListener('click', (e) => {
+    // Botões de logout (desktop e mobile)
+    const logoutBtns = document.querySelectorAll('#btnLogout, #btnLogoutMobile');
+    logoutBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
         Auth.logout();
       });
-    }
+    });
   }
 
   // Scroll suave para âncoras
