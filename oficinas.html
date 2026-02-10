@@ -7,25 +7,160 @@
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/components.css">
   <link rel="stylesheet" href="./css/responsive.css">
+  <style>
+    .oficinas-intro {
+      font-size: 1.05rem; line-height: 1.85;
+      max-width: 700px; margin-bottom: var(--space-2xl);
+    }
+    .oficinas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: var(--space-lg);
+      margin-bottom: var(--space-3xl);
+    }
+    .oficina-link { text-decoration: none; display: block; }
+  </style>
 </head>
 <body>
+
   <div id="header-placeholder"></div>
+
   <main class="page-content">
     <div class="container">
+
       <section class="section">
         <div class="section-header">
-          <div class="eyebrow"><span class="line"></span> Módulo 04</div>
+          <div class="eyebrow"><span class="dot"></span> Módulo 04</div>
           <h1>Oficinas Práticas</h1>
-          <p>8 oficinas mão na massa para dominar as ferramentas de IA no seu dia a dia.</p>
+          <p>8 oficinas mão na massa para dominar as ferramentas de IA no seu dia a dia no TRE-RN.</p>
         </div>
-        <!-- Conteúdo será adicionado na Fase 2 -->
-        <div id="conteudo-oficinas">
-          <p style="color: var(--text-muted); font-style: italic;">Conteúdo em construção...</p>
+
+        <p class="oficinas-intro">As oficinas estão organizadas em uma sequência progressiva — da familiarização com as ferramentas até a produção de documentos com IA. Cada oficina é independente, mas recomendamos seguir a ordem para melhor aproveitamento.</p>
+
+        <div class="oficinas-grid">
+
+          <a href="./oficinas/oficina-01-primeiro-contato.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">01</div>
+              <h3>Primeiro Contato</h3>
+              <div class="oficina-subtitle">Familiarização com ferramentas de IA</div>
+              <p>Navegue pelas principais ferramentas de LLM, compare suas respostas e aprenda a configurá-las para uso profissional.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">ChatGPT</span>
+                <span class="tool-tag">Claude</span>
+                <span class="tool-tag">Gemini</span>
+                <span class="tool-tag">Perplexity</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-02-notebooklm-fundamentos.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">02</div>
+              <h3>NotebookLM — Fundamentos</h3>
+              <div class="oficina-subtitle">Análise inteligente de documentos</div>
+              <p>Aprenda a criar cadernos, carregar documentos do TRE-RN e fazer perguntas cruzadas entre múltiplas fontes.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">NotebookLM</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-03-notebooklm-audios.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">03</div>
+              <h3>NotebookLM — Áudios</h3>
+              <div class="oficina-subtitle">Relatórios a partir de gravações</div>
+              <p>Transforme gravações de eventos, reuniões e palestras em relatórios estruturados usando o Audio Overview.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">NotebookLM</span>
+                <span class="tool-tag">Audio Overview</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-04-notebooklm-videos.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">04</div>
+              <h3>NotebookLM — Vídeos</h3>
+              <div class="oficina-subtitle">Sessões Plenárias do TRE-RN</div>
+              <p>Gere relatórios, atas e resumos executivos a partir dos vídeos das Sessões Plenárias do Tribunal.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">NotebookLM</span>
+                <span class="tool-tag">YouTube</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-05-gemini-workspace.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">05</div>
+              <h3>Gemini + Google Workspace</h3>
+              <div class="oficina-subtitle">IA integrada ao seu ambiente de trabalho</div>
+              <p>Use o Gemini dentro do Gmail, Google Docs, Planilhas, Apresentações, Calendar e Drive.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">Gemini</span>
+                <span class="tool-tag">Gmail</span>
+                <span class="tool-tag">Docs</span>
+                <span class="tool-tag">Sheets</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-06-gems.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">06</div>
+              <h3>Criação de Gems</h3>
+              <div class="oficina-subtitle">Mini-ferramentas de IA personalizadas</div>
+              <p>Crie Gems no Gemini para automatizar tarefas repetitivas — revisores de texto, geradores de minutas e mais.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">Gemini Gems</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-07-multimidia.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">07</div>
+              <h3>Multimídia com IA</h3>
+              <div class="oficina-subtitle">Imagens, sons e vídeos</div>
+              <p>Explore Grok Imagine, ImageFX, Whisk, restauração de imagens e ferramentas de áudio e vídeo com IA.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">Grok Imagine</span>
+                <span class="tool-tag">ImageFX</span>
+                <span class="tool-tag">Whisk</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-08-documentos.html" class="oficina-link">
+            <div class="oficina-card">
+              <div class="oficina-number">08</div>
+              <h3>Produção de Documentos</h3>
+              <div class="oficina-subtitle">IA para documentos jurídicos e administrativos</div>
+              <p>Use IA para elaborar minutas, ofícios, pareceres, relatórios e outros documentos do TRE-RN com qualidade profissional.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">ChatGPT</span>
+                <span class="tool-tag">Claude</span>
+                <span class="tool-tag">Gemini</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+
+        <!-- Navegação -->
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light);">
+          <a href="./engenharia-de-prompts.html" class="btn btn-secondary btn-sm">← Eng. de Prompts</a>
+          <a href="./oficinas/oficina-01-primeiro-contato.html" class="btn btn-primary btn-sm">Iniciar Oficina 01 →</a>
         </div>
       </section>
+
     </div>
   </main>
+
   <div id="footer-placeholder"></div>
+
   <script src="./js/auth.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/main.js"></script>

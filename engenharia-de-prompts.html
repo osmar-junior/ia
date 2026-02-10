@@ -7,27 +7,584 @@
   <link rel="stylesheet" href="./css/styles.css">
   <link rel="stylesheet" href="./css/components.css">
   <link rel="stylesheet" href="./css/responsive.css">
+  <style>
+    .content-section {
+      padding: var(--space-3xl) 0;
+      border-bottom: 1px solid var(--border-light);
+    }
+    .content-section:last-child { border-bottom: none; }
+    .content-section h2 {
+      margin-bottom: var(--space-lg);
+      display: flex; align-items: center; gap: var(--space-md);
+    }
+    .content-section h2 .section-icon {
+      width: 40px; height: 40px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0;
+    }
+    .content-section h3 {
+      margin-top: var(--space-xl); margin-bottom: var(--space-md);
+      color: var(--dourado); font-size: 1.3rem;
+    }
+    .content-body p {
+      margin-bottom: var(--space-md); font-size: 1.02rem; line-height: 1.85;
+    }
+    .content-body ul, .content-body ol {
+      margin: var(--space-md) 0; padding-left: var(--space-lg);
+    }
+    .content-body li {
+      color: var(--text-secondary); margin-bottom: var(--space-sm);
+      font-size: 1rem; line-height: 1.8;
+    }
+    .content-body li strong { color: var(--text); }
+
+    .page-nav {
+      display: flex; flex-wrap: wrap; gap: var(--space-sm);
+      margin-bottom: var(--space-xl);
+    }
+    .page-nav a {
+      padding: 8px 16px; border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 600;
+      background: var(--bg-elevated); color: var(--text-secondary);
+      border: 1px solid var(--border);
+      transition: all var(--transition-base);
+    }
+    .page-nav a:hover { color: var(--dourado); border-color: var(--border-hover); }
+
+    /* RCTS+E cards */
+    .rcts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md);
+      margin: var(--space-xl) 0;
+    }
+    .rcts-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      text-align: center;
+      backdrop-filter: blur(12px);
+      transition: all var(--transition-base);
+    }
+    .rcts-card:hover {
+      border-color: var(--border-hover);
+      box-shadow: var(--shadow-glow);
+    }
+    .rcts-card .rcts-letter {
+      font-family: var(--font-display);
+      font-size: 2.5rem; font-weight: 800;
+      color: var(--dourado);
+      line-height: 1; margin-bottom: var(--space-sm);
+    }
+    .rcts-card h4 {
+      font-family: var(--font-body);
+      font-size: 1rem; font-weight: 700;
+      color: var(--text); margin-bottom: var(--space-xs);
+    }
+    .rcts-card p {
+      font-size: 0.9rem; text-align: center;
+    }
+
+    /* Prompt example box */
+    .prompt-example {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin: var(--space-lg) 0;
+      font-size: 0.97rem;
+      line-height: 1.8;
+      position: relative;
+    }
+    .prompt-example .prompt-label {
+      position: absolute; top: -12px; left: 20px;
+      background: var(--bg); padding: 2px 12px;
+      font-size: 0.82rem; font-weight: 700;
+      color: var(--dourado); text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+    .prompt-example .tag-r { color: #E85C5C; }
+    .prompt-example .tag-c { color: #6BA3E8; }
+    .prompt-example .tag-t { color: var(--verde); }
+    .prompt-example .tag-s { color: var(--roxo); }
+    .prompt-example .tag-e { color: var(--dourado); }
+
+    /* Area tabs */
+    .area-tabs {
+      display: flex; flex-wrap: wrap; gap: var(--space-sm);
+      margin: var(--space-lg) 0;
+    }
+    .area-tab {
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 0.9rem; font-weight: 600;
+      background: var(--bg-elevated); color: var(--text-secondary);
+      border: 1px solid var(--border); cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .area-tab:hover { color: var(--dourado); border-color: var(--border-hover); }
+    .area-tab.active {
+      background: var(--dourado-dim); color: var(--dourado);
+      border-color: rgba(200,164,92,0.3);
+    }
+    .area-content { display: none; }
+    .area-content.active { display: block; }
+
+    /* Prompt builder */
+    .builder-container {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      backdrop-filter: blur(12px);
+      margin: var(--space-xl) 0;
+    }
+    .builder-field { margin-bottom: var(--space-lg); }
+    .builder-field label {
+      display: flex; align-items: center; gap: var(--space-sm);
+      font-size: 0.92rem; font-weight: 700;
+      color: var(--dourado); margin-bottom: var(--space-sm);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .builder-field label .field-letter {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 0.85rem;
+      background: var(--dourado-dim); color: var(--dourado);
+      border: 1px solid rgba(200,164,92,0.3);
+    }
+    .builder-field textarea, .builder-field input {
+      width: 100%; padding: 14px 18px;
+      border: 1px solid rgba(200,164,92,0.15);
+      border-radius: var(--radius-md);
+      background: rgba(10,22,40,0.5);
+      color: var(--text); font-family: var(--font-body);
+      font-size: 1rem; resize: vertical; outline: none;
+      transition: border-color var(--transition-base);
+    }
+    .builder-field textarea:focus, .builder-field input:focus {
+      border-color: var(--dourado);
+      box-shadow: 0 0 0 3px var(--dourado-dim);
+    }
+    .builder-field textarea::placeholder, .builder-field input::placeholder {
+      color: var(--text-muted);
+    }
+    .builder-output {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin-top: var(--space-lg);
+      font-size: 0.97rem; line-height: 1.8;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      min-height: 120px;
+    }
+    .builder-actions {
+      display: flex; gap: var(--space-sm); margin-top: var(--space-md);
+    }
+
+    @media (max-width: 768px) {
+      .rcts-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .rcts-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+
   <div id="header-placeholder"></div>
+
   <main class="page-content">
     <div class="container">
-      <section class="section">
+
+      <section class="section" style="padding-bottom: 0;">
         <div class="section-header">
-          <div class="eyebrow"><span class="line"></span> Módulo 03</div>
+          <div class="eyebrow"><span class="dot"></span> Módulo 03</div>
           <h1>Engenharia de Prompts</h1>
-          <p>Metodologia RCTS+E, técnicas avançadas e gerador interativo de prompts.</p>
+          <p>Aprenda a "conversar" com a IA de forma eficaz e obtenha resultados profissionais para o seu trabalho no TRE-RN.</p>
         </div>
-        <!-- Conteúdo será adicionado na Fase 2 -->
-        <div id="conteudo-prompts">
-          <p style="color: var(--text-muted); font-style: italic;">Conteúdo em construção...</p>
+
+        <nav class="page-nav">
+          <a href="#o-que-e">O que é?</a>
+          <a href="#rctse">Metodologia RCTS+E</a>
+          <a href="#exemplos">Exemplos por Área</a>
+          <a href="#avancadas">Técnicas Avançadas</a>
+          <a href="#builder">Gerador de Prompts</a>
+        </nav>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- 3.1 — O QUE É ENGENHARIA DE PROMPTS?         -->
+      <!-- ============================================ -->
+      <section class="content-section" id="o-que-e">
+        <h2>
+          <span class="section-icon" style="background: var(--dourado-dim);">💬</span>
+          O que é Engenharia de Prompts?
+        </h2>
+
+        <div class="content-body">
+          <p><strong>Engenharia de Prompts</strong> é a arte e a técnica de formular instruções claras e eficazes para obter os melhores resultados de uma IA. A qualidade da resposta da IA depende diretamente da qualidade da sua pergunta.</p>
+
+          <p>Pense assim: se você pede a um colega "me ajuda com aquele documento", provavelmente receberá uma resposta vaga. Mas se pede "preciso que revise os parágrafos 3 a 5 do ofício nº 42, verificando se os artigos citados da Lei 9.504/97 estão corretos", o resultado será muito melhor. Com a IA funciona da mesma forma.</p>
+
+          <h3>Por que a qualidade do prompt importa?</h3>
+
+          <div class="comparison">
+            <div class="comparison-box comparison-bad">
+              <div class="comparison-label">❌ Prompt genérico</div>
+              <div class="comparison-text">"Faça um ofício sobre prazo eleitoral."</div>
+            </div>
+            <div class="comparison-box comparison-good">
+              <div class="comparison-label">✅ Prompt estruturado</div>
+              <div class="comparison-text">"Atue como um analista judiciário do TRE-RN. Redija um ofício formal comunicando ao Cartório Eleitoral da 15ª Zona que o prazo para regularização do título de eleitor encerra em 08/05/2026, conforme Resolução TSE nº XX. O tom deve ser formal e direto, com no máximo 2 parágrafos."</div>
+            </div>
+          </div>
+
+          <p>O primeiro prompt gera uma resposta genérica que exigirá muita edição. O segundo gera um texto que já está próximo do resultado final, economizando tempo e esforço.</p>
         </div>
       </section>
+
+      <!-- ============================================ -->
+      <!-- 3.2 — METODOLOGIA RCTS+E                     -->
+      <!-- ============================================ -->
+      <section class="content-section" id="rctse">
+        <h2>
+          <span class="section-icon" style="background: var(--verde-light);">🧩</span>
+          Metodologia RCTS+E
+        </h2>
+
+        <div class="content-body">
+          <p>Para facilitar a construção de prompts eficazes, adotamos a metodologia <strong>RCTS+E</strong> — um framework simples que garante que suas instruções contenham todos os elementos necessários para uma resposta de qualidade.</p>
+
+          <div class="rcts-grid">
+            <div class="rcts-card">
+              <div class="rcts-letter">R</div>
+              <h4>Role (Papel)</h4>
+              <p>Quem a IA deve "ser"</p>
+            </div>
+            <div class="rcts-card">
+              <div class="rcts-letter">C</div>
+              <h4>Context (Contexto)</h4>
+              <p>Informações de fundo</p>
+            </div>
+            <div class="rcts-card">
+              <div class="rcts-letter">T</div>
+              <h4>Task (Tarefa)</h4>
+              <p>O que deve ser feito</p>
+            </div>
+            <div class="rcts-card">
+              <div class="rcts-letter">S</div>
+              <h4>Style (Estilo)</h4>
+              <p>Formato e tom desejado</p>
+            </div>
+            <div class="rcts-card">
+              <div class="rcts-letter">+E</div>
+              <h4>Examples</h4>
+              <p>Exemplos de referência</p>
+            </div>
+          </div>
+
+          <h3>Detalhando cada elemento</h3>
+
+          <div class="prompt-example">
+            <div class="prompt-label">Exemplo Completo RCTS+E</div>
+            <p>
+              <span class="tag-r"><strong>[R — Papel]</strong></span> Atue como um analista judiciário especializado em gestão de pessoas do TRE-RN, com experiência em redação de documentos administrativos.<br><br>
+              <span class="tag-c"><strong>[C — Contexto]</strong></span> O TRE-RN está implementando um novo programa de avaliação de desempenho para os servidores, conforme Resolução CNJ nº 240/2016. Preciso comunicar as unidades sobre o cronograma e as etapas do processo.<br><br>
+              <span class="tag-t"><strong>[T — Tarefa]</strong></span> Elabore um memorando circular dirigido a todos os coordenadores de seção, informando sobre o programa, as datas-chave e as responsabilidades de cada gestor no processo de avaliação.<br><br>
+              <span class="tag-s"><strong>[S — Estilo]</strong></span> Linguagem formal e institucional, tom motivacional mas objetivo. Estruture com: cabeçalho institucional, introdução breve, lista de datas e responsabilidades, e fechamento. Máximo de 1 página.<br><br>
+              <span class="tag-e"><strong>[+E — Exemplo]</strong></span> Siga o padrão de memorandos do TRE-RN, como: "MEMORANDO-CIRCULAR Nº XX/2025-SGP. Ao(À) Senhor(a) Coordenador(a)..."
+            </p>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Nem todo prompt precisa de todos os elementos</div>
+            <p>Para perguntas simples do dia a dia, <strong>R + T</strong> já são suficientes. Use o RCTS+E completo quando precisar de resultados mais sofisticados — documentos formais, análises complexas ou textos que exigem tom e formato específicos.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- 3.3 — EXEMPLOS POR ÁREA DO TRE-RN            -->
+      <!-- ============================================ -->
+      <section class="content-section" id="exemplos">
+        <h2>
+          <span class="section-icon" style="background: var(--azul-accent-light);">🏢</span>
+          Exemplos por Área do TRE-RN
+        </h2>
+
+        <div class="content-body">
+          <p>Selecione a área para ver exemplos de prompts RCTS+E adaptados ao contexto do TRE-RN:</p>
+
+          <div class="area-tabs">
+            <button class="area-tab active" onclick="showArea('ti')">💻 TI</button>
+            <button class="area-tab" onclick="showArea('gp')">👥 Gestão de Pessoas</button>
+            <button class="area-tab" onclick="showArea('admin')">📊 Admin / Orçamento</button>
+            <button class="area-tab" onclick="showArea('jud')">⚖️ Judiciária</button>
+            <button class="area-tab" onclick="showArea('gov')">🎯 Governança</button>
+          </div>
+
+          <!-- TI -->
+          <div class="area-content active" id="area-ti">
+            <div class="prompt-example">
+              <div class="prompt-label">TI — Documentação técnica</div>
+              <p>
+                <span class="tag-r"><strong>[R]</strong></span> Atue como um analista de sistemas sênior do TRE-RN, especializado em documentação técnica de sistemas judiciais.<br><br>
+                <span class="tag-c"><strong>[C]</strong></span> O sistema PJe (Processo Judicial Eletrônico) passa por uma atualização de versão. A equipe de desenvolvimento precisa documentar as mudanças para as áreas de suporte e para os magistrados usuários.<br><br>
+                <span class="tag-t"><strong>[T]</strong></span> Elabore um release notes da nova versão, listando as principais mudanças, correções de bugs e novas funcionalidades. Inclua impactos para o usuário final e instruções de migração.<br><br>
+                <span class="tag-s"><strong>[S]</strong></span> Linguagem técnica mas acessível. Estruture com: resumo executivo, lista de mudanças por categoria (funcionalidades, correções, melhorias de performance), impactos e instruções.
+              </p>
+            </div>
+          </div>
+
+          <!-- Gestão de Pessoas -->
+          <div class="area-content" id="area-gp">
+            <div class="prompt-example">
+              <div class="prompt-label">Gestão de Pessoas — Capacitação</div>
+              <p>
+                <span class="tag-r"><strong>[R]</strong></span> Atue como um especialista em gestão de pessoas e desenvolvimento organizacional do TRE-RN.<br><br>
+                <span class="tag-c"><strong>[C]</strong></span> A Secretaria de Gestão de Pessoas está planejando o Plano Anual de Capacitação 2026. É necessário identificar as competências prioritárias considerando as metas do Planejamento Estratégico do Tribunal e as demandas das eleições municipais.<br><br>
+                <span class="tag-t"><strong>[T]</strong></span> Sugira 10 ações de capacitação prioritárias, organizadas por eixo temático (técnico, comportamental, gerencial), com justificativa, público-alvo e carga horária estimada.<br><br>
+                <span class="tag-s"><strong>[S]</strong></span> Formato de tabela. Tom institucional e estratégico, com foco na conexão entre cada capacitação e os objetivos do Planejamento Estratégico.
+              </p>
+            </div>
+          </div>
+
+          <!-- Admin / Orçamento -->
+          <div class="area-content" id="area-admin">
+            <div class="prompt-example">
+              <div class="prompt-label">Administração / Orçamento — Análise</div>
+              <p>
+                <span class="tag-r"><strong>[R]</strong></span> Atue como um analista de planejamento orçamentário do TRE-RN, com conhecimento em Lei de Responsabilidade Fiscal e execução orçamentária do Judiciário.<br><br>
+                <span class="tag-c"><strong>[C]</strong></span> Estamos elaborando a proposta orçamentária para 2026. O TRE-RN precisa justificar o aumento de dotação para a ação orçamentária de modernização tecnológica, considerando a necessidade de renovação do parque de equipamentos para as eleições.<br><br>
+                <span class="tag-t"><strong>[T]</strong></span> Redija a justificativa técnica para inclusão na proposta orçamentária, fundamentando a necessidade de investimento e seu alinhamento com o Planejamento Estratégico e com as metas do CNJ.<br><br>
+                <span class="tag-s"><strong>[S]</strong></span> Linguagem formal e técnica, com dados quantitativos quando possível. Estruture com: contextualização, justificativa, estimativa de impacto e alinhamento estratégico. Máximo 2 páginas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Judiciária -->
+          <div class="area-content" id="area-jud">
+            <div class="prompt-example">
+              <div class="prompt-label">Judiciária — Certidão e Despacho</div>
+              <p>
+                <span class="tag-r"><strong>[R]</strong></span> Atue como um técnico judiciário do TRE-RN, lotado em zona eleitoral, com experiência na elaboração de certidões e despachos ordinatórios.<br><br>
+                <span class="tag-c"><strong>[C]</strong></span> Um requerente solicita certidão de quitação eleitoral para fins de posse em cargo público federal. O eleitor está em situação regular, com todas as eleições justificadas ou votadas desde 2018.<br><br>
+                <span class="tag-t"><strong>[T]</strong></span> Elabore um modelo de certidão de quitação eleitoral e o despacho ordinatório de deferimento do pedido.<br><br>
+                <span class="tag-s"><strong>[S]</strong></span> Linguagem jurídica formal, padrão cartorário. Inclua os campos de identificação do eleitor (use dados fictícios), fundamentação legal e assinatura do chefe de cartório.
+              </p>
+            </div>
+          </div>
+
+          <!-- Governança -->
+          <div class="area-content" id="area-gov">
+            <div class="prompt-example">
+              <div class="prompt-label">Governança — Indicadores</div>
+              <p>
+                <span class="tag-r"><strong>[R]</strong></span> Atue como um assessor de planejamento estratégico do TRE-RN, com experiência em gestão de indicadores e metas do CNJ.<br><br>
+                <span class="tag-c"><strong>[C]</strong></span> O TRE-RN precisa apresentar ao CNJ o relatório de acompanhamento dos indicadores do Planejamento Estratégico, referente ao 1º semestre de 2025. Alguns indicadores não atingiram a meta prevista, especialmente o índice de produtividade de sentenças.<br><br>
+                <span class="tag-t"><strong>[T]</strong></span> Elabore uma análise dos indicadores abaixo da meta, identificando possíveis causas e sugerindo planos de ação corretiva para o 2º semestre, com responsáveis e prazos.<br><br>
+                <span class="tag-s"><strong>[S]</strong></span> Formato executivo, com tabela de indicadores (indicador, meta, realizado, gap, causa provável, ação corretiva). Tom analítico e propositivo.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- 3.4 — TÉCNICAS AVANÇADAS                     -->
+      <!-- ============================================ -->
+      <section class="content-section" id="avancadas">
+        <h2>
+          <span class="section-icon" style="background: var(--roxo-light);">🚀</span>
+          Técnicas Avançadas
+        </h2>
+
+        <div class="content-body">
+          <p>Além do RCTS+E, existem técnicas que podem elevar ainda mais a qualidade das respostas da IA:</p>
+
+          <h3>Chain-of-Thought (Raciocínio passo a passo)</h3>
+          <p>Peça à IA que <strong>"pense passo a passo"</strong> antes de dar a resposta final. Isso força o modelo a seguir um raciocínio lógico e reduz erros em tarefas analíticas.</p>
+
+          <div class="prompt-example">
+            <div class="prompt-label">Exemplo</div>
+            <p>"Analise, passo a passo, se o requerente cumpre todos os requisitos para a candidatura, considerando: idade mínima, domicílio eleitoral, filiação partidária e quitação eleitoral. Para cada requisito, indique se foi atendido e qual a base legal."</p>
+          </div>
+
+          <h3>Prompting Iterativo (Refinamento progressivo)</h3>
+          <p>Em vez de tentar obter a resposta perfeita de uma vez, <strong>refine em etapas</strong>. Comece com um pedido geral e vá ajustando na mesma conversa.</p>
+
+          <div class="stepper">
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">1</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4>Primeira instrução</h4>
+                <p>"Redija um parecer sobre a viabilidade de uso de IA generativa nas zonas eleitorais do TRE-RN."</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">2</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4>Refinamento</h4>
+                <p>"Inclua uma seção sobre os riscos conforme a Resolução CNJ 615/2025 e sugira mitigações."</p>
+              </div>
+            </div>
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">3</div>
+              </div>
+              <div class="step-content">
+                <h4>Ajuste final</h4>
+                <p>"Reduza para 2 páginas, torne a linguagem mais acessível e adicione uma conclusão com recomendação objetiva."</p>
+              </div>
+            </div>
+          </div>
+
+          <h3>Few-shot (Exemplos de referência)</h3>
+          <p>Forneça à IA <strong>2 ou 3 exemplos</strong> do resultado que você espera antes de pedir a tarefa real. Isso é especialmente útil para padronizar formatação de documentos do TRE-RN.</p>
+
+          <div class="callout callout-success">
+            <div class="callout-title">💡 Dica prática</div>
+            <p>Copie e cole um exemplo de despacho, ofício ou certidão que já existe no TRE-RN, e peça à IA para gerar um novo seguindo o mesmo padrão. Isso é <strong>muito</strong> mais eficaz do que descrever o formato desejado por extenso.</p>
+          </div>
+
+          <h3>Personas e tom institucional</h3>
+          <p>Defina explicitamente o tom que a IA deve adotar. Exemplos de instruções úteis:</p>
+          <ul>
+            <li><strong>"Adote um tom formal e institucional"</strong> — para ofícios e comunicações oficiais</li>
+            <li><strong>"Explique de forma acessível, como se estivesse falando com um servidor não técnico"</strong> — para materiais de capacitação</li>
+            <li><strong>"Seja analítico e apresente prós e contras"</strong> — para pareceres e notas técnicas</li>
+            <li><strong>"Resuma de forma executiva em no máximo 5 tópicos"</strong> — para briefings e resumos gerenciais</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============================================ -->
+      <!-- 3.5 — GERADOR INTERATIVO DE PROMPTS           -->
+      <!-- ============================================ -->
+      <section class="content-section" id="builder">
+        <h2>
+          <span class="section-icon" style="background: var(--dourado-dim);">⚡</span>
+          Gerador de Prompts RCTS+E
+        </h2>
+
+        <div class="content-body">
+          <p>Preencha os campos abaixo e o gerador montará automaticamente um prompt estruturado para você copiar e usar em qualquer ferramenta de IA.</p>
+
+          <div class="builder-container">
+            <div class="builder-field">
+              <label><span class="field-letter">R</span> Role (Papel)</label>
+              <input type="text" id="builder-r" placeholder="Ex: Analista judiciário do TRE-RN especializado em licitações">
+            </div>
+
+            <div class="builder-field">
+              <label><span class="field-letter">C</span> Context (Contexto)</label>
+              <textarea id="builder-c" rows="3" placeholder="Ex: O TRE-RN está preparando um pregão eletrônico para aquisição de equipamentos de TI..."></textarea>
+            </div>
+
+            <div class="builder-field">
+              <label><span class="field-letter">T</span> Task (Tarefa)</label>
+              <textarea id="builder-t" rows="3" placeholder="Ex: Elabore o Termo de Referência com especificações técnicas, justificativa e critérios de aceitação..."></textarea>
+            </div>
+
+            <div class="builder-field">
+              <label><span class="field-letter">S</span> Style (Estilo)</label>
+              <input type="text" id="builder-s" placeholder="Ex: Linguagem formal, formato de documento oficial, máximo 3 páginas">
+            </div>
+
+            <div class="builder-field">
+              <label><span class="field-letter">+E</span> Examples (Exemplos - opcional)</label>
+              <textarea id="builder-e" rows="2" placeholder="Ex: Siga o padrão do último Termo de Referência do Pregão nº 05/2024..."></textarea>
+            </div>
+
+            <div class="builder-actions">
+              <button class="btn btn-primary" onclick="generatePrompt()">Gerar Prompt</button>
+              <button class="btn btn-secondary" onclick="copyPrompt()">Copiar</button>
+              <button class="btn btn-outline" onclick="clearBuilder()">Limpar</button>
+            </div>
+
+            <div class="builder-output" id="builder-output">O prompt gerado aparecerá aqui...</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegação -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
+        <a href="./regulamentacao.html" class="btn btn-secondary btn-sm">← Regulamentação</a>
+        <a href="./oficinas.html" class="btn btn-primary btn-sm">Oficinas →</a>
+      </div>
+
     </div>
   </main>
+
   <div id="footer-placeholder"></div>
+
   <script src="./js/auth.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/main.js"></script>
+
+  <script>
+    // --- Tabs de áreas ---
+    function showArea(id) {
+      document.querySelectorAll('.area-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.area-tab').forEach(el => el.classList.remove('active'));
+      document.getElementById('area-' + id).classList.add('active');
+      event.target.classList.add('active');
+    }
+
+    // --- Gerador de Prompts ---
+    function generatePrompt() {
+      const r = document.getElementById('builder-r').value.trim();
+      const c = document.getElementById('builder-c').value.trim();
+      const t = document.getElementById('builder-t').value.trim();
+      const s = document.getElementById('builder-s').value.trim();
+      const e = document.getElementById('builder-e').value.trim();
+
+      if (!t) {
+        Utils.showToast('Preencha pelo menos o campo Tarefa (T).', 'warning');
+        return;
+      }
+
+      let prompt = '';
+      if (r) prompt += `Atue como ${r}.\n\n`;
+      if (c) prompt += `Contexto: ${c}\n\n`;
+      prompt += `Tarefa: ${t}`;
+      if (s) prompt += `\n\nEstilo e formato: ${s}`;
+      if (e) prompt += `\n\nExemplo de referência: ${e}`;
+
+      document.getElementById('builder-output').textContent = prompt;
+      Utils.showToast('Prompt gerado com sucesso!', 'success');
+    }
+
+    function copyPrompt() {
+      const text = document.getElementById('builder-output').textContent;
+      if (text === 'O prompt gerado aparecerá aqui...') {
+        Utils.showToast('Gere um prompt antes de copiar.', 'warning');
+        return;
+      }
+      Utils.copyToClipboard(text).then(() => {
+        Utils.showToast('Prompt copiado!', 'success');
+      });
+    }
+
+    function clearBuilder() {
+      document.getElementById('builder-r').value = '';
+      document.getElementById('builder-c').value = '';
+      document.getElementById('builder-t').value = '';
+      document.getElementById('builder-s').value = '';
+      document.getElementById('builder-e').value = '';
+      document.getElementById('builder-output').textContent = 'O prompt gerado aparecerá aqui...';
+    }
+  </script>
 </body>
 </html>
