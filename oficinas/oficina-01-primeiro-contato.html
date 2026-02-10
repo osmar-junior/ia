@@ -3,30 +3,561 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficina 01 — Primeiro Contato</title>
+  <title>Oficina 01 — Primeiro Contato | Workshop IA TRE/RN</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    /* === Layout de oficina === */
+    .oficina-hero {
+      padding: var(--space-3xl) 0 var(--space-2xl);
+      border-bottom: 1px solid var(--border-light);
+    }
+    .oficina-hero .oficina-badge {
+      display: inline-flex; align-items: center; gap: var(--space-sm);
+      font-size: 0.9rem; font-weight: 700; color: var(--dourado);
+      background: var(--dourado-dim); padding: 8px 18px;
+      border-radius: var(--radius-full); border: 1px solid rgba(200,164,92,0.2);
+      margin-bottom: var(--space-lg);
+    }
+    .oficina-hero h1 { font-size: 2.8rem; margin-bottom: var(--space-md); }
+    .oficina-hero .oficina-desc { font-size: 1.15rem; line-height: 1.85; max-width: 800px; }
+    .oficina-meta {
+      display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl);
+    }
+    .oficina-meta-item {
+      display: flex; align-items: center; gap: var(--space-sm);
+      font-size: 0.95rem; color: var(--text-muted);
+    }
+    .oficina-meta-item strong { color: var(--text); }
+
+    /* === Atividade (bloco principal) === */
+    .atividade {
+      padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light);
+    }
+    .atividade:last-of-type { border-bottom: none; }
+    .atividade-header {
+      display: flex; align-items: flex-start; gap: var(--space-lg); margin-bottom: var(--space-xl);
+    }
+    .atividade-num {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+      background: var(--dourado-dim); color: var(--dourado);
+      border: 1px solid rgba(200,164,92,0.25);
+    }
+    .atividade-header h2 { font-size: 1.8rem; margin: 0; }
+    .atividade-header .atividade-sub { font-size: 1rem; color: var(--text-muted); margin-top: 4px; }
+    .atividade p { font-size: 1.08rem; line-height: 1.9; margin-bottom: var(--space-md); }
+    .atividade h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--dourado); font-size: 1.3rem; }
+    .atividade ul, .atividade ol { margin: var(--space-md) 0; padding-left: var(--space-lg); }
+    .atividade li { color: var(--text-secondary); margin-bottom: var(--space-sm); font-size: 1.05rem; line-height: 1.85; }
+    .atividade li strong { color: var(--text); }
+
+    /* === Prompt copiável === */
+    .prompt-copy {
+      position: relative; margin: var(--space-lg) 0;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); overflow: hidden;
+    }
+    .prompt-copy-label {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 18px; background: rgba(200,164,92,0.08);
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.85rem; font-weight: 700; color: var(--dourado);
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .prompt-copy-label .copy-btn {
+      padding: 5px 14px; border-radius: 6px; font-size: 0.82rem; font-weight: 600;
+      background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25);
+      cursor: pointer; transition: all var(--transition-base);
+    }
+    .prompt-copy-label .copy-btn:hover { background: rgba(200,164,92,0.25); }
+    .prompt-copy-body {
+      padding: var(--space-lg) var(--space-xl);
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1rem; line-height: 1.75; color: var(--text-secondary);
+      white-space: pre-wrap; min-height: 60px;
+      outline: none;
+    }
+
+    /* === Feedback / Conquista === */
+    .feedback {
+      background: var(--verde-light); border: 1px solid rgba(76,175,130,0.2);
+      border-radius: var(--radius-lg); padding: var(--space-xl);
+      margin: var(--space-xl) 0;
+    }
+    .feedback .feedback-icon { font-size: 2rem; margin-bottom: var(--space-sm); }
+    .feedback h4 { font-family: var(--font-body); font-size: 1.15rem; font-weight: 700; color: var(--verde); margin-bottom: var(--space-sm); }
+    .feedback p { font-size: 1.02rem; }
+
+    /* === Reflexão interativa === */
+    .reflexao {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-xl);
+      margin: var(--space-xl) 0; backdrop-filter: blur(12px);
+    }
+    .reflexao h4 { font-family: var(--font-body); font-size: 1.1rem; font-weight: 700; color: var(--dourado); margin-bottom: var(--space-md); }
+    .reflexao .reflexao-options {
+      display: flex; flex-wrap: wrap; gap: var(--space-sm); margin: var(--space-md) 0;
+    }
+    .reflexao .reflexao-opt {
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600;
+      background: var(--bg-card); color: var(--text-secondary);
+      border: 1px solid var(--border); cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .reflexao .reflexao-opt:hover { border-color: var(--border-hover); color: var(--dourado); }
+    .reflexao .reflexao-opt.selected {
+      background: var(--dourado-dim); color: var(--dourado);
+      border-color: rgba(200,164,92,0.3);
+    }
+    .reflexao .reflexao-result {
+      margin-top: var(--space-md); padding: var(--space-md);
+      background: rgba(0,0,0,0.1); border-radius: var(--radius-sm);
+      font-size: 0.97rem; color: var(--text-secondary); display: none;
+    }
+    .reflexao .reflexao-result.visible { display: block; }
+
+    /* === Ferramentas alvo === */
+    .ferramentas-alvo {
+      display: flex; gap: var(--space-sm); margin: var(--space-md) 0; flex-wrap: wrap;
+    }
+    .ferramenta-tag {
+      padding: 6px 16px; border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 700;
+      background: var(--azul-accent-light); color: #6BA3E8;
+      border: 1px solid rgba(46,92,154,0.2);
+    }
+
+    /* === Material de apoio === */
+    .material-apoio {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-xl);
+      margin: var(--space-xl) 0; backdrop-filter: blur(12px);
+      display: flex; align-items: center; gap: var(--space-lg);
+    }
+    .material-apoio .material-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .material-apoio h4 { font-family: var(--font-body); font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .material-apoio p { font-size: 0.95rem; margin-bottom: var(--space-sm); }
+
+    /* === Progresso === */
+    .progresso-bar {
+      position: sticky; top: var(--navbar-height); z-index: 50;
+      background: var(--bg-lighter); border-bottom: 1px solid var(--border-light);
+      padding: 10px var(--space-xl);
+      display: flex; align-items: center; gap: var(--space-lg);
+    }
+    .progresso-bar .progresso-label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+    .progresso-track {
+      flex: 1; height: 6px; background: rgba(200,164,92,0.1);
+      border-radius: 3px; overflow: hidden;
+    }
+    .progresso-fill {
+      height: 100%; background: linear-gradient(90deg, var(--dourado), var(--verde));
+      border-radius: 3px; transition: width 0.5s ease; width: 0%;
+    }
+    .progresso-bar .progresso-pct { font-size: 0.85rem; font-weight: 700; color: var(--dourado); }
+
+    @media (max-width: 768px) {
+      .atividade-header { flex-direction: column; gap: var(--space-sm); }
+      .material-apoio { flex-direction: column; text-align: center; }
+      .oficina-hero h1 { font-size: 2rem; }
+    }
+  </style>
 </head>
 <body>
+
   <div id="header-placeholder"></div>
-  <main class="page-content">
+
+  <!-- Barra de progresso -->
+  <div class="progresso-bar">
+    <span class="progresso-label">Progresso da Oficina</span>
+    <div class="progresso-track"><div class="progresso-fill" id="progressFill"></div></div>
+    <span class="progresso-pct" id="progressPct">0%</span>
+  </div>
+
+  <main class="page-content" style="padding-top: calc(var(--navbar-height) + 42px);">
     <div class="container">
-      <section class="section">
-        <div class="section-header">
-          <div class="eyebrow"><span class="line"></span> Oficina 01</div>
-          <h1>Primeiro Contato</h1>
-          <p>Navegue pelas ferramentas de LLM e compare suas respostas.</p>
+
+      <!-- ===================== HERO ===================== -->
+      <div class="oficina-hero">
+        <div class="oficina-badge">🔬 Oficina 01 de 08</div>
+        <h1>Primeiro Contato</h1>
+        <p class="oficina-desc">Nesta oficina, você vai colocar a mão na massa pela primeira vez: navegar pelas principais ferramentas de IA, disparar os mesmos prompts em ferramentas diferentes, comparar resultados e descobrir qual combina melhor com cada tipo de tarefa. Ao final, você terá uma visão prática e pessoal do que cada ferramenta faz melhor.</p>
+
+        <div class="oficina-meta">
+          <div class="oficina-meta-item">⏱️ <strong>Duração estimada:</strong> 45–60 min</div>
+          <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Iniciante</div>
+          <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Contas criadas nas ferramentas</div>
         </div>
-        <div id="conteudo-oficina-01">
-          <p style="color: var(--text-muted); font-style: italic;">Conteúdo em construção...</p>
+      </div>
+
+      <!-- ===================== OBJETIVOS ===================== -->
+      <div class="atividade" id="objetivos">
+        <div class="atividade-header">
+          <div class="atividade-num">📌</div>
+          <div><h2>Objetivos desta Oficina</h2></div>
         </div>
-      </section>
+        <p>Ao concluir esta oficina, você será capaz de:</p>
+        <ul>
+          <li>Navegar e interagir com as interfaces das 6 principais ferramentas de IA</li>
+          <li>Identificar diferenças práticas entre as respostas de cada ferramenta</li>
+          <li>Reconhecer pontos fortes e fracos de cada ferramenta para tarefas específicas do TRE-RN</li>
+          <li>Usar o Perplexity como ferramenta de pesquisa com citação de fontes</li>
+          <li>Formar sua opinião pessoal sobre qual ferramenta se adequa melhor ao seu perfil de trabalho</li>
+        </ul>
+
+        <!-- Material de apoio -->
+        <div class="material-apoio">
+          <div class="material-icon">📋</div>
+          <div>
+            <h4>Material de Apoio: Checklist de Criação de Contas</h4>
+            <p>Antes de começar, certifique-se de que suas contas estão criadas em todas as ferramentas.</p>
+            <a href="./checklist-contas.html" target="_blank" class="btn btn-sm btn-primary">Abrir Checklist ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== ATIVIDADE 1 ===================== -->
+      <div class="atividade" id="ativ1" data-step="1">
+        <div class="atividade-header">
+          <div class="atividade-num">01</div>
+          <div>
+            <h2>Aquecimento: Seu Primeiro Prompt</h2>
+            <div class="atividade-sub">Vamos quebrar o gelo com as ferramentas</div>
+          </div>
+        </div>
+
+        <p>Vamos começar com algo simples. Copie o prompt abaixo e execute-o no <strong>ChatGPT</strong> e no <strong>Claude</strong>. O objetivo aqui não é o conteúdo da resposta, mas sentir a diferença de estilo entre as duas ferramentas.</p>
+
+        <div class="ferramentas-alvo">
+          <span class="ferramenta-tag">ChatGPT</span>
+          <span class="ferramenta-tag">Claude</span>
+        </div>
+
+        <div class="prompt-copy">
+          <div class="prompt-copy-label">
+            Prompt 1 — Aquecimento
+            <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+          </div>
+          <div class="prompt-copy-body" contenteditable="true">Explique o que é a Justiça Eleitoral brasileira e qual o papel de um Tribunal Regional Eleitoral, como se estivesse explicando para um cidadão que nunca ouviu falar desse assunto. Use linguagem simples e exemplos do cotidiano.</div>
+        </div>
+
+        <h3>O que observar:</h3>
+        <ul>
+          <li>Qual resposta é mais longa? Qual é mais direta?</li>
+          <li>Alguma das ferramentas usou analogias ou exemplos mais criativos?</li>
+          <li>Qual delas você considera que ficou mais acessível para um cidadão leigo?</li>
+        </ul>
+
+        <div class="reflexao">
+          <h4>🤔 Na sua opinião, qual resposta ficou mais acessível?</h4>
+          <div class="reflexao-options">
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref1')">ChatGPT</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref1')">Claude</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref1')">Empataram</button>
+          </div>
+          <div class="reflexao-result" id="ref1">Interessante! Cada ferramenta tem um "estilo de escrita" próprio. O ChatGPT tende a ser mais conversacional e prolixo; o Claude costuma ser mais estruturado e conciso. Nenhum é melhor em absoluto — depende do que você precisa. Guarde essa percepção: ela será útil mais adiante.</div>
+        </div>
+
+        <div class="feedback" id="fb1" style="display:none;">
+          <div class="feedback-icon">🎯</div>
+          <h4>Primeiro prompt disparado. O vício começa agora!</h4>
+          <p>Você acabou de conversar com duas das IAs mais avançadas do planeta. Não foi tão difícil, foi? A partir daqui, só melhora. Vamos para o próximo desafio.</p>
+        </div>
+      </div>
+
+      <!-- ===================== ATIVIDADE 2 ===================== -->
+      <div class="atividade" id="ativ2" data-step="2">
+        <div class="atividade-header">
+          <div class="atividade-num">02</div>
+          <div>
+            <h2>Teste de Raciocínio Analítico</h2>
+            <div class="atividade-sub">Quem argumenta melhor?</div>
+          </div>
+        </div>
+
+        <p>Agora vamos subir o nível. Execute o prompt abaixo no <strong>Gemini</strong> e no <strong>Claude</strong>. Desta vez, a tarefa exige organização de argumentos e capacidade analítica — algo que você usará frequentemente no TRE-RN.</p>
+
+        <div class="ferramentas-alvo">
+          <span class="ferramenta-tag">Gemini</span>
+          <span class="ferramenta-tag">Claude</span>
+        </div>
+
+        <div class="prompt-copy">
+          <div class="prompt-copy-label">
+            Prompt 2 — Análise comparativa
+            <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+          </div>
+          <div class="prompt-copy-body" contenteditable="true">Analise os prós e contras da adoção de inteligência artificial generativa para auxiliar na redação de atos administrativos em tribunais eleitorais. Considere os aspectos: eficiência operacional, riscos jurídicos, qualidade dos documentos, e impacto na capacitação dos servidores. Apresente sua análise em formato de tabela com duas colunas (prós e contras) e conclua com uma recomendação objetiva em no máximo 3 linhas.</div>
+        </div>
+
+        <h3>O que observar:</h3>
+        <ul>
+          <li>Ambas seguiram a instrução de formato (tabela + conclusão)?</li>
+          <li>Qual tabela ficou mais equilibrada e bem fundamentada?</li>
+          <li>A conclusão foi realmente objetiva ou ficou genérica ("depende do caso")?</li>
+        </ul>
+
+        <div class="reflexao">
+          <h4>🤔 Qual ferramenta produziu a análise mais útil para apresentar a um gestor do TRE-RN?</h4>
+          <div class="reflexao-options">
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref2')">Gemini</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref2')">Claude</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref2')">Empataram</button>
+          </div>
+          <div class="reflexao-result" id="ref2">Boa observação! Em tarefas analíticas, o Claude geralmente se destaca pela estrutura e pela capacidade de seguir instruções de formato com precisão. O Gemini, por ter acesso à busca Google, pode trazer dados mais atualizados. Já percebeu como o contexto da tarefa influencia qual ferramenta "brilha"?</div>
+        </div>
+
+        <div class="feedback" id="fb2" style="display:none;">
+          <div class="feedback-icon">📊</div>
+          <h4>Análise comparativa? Feito. Você já pensa como um estrategista de IA.</h4>
+          <p>Você acabou de testar a capacidade analítica de duas ferramentas em um cenário real do Judiciário. Essa habilidade de comparar e escolher a melhor ferramenta para cada tarefa é o que separa o usuário casual do profissional.</p>
+        </div>
+      </div>
+
+      <!-- ===================== ATIVIDADE 3 ===================== -->
+      <div class="atividade" id="ativ3" data-step="3">
+        <div class="atividade-header">
+          <div class="atividade-num">03</div>
+          <div>
+            <h2>Redação Institucional</h2>
+            <div class="atividade-sub">IA no campo de batalha: documentos do TRE-RN</div>
+          </div>
+        </div>
+
+        <p>Hora de testar no que mais interessa: redação de documentos institucionais. Execute o prompt abaixo no <strong>ChatGPT</strong> e no <strong>Grok</strong>. Preste atenção ao tom, à formalidade e à adequação ao contexto do Judiciário.</p>
+
+        <div class="ferramentas-alvo">
+          <span class="ferramenta-tag">ChatGPT</span>
+          <span class="ferramenta-tag">Grok</span>
+        </div>
+
+        <div class="prompt-copy">
+          <div class="prompt-copy-label">
+            Prompt 3 — Redação institucional
+            <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+          </div>
+          <div class="prompt-copy-body" contenteditable="true">[ROLE] Atue como um servidor público experiente do Tribunal Regional Eleitoral do Rio Grande do Norte.
+
+[TASK] Redija um e-mail institucional para os servidores de todas as zonas eleitorais do RN, comunicando a abertura do período de recadastramento biométrico obrigatório para as eleições de 2026.
+
+[STYLE] Tom formal mas acolhedor, linguagem institucional acessível, máximo 3 parágrafos. Inclua: período (01/03 a 30/06/2026), locais (cartórios eleitorais), documentos necessários e consequência de não comparecer. Finalize com uma frase motivacional sobre a importância do voto.</div>
+        </div>
+
+        <h3>O que observar:</h3>
+        <ul>
+          <li>Qual e-mail parece mais "real" — algo que um servidor do TRE-RN realmente enviaria?</li>
+          <li>O Grok manteve a formalidade ou escorregou para um tom mais casual (é uma tendência dele)?</li>
+          <li>Alguma ferramenta inventou dados que não estavam no prompt?</li>
+        </ul>
+
+        <div class="reflexao">
+          <h4>🤔 Qual e-mail você usaria como base para enviar de verdade (com ajustes)?</h4>
+          <div class="reflexao-options">
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref3')">ChatGPT</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref3')">Grok</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref3')">Nenhum dos dois, sem ajustes pesados</button>
+          </div>
+          <div class="reflexao-result" id="ref3">Excelente análise crítica! Esse é exatamente o ponto: a IA gera um <strong>rascunho</strong>, nunca o produto final. Mesmo a melhor resposta precisará da sua revisão, do seu conhecimento institucional e do seu toque pessoal. O ChatGPT geralmente acerta melhor o tom formal em português; o Grok é mais informal por natureza. Agora você sabe.</div>
+        </div>
+
+        <div class="feedback" id="fb3" style="display:none;">
+          <div class="feedback-icon">✉️</div>
+          <h4>Três ferramentas, três estilos. Você já tem opinião formada!</h4>
+          <p>Parabéns — você testou a capacidade de redação institucional da IA e, mais importante, exercitou o olhar crítico que vai te proteger de entregar qualquer coisa sem revisão. Esse é o espírito!</p>
+        </div>
+      </div>
+
+      <!-- ===================== ATIVIDADE 4 ===================== -->
+      <div class="atividade" id="ativ4" data-step="4">
+        <div class="atividade-header">
+          <div class="atividade-num">04</div>
+          <div>
+            <h2>Perplexity: A Máquina de Pesquisa</h2>
+            <div class="atividade-sub">Quando você precisa de fontes, não de achismo</div>
+          </div>
+        </div>
+
+        <p>O Perplexity tem um superpoder que as outras ferramentas não possuem (ao menos não com a mesma qualidade): ele <strong>pesquisa na internet em tempo real e cita as fontes</strong>. Vamos explorar isso.</p>
+
+        <p>Execute o prompt abaixo <strong>apenas no Perplexity</strong>. Depois, tente executar o mesmo prompt no ChatGPT para comparar.</p>
+
+        <div class="ferramentas-alvo">
+          <span class="ferramenta-tag" style="background: var(--dourado-dim); color: var(--dourado); border-color: rgba(200,164,92,0.2);">⭐ Perplexity (principal)</span>
+          <span class="ferramenta-tag">ChatGPT (comparação)</span>
+        </div>
+
+        <div class="prompt-copy">
+          <div class="prompt-copy-label">
+            Prompt 4 — Pesquisa com fontes
+            <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+          </div>
+          <div class="prompt-copy-body" contenteditable="true">Quais foram as principais mudanças trazidas pela Resolução CNJ nº 615 de março de 2025 sobre o uso de inteligência artificial no Poder Judiciário brasileiro? Liste as 5 mudanças mais impactantes para os servidores de tribunais regionais, citando os artigos relevantes. Forneça links para as fontes consultadas.</div>
+        </div>
+
+        <h3>O que observar:</h3>
+        <ul>
+          <li>O Perplexity trouxe fontes com links clicáveis? Quantas fontes diferentes?</li>
+          <li>O ChatGPT citou artigos específicos da Resolução? Se sim, eles existem de verdade? (⚠️ Cuidado: alucinações!)</li>
+          <li>Qual resposta você confiaria para embasar um parecer técnico?</li>
+        </ul>
+
+        <div class="reflexao">
+          <h4>🤔 Para pesquisa jurídica com necessidade de fontes, você usaria:</h4>
+          <div class="reflexao-options">
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref4')">Perplexity, com certeza</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref4')">ChatGPT dá conta</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref4')">Combinaria os dois</button>
+          </div>
+          <div class="reflexao-result" id="ref4">A resposta mais inteligente é "combinaria os dois" — mas se precisar escolher apenas um para pesquisa jurídica, o Perplexity leva vantagem disparada. Ele busca em tempo real e cita fontes verificáveis, enquanto o ChatGPT pode alucinar artigos e súmulas inteiras com aparência de verdade absoluta. <strong>Regra prática:</strong> para pesquisar legislação, use Perplexity. Para redigir documentos, ChatGPT ou Claude.</div>
+        </div>
+
+        <div class="feedback" id="fb4" style="display:none;">
+          <div class="feedback-icon">🔍</div>
+          <h4>Agora você sabe onde pesquisar sem medo de alucinação!</h4>
+          <p>O Perplexity é a ferramenta que mais se parece com um assistente de pesquisa de verdade. Guarde esse aprendizado: ele vai ser seu aliado quando precisar de informações confiáveis com fontes rastreáveis.</p>
+        </div>
+      </div>
+
+      <!-- ===================== ATIVIDADE 5 ===================== -->
+      <div class="atividade" id="ativ5" data-step="5">
+        <div class="atividade-header">
+          <div class="atividade-num">05</div>
+          <div>
+            <h2>Desafio Final: Criatividade e Síntese</h2>
+            <div class="atividade-sub">Escolha a sua favorita</div>
+          </div>
+        </div>
+
+        <p>Para fechar, um desafio que testa criatividade e síntese. Execute o prompt abaixo na ferramenta que você <strong>mais gostou até agora</strong> e depois em uma que você <strong>ainda não testou nesta oficina</strong> (pode ser DeepSeek, por exemplo).</p>
+
+        <div class="ferramentas-alvo">
+          <span class="ferramenta-tag">Sua favorita</span>
+          <span class="ferramenta-tag">Uma diferente</span>
+        </div>
+
+        <div class="prompt-copy">
+          <div class="prompt-copy-label">
+            Prompt 5 — Criatividade e síntese
+            <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+          </div>
+          <div class="prompt-copy-body" contenteditable="true">[ROLE] Atue como um especialista em comunicação institucional do Poder Judiciário.
+
+[TASK] Crie 5 slogans criativos para uma campanha interna do TRE-RN que incentive os servidores a usar inteligência artificial de forma ética e produtiva no trabalho. Os slogans devem ser curtos (máximo 10 palavras), memoráveis e com um toque de humor inteligente.
+
+[STYLE] Tom leve e motivacional, linguagem acessível. Para cada slogan, inclua uma breve justificativa (1 linha) explicando a mensagem por trás dele.</div>
+        </div>
+
+        <h3>O que observar:</h3>
+        <ul>
+          <li>Qual ferramenta foi mais criativa e original?</li>
+          <li>Algum slogan ficou genérico demais ou artificial ("juntos somos mais fortes!")?</li>
+          <li>Você usaria algum desses slogans em uma campanha real?</li>
+        </ul>
+
+        <div class="reflexao">
+          <h4>🤔 Qual ferramenta se saiu melhor na criatividade?</h4>
+          <div class="reflexao-options">
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref5')">Minha favorita confirmou!</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref5')">A outra me surpreendeu</button>
+            <button class="reflexao-opt" onclick="selectReflexao(this, 'ref5')">Ambas genéricas</button>
+          </div>
+          <div class="reflexao-result" id="ref5">Criatividade é uma das áreas onde as ferramentas mais divergem entre si. ChatGPT e Grok tendem a ser mais ousados; Claude é mais contido; Gemini fica no meio-termo. Se ambas ficaram genéricas, tente refinar: peça "slogans com humor irônico" ou "evite clichês motivacionais". A qualidade do prompt faz toda a diferença — e você aprendeu isso no Módulo 04!</div>
+        </div>
+
+        <div class="feedback" id="fb5" style="display:none;">
+          <div class="feedback-icon">🏆</div>
+          <h4>Oficina 01 concluída! Você agora é oficialmente um usuário de IA.</h4>
+          <p>Em menos de uma hora, você testou 4 a 6 ferramentas, comparou respostas em cenários reais do TRE-RN, descobriu que o Perplexity é imbatível para pesquisa, e desenvolveu seu próprio senso crítico sobre IA. Isso é mais do que 90% das pessoas já fizeram. Bora para a próxima!</p>
+        </div>
+      </div>
+
+      <!-- ===================== CONCLUSÃO ===================== -->
+      <div class="atividade" id="conclusao" data-step="6">
+        <div class="atividade-header">
+          <div class="atividade-num">✅</div>
+          <div>
+            <h2>Resumo e Próximos Passos</h2>
+          </div>
+        </div>
+
+        <h3>O que você aprendeu nesta oficina:</h3>
+        <div class="table-wrapper">
+          <table class="table">
+            <thead><tr><th>Ferramenta</th><th>Ponto forte observado</th><th>Melhor para</th></tr></thead>
+            <tbody>
+              <tr><td><strong>ChatGPT</strong></td><td>Versatilidade e fluência em português</td><td>Redação de documentos e brainstorming</td></tr>
+              <tr><td><strong>Claude</strong></td><td>Estrutura e precisão analítica</td><td>Análise de documentos e tarefas complexas</td></tr>
+              <tr><td><strong>Gemini</strong></td><td>Acesso a dados atualizados via Google</td><td>Pesquisa e integração com Google Workspace</td></tr>
+              <tr><td><strong>Perplexity</strong></td><td>Citação de fontes verificáveis</td><td>Pesquisa jurídica e administrativa</td></tr>
+              <tr><td><strong>Grok</strong></td><td>Respostas rápidas e atualizadas</td><td>Consultas rápidas e tendências</td></tr>
+              <tr><td><strong>DeepSeek</strong></td><td>Gratuito com boa performance</td><td>Experimentação (⚠️ atenção à privacidade)</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="callout callout-info" style="margin-top: var(--space-xl);">
+          <div class="callout-title">🚀 Próxima oficina</div>
+          <p>Na <strong>Oficina 02 — NotebookLM Fundamentos</strong>, você vai aprender a carregar documentos do TRE-RN e fazer a IA cruzar informações entre múltiplos arquivos. É onde a mágica da análise documental realmente acontece.</p>
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
+        <a href="../oficinas.html" class="btn btn-secondary btn-sm">← Todas as Oficinas</a>
+        <a href="./oficina-02-notebooklm-fundamentos.html" class="btn btn-primary btn-sm">Oficina 02 →</a>
+      </div>
+
     </div>
   </main>
+
   <div id="footer-placeholder"></div>
+
   <script src="../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
+
+  <script>
+    // === Copiar prompt ===
+    function copyPrompt(btn) {
+      const body = btn.closest('.prompt-copy').querySelector('.prompt-copy-body');
+      const text = body.textContent || body.innerText;
+      Utils.copyToClipboard(text).then(() => {
+        btn.textContent = '✅ Copiado!';
+        setTimeout(() => { btn.textContent = '📋 Copiar'; }, 2000);
+      });
+    }
+
+    // === Reflexão interativa ===
+    function selectReflexao(btn, resultId) {
+      const container = btn.closest('.reflexao');
+      container.querySelectorAll('.reflexao-opt').forEach(o => o.classList.remove('selected'));
+      btn.classList.add('selected');
+      const result = document.getElementById(resultId);
+      result.classList.add('visible');
+
+      // Mostrar feedback da atividade
+      const atividade = btn.closest('.atividade');
+      const fb = atividade.querySelector('.feedback');
+      if (fb) {
+        fb.style.display = 'block';
+        fb.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+
+      updateProgress();
+    }
+
+    // === Barra de progresso ===
+    function updateProgress() {
+      const totalSteps = 5;
+      const completed = document.querySelectorAll('.feedback[style*="display: block"]').length;
+      const pct = Math.round((completed / totalSteps) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+    }
+  </script>
 </body>
 </html>

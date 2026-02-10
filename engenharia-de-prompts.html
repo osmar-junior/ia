@@ -61,6 +61,7 @@
         <nav class="page-nav">
           <a href="#o-que-e">O que é?</a>
           <a href="#rctse">Metodologia RCTS+E</a>
+          <a href="#estilo">Estilo [STYLE]</a>
           <a href="#exemplos">Exemplos por Área</a>
           <a href="#avancadas">Técnicas Avançadas</a>
         </nav>
@@ -121,7 +122,82 @@
         </div>
       </section>
 
-      <!-- 4.3 — EXEMPLOS POR ÁREA -->
+      <!-- 4.3 — ESPECIFICAÇÕES ADICIONAIS DE ESTILO -->
+      <section class="content-section" id="estilo">
+        <h2><span class="section-icon" style="background: var(--roxo-light);">🎨</span> Especificações Adicionais de Estilo</h2>
+        <div class="content-body">
+          <p>A seção <strong>[STYLE]</strong> é onde muitos prompts ganham (ou perdem) qualidade. Quanto mais precisa for sua especificação de estilo, mais próximo do resultado ideal será a resposta da IA. Abaixo, uma referência completa de dimensões que você pode combinar livremente:</p>
+
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Dimensão</th><th>Opções</th><th>Quando usar</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><strong>🎙️ Tom</strong></td>
+                  <td>Formal, técnico, didático, persuasivo, analítico, objetivo, motivacional, diplomático</td>
+                  <td>Defina sempre. Um ofício exige tom formal; um material de capacitação pede tom didático; um parecer técnico requer tom analítico.</td>
+                </tr>
+                <tr>
+                  <td><strong>📏 Tamanho</strong></td>
+                  <td>"Máximo de 500 palavras", "3 parágrafos", "5 tópicos", "1 página", "em 2 linhas", "resposta curta"</td>
+                  <td>Sempre que possível. Sem limites, a IA tende a ser prolixa. Limitar o tamanho gera respostas mais focadas e utilizáveis.</td>
+                </tr>
+                <tr>
+                  <td><strong>👥 Público-alvo</strong></td>
+                  <td>"Para servidores não técnicos", "para a chefia imediata", "para leigos", "para magistrados", "para estagiários"</td>
+                  <td>Quando o destinatário não é óbvio. Isso ajusta vocabulário, profundidade e nível de explicação automaticamente.</td>
+                </tr>
+                <tr>
+                  <td><strong>📝 Linguagem</strong></td>
+                  <td>Simples e acessível, técnico-administrativa, jurídica formal, coloquial, institucional</td>
+                  <td>Distingue o vocabulário. "Linguagem simples" para comunicações ao cidadão; "jurídica formal" para peças processuais.</td>
+                </tr>
+                <tr>
+                  <td><strong>📐 Estrutura</strong></td>
+                  <td>"Em formato de tabela", "com tópicos numerados", "com cabeçalho e rodapé", "dividido em seções", "formato de e-mail", "formato de memorando"</td>
+                  <td>Quando você precisa de um formato específico. Definir a estrutura evita ter que reformatar depois.</td>
+                </tr>
+                <tr>
+                  <td><strong>📚 Elementos obrigatórios</strong></td>
+                  <td>"Incluir citações legais", "fundamentar com jurisprudência", "referenciar doutrina", "citar normas internas do TRE-RN", "incluir dados quantitativos", "adicionar conclusão com recomendação"</td>
+                  <td>Em documentos técnicos, pareceres e análises. Garante que a IA não omita componentes essenciais.</td>
+                </tr>
+                <tr>
+                  <td><strong>🚫 Restrições</strong></td>
+                  <td>"Sem opiniões pessoais", "sem jargão técnico", "não usar listas", "evitar termos em inglês", "sem repetições"</td>
+                  <td>Para evitar padrões indesejados que a IA tende a repetir (como excesso de listas ou anglicismos).</td>
+                </tr>
+                <tr>
+                  <td><strong>🌍 Idioma e localização</strong></td>
+                  <td>"Em português brasileiro formal", "usando terminologia do Judiciário brasileiro", "conforme padrão ABNT"</td>
+                  <td>Importante para evitar que a IA use português de Portugal ou terminologia estrangeira inadvertidamente.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Combinando especificações</h3>
+          <p>Na prática, você combina 3 ou 4 dessas dimensões em uma única instrução de estilo. Veja como uma especificação completa fica muito mais precisa:</p>
+
+          <div class="comparison">
+            <div class="comparison-box comparison-bad">
+              <div class="comparison-label">❌ Estilo vago</div>
+              <div class="comparison-text">[STYLE] "Escreva bem."</div>
+            </div>
+            <div class="comparison-box comparison-good">
+              <div class="comparison-label">✅ Estilo preciso</div>
+              <div class="comparison-text">[STYLE] "Tom formal e analítico, máximo 2 páginas, público: coordenadores de seção do TRE-RN. Linguagem técnico-administrativa, estruturado em seções com cabeçalhos. Incluir fundamentação legal e concluir com recomendação objetiva. Evitar jargões de TI."</div>
+            </div>
+          </div>
+
+          <div class="callout callout-success">
+            <div class="callout-title">💡 Regra prática</div>
+            <p>Sempre que montar um [STYLE], pergunte-se: <strong>"Se eu entregasse essa instrução a um colega, ele saberia exatamente como escrever?"</strong> Se a resposta for não, adicione mais especificações. A IA precisa do mesmo nível de clareza que uma pessoa.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4.4 — EXEMPLOS POR ÁREA -->
       <section class="content-section" id="exemplos">
         <h2><span class="section-icon" style="background: var(--azul-accent-light);">🏢</span> Exemplos por Área do TRE-RN</h2>
         <div class="content-body">
