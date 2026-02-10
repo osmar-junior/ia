@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Como a IA Funciona — Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <style>
+    .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
+    .content-section:last-child { border-bottom: none; }
+    .content-section h2 { margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
+    .content-section h2 .section-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--dourado); font-size: 1.4rem; }
+    .content-body p { margin-bottom: var(--space-md); font-size: 1.08rem; line-height: 1.9; }
+    .content-body ul, .content-body ol { margin: var(--space-md) 0; padding-left: var(--space-lg); }
+    .content-body li { color: var(--text-secondary); margin-bottom: var(--space-sm); font-size: 1.05rem; line-height: 1.85; }
+    .content-body li strong { color: var(--text); }
+    .page-nav { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+    .page-nav a { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.92rem; font-weight: 600; background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); transition: all var(--transition-base); }
+    .page-nav a:hover { color: var(--dourado); border-color: var(--border-hover); }
+
+    .token-demo { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-lg) 0; }
+    .token-demo .original { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: var(--space-md); }
+    .token-demo .tokens { display: flex; flex-wrap: wrap; gap: 5px; }
+    .token-demo .token-chip { padding: 6px 14px; border-radius: 6px; font-size: 0.95rem; font-weight: 500; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.2); }
+    .token-demo .token-chip:nth-child(even) { background: var(--azul-accent-light); color: #6BA3E8; border-color: rgba(46,92,154,0.2); }
+    .token-demo .token-count { margin-top: var(--space-md); font-size: 0.95rem; color: var(--text-muted); }
+
+    .security-alert { background: rgba(232,92,92,0.08); border: 1px solid rgba(232,92,92,0.2); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-md) 0; }
+    .security-alert .alert-title { color: var(--vermelho); font-weight: 700; font-size: 1.05rem; margin-bottom: var(--space-xs); }
+    .security-alert p { font-size: 1rem; }
+
+    .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: var(--space-md); margin: var(--space-xl) 0; }
+    .config-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); backdrop-filter: blur(12px); transition: all var(--transition-base); }
+    .config-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); }
+    .config-card .config-icon { font-size: 1.6rem; margin-bottom: var(--space-sm); }
+    .config-card h4 { font-family: var(--font-body); font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
+    .config-card p { font-size: 0.97rem; }
+    .config-card .config-how { margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--border-light); font-size: 0.92rem; color: var(--text-muted); }
+    .config-card .config-how strong { color: var(--dourado); }
+
+    .code-block { font-family: monospace; font-size: 0.95rem; white-space: pre-line; background: rgba(0,0,0,0.18); padding: var(--space-lg); border-radius: var(--radius-sm); margin-top: var(--space-md); line-height: 1.7; color: var(--text-secondary); }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <main class="page-content">
+    <div class="container">
+
+      <section class="section" style="padding-bottom: 0;">
+        <div class="section-header">
+          <div class="eyebrow"><span class="dot"></span> Módulo 02</div>
+          <h1>Como a IA Funciona</h1>
+          <p>Entenda a mecânica por trás das respostas da IA, seus limites reais e como configurar as ferramentas para o seu dia a dia.</p>
+        </div>
+        <nav class="page-nav">
+          <a href="#tokens">Tokens e Contexto</a>
+          <a href="#cuidados">Cuidados e Limitações</a>
+          <a href="#configuracao">Configuração Inicial</a>
+        </nav>
+      </section>
+
+      <!-- 2.1 — TOKENS E JANELA DE CONTEXTO -->
+      <section class="content-section" id="tokens">
+        <h2><span class="section-icon" style="background: var(--roxo-light);">🔤</span> Tokens e Janela de Contexto</h2>
+        <div class="content-body">
+          <p><strong>Tokens</strong> são as unidades básicas de processamento dos modelos de IA. Antes de processar qualquer texto, o modelo o "quebra" em pequenas partes — os tokens — que podem ser palavras inteiras, partes de palavras, pontuações ou espaços.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Analogia: Tokens são como peças de um quebra-cabeça</div>
+            <p>Imagine que o modelo de IA precisa montar um quebra-cabeça para entender seu texto. Cada token é uma peça desse quebra-cabeça. Textos maiores = mais peças = mais esforço para processar. É por isso que existem limites.</p>
+          </div>
+
+          <p><strong>Regra prática:</strong> 1 token ≈ 0,75 palavras em português (aproximadamente 4 caracteres).</p>
+
+          <h3>Exemplo prático de tokenização</h3>
+          <div class="token-demo">
+            <div class="original"><strong>Frase:</strong> "O requerente solicita a expedição de certidão eleitoral"</div>
+            <div class="tokens">
+              <span class="token-chip">O</span><span class="token-chip">requer</span><span class="token-chip">ente</span><span class="token-chip">solic</span><span class="token-chip">ita</span><span class="token-chip">a</span><span class="token-chip">exped</span><span class="token-chip">ição</span><span class="token-chip">de</span><span class="token-chip">cert</span><span class="token-chip">idão</span><span class="token-chip">ele</span><span class="token-chip">itor</span><span class="token-chip">al</span>
+            </div>
+            <div class="token-count">= <strong>14 tokens</strong> para 8 palavras</div>
+          </div>
+
+          <h3>Por que isso importa na prática?</h3>
+          <ul>
+            <li><strong>Limita o tamanho de documentos</strong> que podem ser analisados de uma vez — se seu documento excede a janela de contexto, a IA não conseguirá processá-lo inteiro.</li>
+            <li><strong>Afeta o custo</strong> em plataformas pagas — a cobrança é feita por token consumido (envio + resposta).</li>
+            <li><strong>Determina a "memória" da IA</strong> — a janela de contexto define o quanto a IA consegue "lembrar" durante a conversa. Em conversas longas, ela começa a "esquecer" o início.</li>
+          </ul>
+
+          <h3>Referência de tamanhos</h3>
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Tipo de conteúdo</th><th>Tokens (aprox.)</th></tr></thead>
+              <tbody>
+                <tr><td>Texto de 10 páginas</td><td>3.000 – 5.000</td></tr>
+                <tr><td>Relatório de 30 páginas</td><td>10.000 – 15.000</td></tr>
+                <tr><td>Livro de 300 páginas</td><td>100.000 – 150.000</td></tr>
+                <tr><td>Janela do Claude (máx.)</td><td>200.000</td></tr>
+                <tr><td>Janela do Gemini 2.5 Pro (máx.)</td><td>2.000.000</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Ferramentas para contagem de tokens</h3>
+          <ul>
+            <li><a href="https://platform.openai.com/tokenizer" target="_blank">OpenAI Tokenizer</a> — tokenizador oficial da OpenAI</li>
+            <li><a href="https://www.prompttokencounter.com" target="_blank">Prompt Token Counter</a> — contador online simples</li>
+            <li><a href="https://vcalazans.dev/tools/token-calculator" target="_blank">Token Calculator</a> — calculadora com estimativas de custo</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 2.2 — CUIDADOS E LIMITAÇÕES -->
+      <section class="content-section" id="cuidados">
+        <h2><span class="section-icon" style="background: var(--vermelho-light);">⚠️</span> Cuidados e Limitações da IA Generativa</h2>
+        <div class="content-body">
+          <p>Antes de começar a utilizar IA no seu dia a dia, é fundamental compreender o que ela <strong>não</strong> faz bem e os riscos envolvidos. A IA é uma ferramenta poderosa, mas não é infalível.</p>
+
+          <h3>Alucinações</h3>
+          <p>O termo "alucinação" descreve quando a IA gera informações <strong>falsas ou inventadas com aparência convincente</strong>. Ela pode citar leis que não existem, inventar jurisprudência, ou apresentar dados fabricados — tudo com um tom confiante que dificulta a percepção do erro.</p>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real nos EUA</div>
+            <p>Em 2023, um advogado nos Estados Unidos utilizou o ChatGPT para pesquisar jurisprudência e incluiu em sua petição seis casos judiciais completamente fictícios, com nomes de partes, números de processos e ementas inventadas pela IA. O juiz aplicou multa de US$ 5.000 por má-fé processual.</p>
+          </div>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real no Brasil</div>
+            <p>Em 2024, um juiz do TJMS publicou uma sentença contendo referências a jurisprudência inexistente, geradas por inteligência artificial. O CNJ abriu procedimento administrativo e o caso acendeu o debate sobre responsabilidade de magistrados ao usar IA. Outros tribunais estaduais reportaram episódios semelhantes com súmulas e processos que nunca existiram.</p>
+          </div>
+
+          <h3>Vieses e Discriminação</h3>
+          <p>Os modelos são treinados com dados da internet, que contêm preconceitos históricos. Isso pode fazer com que as respostas reproduzam vieses de gênero, raça, classe social ou região — muitas vezes de forma sutil. No contexto do Judiciário, isso é especialmente grave: uma IA que sugira tratamentos diferenciados com base em perfis demográficos viola princípios fundamentais de justiça.</p>
+
+          <h3>Confidencialidade de dados</h3>
+          <div class="security-alert">
+            <div class="alert-title">🔐 Regra de ouro para servidores do TRE-RN</div>
+            <p><strong>Nunca cole dados sensíveis, sigilosos ou protegidos por segredo de justiça em ferramentas de IA públicas.</strong> Tudo o que você digita pode ser armazenado nos servidores da empresa e, em alguns casos, usado para treinar futuros modelos. Isso vale para nomes de partes, CPFs, números de processos sigilosos e qualquer informação institucional não pública.</p>
+          </div>
+
+          <h3>IA como ferramenta de apoio, não de substituição</h3>
+          <p>A inteligência artificial é uma assistente — não substitui o julgamento humano, a experiência profissional e o conhecimento institucional do servidor. O resultado gerado por IA deve ser sempre tratado como um <strong>rascunho inicial</strong> que precisa de revisão, validação e personalização.</p>
+
+          <div class="callout callout-success">
+            <div class="callout-title">✅ Checklist antes de usar qualquer saída de IA</div>
+            <p>
+              <strong>1.</strong> A informação está correta? Verifiquei as fontes?<br>
+              <strong>2.</strong> Não incluí dados sigilosos no prompt?<br>
+              <strong>3.</strong> O tom e a linguagem estão adequados ao contexto institucional?<br>
+              <strong>4.</strong> Personalizei o conteúdo para a situação específica?<br>
+              <strong>5.</strong> Estou assinando algo que revisei criticamente, e não apenas repassando saída de IA?
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2.3 — CONFIGURAÇÃO INICIAL DAS FERRAMENTAS -->
+      <section class="content-section" id="configuracao">
+        <h2><span class="section-icon" style="background: var(--dourado-dim);">⚙️</span> Configuração Inicial das Ferramentas</h2>
+        <div class="content-body">
+          <p>Antes de começar a usar as ferramentas de IA no trabalho, vale investir alguns minutos para configurá-las. Uma boa configuração inicial melhora significativamente a qualidade das respostas e evita que você precise repetir instruções a cada conversa.</p>
+
+          <h3>O que é possível personalizar?</h3>
+          <div class="config-grid">
+            <div class="config-card">
+              <div class="config-icon">🎭</div>
+              <h4>Estilo e Tom de Resposta</h4>
+              <p>Defina como a IA deve se comunicar com você — formal, técnico, direto, didático. Isso afeta todas as conversas futuras.</p>
+              <div class="config-how"><strong>Disponível em:</strong> ChatGPT (Configurações > Personalização), Claude (Preferências de Estilo), Gemini (Preferências)</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">💼</div>
+              <h4>Contexto Profissional</h4>
+              <p>Informe sua ocupação, área de atuação e tipo de demandas. A IA ajustará o nível técnico e o vocabulário automaticamente.</p>
+              <div class="config-how"><strong>Exemplo:</strong> "Sou servidor público federal no TRE-RN, atuo na área de Coordenação de Sistemas na Secretaria de TI."</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">📋</div>
+              <h4>Instruções Permanentes</h4>
+              <p>Estabeleça regras que a IA deve seguir sempre — citar fontes, evitar respostas genéricas, usar linguagem institucional.</p>
+              <div class="config-how"><strong>Exemplo:</strong> "Cite fontes sempre que possível. Se não houver fonte confiável, informe. Priorize clareza e objetividade."</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">🔒</div>
+              <h4>Privacidade e Treinamento</h4>
+              <p>Desative a opção de usar suas conversas para treinar os modelos. Isso é especialmente importante para uso institucional.</p>
+              <div class="config-how"><strong>ChatGPT:</strong> Configurações > Controlar dados > Desativar "Melhorar o modelo para todo mundo"</div>
+            </div>
+          </div>
+
+          <h3>Modelo de instruções personalizadas</h3>
+          <p>Abaixo, um modelo que você pode copiar e adaptar para configurar suas ferramentas. Ele foi pensado para o contexto de servidor do TRE-RN:</p>
+
+          <div class="callout callout-info" style="position: relative;">
+            <div class="callout-title">📋 Instruções personalizadas (modelo para copiar)</div>
+            <div class="code-block" id="instrucoes-modelo">- Responda com sinceridade e objetividade, usando, quando couber, um toque de ironia inteligente, como um colega experiente.
+- Gere respostas elaboradas, ricas em detalhes e com exemplos práticos, fazendo conexões criativas entre ideias.
+- Manifeste sua opinião sempre que achar que pode contribuir com a conversa.
+- Seja encorajador, mas sem dizer apenas o que acha que quero ouvir; traga o que preciso ouvir. Critique quando necessário.
+- Responda apenas quando tiver certeza. Se houver incerteza, explique-a.
+- Apresente seu raciocínio de forma clara, citando fontes sempre que possível.
+- Priorize clareza e objetividade.
+- Use um tom encorajador e profissional.</div>
+            <button class="btn btn-sm btn-secondary" style="margin-top: var(--space-md);" onclick="Utils.copyToClipboard(document.getElementById('instrucoes-modelo').textContent).then(()=>Utils.showToast('Copiado!','success'))">Copiar instruções</button>
+          </div>
+
+          <h3>Modelo de contexto profissional</h3>
+          <div class="callout callout-info" style="position: relative;">
+            <div class="callout-title">📋 Ocupação e perfil (modelo para copiar)</div>
+            <div class="code-block" id="ocupacao-modelo">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
+- Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
+- Atuo principalmente com [descreva suas atividades principais].
+- Minhas demandas exigem profundidade, contexto e praticidade.
+- Prefiro conversas construtivas que equilibrem técnica, clareza e criatividade.</div>
+            <button class="btn btn-sm btn-secondary" style="margin-top: var(--space-md);" onclick="Utils.copyToClipboard(document.getElementById('ocupacao-modelo').textContent).then(()=>Utils.showToast('Copiado!','success'))">Copiar perfil</button>
+          </div>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ Atenção ao configurar</div>
+            <p>Não inclua informações sigilosas ou institucionais sensíveis na configuração do perfil. Limite-se a dados sobre sua função, área de atuação e preferências de comunicação — informações que seriam públicas em um crachá funcional.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegação -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
+        <a href="./conceitos.html" class="btn btn-secondary btn-sm">← Conceitos</a>
+        <a href="./regulamentacao.html" class="btn btn-primary btn-sm">Regulamentação →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script src="./js/auth.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/main.js"></script>
+</body>
+</html>

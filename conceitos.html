@@ -29,13 +29,13 @@
       margin-top: var(--space-xl);
       margin-bottom: var(--space-md);
       color: var(--dourado);
-      font-size: 1.3rem;
+      font-size: 1.4rem;
     }
 
     .content-body p {
       margin-bottom: var(--space-md);
-      font-size: 1.02rem;
-      line-height: 1.85;
+      font-size: 1.08rem;
+      line-height: 1.9;
     }
 
     .content-body ul, .content-body ol {
@@ -45,8 +45,8 @@
     .content-body li {
       color: var(--text-secondary);
       margin-bottom: var(--space-sm);
-      font-size: 1rem;
-      line-height: 1.8;
+      font-size: 1.05rem;
+      line-height: 1.85;
     }
     .content-body li strong { color: var(--text); }
 
@@ -203,8 +203,6 @@
           <a href="#o-que-e-ia">O que é IA?</a>
           <a href="#ferramentas">Ferramentas de LLM</a>
           <a href="#modelos">Modelos de LLM</a>
-          <a href="#tokens">Tokens e Contexto</a>
-          <a href="#cuidados">Cuidados e Limitações</a>
         </nav>
       </section>
 
@@ -792,137 +790,10 @@
         </div>
       </section>
 
-      <!-- ============================================ -->
-      <!-- 1.4 — TOKENS E JANELA DE CONTEXTO            -->
-      <!-- ============================================ -->
-      <section class="content-section" id="tokens">
-        <h2>
-          <span class="section-icon" style="background: var(--roxo-light);">🔤</span>
-          Tokens e Janela de Contexto
-        </h2>
-
-        <div class="content-body">
-          <p><strong>Tokens</strong> são as unidades básicas de processamento dos modelos de IA. Antes de processar qualquer texto, o modelo o "quebra" em pequenas partes — os tokens — que podem ser palavras inteiras, partes de palavras, pontuações ou espaços.</p>
-
-          <div class="callout callout-info">
-            <div class="callout-title">💡 Analogia: Tokens são como peças de um quebra-cabeça</div>
-            <p>Imagine que o modelo de IA precisa montar um quebra-cabeça para entender seu texto. Cada token é uma peça desse quebra-cabeça. Textos maiores = mais peças = mais esforço para processar. É por isso que existem limites.</p>
-          </div>
-
-          <p><strong>Regra prática:</strong> 1 token ≈ 0,75 palavras em português (aproximadamente 4 caracteres).</p>
-
-          <h3>Exemplo prático de tokenização</h3>
-
-          <div class="token-demo">
-            <div class="original"><strong>Frase:</strong> "O requerente solicita a expedição de certidão eleitoral"</div>
-            <div class="tokens">
-              <span class="token-chip">O</span>
-              <span class="token-chip">requer</span>
-              <span class="token-chip">ente</span>
-              <span class="token-chip">solic</span>
-              <span class="token-chip">ita</span>
-              <span class="token-chip">a</span>
-              <span class="token-chip">exped</span>
-              <span class="token-chip">ição</span>
-              <span class="token-chip">de</span>
-              <span class="token-chip">cert</span>
-              <span class="token-chip">idão</span>
-              <span class="token-chip">ele</span>
-              <span class="token-chip">itor</span>
-              <span class="token-chip">al</span>
-            </div>
-            <div class="token-count">= <strong>14 tokens</strong> para 8 palavras</div>
-          </div>
-
-          <h3>Por que isso importa na prática?</h3>
-
-          <ul>
-            <li><strong>Limita o tamanho de documentos</strong> que podem ser analisados de uma vez — se seu documento tem mais tokens do que a janela suporta, a IA não conseguirá processá-lo inteiro.</li>
-            <li><strong>Afeta o custo</strong> em plataformas pagas — a cobrança é feita por token consumido (tanto no envio quanto na resposta).</li>
-            <li><strong>Determina a "memória" da IA</strong> — a janela de contexto define o quanto a IA consegue "lembrar" na conversa. Em conversas longas, ela começa a "esquecer" o início.</li>
-          </ul>
-
-          <h3>Referência de tamanhos</h3>
-
-          <div class="table-wrapper">
-            <table class="table table-compact">
-              <thead><tr><th>Tipo de conteúdo</th><th>Tokens (aprox.)</th></tr></thead>
-              <tbody>
-                <tr><td>Texto de 10 páginas</td><td>3.000 – 5.000</td></tr>
-                <tr><td>Relatório de 30 páginas</td><td>10.000 – 15.000</td></tr>
-                <tr><td>Livro de 300 páginas</td><td>100.000 – 150.000</td></tr>
-                <tr><td>Janela do Claude (máx.)</td><td>200.000</td></tr>
-                <tr><td>Janela do Gemini 2.5 Pro (máx.)</td><td>2.000.000</td></tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3>Ferramentas para contagem de tokens</h3>
-          <ul>
-            <li><a href="https://platform.openai.com/tokenizer" target="_blank">OpenAI Tokenizer</a> — tokenizador oficial da OpenAI</li>
-            <li><a href="https://www.prompttokencounter.com" target="_blank">Prompt Token Counter</a> — contador online simples</li>
-            <li><a href="https://vcalazans.dev/tools/token-calculator" target="_blank">Token Calculator</a> — calculadora com estimativas de custo</li>
-          </ul>
-        </div>
-      </section>
-
-      <!-- ============================================ -->
-      <!-- 1.5 — CUIDADOS E LIMITAÇÕES                 -->
-      <!-- ============================================ -->
-      <section class="content-section" id="cuidados">
-        <h2>
-          <span class="section-icon" style="background: var(--vermelho-light);">⚠️</span>
-          Cuidados e Limitações da IA Generativa
-        </h2>
-
-        <div class="content-body">
-          <p>Antes de começar a utilizar IA no seu dia a dia, é fundamental compreender o que ela <strong>não</strong> faz bem e os riscos envolvidos. A IA é uma ferramenta poderosa, mas não é infalível.</p>
-
-          <h3>Alucinações</h3>
-          <p>O termo "alucinação" descreve quando a IA gera informações <strong>falsas ou inventadas com aparência convincente</strong>. Ela pode citar leis que não existem, inventar jurisprudência, ou apresentar dados estatísticos fabricados — tudo com um tom confiante que dificulta a percepção do erro.</p>
-
-          <div class="callout callout-danger">
-            <div class="callout-title">🚨 Casos reais no Judiciário</div>
-            <p>Em 2023, um advogado nos Estados Unidos utilizou o ChatGPT para pesquisar jurisprudência e incluiu em sua petição seis casos judiciais completamente fictícios, com nomes de partes, números de processos e ementas inventadas pela IA. O juiz aplicou multa de US$ 5.000 ao advogado por má-fé processual.</p>
-          </div>
-
-          <div class="callout callout-danger">
-            <div class="callout-title">🚨 Casos no Brasil</div>
-            <p>Em 2024, um juiz do Tribunal de Justiça de Mato Grosso do Sul publicou uma sentença contendo referências a jurisprudência inexistente, geradas por inteligência artificial. O caso gerou abertura de procedimento administrativo pelo CNJ e levantou debates sobre a responsabilidade de magistrados ao usar IA. Outros casos semelhantes foram reportados em tribunais estaduais, envolvendo citações de súmulas e processos que nunca existiram.</p>
-          </div>
-
-          <h3>Vieses e Discriminação</h3>
-          <p>Os modelos de IA são treinados com dados da internet, que contêm preconceitos históricos e culturais. Isso pode fazer com que as respostas reproduzam vieses de gênero, raça, classe social ou região — muitas vezes de forma sutil e difícil de perceber.</p>
-
-          <p>No contexto do Judiciário, isso é especialmente grave: uma IA que sugira tratamentos diferenciados com base em perfis demográficos viola princípios fundamentais de justiça e equidade.</p>
-
-          <h3>Confidencialidade de dados</h3>
-
-          <div class="security-alert">
-            <div class="alert-title">🔐 Regra de ouro para servidores do TRE-RN</div>
-            <p><strong>Nunca cole dados sensíveis, sigilosos ou protegidos por segredo de justiça em ferramentas de IA públicas.</strong> Tudo o que você digita pode ser armazenado nos servidores da empresa e, em alguns casos, usado para treinar futuros modelos. Isso vale para nomes de partes, CPFs, números de processos sigilosos e qualquer informação institucional não pública.</p>
-          </div>
-
-          <h3>IA como ferramenta de apoio, não de substituição</h3>
-          <p>A inteligência artificial é uma assistente — não substitui o julgamento humano, a experiência profissional e o conhecimento institucional do servidor. O resultado gerado por IA deve ser sempre tratado como um <strong>rascunho inicial</strong> que precisa de sua revisão, validação e personalização.</p>
-
-          <div class="callout callout-success">
-            <div class="callout-title">✅ Checklist antes de usar qualquer saída de IA</div>
-            <p>
-              <strong>1.</strong> A informação está correta? Verifiquei as fontes?<br>
-              <strong>2.</strong> Não incluí dados sigilosos no prompt?<br>
-              <strong>3.</strong> O tom e a linguagem estão adequados ao contexto institucional?<br>
-              <strong>4.</strong> Personalizei o conteúdo para a situação específica?<br>
-              <strong>5.</strong> Estou assinando algo que revisei criticamente, e não apenas repassando saída de IA?
-            </p>
-          </div>
-        </div>
-      </section>
-
       <!-- Navegação entre módulos -->
       <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
         <a href="./index.html" class="btn btn-secondary btn-sm">← Início</a>
-        <a href="./regulamentacao.html" class="btn btn-primary btn-sm">Regulamentação →</a>
+        <a href="./como-funciona.html" class="btn btn-primary btn-sm">Como Funciona a IA →</a>
       </div>
 
     </div>

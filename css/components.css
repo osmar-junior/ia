@@ -9,7 +9,7 @@
   display: inline-flex; align-items: center; justify-content: center;
   gap: var(--space-sm); padding: 14px 28px; border: none;
   border-radius: var(--radius-md); font-family: var(--font-body);
-  font-size: 1rem; font-weight: 600; cursor: pointer;
+  font-size: 1.1rem; font-weight: 600; cursor: pointer;
   text-decoration: none; transition: all var(--transition-base);
   white-space: nowrap;
 }
@@ -47,8 +47,8 @@
 }
 .btn-ghost:hover { background: var(--dourado-dim); }
 
-.btn-sm { padding: 10px 20px; font-size: 0.9rem; }
-.btn-lg { padding: 18px 36px; font-size: 1.1rem; }
+.btn-sm { padding: 12px 22px; font-size: 0.95rem; }
+.btn-lg { padding: 18px 36px; font-size: 1.15rem; }
 
 /* --- Cards --- */
 .card {
@@ -88,12 +88,12 @@
 
 .card h3 { margin-bottom: var(--space-md); }
 
-.card p { font-size: 1rem; }
+.card p { font-size: 1.1rem; }
 
 .card .card-tag {
   display: inline-block; margin-top: var(--space-lg);
   padding: 5px 12px; border-radius: 6px;
-  font-size: 0.82rem; font-weight: 600;
+  font-size: 0.88rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.06em;
 }
 
@@ -145,7 +145,7 @@
   font-weight: 500; margin-bottom: var(--space-md);
 }
 
-.oficina-card p { font-size: 0.95rem; flex-grow: 1; }
+.oficina-card p { font-size: 1rem; flex-grow: 1; }
 
 .oficina-card .oficina-tools {
   display: flex; flex-wrap: wrap; gap: 6px;
@@ -153,7 +153,7 @@
 }
 
 .tool-tag {
-  font-size: 0.82rem; font-weight: 600;
+  font-size: 0.88rem; font-weight: 600;
   padding: 4px 10px; border-radius: 6px;
   background: rgba(200,164,92,0.08); color: var(--text-secondary);
   border: 1px solid var(--border-light);
@@ -164,11 +164,11 @@
   overflow-x: auto; border-radius: var(--radius-lg);
   border: 1px solid var(--border); margin: var(--space-lg) 0;
 }
-.table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.table { width: 100%; border-collapse: collapse; font-size: 1rem; }
 .table thead { background: var(--bg-card); }
 .table th {
   padding: 14px 18px; text-align: left;
-  font-weight: 600; font-size: 0.88rem;
+  font-weight: 600; font-size: 0.92rem;
   text-transform: uppercase; letter-spacing: 0.05em;
   color: var(--dourado);
 }
@@ -185,7 +185,7 @@
 .badge {
   display: inline-flex; align-items: center; gap: 6px;
   padding: 4px 12px; border-radius: var(--radius-full);
-  font-size: 0.84rem; font-weight: 600; letter-spacing: 0.03em;
+  font-size: 0.9rem; font-weight: 600; letter-spacing: 0.03em;
 }
 .badge-gold { background: var(--dourado-dim); color: var(--dourado); }
 .badge-green { background: var(--verde-light); color: var(--verde); }
@@ -204,10 +204,10 @@
 .callout-success { background: var(--verde-light); border-color: var(--verde); }
 
 .callout .callout-title {
-  font-weight: 700; font-size: 1rem;
+  font-weight: 700; font-size: 1.1rem;
   color: var(--text); margin-bottom: var(--space-xs);
 }
-.callout p { font-size: 0.95rem; }
+.callout p { font-size: 1rem; }
 
 /* --- Accordion --- */
 .accordion-item {
@@ -218,7 +218,7 @@
   width: 100%; padding: var(--space-md) var(--space-lg);
   background: var(--bg-elevated); border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: space-between;
-  font-family: var(--font-body); font-size: 1.02rem;
+  font-family: var(--font-body); font-size: 1.08rem;
   font-weight: 600; color: var(--text);
   transition: background var(--transition-fast);
 }
@@ -246,9 +246,9 @@
 .download-box .download-icon { font-size: 1.4rem; }
 .download-box .download-info { flex-grow: 1; }
 .download-box .download-name { font-weight: 600; font-size: 0.95rem; color: var(--text); }
-.download-box .download-size { font-size: 0.84rem; color: var(--text-muted); }
+.download-box .download-size { font-size: 0.9rem; color: var(--text-muted); }
 .download-box .download-btn {
-  font-size: 0.88rem; font-weight: 600; color: var(--dourado);
+  font-size: 0.92rem; font-weight: 600; color: var(--dourado);
   padding: 6px 14px; border-radius: var(--radius-sm);
   background: var(--dourado-dim); border: 1px solid rgba(200,164,92,0.2);
   transition: all var(--transition-fast); cursor: pointer; text-decoration: none;
@@ -277,7 +277,7 @@
 }
 .step:last-child .step-line { display: none; }
 .step-content h4 {
-  font-family: var(--font-body); font-size: 1.05rem;
+  font-family: var(--font-body); font-size: 1.1rem;
   font-weight: 600; color: var(--text); margin-bottom: var(--space-xs);
 }
 .step-content p { font-size: 0.9rem; }
@@ -293,14 +293,14 @@
 .comparison-bad { background: var(--vermelho-light); border-color: rgba(232,92,92,0.2); }
 .comparison-good { background: var(--verde-light); border-color: rgba(76,175,130,0.2); }
 .comparison-box .comparison-label {
-  font-size: 0.84rem; font-weight: 700;
+  font-size: 0.9rem; font-weight: 700;
   text-transform: uppercase; letter-spacing: 0.08em;
   margin-bottom: var(--space-sm);
 }
 .comparison-bad .comparison-label { color: var(--vermelho); }
 .comparison-good .comparison-label { color: var(--verde); }
 .comparison-box .comparison-text {
-  font-size: 0.95rem; line-height: 1.7;
+  font-size: 1rem; line-height: 1.7;
   color: var(--text); font-style: italic;
 }
 
