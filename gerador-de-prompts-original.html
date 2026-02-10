@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Prompts — Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <style>
+    .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
+    .content-section:last-child { border-bottom: none; }
+    .content-section h2 { margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
+    .content-section h2 .section-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--dourado); font-size: 1.4rem; }
+    .content-body p { margin-bottom: var(--space-md); font-size: 1.08rem; line-height: 1.9; }
+    .content-body li { color: var(--text-secondary); margin-bottom: var(--space-sm); font-size: 1.05rem; line-height: 1.85; }
+    .content-body li strong { color: var(--text); }
+
+    .builder-container {
+      background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-xl);
+      padding: var(--space-xl); backdrop-filter: blur(12px); margin: var(--space-xl) 0;
+    }
+    .builder-field { margin-bottom: var(--space-lg); }
+    .builder-field label {
+      display: flex; align-items: center; gap: var(--space-sm);
+      font-size: 0.95rem; font-weight: 700; color: var(--dourado);
+      margin-bottom: var(--space-sm); text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .builder-field label .field-letter {
+      min-width: 32px; height: 28px; border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 0.78rem; font-weight: 800;
+      background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.3);
+      padding: 0 6px;
+    }
+    .builder-field .field-hint {
+      font-size: 0.88rem; color: var(--text-muted); font-weight: 400;
+      text-transform: none; letter-spacing: 0; margin-left: auto;
+    }
+    .builder-field textarea, .builder-field input[type="text"] {
+      width: 100%; padding: 14px 18px;
+      border: 1px solid rgba(200,164,92,0.15); border-radius: var(--radius-md);
+      background: rgba(10,22,40,0.4); color: var(--text);
+      font-family: var(--font-body); font-size: 1.05rem; resize: vertical; outline: none;
+      transition: border-color var(--transition-base);
+    }
+    .builder-field textarea:focus, .builder-field input[type="text"]:focus {
+      border-color: var(--dourado); box-shadow: 0 0 0 3px var(--dourado-dim);
+    }
+    .builder-field textarea::placeholder, .builder-field input[type="text"]::placeholder { color: var(--text-muted); }
+
+    .builder-actions {
+      display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-top: var(--space-lg);
+    }
+
+    .builder-output-area {
+      margin-top: var(--space-xl);
+      border-top: 1px solid var(--border-light);
+      padding-top: var(--space-xl);
+    }
+    .builder-output-label {
+      font-size: 0.92rem; font-weight: 700; color: var(--dourado);
+      text-transform: uppercase; letter-spacing: 0.05em;
+      margin-bottom: var(--space-md);
+      display: flex; align-items: center; gap: var(--space-sm);
+    }
+    .builder-output {
+      background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md);
+      padding: var(--space-xl); font-size: 1.02rem; line-height: 1.85;
+      color: var(--text-secondary); white-space: pre-wrap; min-height: 160px;
+      position: relative;
+    }
+    .builder-output .tag-marker {
+      font-weight: 800; display: inline;
+    }
+    .builder-output .tag-r { color: #E85C5C; }
+    .builder-output .tag-c { color: #6BA3E8; }
+    .builder-output .tag-t { color: var(--verde); }
+    .builder-output .tag-s { color: var(--roxo); }
+    .builder-output .tag-e { color: var(--dourado); }
+
+    .output-actions {
+      display: flex; gap: var(--space-sm); margin-top: var(--space-md);
+    }
+
+    .tips-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: var(--space-md); margin: var(--space-xl) 0;
+    }
+    .tip-card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+      backdrop-filter: blur(12px);
+    }
+    .tip-card .tip-icon { font-size: 1.4rem; margin-bottom: var(--space-sm); }
+    .tip-card h4 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
+    .tip-card p { font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <main class="page-content">
+    <div class="container">
+
+      <section class="section" style="padding-bottom: 0;">
+        <div class="section-header">
+          <div class="eyebrow"><span class="dot"></span> Módulo 05</div>
+          <h1>Gerador de Prompts RCTS+E</h1>
+          <p>Monte prompts profissionais de forma guiada. Preencha os campos e o gerador desenvolverá um prompt estruturado pronto para usar.</p>
+        </div>
+      </section>
+
+      <!-- BUILDER -->
+      <section class="content-section">
+        <h2><span class="section-icon" style="background: var(--dourado-dim);">⚡</span> Monte seu Prompt</h2>
+        <div class="content-body">
+          <p>Preencha os campos com descrições breves — o gerador vai expandir e desenvolver o texto automaticamente, criando um prompt profissional com as marcações <strong>[ROLE]</strong>, <strong>[CONTEXT]</strong>, <strong>[TASK]</strong>, <strong>[STYLE]</strong> e <strong>[EXAMPLE]</strong>.</p>
+
+          <div class="builder-container">
+
+            <div class="builder-field">
+              <label>
+                <span class="field-letter">ROLE</span> Papel
+                <span class="field-hint">Quem a IA deve "ser"</span>
+              </label>
+              <input type="text" id="builder-r" placeholder="Ex: analista judiciário do TRE-RN especializado em licitações">
+            </div>
+
+            <div class="builder-field">
+              <label>
+                <span class="field-letter">CONTEXT</span> Contexto
+                <span class="field-hint">Informações de fundo</span>
+              </label>
+              <textarea id="builder-c" rows="3" placeholder="Ex: O TRE-RN está preparando um pregão eletrônico para aquisição de equipamentos de TI para as eleições de 2026..."></textarea>
+            </div>
+
+            <div class="builder-field">
+              <label>
+                <span class="field-letter">TASK</span> Tarefa
+                <span class="field-hint">O que deve ser feito (obrigatório)</span>
+              </label>
+              <textarea id="builder-t" rows="3" placeholder="Ex: Elabore o Termo de Referência com especificações técnicas, justificativa e critérios de aceitação"></textarea>
+            </div>
+
+            <div class="builder-field">
+              <label>
+                <span class="field-letter">STYLE</span> Estilo
+                <span class="field-hint">Formato e tom desejado</span>
+              </label>
+              <input type="text" id="builder-s" placeholder="Ex: linguagem formal, formato de documento oficial, máximo 3 páginas">
+            </div>
+
+            <div class="builder-field">
+              <label>
+                <span class="field-letter">EXAMPLE</span> Exemplo
+                <span class="field-hint">Opcional</span>
+              </label>
+              <textarea id="builder-e" rows="2" placeholder="Ex: Siga o padrão do último Termo de Referência do Pregão nº 05/2024..."></textarea>
+            </div>
+
+            <div class="builder-actions">
+              <button class="btn btn-primary" onclick="generatePrompt()">⚡ Gerar Prompt</button>
+              <button class="btn btn-secondary" onclick="clearBuilder()">Limpar campos</button>
+            </div>
+
+            <div class="builder-output-area">
+              <div class="builder-output-label">📝 Prompt gerado</div>
+              <div class="builder-output" id="builder-output">Preencha os campos acima e clique em "Gerar Prompt". O resultado aparecerá aqui, com o texto desenvolvido e as marcações RCTS+E.</div>
+              <div class="output-actions">
+                <button class="btn btn-sm btn-secondary" onclick="copyPrompt()">📋 Copiar prompt</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- DICAS -->
+      <section class="content-section">
+        <h2><span class="section-icon" style="background: var(--verde-light);">💡</span> Dicas para Prompts Melhores</h2>
+        <div class="content-body">
+          <div class="tips-grid">
+            <div class="tip-card">
+              <div class="tip-icon">🎯</div>
+              <h4>Seja específico na tarefa</h4>
+              <p>Em vez de "faça um ofício", diga "redija um ofício comunicando o adiamento da reunião para o dia 15/03, dirigido ao Diretor-Geral".</p>
+            </div>
+            <div class="tip-card">
+              <div class="tip-icon">📐</div>
+              <h4>Defina limites</h4>
+              <p>Indique extensão desejada: "máximo 2 parágrafos", "em formato de tabela", "com no máximo 5 tópicos". Limites geram respostas mais focadas.</p>
+            </div>
+            <div class="tip-card">
+              <div class="tip-icon">📎</div>
+              <h4>Forneça exemplos reais</h4>
+              <p>Cole um trecho de um documento anterior do TRE-RN como referência. A IA replicará o padrão com precisão muito maior.</p>
+            </div>
+            <div class="tip-card">
+              <div class="tip-icon">🔄</div>
+              <h4>Refine na mesma conversa</h4>
+              <p>Não precisa acertar de primeira. Peça ajustes: "mais formal", "inclua a base legal", "reduza para meia página".</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegação -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
+        <a href="./engenharia-de-prompts.html" class="btn btn-secondary btn-sm">← Eng. de Prompts</a>
+        <a href="./oficinas.html" class="btn btn-primary btn-sm">Oficinas →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="./js/auth.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/main.js"></script>
+
+  <script>
+    function generatePrompt() {
+      const r = document.getElementById('builder-r').value.trim();
+      const c = document.getElementById('builder-c').value.trim();
+      const t = document.getElementById('builder-t').value.trim();
+      const s = document.getElementById('builder-s').value.trim();
+      const e = document.getElementById('builder-e').value.trim();
+
+      if (!t) {
+        Utils.showToast('Preencha pelo menos o campo Tarefa (TASK).', 'warning');
+        return;
+      }
+
+      // Desenvolver cada seção a partir do input do usuário
+      const expandRole = r
+        ? `Atue como ${r}${r.includes('experiência') || r.includes('especializado') ? '' : ', com experiência prática e conhecimento aprofundado na área'}. Considere as melhores práticas e o contexto institucional do Poder Judiciário ao elaborar sua resposta.`
+        : '';
+
+      const expandContext = c
+        ? `${c.charAt(0).toUpperCase() + c.slice(1)}${c.endsWith('.') ? '' : '.'} Leve em consideração esse cenário ao formular sua resposta, garantindo que o conteúdo seja adequado e pertinente a essa situação específica.`
+        : '';
+
+      const expandTask = `${t.charAt(0).toUpperCase() + t.slice(1)}${t.endsWith('.') ? '' : '.'} Certifique-se de que o resultado seja completo, bem estruturado e pronto para uso profissional, sem necessidade de reformulações significativas.`;
+
+      const expandStyle = s
+        ? `Adote ${s.toLowerCase().startsWith('linguagem') || s.toLowerCase().startsWith('formato') || s.toLowerCase().startsWith('tom') ? '' : 'o seguinte estilo: '}${s}${s.endsWith('.') ? '' : '.'} Garanta consistência de tom e formatação ao longo de todo o documento.`
+        : '';
+
+      const expandExample = e
+        ? `${e.charAt(0).toUpperCase() + e.slice(1)}${e.endsWith('.') ? '' : '.'} Use esse referencial como guia de estrutura, vocabulário e nível de formalidade.`
+        : '';
+
+      // Montar o prompt final com marcações
+      let prompt = '';
+      if (expandRole) prompt += `[ROLE] ${expandRole}\n\n`;
+      if (expandContext) prompt += `[CONTEXT] ${expandContext}\n\n`;
+      prompt += `[TASK] ${expandTask}`;
+      if (expandStyle) prompt += `\n\n[STYLE] ${expandStyle}`;
+      if (expandExample) prompt += `\n\n[EXAMPLE] ${expandExample}`;
+
+      // Renderizar com cores
+      const outputEl = document.getElementById('builder-output');
+      outputEl.innerHTML = prompt
+        .replace(/\[ROLE\]/g, '<span class="tag-marker tag-r">[ROLE]</span>')
+        .replace(/\[CONTEXT\]/g, '<span class="tag-marker tag-c">[CONTEXT]</span>')
+        .replace(/\[TASK\]/g, '<span class="tag-marker tag-t">[TASK]</span>')
+        .replace(/\[STYLE\]/g, '<span class="tag-marker tag-s">[STYLE]</span>')
+        .replace(/\[EXAMPLE\]/g, '<span class="tag-marker tag-e">[EXAMPLE]</span>');
+
+      // Armazenar texto puro para cópia
+      outputEl.dataset.plaintext = prompt;
+
+      Utils.showToast('Prompt gerado com sucesso!', 'success');
+    }
+
+    function copyPrompt() {
+      const outputEl = document.getElementById('builder-output');
+      const text = outputEl.dataset.plaintext || outputEl.textContent;
+      if (!outputEl.dataset.plaintext) {
+        Utils.showToast('Gere um prompt antes de copiar.', 'warning');
+        return;
+      }
+      Utils.copyToClipboard(text).then(() => {
+        Utils.showToast('Prompt copiado para a área de transferência!', 'success');
+      });
+    }
+
+    function clearBuilder() {
+      ['builder-r', 'builder-c', 'builder-t', 'builder-s', 'builder-e'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      const outputEl = document.getElementById('builder-output');
+      outputEl.innerHTML = 'Preencha os campos acima e clique em "Gerar Prompt". O resultado aparecerá aqui, com o texto desenvolvido e as marcações RCTS+E.';
+      delete outputEl.dataset.plaintext;
+    }
+  </script>
+</body>
+</html>
