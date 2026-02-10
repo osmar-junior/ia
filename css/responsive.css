@@ -1,0 +1,77 @@
+/* ============================================
+   RESPONSIVE.CSS — Media Queries
+   Workshop IA na prática aplicada ao TRE/RN
+   Proposta Visual: Institucional Moderna
+   ============================================ */
+
+@media (max-width: 1024px) {
+  :root {
+    --space-2xl: 32px;
+    --space-3xl: 48px;
+    --space-4xl: 64px;
+  }
+  h1 { font-size: 2.5rem; }
+  h2 { font-size: 1.9rem; }
+  .navbar { padding: 0 var(--space-lg); }
+  .navbar-links { gap: var(--space-lg); }
+  .comparison { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --space-2xl: 20px;
+    --space-3xl: 36px;
+    --space-4xl: 48px;
+    --navbar-height: 60px;
+  }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.6rem; }
+  h3 { font-size: 1.25rem; }
+
+  .navbar { padding: 0 var(--space-md); }
+  .navbar-links { display: none; }
+  .navbar-hamburger { display: flex; }
+  .navbar-turma { font-size: 0.75rem; padding: 5px 12px; }
+
+  .container, .container-narrow { padding: 0 var(--space-md); }
+  .section { padding: var(--space-3xl) 0; }
+  .section-header { margin-bottom: var(--space-xl); }
+
+  .sections-grid, .oficinas-grid {
+    grid-template-columns: 1fr; gap: var(--space-md);
+  }
+
+  .table th, .table td { padding: 10px 12px; font-size: 0.82rem; }
+  .table-wrapper { border-radius: var(--radius-sm); }
+
+  .step { gap: var(--space-md); }
+  .comparison { grid-template-columns: 1fr; }
+
+  .download-box { flex-wrap: wrap; }
+  .download-box .download-btn { width: 100%; text-align: center; }
+
+  .btn { width: 100%; justify-content: center; }
+  .btn-group-responsive { flex-direction: column; gap: var(--space-sm); }
+
+  .footer { padding: var(--space-xl) var(--space-md); }
+  .footer-main { font-size: 0.9rem; }
+
+  .scroll-top { bottom: 16px; right: 16px; width: 40px; height: 40px; }
+}
+
+@media (max-width: 480px) {
+  h1 { font-size: 1.7rem; }
+  h2 { font-size: 1.4rem; }
+  .card, .oficina-card { padding: var(--space-lg) var(--space-md); }
+  .callout { padding: var(--space-md); }
+  .badge { font-size: 0.72rem; }
+}
+
+@media print {
+  .navbar, .mobile-menu, .scroll-top, .navbar-hamburger { display: none !important; }
+  .page-content { padding-top: 0; }
+  body { background: white; color: black; font-size: 12pt; }
+  .card, .oficina-card, .callout { break-inside: avoid; border: 1px solid #ccc; box-shadow: none; }
+  a { color: black; text-decoration: underline; }
+  a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+}
