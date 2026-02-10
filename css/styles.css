@@ -72,8 +72,8 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--font-body);
-  font-size: 16px;
-  line-height: 1.6;
+  font-size: 17px;
+  line-height: 1.65;
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
@@ -96,12 +96,12 @@ h1, h2, h3, h4 {
   line-height: 1.2;
 }
 
-h1 { font-size: 3rem; }
-h2 { font-size: 2.2rem; }
-h3 { font-size: 1.5rem; }
-h4 { font-size: 1.2rem; }
+h1 { font-size: 3.2rem; }
+h2 { font-size: 2.4rem; }
+h3 { font-size: 1.65rem; }
+h4 { font-size: 1.3rem; }
 
-p { color: var(--text-secondary); line-height: 1.7; }
+p { color: var(--text-secondary); line-height: 1.8; }
 
 .text-gold { color: var(--dourado); }
 .text-light { color: var(--text); }
@@ -125,7 +125,7 @@ p { color: var(--text-secondary); line-height: 1.7; }
 
 .section-header .eyebrow {
   display: inline-flex; align-items: center; gap: var(--space-sm);
-  font-size: 0.82rem; font-weight: 600;
+  font-size: 0.88rem; font-weight: 600;
   text-transform: uppercase; letter-spacing: 0.1em;
   color: var(--dourado); margin-bottom: var(--space-md);
   padding: 8px 18px;
@@ -143,7 +143,7 @@ p { color: var(--text-secondary); line-height: 1.7; }
 
 .section-header h1,
 .section-header h2 { margin-bottom: var(--space-md); }
-.section-header p { font-size: 1.1rem; max-width: 600px; }
+.section-header p { font-size: 1.2rem; max-width: 600px; }
 
 /* --- Decorativos --- */
 .grid-pattern {
@@ -167,14 +167,14 @@ p { color: var(--text-secondary); line-height: 1.7; }
 }
 
 .navbar-logo {
-  font-family: var(--font-display); font-size: 1.2rem;
+  font-family: var(--font-display); font-size: 1.3rem;
   font-weight: 700; color: var(--text); white-space: nowrap;
 }
 .navbar-logo .gold { color: var(--dourado); }
 
 .navbar-links { display: flex; gap: var(--space-xl); list-style: none; }
 .navbar-links a {
-  color: var(--text-secondary); font-size: 0.9rem; font-weight: 500;
+  color: var(--text-secondary); font-size: 0.95rem; font-weight: 500;
   letter-spacing: 0.02em; transition: color var(--transition-base);
   position: relative;
 }
@@ -191,7 +191,7 @@ p { color: var(--text-secondary); line-height: 1.7; }
 .navbar-right { display: flex; align-items: center; gap: var(--space-md); }
 
 .navbar-turma {
-  font-size: 0.8rem; font-weight: 500; color: var(--dourado);
+  font-size: 0.85rem; font-weight: 500; color: var(--dourado);
   background: var(--dourado-dim); padding: 6px 14px;
   border-radius: var(--radius-full);
   border: 1px solid rgba(200,164,92,0.2);
@@ -252,13 +252,13 @@ p { color: var(--text-secondary); line-height: 1.7; }
   text-align: center; background: var(--bg-lighter);
 }
 .footer-main {
-  font-family: var(--font-display); font-size: 1rem;
+  font-family: var(--font-display); font-size: 1.1rem;
   color: var(--text); margin-bottom: var(--space-md);
 }
-.footer-copyright { font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 6px; }
+.footer-copyright { font-size: 0.95rem; color: var(--text-secondary); margin-bottom: 6px; }
 .footer-copyright a { color: var(--dourado); transition: opacity var(--transition-fast); }
 .footer-copyright a:hover { opacity: 0.7; }
-.footer-org { font-size: 0.8rem; color: var(--text-muted); }
+.footer-org { font-size: 0.88rem; color: var(--text-muted); }
 
 /* --- Animations --- */
 @keyframes fadeInUp {
