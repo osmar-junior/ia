@@ -351,7 +351,7 @@
         <div class="etapa-body">
           <p>O <strong>Estúdio</strong> é a área mais poderosa do NotebookLM. Ele transforma seus documentos em diferentes formatos de conteúdo — áudio, vídeo, mapas mentais, relatórios, testes e muito mais. Acesse clicando em <strong>"Estúdio"</strong> no painel direito do caderno.</p>
 
-          <p>Vamos explorar cada funcionalidade, uma a uma:</p>
+          <p>Vamos explorar cada funcionalidade, uma a uma. Marque o feedback após testar cada recurso.</p>
 
           <!-- === 3a — RESUMO EM ÁUDIO === -->
           <h3>🎙️ Resumo em Áudio</h3>
@@ -385,7 +385,17 @@
 
           <div class="callout callout-info">
             <div class="callout-title">⏳ Atenção</div>
-            <p>A geração do áudio leva alguns minutos. Aguarde a conclusão e depois ouça o resultado. Você ficará impressionado com a naturalidade.</p>
+            <p>A geração do áudio leva alguns minutos. Aguarde a conclusão e depois ouça o resultado.</p>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🎙️ Testou o Resumo em Áudio?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-audio')">Testei e gostei!</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-audio')">Testei, mas esperava mais</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-audio')">Ainda gerando...</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-audio">Planejamento estratégico virou podcast. Seus colegas vão achar que você contratou um produtor de conteúdo. Se o resultado não ficou perfeito, tente ajustar a personalização — quanto mais específico o foco, melhor o áudio. E se ainda está gerando: paciência é uma virtude que a IA ainda não aprendeu a ter por você.</div>
           </div>
 
           <!-- === 3b — RESUMO EM VÍDEO === -->
@@ -419,6 +429,16 @@
             </div>
           </div>
 
+          <div class="reflexao">
+            <div class="reflexao-title">🎬 Testou o Resumo em Vídeo?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-video')">Impressionante!</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-video')">Razoável</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-video')">Não funcionou</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-video">Um vídeo explicativo gerado por IA a partir de PDFs burocráticos. Pense nisso por um segundo. O NanoBanana do Google cria as ilustrações do zero — você não precisou abrir o Canva, PowerPoint, nem contratar ninguém. Se o resultado ficou "razoável", experimente outro estilo visual. O "Aquarela" costuma surpreender.</div>
+          </div>
+
           <!-- === 3c — MAPA MENTAL === -->
           <h3>🧠 Mapa Mental</h3>
           <p>Gera automaticamente um mapa mental visual conectando os conceitos dos documentos. Excelente para compreender relações entre objetivos estratégicos, indicadores e macrodesafios.</p>
@@ -429,6 +449,15 @@
               <div class="tool-name">Gere um Mapa Mental</div>
               <div class="tool-hint">No Estúdio, clique em <strong>"Mapa mental"</strong>. Ele será gerado automaticamente com os principais conceitos dos documentos carregados.</div>
             </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🧠 Testou o Mapa Mental?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-mapa')">Ficou bem organizado</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-mapa')">Poluído demais</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-mapa">Mapas mentais gerados por IA são como resumos visuais instantâneos — não substituem o mapa que você faria à mão, mas adiantam 80% do trabalho. Se ficou poluído, lembre-se: você pode selecionar apenas 1 ou 2 fontes antes de gerar, em vez de usar todas. Menos fontes = mapa mais focado.</div>
           </div>
 
           <!-- === 3d — RELATÓRIOS === -->
@@ -449,6 +478,16 @@
             </div>
           </div>
 
+          <div class="reflexao">
+            <div class="reflexao-title">📝 Testou os Relatórios?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-relatorio')">Usável como está</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-relatorio')">Bom rascunho inicial</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-relatorio')">Precisaria de muita edição</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-relatorio">Se a resposta foi "bom rascunho", parabéns — você entendeu perfeitamente o papel da IA. Ninguém deveria pegar um relatório gerado e assinar embaixo sem ler. Mas ter 80% do trabalho pronto em 30 segundos? Isso é produtividade real. O "Guia de estudo" é ouro para quem precisa preparar material de capacitação.</div>
+          </div>
+
           <!-- === 3e — CARTÕES DE ESTUDO === -->
           <h3>🃏 Cartões de Estudo</h3>
           <p>Flashcards gerados automaticamente a partir do conteúdo. Você configura o <strong>número de cards</strong>, o <strong>nível de dificuldade</strong> (fácil, médio, difícil) e pode personalizar via prompt — por exemplo, focando apenas em indicadores ou em um macrodesafio específico.</p>
@@ -459,6 +498,16 @@
               <div class="tool-name">Gere Cartões de Estudo</div>
               <div class="tool-hint">Selecione <strong>10 cartões</strong>, nível <strong>"Médio"</strong>. Na personalização, digite: <em>"Foque nos indicadores de desempenho e suas fórmulas de cálculo"</em>.</div>
             </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🃏 Testou os Cartões de Estudo?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-cards')">Ótimos para revisão</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-cards')">Perguntas muito fáceis</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-cards')">Perguntas muito difíceis</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-cards">Flashcards de planejamento estratégico gerados automaticamente. Seu "eu" de 5 anos atrás não acreditaria. Se ficaram fáceis ou difíceis demais, ajuste o nível de dificuldade ou refine a personalização. Dica: peça "perguntas que exijam relacionar indicadores com objetivos estratégicos" para um desafio melhor.</div>
           </div>
 
           <!-- === 3f — TESTES === -->
@@ -473,6 +522,16 @@
             </div>
           </div>
 
+          <div class="reflexao">
+            <div class="reflexao-title">📋 Testou os Testes?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-testes')">Acertei tudo 😎</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-testes')">Errei algumas...</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-testes')">Só gerei, não respondi</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-testes">Se acertou tudo, você é um mestre do planejamento estratégico (ou leu a cola antes). Se errou, ótimo — agora você sabe o que precisa estudar. Se só gerou e não respondeu: volte lá e tente! O valor do teste está justamente em testar-se. A IA já fez a parte difícil.</div>
+          </div>
+
           <!-- === 3g — INFOGRÁFICO === -->
           <h3>📊 Infográfico</h3>
           <p>Cria uma representação visual e compacta dos dados e conceitos do caderno. Ideal para comunicação interna, murais e apresentações rápidas.</p>
@@ -483,6 +542,15 @@
               <div class="tool-name">Gere um Infográfico</div>
               <div class="tool-hint">Clique em <strong>"Infográfico"</strong> e aguarde a geração. Observe como ele organiza visualmente as informações do planejamento estratégico.</div>
             </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📊 Testou o Infográfico?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-infografico')">Visual muito bom</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-infografico')">Útil mas simples</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-infografico">Infográfico gerado em segundos, direto dos documentos do planejamento estratégico. Perfeito para colar na parede da sala, mandar no grupo do WhatsApp da equipe, ou incluir num relatório de gestão. Não é trabalho de designer? Não. Mas é 100x melhor do que não ter nenhum infográfico.</div>
           </div>
 
           <!-- === 3h — APRESENTAÇÃO DE SLIDES === -->
@@ -500,6 +568,15 @@
               <div class="tool-name">Gere uma Apresentação Detalhada</div>
               <div class="tool-hint">Selecione <strong>"Apresentação detalhada"</strong>, idioma <strong>"Português"</strong>. Na personalização, foque em um tema: <em>"Apresente os objetivos de inovação tecnológica do PEJERN para uma reunião com gestores"</em>.</div>
             </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📽️ Testou a Apresentação de Slides?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-slides')">Pronta para reunião!</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-slides')">Precisa de ajustes</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-slides">Apresentação sobre planejamento estratégico gerada em menos tempo do que você levaria para abrir o PowerPoint e escolher o template. Se precisa de ajustes, excelente — significa que você vai melhorar algo que já existe em vez de começar do zero. Esse é o verdadeiro ganho de produtividade.</div>
           </div>
 
           <!-- === 3i — TABELA DE DADOS === -->
@@ -522,21 +599,20 @@
             <div class="prompt-box-content" contenteditable="true">Crie uma tabela com os seguintes campos: Perspectiva Estratégica, Objetivo Estratégico, Indicador Associado, Fórmula de Cálculo e Meta. Organize por perspectiva (Sociedade, Processos Internos, Aprendizado e Crescimento, Recursos).</div>
           </div>
 
-          <div class="feedback-banner" id="fb3">
-            <div class="fb-icon">🎨</div>
-            <h4>Você acabou de transformar documentos burocráticos em podcast, vídeo, mapa mental e slides.</h4>
-            <p>Se alguém te disser que IA generativa é "só chatbot", mostre o que você fez nesta etapa. O NotebookLM é uma das ferramentas mais subestimadas do mercado — e agora você sabe usá-la como poucos.</p>
+          <div class="reflexao">
+            <div class="reflexao-title">📈 Testou a Tabela de Dados?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-tabela')">Dados bem extraídos</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-tabela')">Faltaram informações</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-tabela">Extrair dados estruturados de PDFs é uma das tarefas mais chatas da administração pública — e você acabou de terceirizar isso para a IA. Se faltaram dados, provavelmente o PDF fonte tem formatação que dificulta a extração. Tente reformular o prompt sendo mais específico sobre quais campos buscar.</div>
           </div>
 
-          <div class="reflexao" id="reflexao3">
-            <div class="reflexao-title">🤔 Qual funcionalidade do Estúdio mais te surpreendeu?</div>
-            <div class="reflexao-options">
-              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb3', 3)">Resumo em Áudio</button>
-              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb3', 3)">Resumo em Vídeo</button>
-              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb3', 3)">Mapa Mental</button>
-              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb3', 3)">Slides/Relatórios</button>
-            </div>
-            <div class="reflexao-feedback" id="ref-fb3">Todas essas funcionalidades são gratuitas e rodam diretamente nos documentos que você carregou — sem risco de alucinação. Imagine o potencial: você pode transformar qualquer resolução, relatório de gestão ou norma interna em material de capacitação, briefing gerencial ou conteúdo de estudo em minutos. Esse é o tipo de produtividade que justifica aprender IA.</div>
+          <!-- === FEEDBACK FINAL DO ESTÚDIO === -->
+          <div class="feedback-banner" id="fb-studio-final">
+            <div class="fb-icon">🏆</div>
+            <h4>Estúdio dominado. Você é praticamente um produtor de conteúdo agora.</h4>
+            <p>Podcast, vídeo, mapa mental, relatório, flashcards, teste, infográfico, slides e tabela — tudo gerado a partir de PDFs que estavam juntando poeira digital. Se alguém te disser que IA generativa é "só chatbot", envie o link desta oficina.</p>
           </div>
         </div>
       </div>
@@ -600,22 +676,49 @@
       });
     }
 
+    // Etapas 1 e 2 (caderno + conversas)
     function selectReflexao(btn, feedbackId, step) {
       const container = btn.closest('.reflexao');
       container.querySelectorAll('.reflexao-opt').forEach(o => o.classList.remove('selected'));
       btn.classList.add('selected');
       document.getElementById(feedbackId).classList.add('visible');
-
-      // Mostrar feedback banner da etapa
       const fb = document.getElementById('fb' + step);
       if (fb) fb.classList.add('visible');
+      updateProgress();
+    }
+
+    // Etapa 3 — checkpoints individuais do Estúdio
+    function checkStep(btn, feedbackId) {
+      const container = btn.closest('.reflexao');
+      container.querySelectorAll('.reflexao-opt').forEach(o => o.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById(feedbackId).classList.add('visible');
+
+      // Verificar se todos os 9 itens do Estúdio foram marcados
+      const studioItems = ['fb-audio','fb-video','fb-mapa','fb-relatorio','fb-cards','fb-testes','fb-infografico','fb-slides','fb-tabela'];
+      const studioCompleted = studioItems.filter(id => document.getElementById(id).classList.contains('visible')).length;
+      if (studioCompleted === studioItems.length) {
+        document.getElementById('fb-studio-final').classList.add('visible');
+      }
 
       updateProgress();
     }
 
     function updateProgress() {
-      const totalSteps = 3;
-      const completed = document.querySelectorAll('.feedback-banner.visible').length;
+      // 11 checkpoints: etapa1 + etapa2 + 9 itens do estúdio
+      const totalSteps = 11;
+      let completed = 0;
+
+      // Etapas 1 e 2
+      if (document.getElementById('fb1') && document.getElementById('fb1').classList.contains('visible')) completed++;
+      if (document.getElementById('fb2') && document.getElementById('fb2').classList.contains('visible')) completed++;
+
+      // 9 itens do estúdio
+      const studioItems = ['fb-audio','fb-video','fb-mapa','fb-relatorio','fb-cards','fb-testes','fb-infografico','fb-slides','fb-tabela'];
+      studioItems.forEach(id => {
+        if (document.getElementById(id).classList.contains('visible')) completed++;
+      });
+
       const pct = Math.round((completed / totalSteps) * 100);
       document.getElementById('progressFill').style.width = pct + '%';
       document.getElementById('progressPct').textContent = pct + '%';
