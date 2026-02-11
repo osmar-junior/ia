@@ -112,7 +112,7 @@ p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
 
 /* --- Layout --- */
 .container {
-  width: 100%; max-width: var(--content-max-width);
+  width: 95%; max-width: var(--content-max-width);
   margin: 0 auto; padding: 0 var(--space-xl);
 }
 .container-narrow {
