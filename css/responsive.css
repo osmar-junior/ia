@@ -8,7 +8,7 @@
   :root {
     --space-2xl: 32px;
     --space-3xl: 48px;
-    --space-4xl: 90px;
+    --space-4xl: 64px;
   }
   h1 { font-size: 2.5rem; }
   h2 { font-size: 1.9rem; }
