@@ -3,30 +3,242 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficina 03 — NotebookLM — Relatórios a partir de Áudios</title>
+  <title>Oficina 03 — NotebookLM e Áudios | Workshop IA TRE/RN</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    /* Estilos específicos mantendo o padrão da Oficina 02 */
+    .progress-bar { position: sticky; top: var(--navbar-height); z-index: 50; background: var(--bg-lighter); border-bottom: 1px solid var(--border-light); padding: 10px var(--space-xl); display: flex; align-items: center; gap: var(--space-lg); }
+    .progress-label { font-size: 0.88rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+    .progress-track { flex: 1; height: 6px; background: rgba(200,164,92,0.1); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--dourado), var(--verde)); border-radius: 3px; transition: width 0.5s ease; width: 0%; }
+    .progress-pct { font-size: 0.88rem; font-weight: 700; color: var(--verde); min-width: 40px; text-align: right; }
+
+    .oficina-hero { padding: var(--space-3xl) 0 var(--space-2xl); border-bottom: 1px solid var(--border-light); }
+    .oficina-badge { display: inline-flex; align-items: center; gap: var(--space-sm); font-size: 0.9rem; font-weight: 700; color: var(--dourado); background: var(--dourado-dim); padding: 8px 18px; border-radius: var(--radius-full); border: 1px solid rgba(200,164,92,0.2); margin-bottom: var(--space-lg); }
+    .oficina-hero h1 { font-size: 2.8rem; margin-bottom: var(--space-md); }
+    .oficina-hero .oficina-desc { font-size: 1.18rem; line-height: 1.9; max-width: 850px; }
+
+    .etapa { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
+    .etapa-header { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+    .etapa-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); }
+    
+    .prompt-box { position: relative; margin: var(--space-lg) 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .prompt-box-label { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; background: rgba(200,164,92,0.08); border-bottom: 1px solid var(--border-light); font-size: 0.88rem; font-weight: 700; color: var(--dourado); text-transform: uppercase; letter-spacing: 0.06em; }
+    .prompt-box-content { padding: var(--space-lg) var(--space-xl); font-family: 'Courier New', Courier, monospace; font-size: 1.02rem; line-height: 1.8; color: var(--text-secondary); white-space: pre-wrap; outline: none; }
+
+    .reflexao { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; }
+    .reflexao-feedback { margin-top: var(--space-md); padding: var(--space-lg); background: rgba(76,175,130,0.08); border: 1px solid rgba(76,175,130,0.15); border-radius: var(--radius-md); display: none; }
+    .reflexao-feedback.visible { display: block; }
+    .feedback-banner { background: var(--verde-light); border: 1px solid rgba(76,175,130,0.2); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; text-align: center; display: none; }
+    .feedback-banner.visible { display: block; }
+  </style>
 </head>
 <body>
+
   <div id="header-placeholder"></div>
-  <main class="page-content">
+
+  <div class="progress-bar">
+    <span class="progress-label">Progresso da Oficina</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+
+  <main class="page-content" style="padding-top: calc(var(--navbar-height) + 42px);">
     <div class="container">
-      <section class="section">
-        <div class="section-header">
-          <div class="eyebrow"><span class="line"></span> Oficina 03</div>
-          <h1>NotebookLM — Relatórios a partir de Áudios</h1>
-          <p>Transforme gravações de eventos em relatórios estruturados.</p>
+
+      <div class="oficina-hero">
+        <div class="oficina-badge">🎙️ Oficina 03 de 08</div>
+        <h1>Relatório de Eventos com NotebookLM</h1>
+        <p class="oficina-desc">Chega de sofrer digitando atas e memórias de reunião. Hoje você vai aprender a transformar áudios gravados no celular em relatórios institucionais prontos para o SEI, com estrutura profissional e análise de tendências.</p>
+        
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Sabia disso?</div>
+          <p>Se o seu áudio vier de um Android, o formato costuma ser <strong>.M4A</strong>. Se for iPhone, será <strong>.opus</strong>. O NotebookLM entende ambos. O futuro chegou e ele é bilíngue em formatos!</p>
         </div>
-        <div id="conteudo-oficina-03">
-          <p style="color: var(--text-muted); font-style: italic;">Conteúdo em construção...</p>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header">
+          <div class="etapa-num">📌</div>
+          <div><h2>O que vamos conquistar hoje</h2></div>
         </div>
-      </section>
+        <div class="etapa-body">
+          <ul>
+            <li>Dominar o fluxo de análise de áudio por IA.</li>
+            <li>Gerar resumos segmentados por palestrante e tema.</li>
+            <li>Produzir relatórios de participação institucional de alto nível.</li>
+            <li>Extrair insights gerenciais de falas captadas em congressos (CONIP).</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="etapa" id="etapa1">
+        <div class="etapa-header">
+          <div class="etapa-num">01</div>
+          <div>
+            <h2>Preparando o Material</h2>
+            <div class="etapa-sub">Importando os áudios do CONIP</div>
+          </div>
+        </div>
+        <div class="etapa-body">
+          <p>Para este exercício, utilizaremos áudios reais de palestras do CONIP. Baixe-os no link abaixo e carregue-os no seu caderno do NotebookLM:</p>
+          
+          <div style="display: flex; gap: 15px; margin: 20px 0;">
+            <a href="#" class="btn btn-secondary btn-sm">📁 Áudio: CPSI na Prática</a>
+            <a href="#" class="btn btn-secondary btn-sm">📁 Áudio: Jornada para Nuvem</a>
+          </div>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ Dica de Ouro</div>
+            <p>Arquivos acima de <strong>200MB</strong> são barrados pelo NotebookLM. Se a palestra for um "filme do Scorsese" de tão longa, use o <strong>Audacity</strong> para fracionar o áudio antes de subir.</p>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🤔 Conseguiu subir os áudios para o caderno?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb1', 1)">Sim, tudo carregado!</button>
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb1', 1)">Tive problemas com o tamanho</button>
+            </div>
+            <div class="reflexao-feedback" id="ref-fb1">Se carregou, parabéns! Seu NotebookLM agora tem "ouvidos" biônicos. Se o arquivo foi grande demais, o Audacity é seu melhor amigo para o "fatiamento" técnico.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa" id="etapa2">
+        <div class="etapa-header">
+          <div class="etapa-num">02</div>
+          <div>
+            <h2>O "Super Prompt" de Relatórios</h2>
+            <div class="etapa-sub">Transformando som em texto técnico e jurídico</div>
+          </div>
+        </div>
+        <div class="etapa-body">
+          <p>Copie o prompt abaixo e cole na área de <strong>Conversas</strong>. Ele foi calibrado para gerar um relatório que seu chefe assinaria sem pestanejar.</p>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Prompt de Relatório Analítico</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar Prompt</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Gere um relatório completo e estruturado a partir dos arquivos de áudio fornecidos. O relatório deve ser analítico, em terceira pessoa, com linguagem objetiva adequada ao público técnico e jurídico do TRE-RN.
+Use Markdown (H1, H2, H3). Estrutura sugerida:
+a) Título, evento, local e período.
+b) Contexto e temas centrais.
+c) Síntese por palestrante (ideias, exemplos e citações).
+d) Conclusões e tendências.
+e) Propostas de aplicação no TRE-RN: como isso ajuda o Tribunal?
+f) Considerações finais.
+Tom: profissional, parágrafos curtos, sem redundâncias.</div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🤔 O relatório gerado parece ter sido escrito por um humano experiente?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb2', 2)">Sim, ficou impressionante!</button>
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb2', 2)">Ficou bom, mas vou refinar</button>
+            </div>
+            <div class="reflexao-feedback" id="ref-fb2">Excelente! Agora, o toque de mestre: salve esse relatório nas <strong>Observações</strong> e transforme essa nota em uma <strong>nova fonte</strong>. Assim você pode usar o Estúdio sobre o seu próprio relatório!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header">
+          <div class="etapa-num">03</div>
+          <div><h2>Explorando o Estúdio</h2><div class="etapa-sub">Múltiplos formatos em segundos</div></div>
+        </div>
+        <div class="etapa-body">
+          <p>Marque abaixo cada funcionalidade que você testar usando o relatório que você acabou de gerar como fonte:</p>
+          
+          <div class="reflexao">
+            <div class="reflexao-options" style="flex-direction: column; align-items: flex-start; gap: 12px;">
+              <button class="reflexao-opt" style="width: 100%; text-align: left;" onclick="checkStep(this, 'fb-audio')">🎙️ Gerar Resumo em Áudio (Podcast do evento)</button>
+              <button class="reflexao-opt" style="width: 100%; text-align: left;" onclick="checkStep(this, 'fb-video')">🎬 Gerar Resumo em Vídeo (NanoBanana)</button>
+              <button class="reflexao-opt" style="width: 100%; text-align: left;" onclick="checkStep(this, 'fb-mapa')">🧠 Criar Mapa Mental da palestra</button>
+              <button class="reflexao-opt" style="width: 100%; text-align: left;" onclick="checkStep(this, 'fb-cards')">🃏 Criar Cartões Didáticos para fixação</button>
+              <button class="reflexao-opt" style="width: 100%; text-align: left;" onclick="checkStep(this, 'fb-testes')">📋 Gerar Teste de conhecimento sobre o tema</button>
+            </div>
+            
+            <div class="reflexao-feedback" id="fb-audio"></div><div class="reflexao-feedback" id="fb-video"></div><div class="reflexao-feedback" id="fb-mapa"></div><div class="reflexao-feedback" id="fb-cards"></div><div class="reflexao-feedback" id="fb-testes"></div>
+
+            <div class="feedback-banner" id="fb-studio-final">
+              <div class="fb-icon">🚀</div>
+              <h4>Você é oficialmente um Mestre dos Relatórios!</h4>
+              <p>O áudio bruto virou relatório, que virou podcast, que virou teste. Se isso não é produtividade, não sabemos o que é!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="etapa">
+        <div class="etapa-header"><div class="etapa-num">✨</div><div><h2>Extras: O Próximo Nível</h2></div></div>
+        <div class="etapa-body">
+          <div class="grid-pattern" style="opacity: 0.1; height: 100px; position: relative;"></div>
+          <h3>Refinamento com outras IAs</h3>
+          <p>Quer que o relatório fique perfeito? Jogue o resultado no <strong>Claude, Gemini ou ChatGPT</strong> com este prompt:</p>
+          <div class="prompt-box">
+             <div class="prompt-box-content">Atue como um especialista em relatórios públicos. Vou apresentar um texto do NotebookLM e você deve gerar uma versão mais completa, mantendo a objetividade técnica e clareza.</div>
+          </div>
+          
+          <div class="callout callout-success">
+            <div class="callout-title">🎨 Dica Visual</div>
+            <p>Use o <strong>Canva</strong> para diagramar seu relatório final. Um documento bem estruturado com IA + um design profissional no Canva é o "combo" imbatível no TRE-RN.</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; padding: 40px 0;">
+        <a href="./oficina-02-notebooklm-fundamentos.html" class="btn btn-secondary">← Oficina 02</a>
+        <a href="./oficina-04-notebooklm-videos.html" class="btn btn-primary">Oficina 04 →</a>
+      </div>
+
     </div>
   </main>
+
   <div id="footer-placeholder"></div>
+
   <script src="../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
+
+  <script>
+    function copyPrompt(btn) {
+      const content = btn.closest('.prompt-box').querySelector('.prompt-box-content').innerText;
+      Utils.copyToClipboard(content).then(() => {
+        btn.textContent = '✅ Copiado!';
+        setTimeout(() => btn.textContent = '📋 Copiar Prompt', 2000);
+      });
+    }
+
+    function selectReflexao(btn, fbId, step) {
+      const parent = btn.parentElement;
+      parent.querySelectorAll('.reflexao-opt').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById(fbId).classList.add('visible');
+      updateProgress();
+    }
+
+    function checkStep(btn, fbId) {
+      btn.classList.toggle('selected');
+      const fb = document.getElementById(fbId);
+      fb.classList.toggle('visible');
+      
+      const totalChecked = document.querySelectorAll('.oficina-body .reflexao-opt.selected').length;
+      if (totalChecked >= 7) { // 2 iniciais + 5 do estúdio
+        document.getElementById('fb-studio-final').classList.add('visible');
+      }
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const totalSteps = 7; 
+      let completed = document.querySelectorAll('.reflexao-opt.selected').length;
+      const pct = Math.round((completed / totalSteps) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+    }
+  </script>
 </body>
 </html>
