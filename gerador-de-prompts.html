@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="./css/components.css">
   <link rel="stylesheet" href="./css/responsive.css">
   <style>
-    /* Estilos originais preservados integralmente */
     .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
     .content-section:last-child { border-bottom: none; }
     .content-section h2 { margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
@@ -110,40 +109,56 @@
         <div class="section-header">
           <div class="eyebrow"><span class="dot"></span> Módulo 05</div>
           <h1>Gerador de Prompts RCTS+E</h1>
-          <p>Monte prompts profissionais de forma guiada com alta variabilidade de expansão textual.</p>
+          <p>Monte prompts profissionais de forma guiada. Preencha os campos e o gerador desenvolverá um prompt estruturado pronto para usar.</p>
         </div>
       </section>
 
+      <!-- BUILDER -->
       <section class="content-section">
         <h2><span class="section-icon" style="background: var(--dourado-dim);">⚡</span> Monte seu Prompt</h2>
         <div class="content-body">
-          <p>Utilize as marcações <strong>[ROLE]</strong>, <strong>[CONTEXT]</strong>, <strong>[TASK]</strong>, <strong>[STYLE]</strong> e <strong>[EXAMPLE]</strong> de forma automatizada e inteligente.</p>
+          <p>Preencha os campos com descrições breves — o gerador vai expandir e desenvolver o texto automaticamente, criando um prompt profissional com as marcações <strong>[ROLE]</strong>, <strong>[CONTEXT]</strong>, <strong>[TASK]</strong>, <strong>[STYLE]</strong> e <strong>[EXAMPLE]</strong>.</p>
 
           <div class="builder-container">
 
             <div class="builder-field">
-              <label><span class="field-letter">ROLE</span> Papel</label>
+              <label>
+                <span class="field-letter">ROLE</span> Papel
+                <span class="field-hint">Quem a IA deve "ser"</span>
+              </label>
               <input type="text" id="builder-r" placeholder="Ex: analista judiciário do TRE-RN especializado em licitações">
             </div>
 
             <div class="builder-field">
-              <label><span class="field-letter">CONTEXT</span> Contexto</label>
-              <textarea id="builder-c" rows="3" placeholder="Ex: O TRE-RN está preparando um pregão eletrônico para aquisição de equipamentos de TI..."></textarea>
+              <label>
+                <span class="field-letter">CONTEXT</span> Contexto
+                <span class="field-hint">Informações de fundo</span>
+              </label>
+              <textarea id="builder-c" rows="3" placeholder="Ex: O TRE-RN está preparando um pregão eletrônico para aquisição de equipamentos de TI para as eleições de 2026..."></textarea>
             </div>
 
             <div class="builder-field">
-              <label><span class="field-letter">TASK</span> Tarefa</label>
-              <textarea id="builder-t" rows="3" placeholder="Ex: Elabore o Termo de Referência com especificações técnicas..."></textarea>
+              <label>
+                <span class="field-letter">TASK</span> Tarefa
+                <span class="field-hint">O que deve ser feito (obrigatório)</span>
+              </label>
+              <textarea id="builder-t" rows="3" placeholder="Ex: Elabore o Termo de Referência com especificações técnicas, justificativa e critérios de aceitação"></textarea>
             </div>
 
             <div class="builder-field">
-              <label><span class="field-letter">STYLE</span> Estilo</label>
-              <input type="text" id="builder-s" placeholder="Ex: linguagem formal, formato de documento oficial">
+              <label>
+                <span class="field-letter">STYLE</span> Estilo
+                <span class="field-hint">Formato e tom desejado</span>
+              </label>
+              <input type="text" id="builder-s" placeholder="Ex: linguagem formal, formato de documento oficial, máximo 3 páginas">
             </div>
 
             <div class="builder-field">
-              <label><span class="field-letter">EXAMPLE</span> Exemplo</label>
-              <textarea id="builder-e" rows="2" placeholder="Ex: Siga o padrão do último Termo de Referência..."></textarea>
+              <label>
+                <span class="field-letter">EXAMPLE</span> Exemplo
+                <span class="field-hint">Opcional</span>
+              </label>
+              <textarea id="builder-e" rows="2" placeholder="Ex: Siga o padrão do último Termo de Referência do Pregão nº 05/2024..."></textarea>
             </div>
 
             <div class="builder-actions">
@@ -153,7 +168,7 @@
 
             <div class="builder-output-area">
               <div class="builder-output-label">📝 Prompt gerado</div>
-              <div class="builder-output" id="builder-output">Aguardando preenchimento...</div>
+              <div class="builder-output" id="builder-output">Preencha os campos acima e clique em "Gerar Prompt". O resultado aparecerá aqui, com o texto desenvolvido e as marcações RCTS+E.</div>
               <div class="output-actions">
                 <button class="btn btn-sm btn-secondary" onclick="copyPrompt()">📋 Copiar prompt</button>
               </div>
@@ -163,22 +178,51 @@
         </div>
       </section>
 
+      <!-- DICAS -->
+      <section class="content-section">
+        <h2><span class="section-icon" style="background: var(--verde-light);">💡</span> Dicas para Prompts Melhores</h2>
+        <div class="content-body">
+          <div class="tips-grid">
+            <div class="tip-card">
+              <div class="tip-icon">🎯</div>
+              <h4>Seja específico na tarefa</h4>
+              <p>Em vez de "faça um ofício", diga "redija um ofício comunicando o adiamento da reunião para o dia 15/03, dirigido ao Diretor-Geral".</p>
+            </div>
+            <div class="tip-card">
+              <div class="tip-icon">📐</div>
+              <h4>Defina limites</h4>
+              <p>Indique extensão desejada: "máximo 2 parágrafos", "em formato de tabela", "com no máximo 5 tópicos". Limites geram respostas mais focadas.</p>
+            </div>
+            <div class="tip-card">
+              <div class="tip-icon">📎</div>
+              <h4>Forneça exemplos reais</h4>
+              <p>Cole um trecho de um documento anterior do TRE-RN como referência. A IA replicará o padrão com precisão muito maior.</p>
+            </div>
+            <div class="tip-card">
+              <div class="tip-icon">🔄</div>
+              <h4>Refine na mesma conversa</h4>
+              <p>Não precisa acertar de primeira. Peça ajustes: "mais formal", "inclua a base legal", "reduza para meia página".</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Navegação -->
       <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
         <a href="./engenharia-de-prompts.html" class="btn btn-secondary btn-sm">← Eng. de Prompts</a>
         <a href="./oficinas.html" class="btn btn-primary btn-sm">Oficinas →</a>
       </div>
+
     </div>
   </main>
+
+  <div id="footer-placeholder"></div>
 
   <script src="./js/auth.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/main.js"></script>
 
   <script>
-    function getRandom(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
-    }
-
     function generatePrompt() {
       const r = document.getElementById('builder-r').value.trim();
       const c = document.getElementById('builder-c').value.trim();
@@ -187,89 +231,38 @@
       const e = document.getElementById('builder-e').value.trim();
 
       if (!t) {
-        if(window.Utils) Utils.showToast('O campo Tarefa (TASK) é obrigatório.', 'warning');
-        else alert('Preencha a tarefa!');
+        Utils.showToast('Preencha pelo menos o campo Tarefa (TASK).', 'warning');
         return;
       }
 
-      // 10 VARIAÇÕES PARA ROLE
-      const rolePhrases = [
-        `Atue como um(a) ${r}, demonstrando alto nível de especialização técnica e compromisso com os valores do TRE-RN.`,
-        `Assuma o papel de ${r}. Sua abordagem deve ser analítica, detalhista e pautada pelas melhores práticas da administração pública.`,
-        `Você deve se comportar como um(a) ${r} experiente, priorizando a precisão técnica e a clareza institucional em todas as etapas.`,
-        `Como ${r}, utilize sua expertise para formular uma resposta estratégica que considere tanto a conformidade legal quanto a eficiência operacional.`,
-        `Atue sob a perspectiva de um(a) ${r}, garantindo que o conteúdo produzido seja profissional, ético e tecnicamente irrepreensível.`,
-        `Sua identidade para esta tarefa é de ${r}. Mantenha um tom consultivo e foque na excelência dos resultados entregues.`,
-        `Imagine que você é um(a) ${r} com anos de vivência no Poder Judiciário. Sua tarefa deve refletir essa maturidade profissional.`,
-        `Assuma a persona de ${r}. Seu objetivo é fornecer uma solução que seja ao mesmo tempo inovadora e estritamente vinculada às normas vigentes.`,
-        `No papel de ${r}, processe as informações com rigor acadêmico e aplicabilidade prática imediata dentro da realidade do TRE-RN.`,
-        `Você é ${r}. Aplique um olhar crítico e especializado para assegurar que o produto final atenda aos mais altos padrões de qualidade do Tribunal.`
-      ];
+      // Desenvolver cada seção a partir do input do usuário
+      const expandRole = r
+        ? `Atue como ${r}${r.includes('experiência') || r.includes('especializado') ? '' : ', com experiência prática e conhecimento aprofundado na área'}. Considere as melhores práticas e o contexto institucional do Poder Judiciário ao elaborar sua resposta.`
+        : '';
 
-      // 10 VARIAÇÕES PARA CONTEXT
-      const contextPhrases = [
-        `Leve em consideração o seguinte cenário: ${c}. É fundamental que sua resposta esteja ancorada nestes fatos para garantir relevância.`,
-        `Este pedido surge no contexto de: ${c}. Entenda as nuances descritas para que a produção seja perfeitamente adequada à realidade.`,
-        `O panorama atual é: ${c}. Sua análise deve refletir uma compreensão profunda dessas circunstâncias e seus impactos.`,
-        `Considere que estamos lidando com: ${c}. Essa base factual é o que deve guiar a lógica e a profundidade de sua resposta.`,
-        `Contextualize sua atuação dentro deste cenário: ${c}. A resposta deve mitigar riscos e aproveitar as oportunidades identificadas aqui.`,
-        `A fundamentação deste trabalho baseia-se em: ${c}. Utilize estas informações como o alicerce principal de sua construção textual.`,
-        `Entenda as limitações e os objetivos presentes em: ${c}. Cada detalhe deste contexto é crucial para o sucesso da tarefa.`,
-        `O ambiente operacional é definido por: ${c}. Garanta que o resultado seja harmônico com esta situação específica.`,
-        `Considere o histórico e as necessidades de: ${c}. Sua resposta deve demonstrar sensibilidade a estes pontos de fundo.`,
-        `O cenário que justifica esta solicitação é: ${c}. Use este pano de fundo para calibrar o nível de detalhamento e o foco da sua entrega.`
-      ];
+      const expandContext = c
+        ? `${c.charAt(0).toUpperCase() + c.slice(1)}${c.endsWith('.') ? '' : '.'} Leve em consideração esse cenário ao formular sua resposta, garantindo que o conteúdo seja adequado e pertinente a essa situação específica.`
+        : '';
 
-      // 10 VARIAÇÕES PARA TASK
-      const taskPhrases = [
-        `Sua missão agora é: ${t}. O resultado deve ser abrangente, logicamente estruturado e pronto para aplicação institucional.`,
-        `Execute com precisão a seguinte atividade: ${t}. Dedique atenção especial à clareza de pensamento e ao rigor dos dados apresentados.`,
-        `Solicito que você desenvolva o seguinte: ${t}. Certifique-se de que nenhum ponto relevante seja omitido e que a estrutura seja impecável.`,
-        `O objetivo central desta interação é: ${t}. O produto final deve ser de altíssimo nível e totalmente funcional para o TRE-RN.`,
-        `Providencie a execução de: ${t}. Organize a resposta de forma que os pontos-chave sejam facilmente identificáveis e tecnicamente sólidos.`,
-        `Trabalhe na seguinte demanda: ${t}. Sua entrega deve ser exaustiva no conteúdo, mas objetiva na forma, evitando redundâncias desnecessárias.`,
-        `Construa uma solução detalhada para: ${t}. Priorize a correção gramatical, a coesão textual e a profundidade técnica.`,
-        `Sua tarefa consiste em: ${t}. Transforme os requisitos em um documento ou resposta de valor estratégico para o Tribunal.`,
-        `Peço que realize: ${t}. O foco deve ser a entrega de um material que não demande retrabalho e que seja autoexplicativo.`,
-        `Desenvolva com maestria a tarefa de: ${t}. Garanta que cada parágrafo contribua para a resolução direta do problema apresentado.`
-      ];
+      const expandTask = `${t.charAt(0).toUpperCase() + t.slice(1)}${t.endsWith('.') ? '' : '.'} Certifique-se de que o resultado seja completo, bem estruturado e pronto para uso profissional, sem necessidade de reformulações significativas.`;
 
-      // 10 VARIAÇÕES PARA STYLE
-      const stylePhrases = [
-        `Adote como estilo de comunicação: ${s}. O tom deve ser profissional e a formatação deve facilitar a escaneabilidade do texto.`,
-        `Siga estas diretrizes de estilo: ${s}. Mantenha a sobriedade necessária ao Poder Judiciário, utilizando um vocabulário preciso.`,
-        `O formato e o tom desejados são: ${s}. A apresentação visual do conteúdo deve ser tão organizada quanto o próprio texto.`,
-        `Apresente a resposta em: ${s}. Garanta que a linguagem seja acessível, porém formal, respeitando a identidade do TRE-RN.`,
-        `Utilize a seguinte configuração de estilo: ${s}. Priorize a concisão onde for possível e o detalhamento onde for indispensável.`,
-        `A produção deve seguir este padrão: ${s}. Assegure consistência terminológica e um fluxo de leitura fluido e lógico.`,
-        `Quanto à forma e ao tom, aplique: ${s}. O objetivo é um material que transmita autoridade e segurança técnica.`,
-        `O conteúdo deve ser moldado conforme: ${s}. Evite ambiguidades e utilize uma estrutura que destaque as conclusões principais.`,
-        `Mantenha o estilo focado em: ${s}. A linguagem deve ser direta ao ponto, mas mantendo a polidez e a elegância administrativa.`,
-        `O estilo deve ser estritamente: ${s}. Siga as normas de redação oficial e garanta que o formato seja compatível com o solicitado.`
-      ];
+      const expandStyle = s
+        ? `Adote ${s.toLowerCase().startsWith('linguagem') || s.toLowerCase().startsWith('formato') || s.toLowerCase().startsWith('tom') ? '' : 'o seguinte estilo: '}${s}${s.endsWith('.') ? '' : '.'} Garanta consistência de tom e formatação ao longo de todo o documento.`
+        : '';
 
-      // 10 VARIAÇÕES PARA EXAMPLE
-      const examplePhrases = [
-        `Para sua orientação, utilize este modelo como referência: ${e}. Tente espelhar a estrutura e o nível de formalidade demonstrados.`,
-        `Baseie-se no seguinte exemplo para calibrar sua entrega: ${e}. O resultado final deve guardar semelhança técnica com este referencial.`,
-        `Considere este padrão como guia: ${e}. Siga a lógica de organização e o vocabulário empregados neste caso de sucesso.`,
-        `Utilize o seguinte referencial como parâmetro de qualidade: ${e}. O objetivo é replicar o sucesso e a estrutura deste exemplo.`,
-        `Como ponto de partida estrutural, veja este exemplo: ${e}. Adapte o conteúdo às nossas necessidades atuais, mantendo este nível de detalhe.`,
-        `Seu trabalho deve harmonizar-se com este exemplo: ${e}. Observe como as informações foram distribuídas e tente seguir caminho similar.`,
-        `Use a seguinte referência para nortear sua produção: ${e}. Este é o padrão de excelência que esperamos para esta tarefa.`,
-        `Siga a inspiração e o formato presentes em: ${e}. O exemplo serve para balizar o que consideramos uma resposta completa e ideal.`,
-        `Tome como base este caso real/modelo: ${e}. Ele exemplifica a profundidade e a clareza que o produto final deve apresentar.`,
-        `Mantenha a consistência com este padrão prévio: ${e}. Isso garante que a identidade institucional seja preservada no novo documento.`
-      ];
+      const expandExample = e
+        ? `${e.charAt(0).toUpperCase() + e.slice(1)}${e.endsWith('.') ? '' : '.'} Use esse referencial como guia de estrutura, vocabulário e nível de formalidade.`
+        : '';
 
-      // Montagem do prompt com escolhas aleatórias
+      // Montar o prompt final com marcações
       let prompt = '';
-      if (r) prompt += `[ROLE] ${getRandom(rolePhrases)}\n\n`;
-      if (c) prompt += `[CONTEXT] ${getRandom(contextPhrases)}\n\n`;
-      prompt += `[TASK] ${getRandom(taskPhrases)}`;
-      if (s) prompt += `\n\n[STYLE] ${getRandom(stylePhrases)}`;
-      if (e) prompt += `\n\n[EXAMPLE] ${getRandom(examplePhrases)}`;
+      if (expandRole) prompt += `[ROLE] ${expandRole}\n\n`;
+      if (expandContext) prompt += `[CONTEXT] ${expandContext}\n\n`;
+      prompt += `[TASK] ${expandTask}`;
+      if (expandStyle) prompt += `\n\n[STYLE] ${expandStyle}`;
+      if (expandExample) prompt += `\n\n[EXAMPLE] ${expandExample}`;
 
+      // Renderizar com cores
       const outputEl = document.getElementById('builder-output');
       outputEl.innerHTML = prompt
         .replace(/\[ROLE\]/g, '<span class="tag-marker tag-r">[ROLE]</span>')
@@ -278,19 +271,21 @@
         .replace(/\[STYLE\]/g, '<span class="tag-marker tag-s">[STYLE]</span>')
         .replace(/\[EXAMPLE\]/g, '<span class="tag-marker tag-e">[EXAMPLE]</span>');
 
+      // Armazenar texto puro para cópia
       outputEl.dataset.plaintext = prompt;
-      if(window.Utils) Utils.showToast('Prompt exclusivo gerado com sucesso!', 'success');
+
+      Utils.showToast('Prompt gerado com sucesso!', 'success');
     }
 
     function copyPrompt() {
       const outputEl = document.getElementById('builder-output');
-      const text = outputEl.dataset.plaintext;
-      if (!text) {
-        if(window.Utils) Utils.showToast('Gere um prompt primeiro!', 'warning');
+      const text = outputEl.dataset.plaintext || outputEl.textContent;
+      if (!outputEl.dataset.plaintext) {
+        Utils.showToast('Gere um prompt antes de copiar.', 'warning');
         return;
       }
-      navigator.clipboard.writeText(text).then(() => {
-        if(window.Utils) Utils.showToast('Copiado para a área de transferência!', 'success');
+      Utils.copyToClipboard(text).then(() => {
+        Utils.showToast('Prompt copiado para a área de transferência!', 'success');
       });
     }
 
@@ -299,7 +294,7 @@
         document.getElementById(id).value = '';
       });
       const outputEl = document.getElementById('builder-output');
-      outputEl.innerHTML = 'Aguardando preenchimento...';
+      outputEl.innerHTML = 'Preencha os campos acima e clique em "Gerar Prompt". O resultado aparecerá aqui, com o texto desenvolvido e as marcações RCTS+E.';
       delete outputEl.dataset.plaintext;
     }
   </script>
