@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 02 — NotebookLM Fundamentos | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    /* === Reutilizando o padrão visual da Oficina 01 === */
+    .progress-bar { position: sticky; top: var(--navbar-height); z-index: 50; background: var(--bg-lighter); border-bottom: 1px solid var(--border-light); padding: 10px var(--space-xl); display: flex; align-items: center; gap: var(--space-lg); }
+    .progress-label { font-size: 0.88rem; font-weight: 600; color: var(--text-muted); white-space: nowrap; }
+    .progress-track { flex: 1; height: 6px; background: rgba(200,164,92,0.1); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: linear-gradient(90deg, var(--dourado), var(--verde)); border-radius: 3px; transition: width 0.5s ease; width: 0%; }
+    .progress-pct { font-size: 0.88rem; font-weight: 700; color: var(--verde); min-width: 40px; text-align: right; }
+
+    .oficina-hero { padding: var(--space-3xl) 0 var(--space-2xl); border-bottom: 1px solid var(--border-light); }
+    .oficina-badge { display: inline-flex; align-items: center; gap: var(--space-sm); font-size: 0.9rem; font-weight: 700; color: var(--dourado); background: var(--dourado-dim); padding: 8px 18px; border-radius: var(--radius-full); border: 1px solid rgba(200,164,92,0.2); margin-bottom: var(--space-lg); }
+    .oficina-hero h1 { font-size: 2.8rem; margin-bottom: var(--space-md); }
+    .oficina-hero .oficina-desc { font-size: 1.18rem; line-height: 1.9; max-width: 850px; }
+    .oficina-meta { display: flex; flex-wrap: wrap; gap: var(--space-lg); margin-top: var(--space-xl); }
+    .oficina-meta-item { display: flex; align-items: center; gap: var(--space-sm); font-size: 0.98rem; color: var(--text-muted); }
+    .oficina-meta-item strong { color: var(--text); }
+
+    .etapa { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
+    .etapa:last-of-type { border-bottom: none; }
+    .etapa-header { display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-xl); }
+    .etapa-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 1.5rem; font-weight: 800; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); }
+    .etapa-header h2 { font-size: 1.8rem; margin: 0; }
+    .etapa-header .etapa-sub { font-size: 1rem; color: var(--text-muted); margin-top: 4px; }
+
+    .etapa-body p { font-size: 1.18rem; line-height: 1.95; margin-bottom: var(--space-md); }
+    .etapa-body h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--dourado); font-size: 1.35rem; }
+    .etapa-body ul, .etapa-body ol { margin: var(--space-md) 0; padding-left: var(--space-lg); }
+    .etapa-body li { font-size: 1.12rem; line-height: 1.9; color: var(--text-secondary); margin-bottom: var(--space-sm); }
+    .etapa-body li strong { color: var(--text); }
+
+    .prompt-box { position: relative; margin: var(--space-lg) 0; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+    .prompt-box-label { display: flex; align-items: center; justify-content: space-between; padding: 10px 18px; background: rgba(200,164,92,0.08); border-bottom: 1px solid var(--border-light); font-size: 0.88rem; font-weight: 700; color: var(--dourado); text-transform: uppercase; letter-spacing: 0.06em; }
+    .prompt-box-label .copy-btn { padding: 5px 14px; border-radius: 6px; font-size: 0.85rem; font-weight: 600; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); cursor: pointer; transition: all var(--transition-base); }
+    .prompt-box-label .copy-btn:hover { background: rgba(200,164,92,0.25); }
+    .prompt-box-content { padding: var(--space-lg) var(--space-xl); font-family: 'Courier New', Courier, monospace; font-size: 1.02rem; line-height: 1.8; color: var(--text-secondary); white-space: pre-wrap; outline: none; }
+
+    .tool-instruction { display: flex; align-items: flex-start; gap: var(--space-md); padding: var(--space-md); background: var(--bg-elevated); border: 1px solid var(--border-light); border-radius: var(--radius-md); margin: var(--space-md) 0; }
+    .tool-instruction .tool-icon { font-size: 1.6rem; }
+    .tool-instruction .tool-name { font-weight: 700; color: var(--text); font-size: 1.08rem; }
+    .tool-instruction .tool-name a { color: inherit; text-decoration: none; border-bottom: 1px dashed var(--dourado); transition: all var(--transition-base); }
+    .tool-instruction .tool-name a:hover { color: var(--dourado); border-bottom-style: solid; }
+    .tool-instruction .tool-hint { font-size: 0.95rem; color: var(--text-muted); }
+
+    .reflexao { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; backdrop-filter: blur(12px); }
+    .reflexao-title { font-weight: 700; color: var(--dourado); font-size: 1.1rem; margin-bottom: var(--space-md); }
+    .reflexao-options { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+    .reflexao-opt { padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.98rem; font-weight: 600; background: var(--bg-card); color: var(--text-secondary); border: 1px solid var(--border); cursor: pointer; transition: all var(--transition-base); }
+    .reflexao-opt:hover { border-color: var(--border-hover); color: var(--dourado); }
+    .reflexao-opt.selected { background: var(--dourado-dim); color: var(--dourado); border-color: rgba(200,164,92,0.3); }
+    .reflexao-feedback { margin-top: var(--space-md); padding: var(--space-lg); background: rgba(76,175,130,0.08); border: 1px solid rgba(76,175,130,0.15); border-radius: var(--radius-md); display: none; font-size: 1.05rem; line-height: 1.8; }
+    .reflexao-feedback.visible { display: block; }
+
+    .feedback-banner { background: var(--verde-light); border: 1px solid rgba(76,175,130,0.2); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-xl) 0; text-align: center; display: none; }
+    .feedback-banner.visible { display: block; }
+    .feedback-banner .fb-icon { font-size: 2.2rem; margin-bottom: var(--space-sm); }
+    .feedback-banner h4 { font-family: var(--font-body); font-size: 1.2rem; font-weight: 700; color: var(--verde); margin-bottom: var(--space-sm); }
+    .feedback-banner p { font-size: 1.08rem; max-width: 650px; margin: 0 auto; }
+
+    /* Material de apoio */
+    .material-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-md); margin: var(--space-xl) 0; }
+    .material-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); backdrop-filter: blur(12px); display: flex; align-items: flex-start; gap: var(--space-md); }
+    .material-card .mat-icon { font-size: 2rem; flex-shrink: 0; }
+    .material-card h4 { font-family: var(--font-body); font-size: 1.02rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .material-card p { font-size: 0.92rem; margin-bottom: var(--space-sm); }
+    .material-card a.mat-link { font-size: 0.88rem; font-weight: 600; }
+
+    /* Studio feature cards */
+    .studio-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: var(--space-md); margin: var(--space-lg) 0; }
+    .studio-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); }
+    .studio-card .studio-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+    .studio-card h4 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
+    .studio-card p { font-size: 0.95rem; }
+
+    /* Estilo tags */
+    .style-tags { display: flex; flex-wrap: wrap; gap: var(--space-xs); margin: var(--space-sm) 0; }
+    .style-tag { padding: 4px 10px; border-radius: 4px; font-size: 0.82rem; font-weight: 600; background: var(--azul-accent-light); color: #6BA3E8; border: 1px solid rgba(46,92,154,0.15); }
+
+    @media (max-width: 768px) {
+      .etapa-header { flex-direction: column; gap: var(--space-sm); }
+      .material-grid { grid-template-columns: 1fr; }
+      .studio-grid { grid-template-columns: 1fr; }
+      .oficina-hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <!-- Barra de progresso -->
+  <div class="progress-bar">
+    <span class="progress-label">Progresso</span>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <span class="progress-pct" id="progressPct">0%</span>
+  </div>
+
+  <main class="page-content" style="padding-top: calc(var(--navbar-height) + 42px);">
+    <div class="container">
+
+      <!-- ===================== HERO ===================== -->
+      <div class="oficina-hero">
+        <div class="oficina-badge">📓 Oficina 02 de 08</div>
+        <h1>NotebookLM — Fundamentos</h1>
+        <p class="oficina-desc">Explore o NotebookLM do Google para analisar documentos estratégicos do TRE-RN. Você vai criar um caderno de estudos inteligente, conversar com seus documentos, e descobrir recursos surpreendentes do Estúdio — desde podcasts automáticos até mapas mentais e apresentações de slides.</p>
+
+        <div class="oficina-meta">
+          <div class="oficina-meta-item">⏱️ <strong>Duração estimada:</strong> 60–90 min</div>
+          <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Iniciante a Intermediário</div>
+          <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Conta Google (Gmail)</div>
+        </div>
+      </div>
+
+      <!-- ===================== OBJETIVOS ===================== -->
+      <div class="etapa" id="objetivos">
+        <div class="etapa-header">
+          <div class="etapa-num">📌</div>
+          <div><h2>Objetivos desta Oficina</h2></div>
+        </div>
+        <div class="etapa-body">
+          <p>Nesta oficina, os servidores terão contato prático com o uso da IA na gestão estratégica. Com o NotebookLM, você vai explorar documentos-chave do TRE-RN (Plano e Mapa Estratégico, Glossário de Indicadores e Resolução CNJ nº 325/2020) para compreender a estratégia institucional.</p>
+          <ul>
+            <li>Compreender a estrutura e os pilares do PEJERN 2021–2026</li>
+            <li>Identificar como os indicadores de desempenho se relacionam aos macrodesafios do CNJ</li>
+            <li>Aprender a criar prompts estratégicos para análises institucionais</li>
+            <li>Desenvolver pensamento analítico e uso crítico da IA em contexto público</li>
+            <li>Aplicar a IA como apoio à elaboração de relatórios e propostas de melhoria</li>
+            <li>Dominar as funcionalidades do Estúdio do NotebookLM (áudio, vídeo, mapas mentais, relatórios, testes e mais)</li>
+          </ul>
+
+          <h3>📦 Material de Apoio</h3>
+          <p>Baixe os arquivos abaixo. Você vai carregá-los no NotebookLM durante a oficina.</p>
+
+          <div class="material-grid">
+            <div class="material-card">
+              <div class="mat-icon">📄</div>
+              <div>
+                <h4>Resolução TRE-RN nº 49/2021</h4>
+                <p>Institui o PEJERN 2021–2026</p>
+                <a href="../materiais/resolucao-tre-rn-49-2021.pdf" download class="mat-link">⬇ Baixar PDF</a>
+              </div>
+            </div>
+            <div class="material-card">
+              <div class="mat-icon">📄</div>
+              <div>
+                <h4>Anexo I — PEJERN 2021–2026</h4>
+                <p>Objetivos, iniciativas e indicadores</p>
+                <a href="../materiais/pejern-2021-2026-anexo-i.pdf" download class="mat-link">⬇ Baixar PDF</a>
+              </div>
+            </div>
+            <div class="material-card">
+              <div class="mat-icon">📄</div>
+              <div>
+                <h4>Anexo II — Glossário de Indicadores</h4>
+                <p>Definições e fórmulas de cálculo</p>
+                <a href="../materiais/pejern-2021-2026-anexo-ii-glossario.pdf" download class="mat-link">⬇ Baixar PDF</a>
+              </div>
+            </div>
+            <div class="material-card">
+              <div class="mat-icon">📄</div>
+              <div>
+                <h4>Mapa Estratégico 2021–2026</h4>
+                <p>Visão gráfica da estratégia do TRE-RN</p>
+                <a href="../materiais/mapa-estrategico-tre-rn-2021-2026.pdf" download class="mat-link">⬇ Baixar PDF</a>
+              </div>
+            </div>
+            <div class="material-card">
+              <div class="mat-icon">🌐</div>
+              <div>
+                <h4>Resolução CNJ nº 325/2020</h4>
+                <p>Estratégia Nacional do Poder Judiciário</p>
+                <a href="https://atos.cnj.jus.br/atos/detalhar/3365" target="_blank" class="mat-link">🔗 Abrir na web ↗</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== ETAPA 1 — CRIAR O CADERNO ===================== -->
+      <div class="etapa" id="etapa1" data-step="1">
+        <div class="etapa-header">
+          <div class="etapa-num">01</div>
+          <div>
+            <h2>Criar o Caderno e Adicionar Fontes</h2>
+            <div class="etapa-sub">Montando sua base de conhecimento</div>
+          </div>
+        </div>
+        <div class="etapa-body">
+          <div class="tool-instruction">
+            <div class="tool-icon">1️⃣</div>
+            <div>
+              <div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></div>
+              <div class="tool-hint">Faça login com sua conta Google</div>
+            </div>
+          </div>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">2️⃣</div>
+            <div>
+              <div class="tool-name">Crie um novo caderno</div>
+              <div class="tool-hint">Clique em <strong>"Criar"</strong> e nomeie como <strong>"PEJERN 2021-2026 — TRE-RN"</strong></div>
+            </div>
+          </div>
+
+          <h3>Adicionando fontes manualmente (upload de PDFs)</h3>
+          <div class="tool-instruction">
+            <div class="tool-icon">3️⃣</div>
+            <div>
+              <div class="tool-name">Clique em "Adicionar fonte" (ícone ➕ no painel esquerdo)</div>
+              <div class="tool-hint">Selecione <strong>"Fazer upload"</strong> e carregue os 4 arquivos PDF que você baixou na seção Material de Apoio</div>
+            </div>
+          </div>
+
+          <h3>Adicionando fonte da web</h3>
+          <div class="tool-instruction">
+            <div class="tool-icon">4️⃣</div>
+            <div>
+              <div class="tool-name">Clique em "Adicionar fonte" novamente</div>
+              <div class="tool-hint">Desta vez, selecione <strong>"Site"</strong> e cole o link da Resolução CNJ nº 325: <code>https://atos.cnj.jus.br/atos/detalhar/3365</code></div>
+            </div>
+          </div>
+
+          <h3>Renomeando as fontes</h3>
+          <div class="tool-instruction">
+            <div class="tool-icon">5️⃣</div>
+            <div>
+              <div class="tool-name">Renomeie cada fonte para facilitar a identificação</div>
+              <div class="tool-hint">Clique nos <strong>três pontinhos</strong> (⋮) ao lado de cada fonte e selecione <strong>"Renomear"</strong>. Sugestões: "Resolução 49/2021", "Objetivos e Indicadores", "Glossário", "Mapa Estratégico", "Resolução CNJ 325"</div>
+            </div>
+          </div>
+
+          <div class="feedback-banner" id="fb1">
+            <div class="fb-icon">📚</div>
+            <h4>Caderno montado! Agora a IA conhece o planejamento do TRE-RN.</h4>
+            <p>Você acabou de criar uma base de conhecimento inteligente. Tudo que você perguntar daqui para frente será respondido com base nesses documentos — e só neles. Isso é o poder do NotebookLM: respostas fundamentadas, sem alucinação.</p>
+          </div>
+
+          <div class="reflexao" id="reflexao1">
+            <div class="reflexao-title">🤔 Você conseguiu carregar todas as 5 fontes?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb1', 1)">Sim, todas carregadas!</button>
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb1', 1)">Tive dificuldade com alguma</button>
+            </div>
+            <div class="reflexao-feedback" id="ref-fb1">Se alguma fonte não carregou, verifique se o PDF não está protegido por senha e se o link da web está acessível. O NotebookLM aceita até 50 fontes por caderno — você está bem longe do limite!</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== ETAPA 2 — CONVERSAS ===================== -->
+      <div class="etapa" id="etapa2" data-step="2">
+        <div class="etapa-header">
+          <div class="etapa-num">02</div>
+          <div>
+            <h2>Conversando com seus Documentos</h2>
+            <div class="etapa-sub">Fazendo perguntas inteligentes ao caderno</div>
+          </div>
+        </div>
+        <div class="etapa-body">
+          <p>Agora vem a parte mágica: você pode fazer perguntas sobre o conteúdo dos documentos que carregou. A IA do NotebookLM responderá exclusivamente com base nessas fontes, indicando de onde tirou cada informação.</p>
+
+          <p>Na área <strong>"Conversas"</strong> (painel central), digite os prompts abaixo, um por vez. Observe como a IA referencia trechos dos documentos.</p>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Prompt 1 — Visão geral</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Quais são os principais pilares e macrodesafios do Planejamento Estratégico do TRE-RN 2021-2026? Apresente em formato de tabela com duas colunas: pilar e respectivos macrodesafios.</div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Prompt 2 — Indicadores</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Quais indicadores de desempenho estão associados ao macrodesafio "Aperfeiçoamento da Gestão Administrativa e da Governança Judiciária"? Para cada indicador, informe a fórmula de cálculo e a meta prevista.</div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Prompt 3 — Análise cruzada</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Compare os objetivos estratégicos do PEJERN 2021-2026 com as diretrizes da Resolução CNJ nº 325/2020. Existem objetivos locais do TRE-RN que vão além do que o CNJ determina? Quais são?</div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Prompt 4 — Diagnóstico</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Analise o mapa estratégico do TRE-RN e identifique quais perspectivas (sociedade, processos internos, aprendizado e crescimento, recursos) possuem mais objetivos vinculados. O que isso revela sobre as prioridades do Tribunal?</div>
+          </div>
+
+          <h3>Salvando respostas importantes</h3>
+          <div class="tool-instruction">
+            <div class="tool-icon">💾</div>
+            <div>
+              <div class="tool-name">Salve as respostas mais úteis nas Observações</div>
+              <div class="tool-hint">Após receber a resposta da IA, clique em <strong>"Salvar nas observações"</strong> (ícone de pin/nota). Essas notas ficam salvas no painel de Observações do caderno para consulta futura.</div>
+            </div>
+          </div>
+
+          <div class="callout callout-success">
+            <div class="callout-title">💡 Dica profissional</div>
+            <p>Salve pelo menos as respostas dos prompts 1 e 2 nas observações. Elas serão úteis nas próximas etapas quando explorarmos o Estúdio.</p>
+          </div>
+
+          <div class="feedback-banner" id="fb2">
+            <div class="fb-icon">💬</div>
+            <h4>Você acabou de "entrevistar" o Planejamento Estratégico do TRE-RN.</h4>
+            <p>Em poucos minutos, a IA cruzou informações de 5 documentos que levariam horas para analisar manualmente. E o melhor: cada resposta aponta a fonte. Isso é análise documental com esteroides.</p>
+          </div>
+
+          <div class="reflexao" id="reflexao2">
+            <div class="reflexao-title">🤔 As respostas da IA trouxeram referências aos documentos-fonte?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb2', 2)">Sim, com números de citação</button>
+              <button class="reflexao-opt" onclick="selectReflexao(this, 'ref-fb2', 2)">Não percebi citações</button>
+            </div>
+            <div class="reflexao-feedback" id="ref-fb2">Esse é o grande diferencial do NotebookLM! Cada afirmação vem acompanhada de números entre colchetes (ex: [1], [2]) que apontam para trechos específicos dos documentos carregados. Clique nesses números para ver exatamente de onde a informação foi extraída. Isso elimina o risco de alucinação — diferente do ChatGPT ou Gemini em modo livre.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== ETAPA 3 — ESTÚDIO ===================== -->
+      <div class="etapa" id="etapa3" data-step="3">
+        <div class="etapa-header">
+          <div class="etapa-num">03</div>
+          <div>
+            <h2>Explorando o Estúdio</h2>
+            <div class="etapa-sub">O superpoder do NotebookLM que pouca gente conhece</div>
+          </div>
+        </div>
+        <div class="etapa-body">
+          <p>O <strong>Estúdio</strong> é a área mais poderosa do NotebookLM. Ele transforma seus documentos em diferentes formatos de conteúdo — áudio, vídeo, mapas mentais, relatórios, testes e muito mais. Acesse clicando em <strong>"Estúdio"</strong> no painel direito do caderno.</p>
+
+          <p>Vamos explorar cada funcionalidade, uma a uma. Marque o feedback após testar cada recurso.</p>
+
+          <!-- === 3a — RESUMO EM ÁUDIO === -->
+          <h3>🎙️ Resumo em Áudio</h3>
+          <p>O NotebookLM pode gerar um áudio (no estilo podcast) a partir dos documentos do caderno. Funciona incrivelmente bem para estudar conteúdos enquanto caminha, dirige ou faz tarefas rotineiras.</p>
+
+          <p><strong>Formatos disponíveis:</strong></p>
+          <ul>
+            <li><strong>Análise detalhada:</strong> Cobertura completa e aprofundada do material. Ideal para estudo sério.</li>
+            <li><strong>Resumo:</strong> Versão condensada dos pontos principais. Bom para revisão rápida.</li>
+            <li><strong>Crítica:</strong> Análise com pontos fortes e fracos do conteúdo. Ideal para preparar argumentos.</li>
+            <li><strong>Debate:</strong> Apresentação de perspectivas opostas sobre o tema. Excelente para desenvolver pensamento crítico.</li>
+          </ul>
+
+          <p>Você também pode configurar o <strong>idioma</strong> (português, inglês, etc.) e a <strong>duração</strong> (curto ou padrão). A área de texto permite especificar instruções personalizadas para o áudio.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere um Resumo em Áudio</div>
+              <div class="tool-hint">No Estúdio, clique em <strong>"Resumo em Áudio"</strong>. Selecione o formato <strong>"Resumo"</strong>, idioma <strong>"Português"</strong> e duração <strong>"Curto"</strong>. No campo de personalização, digite:</div>
+            </div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Personalização do áudio</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Foque nos objetivos estratégicos relacionados à inovação tecnológica e à transformação digital do TRE-RN. Destaque como esses objetivos se conectam com as diretrizes do CNJ. O público-alvo são servidores da área de TI.</div>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">⏳ Atenção</div>
+            <p>A geração do áudio leva alguns minutos. Aguarde a conclusão e depois ouça o resultado.</p>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🎙️ Testou o Resumo em Áudio?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-audio')">Testei e gostei!</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-audio')">Testei, mas esperava mais</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-audio')">Ainda gerando...</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-audio">Planejamento estratégico virou podcast. Seus colegas vão achar que você contratou um produtor de conteúdo. Se o resultado não ficou perfeito, tente ajustar a personalização — quanto mais específico o foco, melhor o áudio. E se ainda está gerando: paciência é uma virtude que a IA ainda não aprendeu a ter por você.</div>
+          </div>
+
+          <!-- === 3b — RESUMO EM VÍDEO === -->
+          <h3>🎬 Resumo em Vídeo</h3>
+          <p>O NotebookLM gera vídeos explicativos automaticamente, utilizando o modelo <strong>NanoBanana</strong> do Google para criar as imagens ilustrativas — um diferencial que torna os vídeos visualmente ricos e profissionais sem necessidade de qualquer habilidade em design.</p>
+
+          <p><strong>Formatos:</strong></p>
+          <ul>
+            <li><strong>Vídeo explicativo:</strong> Narração detalhada com ilustrações — ideal para apresentações ou capacitações.</li>
+            <li><strong>Resumo:</strong> Versão condensada e visual — ideal para compartilhar insights rápidos.</li>
+          </ul>
+
+          <p><strong>Estilos visuais:</strong></p>
+          <div class="style-tags">
+            <span class="style-tag">Clássico</span>
+            <span class="style-tag">Quadro Branco</span>
+            <span class="style-tag">Kawaii</span>
+            <span class="style-tag">Anime</span>
+            <span class="style-tag">Aquarela</span>
+            <span class="style-tag">Impressão retrô</span>
+            <span class="style-tag">Retrô</span>
+            <span class="style-tag">Dobradura</span>
+            <span class="style-tag">Personalizado</span>
+          </div>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere um Resumo em Vídeo</div>
+              <div class="tool-hint">Selecione formato <strong>"Vídeo explicativo"</strong> e estilo <strong>"Clássico"</strong> (ou experimente <strong>"Aquarela"</strong> para um visual diferente). Na personalização, foque em um aspecto do plano estratégico.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🎬 Testou o Resumo em Vídeo?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-video')">Impressionante!</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-video')">Razoável</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-video')">Não funcionou</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-video">Um vídeo explicativo gerado por IA a partir de PDFs burocráticos. Pense nisso por um segundo. O NanoBanana do Google cria as ilustrações do zero — você não precisou abrir o Canva, PowerPoint, nem contratar ninguém. Se o resultado ficou "razoável", experimente outro estilo visual. O "Aquarela" costuma surpreender.</div>
+          </div>
+
+          <!-- === 3c — MAPA MENTAL === -->
+          <h3>🧠 Mapa Mental</h3>
+          <p>Gera automaticamente um mapa mental visual conectando os conceitos dos documentos. Excelente para compreender relações entre objetivos estratégicos, indicadores e macrodesafios.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere um Mapa Mental</div>
+              <div class="tool-hint">No Estúdio, clique em <strong>"Mapa mental"</strong>. Ele será gerado automaticamente com os principais conceitos dos documentos carregados.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🧠 Testou o Mapa Mental?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-mapa')">Ficou bem organizado</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-mapa')">Poluído demais</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-mapa">Mapas mentais gerados por IA são como resumos visuais instantâneos — não substituem o mapa que você faria à mão, mas adiantam 80% do trabalho. Se ficou poluído, lembre-se: você pode selecionar apenas 1 ou 2 fontes antes de gerar, em vez de usar todas. Menos fontes = mapa mais focado.</div>
+          </div>
+
+          <!-- === 3d — RELATÓRIOS === -->
+          <h3>📝 Relatórios</h3>
+          <p>O NotebookLM oferece modelos pré-formatados para gerar documentos completos:</p>
+          <ul>
+            <li><strong>Crie do zero:</strong> Relatório livre, você define o tema e a estrutura.</li>
+            <li><strong>Documento de resumo:</strong> Síntese estruturada dos documentos — ideal para briefings gerenciais.</li>
+            <li><strong>Guia de estudo:</strong> Material didático organizado por tópicos — perfeito para capacitações.</li>
+            <li><strong>Post de blog:</strong> Formato de artigo para divulgação — útil para comunicação interna.</li>
+          </ul>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere um Documento de Resumo</div>
+              <div class="tool-hint">Selecione <strong>"Documento de resumo"</strong>. O resultado será uma síntese executiva do planejamento estratégico do TRE-RN.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📝 Testou os Relatórios?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-relatorio')">Usável como está</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-relatorio')">Bom rascunho inicial</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-relatorio')">Precisaria de muita edição</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-relatorio">Se a resposta foi "bom rascunho", parabéns — você entendeu perfeitamente o papel da IA. Ninguém deveria pegar um relatório gerado e assinar embaixo sem ler. Mas ter 80% do trabalho pronto em 30 segundos? Isso é produtividade real. O "Guia de estudo" é ouro para quem precisa preparar material de capacitação.</div>
+          </div>
+
+          <!-- === 3e — CARTÕES DE ESTUDO === -->
+          <h3>🃏 Cartões de Estudo</h3>
+          <p>Flashcards gerados automaticamente a partir do conteúdo. Você configura o <strong>número de cards</strong>, o <strong>nível de dificuldade</strong> (fácil, médio, difícil) e pode personalizar via prompt — por exemplo, focando apenas em indicadores ou em um macrodesafio específico.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere Cartões de Estudo</div>
+              <div class="tool-hint">Selecione <strong>10 cartões</strong>, nível <strong>"Médio"</strong>. Na personalização, digite: <em>"Foque nos indicadores de desempenho e suas fórmulas de cálculo"</em>.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">🃏 Testou os Cartões de Estudo?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-cards')">Ótimos para revisão</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-cards')">Perguntas muito fáceis</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-cards')">Perguntas muito difíceis</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-cards">Flashcards de planejamento estratégico gerados automaticamente. Seu "eu" de 5 anos atrás não acreditaria. Se ficaram fáceis ou difíceis demais, ajuste o nível de dificuldade ou refine a personalização. Dica: peça "perguntas que exijam relacionar indicadores com objetivos estratégicos" para um desafio melhor.</div>
+          </div>
+
+          <!-- === 3f — TESTES === -->
+          <h3>📋 Testes</h3>
+          <p>Gera questionários de múltipla escolha ou discursivos sobre o conteúdo. Configure o <strong>número de questões</strong>, <strong>nível de dificuldade</strong> e personalize via prompt.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere um Teste</div>
+              <div class="tool-hint">Selecione <strong>5 questões</strong>, nível <strong>"Médio"</strong>. Personalize: <em>"Questões sobre a relação entre os macrodesafios do CNJ e os objetivos do TRE-RN"</em>.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📋 Testou os Testes?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-testes')">Acertei tudo 😎</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-testes')">Errei algumas...</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-testes')">Só gerei, não respondi</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-testes">Se acertou tudo, você é um mestre do planejamento estratégico (ou leu a cola antes). Se errou, ótimo — agora você sabe o que precisa estudar. Se só gerou e não respondeu: volte lá e tente! O valor do teste está justamente em testar-se. A IA já fez a parte difícil.</div>
+          </div>
+
+          <!-- === 3g — INFOGRÁFICO === -->
+          <h3>📊 Infográfico</h3>
+          <p>Cria uma representação visual e compacta dos dados e conceitos do caderno. Ideal para comunicação interna, murais e apresentações rápidas.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere um Infográfico</div>
+              <div class="tool-hint">Clique em <strong>"Infográfico"</strong> e aguarde a geração. Observe como ele organiza visualmente as informações do planejamento estratégico.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📊 Testou o Infográfico?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-infografico')">Visual muito bom</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-infografico')">Útil mas simples</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-infografico">Infográfico gerado em segundos, direto dos documentos do planejamento estratégico. Perfeito para colar na parede da sala, mandar no grupo do WhatsApp da equipe, ou incluir num relatório de gestão. Não é trabalho de designer? Não. Mas é 100x melhor do que não ter nenhum infográfico.</div>
+          </div>
+
+          <!-- === 3h — APRESENTAÇÃO DE SLIDES === -->
+          <h3>📽️ Apresentação de Slides</h3>
+          <p>Gera apresentações completas em dois formatos:</p>
+          <ul>
+            <li><strong>Apresentação detalhada:</strong> Slides completos com conteúdo expandido — prontos para uso em reuniões e capacitações.</li>
+            <li><strong>Slides do apresentador:</strong> Slides mais enxutos com notas do apresentador — para quem prefere improvisar com apoio de tópicos.</li>
+          </ul>
+          <p>Você pode alterar o <strong>idioma</strong>, definir a <strong>duração</strong> estimada e personalizar o foco via prompt.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere uma Apresentação Detalhada</div>
+              <div class="tool-hint">Selecione <strong>"Apresentação detalhada"</strong>, idioma <strong>"Português"</strong>. Na personalização, foque em um tema: <em>"Apresente os objetivos de inovação tecnológica do PEJERN para uma reunião com gestores"</em>.</div>
+            </div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📽️ Testou a Apresentação de Slides?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-slides')">Pronta para reunião!</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-slides')">Precisa de ajustes</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-slides">Apresentação sobre planejamento estratégico gerada em menos tempo do que você levaria para abrir o PowerPoint e escolher o template. Se precisa de ajustes, excelente — significa que você vai melhorar algo que já existe em vez de começar do zero. Esse é o verdadeiro ganho de produtividade.</div>
+          </div>
+
+          <!-- === 3i — TABELA DE DADOS === -->
+          <h3>📈 Tabela de Dados</h3>
+          <p>Extrai e organiza dados dos documentos em formato tabular. Especialmente útil para consolidar indicadores, metas e resultados em uma visão comparativa.</p>
+
+          <div class="tool-instruction">
+            <div class="tool-icon">▶️</div>
+            <div>
+              <div class="tool-name">Gere uma Tabela de Dados</div>
+              <div class="tool-hint">Clique em <strong>"Tabela de dados"</strong> e use o prompt abaixo para direcionar a extração:</div>
+            </div>
+          </div>
+
+          <div class="prompt-box">
+            <div class="prompt-box-label">
+              <span>Prompt — Tabela de Dados</span>
+              <button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button>
+            </div>
+            <div class="prompt-box-content" contenteditable="true">Crie uma tabela com os seguintes campos: Perspectiva Estratégica, Objetivo Estratégico, Indicador Associado, Fórmula de Cálculo e Meta. Organize por perspectiva (Sociedade, Processos Internos, Aprendizado e Crescimento, Recursos).</div>
+          </div>
+
+          <div class="reflexao">
+            <div class="reflexao-title">📈 Testou a Tabela de Dados?</div>
+            <div class="reflexao-options">
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-tabela')">Dados bem extraídos</button>
+              <button class="reflexao-opt" onclick="checkStep(this, 'fb-tabela')">Faltaram informações</button>
+            </div>
+            <div class="reflexao-feedback" id="fb-tabela">Extrair dados estruturados de PDFs é uma das tarefas mais chatas da administração pública — e você acabou de terceirizar isso para a IA. Se faltaram dados, provavelmente o PDF fonte tem formatação que dificulta a extração. Tente reformular o prompt sendo mais específico sobre quais campos buscar.</div>
+          </div>
+
+          <!-- === FEEDBACK FINAL DO ESTÚDIO === -->
+          <div class="feedback-banner" id="fb-studio-final">
+            <div class="fb-icon">🏆</div>
+            <h4>Estúdio dominado. Você é praticamente um produtor de conteúdo agora.</h4>
+            <p>Podcast, vídeo, mapa mental, relatório, flashcards, teste, infográfico, slides e tabela — tudo gerado a partir de PDFs que estavam juntando poeira digital. Se alguém te disser que IA generativa é "só chatbot", envie o link desta oficina.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===================== CONCLUSÃO ===================== -->
+      <div class="etapa" id="conclusao" data-step="4">
+        <div class="etapa-header">
+          <div class="etapa-num">✅</div>
+          <div><h2>Resumo e Próximos Passos</h2></div>
+        </div>
+        <div class="etapa-body">
+          <h3>O que você aprendeu nesta oficina:</h3>
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Funcionalidade</th><th>O que faz</th><th>Melhor uso no TRE-RN</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Fontes (upload + web)</strong></td><td>Carrega documentos como base de conhecimento</td><td>Resoluções, normas, relatórios</td></tr>
+                <tr><td><strong>Conversas</strong></td><td>Perguntas com respostas citando fontes</td><td>Pesquisa e análise documental</td></tr>
+                <tr><td><strong>Observações</strong></td><td>Salva insights para consulta futura</td><td>Construir bases de referência</td></tr>
+                <tr><td><strong>Resumo em Áudio</strong></td><td>Gera podcast a partir dos documentos</td><td>Capacitação e estudo em trânsito</td></tr>
+                <tr><td><strong>Resumo em Vídeo</strong></td><td>Vídeo explicativo com imagens (NanoBanana)</td><td>Apresentações e divulgação</td></tr>
+                <tr><td><strong>Mapa Mental</strong></td><td>Mapa visual de conceitos</td><td>Compreender relações estratégicas</td></tr>
+                <tr><td><strong>Relatórios</strong></td><td>Documentos formatados automaticamente</td><td>Briefings, guias de estudo</td></tr>
+                <tr><td><strong>Cartões / Testes</strong></td><td>Material de estudo e avaliação</td><td>Capacitação e revisão</td></tr>
+                <tr><td><strong>Infográfico</strong></td><td>Visualização compacta de dados</td><td>Comunicação interna, murais</td></tr>
+                <tr><td><strong>Slides</strong></td><td>Apresentações completas</td><td>Reuniões gerenciais</td></tr>
+                <tr><td><strong>Tabela de Dados</strong></td><td>Extração tabular estruturada</td><td>Consolidação de indicadores</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info" style="margin-top: var(--space-xl);">
+            <div class="callout-title">🚀 Próxima oficina</div>
+            <p>Na <strong>Oficina 03 — NotebookLM e Áudios</strong>, você vai aprofundar o uso do Audio Overview para transformar gravações de eventos, reuniões e palestras do TRE-RN em relatórios estruturados.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Navegação -->
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl);">
+        <a href="./oficina-01-primeiro-contato.html" class="btn btn-secondary btn-sm">← Oficina 01</a>
+        <a href="./oficina-03-notebooklm-audios.html" class="btn btn-primary btn-sm">Oficina 03 →</a>
+      </div>
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+
+  <script>
+    function copyPrompt(btn) {
+      const body = btn.closest('.prompt-box').querySelector('.prompt-box-content');
+      const text = body.textContent || body.innerText;
+      Utils.copyToClipboard(text).then(() => {
+        btn.textContent = '✅ Copiado!';
+        setTimeout(() => { btn.textContent = '📋 Copiar'; }, 2000);
+      });
+    }
+
+    // Etapas 1 e 2 (caderno + conversas)
+    function selectReflexao(btn, feedbackId, step) {
+      const container = btn.closest('.reflexao');
+      container.querySelectorAll('.reflexao-opt').forEach(o => o.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById(feedbackId).classList.add('visible');
+      const fb = document.getElementById('fb' + step);
+      if (fb) fb.classList.add('visible');
+      updateProgress();
+    }
+
+    // Etapa 3 — checkpoints individuais do Estúdio
+    function checkStep(btn, feedbackId) {
+      const container = btn.closest('.reflexao');
+      container.querySelectorAll('.reflexao-opt').forEach(o => o.classList.remove('selected'));
+      btn.classList.add('selected');
+      document.getElementById(feedbackId).classList.add('visible');
+
+      // Verificar se todos os 9 itens do Estúdio foram marcados
+      const studioItems = ['fb-audio','fb-video','fb-mapa','fb-relatorio','fb-cards','fb-testes','fb-infografico','fb-slides','fb-tabela'];
+      const studioCompleted = studioItems.filter(id => document.getElementById(id).classList.contains('visible')).length;
+      if (studioCompleted === studioItems.length) {
+        document.getElementById('fb-studio-final').classList.add('visible');
+      }
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      // 11 checkpoints: etapa1 + etapa2 + 9 itens do estúdio
+      const totalSteps = 11;
+      let completed = 0;
+
+      // Etapas 1 e 2
+      if (document.getElementById('fb1') && document.getElementById('fb1').classList.contains('visible')) completed++;
+      if (document.getElementById('fb2') && document.getElementById('fb2').classList.contains('visible')) completed++;
+
+      // 9 itens do estúdio
+      const studioItems = ['fb-audio','fb-video','fb-mapa','fb-relatorio','fb-cards','fb-testes','fb-infografico','fb-slides','fb-tabela'];
+      studioItems.forEach(id => {
+        if (document.getElementById(id).classList.contains('visible')) completed++;
+      });
+
+      const pct = Math.round((completed / totalSteps) * 100);
+      document.getElementById('progressFill').style.width = pct + '%';
+      document.getElementById('progressPct').textContent = pct + '%';
+    }
+  </script>
+</body>
+</html>
