@@ -72,8 +72,8 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.7;
+  font-size: 19px;
+  line-height: 1.75;
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
@@ -101,7 +101,7 @@ h2 { font-size: 2.6rem; }
 h3 { font-size: 1.8rem; }
 h4 { font-size: 1.5rem; }
 
-p { color: var(--text-secondary); line-height: 1.8; }
+p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
 
 .text-gold { color: var(--dourado); }
 .text-light { color: var(--text); }

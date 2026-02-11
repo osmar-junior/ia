@@ -9,218 +9,228 @@
   <link rel="stylesheet" href="../css/responsive.css">
   <style>
     body { background: var(--bg); }
-    .checklist-page { padding: var(--space-3xl) var(--space-xl); max-width: 900px; margin: 0 auto; }
-    .checklist-page h1 { font-size: 2.2rem; margin-bottom: var(--space-md); }
-    .checklist-page > p { font-size: 1.05rem; line-height: 1.85; margin-bottom: var(--space-2xl); }
+    .checklist-page { max-width: 900px; margin: 0 auto; padding: var(--space-2xl) var(--space-xl); }
+    .checklist-page h1 { font-size: 2.4rem; margin-bottom: var(--space-sm); }
+    .checklist-page > p { font-size: 1.08rem; line-height: 1.85; margin-bottom: var(--space-2xl); }
 
     .tool-checklist {
-      background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-xl);
-      padding: var(--space-xl); margin-bottom: var(--space-xl); backdrop-filter: blur(12px);
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-xl);
+      margin-bottom: var(--space-xl); backdrop-filter: blur(12px);
+      transition: all var(--transition-base);
     }
-    .tool-checklist-header {
-      display: flex; align-items: center; gap: var(--space-md); margin-bottom: var(--space-lg);
-      padding-bottom: var(--space-md); border-bottom: 1px solid var(--border-light);
+    .tool-checklist.completed {
+      border-color: rgba(76,175,130,0.3);
+      background: rgba(76,175,130,0.05);
     }
-    .tool-checklist-header h2 { font-size: 1.5rem; margin: 0; }
-    .tool-checklist-header .tool-empresa { font-size: 0.92rem; color: var(--text-muted); }
+    .tool-header {
+      display: flex; align-items: center; gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+    .tool-header h2 {
+      font-size: 1.6rem; margin: 0; flex-grow: 1;
+    }
+    .tool-header .tool-status {
+      font-size: 0.88rem; font-weight: 700; padding: 6px 14px;
+      border-radius: var(--radius-full);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .tool-status.pending { background: var(--dourado-dim); color: var(--dourado); }
+    .tool-status.done { background: var(--verde-light); color: var(--verde); }
 
-    .check-step {
+    .tool-desc {
+      font-size: 1rem; color: var(--text-secondary);
+      margin-bottom: var(--space-lg); line-height: 1.7;
+    }
+
+    .step-item {
       display: flex; gap: var(--space-md); padding: var(--space-md) 0;
       border-bottom: 1px solid var(--border-light);
+      align-items: flex-start;
     }
-    .check-step:last-child { border-bottom: none; }
-    .check-step input[type="checkbox"] {
-      width: 22px; height: 22px; flex-shrink: 0; margin-top: 3px;
-      accent-color: var(--dourado); cursor: pointer;
+    .step-item:last-child { border-bottom: none; }
+    .step-check {
+      width: 26px; height: 26px; border-radius: 6px; flex-shrink: 0;
+      border: 2px solid rgba(200,164,92,0.3); cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all var(--transition-base); margin-top: 2px;
+      background: transparent; color: transparent; font-size: 0.9rem;
     }
-    .check-step label {
-      font-size: 1.02rem; line-height: 1.7; color: var(--text-secondary); cursor: pointer;
+    .step-check.checked {
+      background: var(--verde); border-color: var(--verde); color: white;
     }
-    .check-step label strong { color: var(--text); }
-    .check-step label a { color: var(--dourado); font-weight: 600; }
-    .check-step label a:hover { text-decoration: underline; }
+    .step-text { font-size: 1.02rem; line-height: 1.7; color: var(--text-secondary); flex-grow: 1; }
+    .step-text a { font-weight: 600; }
+    .step-text.crossed { text-decoration: line-through; opacity: 0.5; }
 
-    .check-step input[type="checkbox"]:checked + label {
-      text-decoration: line-through; opacity: 0.5;
-    }
-
-    .print-btn {
+    .tool-link-btn {
       display: inline-flex; align-items: center; gap: 8px;
-      margin-bottom: var(--space-xl);
+      margin-top: var(--space-md); padding: 10px 22px;
+      background: var(--dourado-dim); color: var(--dourado);
+      border: 1px solid rgba(200,164,92,0.25); border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 0.95rem; transition: all var(--transition-base);
+    }
+    .tool-link-btn:hover { background: rgba(200,164,92,0.25); }
+
+    .progress-bar-container {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(30,45,77,0.95); backdrop-filter: blur(12px);
+      padding: var(--space-md) 0; margin-bottom: var(--space-xl);
+      border-bottom: 1px solid var(--border);
+    }
+    .progress-info {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: var(--space-sm); font-size: 0.92rem;
+    }
+    .progress-info .progress-label { color: var(--text-secondary); font-weight: 600; }
+    .progress-info .progress-count { color: var(--dourado); font-weight: 700; }
+    .progress-track {
+      height: 8px; background: rgba(200,164,92,0.1); border-radius: 4px; overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%; background: linear-gradient(90deg, var(--dourado), var(--verde));
+      border-radius: 4px; transition: width 0.5s ease; width: 0%;
     }
 
-    @media print {
-      .print-btn { display: none; }
-      .tool-checklist { break-inside: avoid; }
+    .checklist-footer {
+      text-align: center; padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--border-light);
     }
+    .checklist-footer p { font-size: 1.1rem; }
   </style>
 </head>
 <body>
+
   <div class="checklist-page">
+    <h1>📋 Checklist de Contas</h1>
+    <p>Siga o passo a passo abaixo para criar suas contas gratuitas nas ferramentas de IA que utilizaremos na Oficina 01. Marque cada etapa conforme for concluindo.</p>
 
-    <h1>📋 Checklist: Criação de Contas</h1>
-    <p>Siga os passos abaixo para criar suas contas gratuitas nas ferramentas de IA que usaremos no workshop. Marque cada etapa conforme for concluindo. Recomendamos usar seu e-mail pessoal (Gmail, se possível — facilita o acesso ao Gemini e NotebookLM).</p>
-
-    <button class="btn btn-sm btn-secondary print-btn" onclick="window.print()">🖨️ Imprimir checklist</button>
+    <div class="progress-bar-container">
+      <div class="progress-info">
+        <span class="progress-label">Progresso geral</span>
+        <span class="progress-count" id="progressCount">0 de 24 etapas</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+    </div>
 
     <!-- ChatGPT -->
-    <div class="tool-checklist">
-      <div class="tool-checklist-header">
-        <div>
-          <h2>ChatGPT</h2>
-          <div class="tool-empresa">OpenAI — chatgpt.com</div>
-        </div>
-        <span class="badge badge-gold">Essencial</span>
+    <div class="tool-checklist" data-tool="chatgpt">
+      <div class="tool-header">
+        <h2>1. ChatGPT</h2>
+        <span class="tool-status pending" data-status>Pendente</span>
       </div>
-      <div class="check-step">
-        <input type="checkbox" id="gpt1"><label for="gpt1">Acesse <a href="https://chatgpt.com/" target="_blank">chatgpt.com</a></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gpt2"><label for="gpt2">Clique em <strong>"Registrar-se"</strong> (Sign up)</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gpt3"><label for="gpt3">Escolha: criar conta com e-mail, Google, Microsoft ou Apple</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gpt4"><label for="gpt4">Confirme seu e-mail (verifique a caixa de entrada e spam)</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gpt5"><label for="gpt5">Preencha seu nome e data de nascimento</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gpt6"><label for="gpt6"><strong>Teste:</strong> Digite "Olá, estou testando" e verifique se recebe resposta ✅</label>
-      </div>
+      <div class="tool-desc">A ferramenta de IA mais popular do mundo. Desenvolvida pela OpenAI. Versão gratuita já é bastante funcional.</div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse <a href="https://chatgpt.com/" target="_blank">chatgpt.com</a></div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Clique em <strong>"Cadastrar-se"</strong> (ou "Sign up")</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Crie a conta usando seu e-mail pessoal ou conta Google</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Confirme o e-mail (verifique sua caixa de entrada e spam)</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse o chat e envie uma mensagem de teste: <strong>"Olá, estou testando!"</strong></div></div>
+      <a href="https://chatgpt.com/" target="_blank" class="tool-link-btn">Abrir ChatGPT ↗</a>
     </div>
 
     <!-- Claude -->
-    <div class="tool-checklist">
-      <div class="tool-checklist-header">
-        <div>
-          <h2>Claude</h2>
-          <div class="tool-empresa">Anthropic — claude.ai</div>
-        </div>
-        <span class="badge badge-gold">Essencial</span>
+    <div class="tool-checklist" data-tool="claude">
+      <div class="tool-header">
+        <h2>2. Claude</h2>
+        <span class="tool-status pending" data-status>Pendente</span>
       </div>
-      <div class="check-step">
-        <input type="checkbox" id="cl1"><label for="cl1">Acesse <a href="https://claude.ai/" target="_blank">claude.ai</a></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="cl2"><label for="cl2">Clique em <strong>"Sign up"</strong></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="cl3"><label for="cl3">Crie conta com e-mail ou Google</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="cl4"><label for="cl4">Confirme seu e-mail e aceite os termos de uso</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="cl5"><label for="cl5"><strong>Teste:</strong> Digite "Olá, estou testando" e verifique se recebe resposta ✅</label>
-      </div>
+      <div class="tool-desc">Desenvolvido pela Anthropic. Excelente para análise de documentos longos e respostas estruturadas. Menos propenso a alucinações.</div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse <a href="https://claude.ai/" target="_blank">claude.ai</a></div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Clique em <strong>"Sign up"</strong> (Cadastrar-se)</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Crie a conta usando e-mail ou conta Google</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Envie uma mensagem de teste para confirmar que está funcionando</div></div>
+      <a href="https://claude.ai/" target="_blank" class="tool-link-btn">Abrir Claude ↗</a>
     </div>
 
     <!-- Gemini -->
-    <div class="tool-checklist">
-      <div class="tool-checklist-header">
-        <div>
-          <h2>Gemini</h2>
-          <div class="tool-empresa">Google — gemini.google.com</div>
-        </div>
-        <span class="badge badge-gold">Essencial</span>
+    <div class="tool-checklist" data-tool="gemini">
+      <div class="tool-header">
+        <h2>3. Gemini</h2>
+        <span class="tool-status pending" data-status>Pendente</span>
       </div>
-      <div class="check-step">
-        <input type="checkbox" id="gm1"><label for="gm1">Acesse <a href="https://gemini.google.com/" target="_blank">gemini.google.com</a></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gm2"><label for="gm2">Faça login com sua <strong>conta Google</strong> (Gmail)</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gm3"><label for="gm3">Aceite os termos de uso do Gemini</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gm4"><label for="gm4"><strong>Teste:</strong> Digite "Olá, estou testando" e verifique se recebe resposta ✅</label>
-      </div>
+      <div class="tool-desc">IA do Google com integração nativa ao Gmail, Drive e Docs. Se você já tem conta Google, é só acessar.</div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse <a href="https://gemini.google.com/" target="_blank">gemini.google.com</a></div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Faça login com sua conta Google (se já tiver, basta clicar em "Entrar")</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Aceite os termos de uso quando solicitado</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Envie uma mensagem de teste para confirmar o acesso</div></div>
+      <a href="https://gemini.google.com/" target="_blank" class="tool-link-btn">Abrir Gemini ↗</a>
     </div>
 
     <!-- Perplexity -->
-    <div class="tool-checklist">
-      <div class="tool-checklist-header">
-        <div>
-          <h2>Perplexity AI</h2>
-          <div class="tool-empresa">Perplexity — perplexity.ai</div>
-        </div>
-        <span class="badge badge-gold">Essencial</span>
+    <div class="tool-checklist" data-tool="perplexity">
+      <div class="tool-header">
+        <h2>4. Perplexity</h2>
+        <span class="tool-status pending" data-status>Pendente</span>
       </div>
-      <div class="check-step">
-        <input type="checkbox" id="px1"><label for="px1">Acesse <a href="https://www.perplexity.ai/" target="_blank">perplexity.ai</a></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="px2"><label for="px2">Clique em <strong>"Sign up"</strong></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="px3"><label for="px3">Crie conta com e-mail, Google ou Apple</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="px4"><label for="px4">Confirme seu e-mail</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="px5"><label for="px5"><strong>Teste:</strong> Pergunte "O que é o TRE-RN?" e verifique se a resposta traz fontes ✅</label>
-      </div>
+      <div class="tool-desc">Ferramenta de busca inteligente que cita fontes para cada resposta. Excelente para pesquisa jurídica e administrativa.</div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse <a href="https://www.perplexity.ai/" target="_blank">perplexity.ai</a></div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Clique em <strong>"Sign up"</strong> e crie a conta (Google ou e-mail)</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Teste fazendo uma busca: <strong>"Qual a última resolução do CNJ sobre inteligência artificial?"</strong></div></div>
+      <a href="https://www.perplexity.ai/" target="_blank" class="tool-link-btn">Abrir Perplexity ↗</a>
     </div>
 
     <!-- Grok -->
-    <div class="tool-checklist">
-      <div class="tool-checklist-header">
-        <div>
-          <h2>Grok</h2>
-          <div class="tool-empresa">xAI — grok.com</div>
-        </div>
-        <span class="badge badge-blue">Complementar</span>
+    <div class="tool-checklist" data-tool="grok">
+      <div class="tool-header">
+        <h2>5. Grok</h2>
+        <span class="tool-status pending" data-status>Pendente</span>
       </div>
-      <div class="check-step">
-        <input type="checkbox" id="gk1"><label for="gk1">Acesse <a href="https://grok.com/" target="_blank">grok.com</a></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gk2"><label for="gk2">Clique em <strong>"Sign up"</strong></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gk3"><label for="gk3">Crie conta com e-mail, Google ou Apple (não é necessário ter conta no X/Twitter)</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="gk4"><label for="gk4"><strong>Teste:</strong> Digite "Olá, estou testando" e verifique se recebe resposta ✅</label>
-      </div>
+      <div class="tool-desc">IA da xAI (Elon Musk) com acesso a informações em tempo real via plataforma X. Tom mais direto e informal.</div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse <a href="https://grok.com/" target="_blank">grok.com</a></div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Crie uma conta ou faça login com conta do X (Twitter)</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Envie uma mensagem de teste para confirmar o acesso</div></div>
+      <a href="https://grok.com/" target="_blank" class="tool-link-btn">Abrir Grok ↗</a>
     </div>
 
     <!-- DeepSeek -->
-    <div class="tool-checklist">
-      <div class="tool-checklist-header">
-        <div>
-          <h2>DeepSeek</h2>
-          <div class="tool-empresa">DeepSeek AI — chat.deepseek.com</div>
-        </div>
-        <span class="badge badge-blue">Complementar</span>
+    <div class="tool-checklist" data-tool="deepseek">
+      <div class="tool-header">
+        <h2>6. DeepSeek</h2>
+        <span class="tool-status pending" data-status>Pendente</span>
       </div>
-      <div class="check-step">
-        <input type="checkbox" id="ds1"><label for="ds1">Acesse <a href="https://chat.deepseek.com/" target="_blank">chat.deepseek.com</a></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="ds2"><label for="ds2">Clique em <strong>"Sign up"</strong></label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="ds3"><label for="ds3">Crie conta com e-mail ou Google</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="ds4"><label for="ds4"><strong>Teste:</strong> Digite "Olá, estou testando" e verifique se recebe resposta ✅</label>
-      </div>
-      <div class="check-step">
-        <input type="checkbox" id="ds5"><label for="ds5">⚠️ <strong>Lembre-se:</strong> NÃO use dados sigilosos nesta ferramenta (servidores na China)</label>
-      </div>
+      <div class="tool-desc">Modelo chinês gratuito e open-source. Bom para experimentação, mas atenção: não insira dados sensíveis (servidores na China).</div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Acesse <a href="https://chat.deepseek.com/" target="_blank">chat.deepseek.com</a></div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Clique em <strong>"Sign up"</strong> e crie a conta com e-mail</div></div>
+      <div class="step-item"><div class="step-check" onclick="toggleCheck(this)">✓</div><div class="step-text">Confirme o e-mail e envie uma mensagem de teste</div></div>
+      <a href="https://chat.deepseek.com/" target="_blank" class="tool-link-btn">Abrir DeepSeek ↗</a>
     </div>
 
-    <div class="callout callout-success" style="margin-top: var(--space-xl);">
-      <div class="callout-title">🎉 Tudo pronto!</div>
-      <p>Se todos os itens estão marcados, você está preparado para a Oficina 01. Pode fechar esta aba e voltar à oficina.</p>
+    <div class="checklist-footer">
+      <p>Tudo pronto? Volte para a <strong>Oficina 01</strong> e comece a explorar! 🚀</p>
     </div>
-
   </div>
+
+  <script>
+    function toggleCheck(el) {
+      el.classList.toggle('checked');
+      el.nextElementSibling.classList.toggle('crossed');
+      updateProgress();
+      updateToolStatus(el.closest('.tool-checklist'));
+    }
+
+    function updateToolStatus(toolEl) {
+      const checks = toolEl.querySelectorAll('.step-check');
+      const checkedCount = toolEl.querySelectorAll('.step-check.checked').length;
+      const statusEl = toolEl.querySelector('[data-status]');
+      if (checkedCount === checks.length) {
+        statusEl.textContent = 'Concluído ✓';
+        statusEl.className = 'tool-status done';
+        toolEl.classList.add('completed');
+      } else {
+        statusEl.textContent = checkedCount > 0 ? 'Em andamento' : 'Pendente';
+        statusEl.className = 'tool-status pending';
+        toolEl.classList.remove('completed');
+      }
+    }
+
+    function updateProgress() {
+      const total = document.querySelectorAll('.step-check').length;
+      const done = document.querySelectorAll('.step-check.checked').length;
+      document.getElementById('progressCount').textContent = `${done} de ${total} etapas`;
+      document.getElementById('progressFill').style.width = `${(done / total) * 100}%`;
+    }
+  </script>
 </body>
 </html>

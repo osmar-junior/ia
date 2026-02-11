@@ -207,7 +207,7 @@
   font-weight: 700; font-size: 1.1rem;
   color: var(--text); margin-bottom: var(--space-xs);
 }
-.callout p { font-size: 1rem; }
+.callout p { font-size: 1.08rem; }
 
 /* --- Accordion --- */
 .accordion-item {
