@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 07 — Gemini com Workspace: Integrações | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body h4{margin-top:var(--space-lg);margin-bottom:var(--space-sm);color:var(--text);font-size:1.15rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">⚡ Oficina 07 de 11</div>
+      <h1>Gemini com Workspace — Integrações</h1>
+      <p class="oficina-desc">Conecte o Gemini ao Gmail, Google Agenda e Drive via chat. Consulte e-mails, agende reuniões e configure ações automatizadas recorrentes, tudo por linguagem natural.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 30–45 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Google Workspace com Gemini ativo</div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 3: INTEGRAÇÕES ==================== -->
+    <div class="etapa" id="etapa3">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Integrações do Gemini com o Workspace</h2><div class="etapa-sub">Gmail, Agenda e Drive acessados pelo chat</div></div></div>
+      <div class="etapa-body">
+        <p>Até agora, usamos o Gemini <em>dentro</em> de cada ferramenta. Agora vamos inverter: usar o <strong>chat do Gemini</strong> para acessar dados do Gmail, Agenda e Drive — sem sair da interface principal.</p>
+
+        <h3>Ativando as integrações</h3>
+        <div class="tool-instruction"><div class="tool-icon">⚙️</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Abra o Gemini ↗</a> → Configurações → Apps</div><div class="tool-hint">Verifique se as extensões do <strong>Google Workspace</strong> (Gmail, Drive, Agenda, Docs, etc.) estão <strong>ativadas</strong>. Se não estiverem, ative-as.</div></div></div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">🔐 Sobre privacidade</div>
+          <p>Ao ativar as integrações, o Gemini poderá acessar dados dos seus e-mails, agenda e arquivos do Drive para responder a perguntas. Ele não armazena essas informações para treinamento. Os dados são usados apenas durante a sessão para formular a resposta. Ainda assim, evite pedir análises que envolvam dados pessoais sensíveis de terceiros.</p>
+        </div>
+
+        <h3>📧 Integração com Gmail</h3>
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Últimos e-mails</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Liste os últimos 5 e-mails que eu recebi do TSE.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Busca temática com tabela</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Liste os e-mails que eu recebi de outros Tribunais e que sejam relacionados com o tema LGPD. Apresente o resultado em uma tabela contendo a data do e-mail, o remetente, o assunto e o seu detalhamento.</div></div>
+
+        <h3>📅 Integração com Google Agenda</h3>
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Consultar agenda</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Acesse minha agenda e elabore uma tabela apresentando todas as reuniões agendadas para mim até o final do mês. Exiba a data e hora, o título da reunião e os participantes convidados.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Marcar reunião</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Marque uma reunião na minha agenda para próxima quarta-feira, às 13h, para tratar da Contratação de Terceirização de TIC. Programe uma notificação meia hora antes.</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🔗 Testou as integrações com Gmail e Agenda?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="Você acabou de usar o Gemini como um assistente pessoal completo: buscou e-mails por tema, consultou sua agenda e até agendou uma reunião — tudo via linguagem natural, sem abrir nenhuma das ferramentas individualmente. Essa é a visão do Google para IA integrada: um único ponto de contato que orquestra todas as suas ferramentas. Para o dia a dia no TRE-RN, imagine começar cada manhã perguntando 'O que tenho na agenda hoje e quais e-mails preciso responder com urgência?'. Em 10 segundos, você tem um briefing completo.">Funcionou perfeitamente!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="neutral" data-msg="As integrações dependem de permissões e configurações do administrador do Workspace. Se o Gemini não conseguiu acessar seus e-mails ou agenda, pode ser que a extensão não esteja ativa para o seu domínio. Verifique em Configurações → Apps se 'Google Workspace' mostra status 'Ativo'. Se estiver ativo mas não funcionar, tente prompts mais simples como 'Mostre meus e-mails de hoje' ou 'O que tenho na agenda amanhã?'. A integração com Agenda para criação de eventos pode ter restrições adicionais dependendo da política de segurança do Tribunal.">Acesso parcial ou negado</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA EXTRA: AÇÕES AGENDADAS ==================== -->
+    <div class="etapa" id="etapa-extra">
+      <div class="etapa-header"><div class="etapa-num">02</div><div><h2>Atividade Extra: Ações Agendadas</h2><div class="etapa-sub">Automatizações recorrentes com o Gemini</div></div></div>
+      <div class="etapa-body">
+        <p>O recurso de <strong>Ações Agendadas</strong> permite programar tarefas que o Gemini executa automaticamente em horários definidos, enviando os resultados por e-mail ou notificação. É como ter um assistente que trabalha para você mesmo quando você não está no computador.</p>
+
+        <h3>Verificando ações existentes</h3>
+        <div class="tool-instruction"><div class="tool-icon">⚙️</div><div><div class="tool-name">Acesse: Gemini → Configurações → Ações agendadas</div><div class="tool-hint">Provavelmente estará vazio. Vamos criar algumas ações.</div></div></div>
+
+        <h3>Criando ações agendadas via chat</h3>
+        <div class="prompt-box"><div class="prompt-box-label"><span>Ação 1 — Resumo diário de atividades</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Gere um resumo das minhas atividades programadas para o dia seguinte e me envie às 19h, todos os dias úteis.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Ação 2 — Resumo de e-mails</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Resuma os e-mails não lidos do meu Gmail às 8h e às 17h, de segunda a sexta.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Ação 3 — Itinerário de viagem</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Crie um itinerário de viagem detalhado para Brasília e me envie na véspera da minha viagem agendada no Google Agenda para o final do mês.</div></div>
+
+        <div class="tool-instruction"><div class="tool-icon">✅</div><div><div class="tool-name">Verifique as ações criadas</div><div class="tool-hint">Volte em <strong>Configurações → Ações agendadas</strong> e confirme que as ações foram registradas. Você pode editar, pausar ou excluir cada uma.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">⏰ Conseguiu criar ações agendadas?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="Ações agendadas são o passo mais próximo de ter um assistente pessoal de verdade trabalhando para você. Imagine: todo dia às 19h você recebe um resumo do que tem para amanhã, e todo dia às 8h um resumo dos e-mails não lidos. Sem abrir nenhum app. Para servidores do TRE-RN que lidam com múltiplas demandas e reuniões, isso é organização automatizada. E o itinerário de viagem automático na véspera? Cortesia da IA que já sabe sua agenda. O futuro do trabalho é isso: configurar uma vez e colher os resultados todo dia.">Ações criadas com sucesso!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="encouraging" data-msg="As ações agendadas são um recurso relativamente novo e podem não estar disponíveis para todas as contas do Workspace. Se o Gemini não reconheceu o comando ou não criou a ação, pode ser uma limitação de versão ou configuração do administrador. Tente prompts mais simples como 'Me envie um resumo da minha agenda amanhã às 8h' para testar. Se não funcionar, anote o conceito: quando o recurso estiver plenamente disponível para o TRE-RN, você já saberá exatamente como configurá-lo.">Recurso não disponível</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Recurso</th><th>O que faz</th><th>Aplicação no TRE-RN</th></tr></thead><tbody>
+          <tr><td><strong>Integrações via chat</strong></td><td>Acesso cruzado a Gmail, Agenda, Drive</td><td>Briefings, consultas rápidas, organização</td></tr>
+          <tr><td><strong>Ações agendadas</strong></td><td>Automações recorrentes</td><td>Resumos diários, preparação de viagens</td></tr>
+        </tbody></table></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia as integrações e ações agendadas?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Com as integrações, o Gemini se torna um ponto único de acesso a todas as suas ferramentas de trabalho. Nas três últimas oficinas, você percorreu o ciclo completo: Gemini dentro das ferramentas (Oficina 05), Canvas para geração de conteúdo (Oficina 06) e agora integrações e automações (Oficina 07). Juntos, esses recursos transformam o Workspace em um ambiente de trabalho inteligente. Na próxima oficina, vamos criar Gems — assistentes personalizados do Gemini.">Ciclo completo do Workspace!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="As integrações e ações agendadas são os recursos mais novos do ecossistema Gemini e podem apresentar inconsistências. A tendência é de melhoria rápida. Na próxima oficina, vamos criar Gems — assistentes personalizados com base de conhecimento dedicada.">Recursos promissores</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 08</strong>, vamos criar Gems — assistentes personalizados com base de conhecimento dedicada.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-06-gemini-canvas.html" class="btn btn-secondary btn-sm">← Oficina anterior</a>
+      <a href="./oficina-08-gems-lgpd.html" class="btn btn-primary btn-sm">Próxima oficina →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=3,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>

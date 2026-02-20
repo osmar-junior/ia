@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 08 — Criação de Gems: Especialista em LGPD | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body h4{margin-top:var(--space-lg);margin-bottom:var(--space-sm);color:var(--text);font-size:1.15rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">💎 Oficina 08 de 11</div>
+      <h1>Criação de Gems — Especialista em LGPD</h1>
+      <p class="oficina-desc">Crie um Gem no Gemini que funcione como consultor especializado em LGPD, alimentado por 10 documentos oficiais. Aprenda a usar o Gemini para elaborar as instruções do próprio Gem e a compartilhá-lo com outros servidores.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 45–60 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário-Avançado</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Gemini (Oficinas 05–07 concluídas)</div>
+      </div>
+    </div>
+
+    <!-- OBJETIVOS -->
+    <div class="etapa" id="objetivos">
+      <div class="etapa-header"><div class="etapa-num">📌</div><div><h2>O que são Gems e por que criá-los</h2></div></div>
+      <div class="etapa-body">
+        <p>Um <strong>Gem</strong> é um assistente personalizado do Gemini que mantém um conjunto fixo de instruções, conhecimentos e comportamentos. Diferente de uma conversa comum (onde você precisa reexplicar o contexto a cada novo chat), o Gem já "sabe" qual é o seu papel e como deve responder. É como ter um especialista sempre de plantão, configurado exatamente para as suas necessidades.</p>
+
+        <h3>Por que Gems são valiosos para o TRE-RN?</h3>
+        <ul>
+          <li><strong>Consistência:</strong> Um Gem de LGPD sempre responde dentro dos parâmetros definidos, citando os documentos que você carregou. Não há risco de respostas genéricas ou descontextualizadas.</li>
+          <li><strong>Reutilização:</strong> Crie uma vez, use sempre. O Gem fica disponível na sua lista de Gems e pode ser acessado por qualquer conversa futura.</li>
+          <li><strong>Compartilhamento:</strong> Gems podem ser compartilhados com outros servidores via link. Um único Gem bem construído pode atender toda uma coordenadoria ou até o Tribunal inteiro.</li>
+          <li><strong>Organização:</strong> Os Gems que você cria aparecem automaticamente na pasta <strong>"Gemini Gems"</strong> do seu Google Drive, facilitando a gestão e o acesso.</li>
+        </ul>
+
+        <h3>Objetivos desta oficina</h3>
+        <ul>
+          <li>Entender a estrutura de criação de um Gem (Nome, Descrição, Instruções, Ferramentas e Conhecimento)</li>
+          <li>Aprender a usar o próprio Gemini para elaborar as instruções do Gem</li>
+          <li>Criar um Gem especialista em LGPD com base de conhecimento documental</li>
+          <li>Criar um Gem de agentes inteligentes cooperativos para resolução de problemas</li>
+          <li>Compartilhar Gems com outros servidores</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 1: GEM LGPD ==================== -->
+    <div class="etapa" id="etapa1">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Gem Especialista em LGPD</h2><div class="etapa-sub">Um consultor de proteção de dados disponível 24h</div></div></div>
+      <div class="etapa-body">
+        <p>Vamos criar um Gem que funcione como um consultor especializado em LGPD para os servidores do TRE-RN. Ele será alimentado com guias, cartilhas e a própria Lei 13.709/2018, e responderá dúvidas sempre com base nesses documentos.</p>
+
+        <h3>Passo 1: Iniciar a criação do Gem</h3>
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Acesse o Gemini ↗</a></div><div class="tool-hint">No menu lateral, clique em <strong>"Veja alguns Gems"</strong>. Em "Meus Gems", clique no botão <strong>"+ Novo Gem"</strong>.</div></div></div>
+
+        <p>A tela de criação apresenta os seguintes campos:</p>
+        <ul>
+          <li><strong>Nome:</strong> Identificação do Gem (aparece na lista e no Drive).</li>
+          <li><strong>Descrição:</strong> Texto curto que explica o propósito do Gem para quem o acessa.</li>
+          <li><strong>Instruções:</strong> O coração do Gem. Define o comportamento, o tom, os limites e as regras que a IA seguirá em todas as conversas.</li>
+          <li><strong>Ferramenta padrão:</strong> Permite definir qual ferramenta do Gemini o Gem utilizará por padrão (Canvas, Pesquisa Google, Geração de Imagens, etc.). Para o nosso Gem de LGPD, mantenha a opção padrão "Automático".</li>
+          <li><strong>Conhecimento:</strong> Área para upload de arquivos (PDFs, documentos) que o Gem usará como base de referência. O limite é de <strong>10 arquivos por Gem</strong>.</li>
+        </ul>
+
+        <h3>Passo 2: Usar o Gemini para elaborar o conteúdo do Gem</h3>
+        <p>Aqui vai uma técnica valiosa: <strong>use o próprio Gemini para criar as instruções do Gem</strong>. Abra uma segunda aba do navegador com o Gemini e peça ajuda para elaborar os campos.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">💡</div><div><div class="tool-name">Abra o Gemini em outra aba</div><div class="tool-hint">Mantenha a aba de criação do Gem aberta, e em uma nova aba, inicie um chat comum no Gemini.</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Gerar conteúdo para o Gem (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um especialista na criação de Gems no Google Gemini, com amplo conhecimento da Lei Geral de Proteção de Dados (LGPD).
+
+[CONTEXT] Pretendo criar um Gem no Gemini para ser utilizado pelos servidores do TRE-RN para esclarecimento de dúvidas e orientações sobre a LGPD. O Gem terá como base de conhecimento 10 arquivos PDF contendo guias, cartilhas e a própria lei.
+
+[TASK] Gere o conteúdo para os campos "Nome", "Descrição" e "Instruções" da tela de criação do Gem no Google Gemini. O campo "Instruções" deve conter regras claras sobre: (a) sempre fundamentar respostas nos documentos carregados; (b) citar a fonte específica quando possível; (c) alertar quando uma pergunta extrapolar o escopo dos documentos; (d) usar linguagem acessível mas tecnicamente precisa; (e) contextualizar as respostas para o ambiente da Justiça Eleitoral.
+
+[STYLE] Saída em formato textual, com cada campo claramente identificado e pronto para copiar e colar.</div></div>
+
+        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Cole os resultados na aba de criação do Gem</div><div class="tool-hint">Copie o conteúdo gerado pelo Gemini e cole nos campos correspondentes (Nome, Descrição, Instruções). Faça os ajustes que julgar necessários.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">✍️ Preencheu os campos do Gem usando o Gemini?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="Essa técnica de 'usar IA para configurar IA' é extremamente prática. O Gemini consegue gerar instruções bem estruturadas porque ele entende o formato que o próprio Gem espera. Com o tempo, você pode refinar essas instruções com base no uso real: se perceber que o Gem responde de forma genérica demais, adicione uma regra como 'sempre cite o nome do documento e a página onde encontrou a informação'. Se ele extrapolar o escopo, adicione 'caso a pergunta não tenha relação com LGPD ou proteção de dados, informe educadamente que está fora do seu escopo'.">Funcionou perfeitamente!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="neutral" data-msg="Se o resultado ficou muito genérico ou extenso demais, refine o prompt: peça especificamente 'gere instruções com no máximo 500 palavras' ou 'foque nas regras de comportamento, não na explicação do que é LGPD'. Lembre-se de que as instruções do Gem devem ser regras de comportamento (como ele deve agir), não conteúdo informativo (o que é LGPD). O conteúdo informativo virá dos PDFs que você vai carregar no próximo passo.">Resultado precisa de ajustes</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+
+        <h3>Passo 3: Carregar a base de conhecimento</h3>
+        <p>Agora vamos alimentar o Gem com os documentos que formarão sua base de referência. Baixe os 10 arquivos PDF abaixo para o seu computador e depois adicione-os no campo <strong>"Conhecimento"</strong> da tela de criação do Gem.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-title">📚 Limite de arquivos</div>
+          <p>O Gem aceita no máximo <strong>10 arquivos</strong> no campo "Conhecimento". Os documentos abaixo completam exatamente esse limite.</p>
+        </div>
+
+        <div class="material-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+          <div class="material-card"><div class="mat-icon">⚖️</div><div><h4>Lei Geral de Proteção de Dados</h4><p>Texto integral da Lei 13.709/2018</p><a href="../materiais/of-06-lgpd-lei-13709.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🏛️</div><div><h4>Programa de Proteção de Dados do TRE-RN</h4><p>Programa institucional de tratamento e proteção de dados pessoais</p><a href="../materiais/of-06-tre-rn-programa-tratamento-protecao-dados-pessoais.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🏛️</div><div><h4>Guia de Proteção de Dados do TRE-RN</h4><p>Orientações práticas para servidores do Tribunal</p><a href="../materiais/of-06-tre-rn-guia-protecao-dados-pessoais.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📘</div><div><h4>Guia Orientativo LGPD do TSE</h4><p>Diretrizes do Tribunal Superior Eleitoral</p><a href="../materiais/of-06-tse-guia-orientativo-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📗</div><div><h4>Guia de Boas Práticas LGPD do STF</h4><p>Referência do Supremo Tribunal Federal</p><a href="../materiais/of-06-stf-guia-boas-praticas-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🔐</div><div><h4>Guia de Agentes de Tratamento da ANPD</h4><p>Orientações da Autoridade Nacional de Proteção de Dados</p><a href="../materiais/of-06-anpd-guia-agentes-tratamento.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🇧🇷</div><div><h4>Guia de Boas Práticas LGPD — Gov.br</h4><p>Referência do Governo Federal</p><a href="../materiais/of-06-gov-br-guia-boas-praticas-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📙</div><div><h4>Cartilha LGPD — Governo do MS</h4><p>Cartilha prática do Governo do Mato Grosso do Sul</p><a href="../materiais/of-06-gov-ms-cartilha-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📕</div><div><h4>Guia de Implementação LGPD para Gestores Públicos</h4><p>Guia orientativo do TCE-RO</p><a href="../materiais/of-06-tce-ro-guia-orientativo-Implementacao-lgpd-para-gestores-publicos.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📒</div><div><h4>Manual de Implementação LGPD — CGE-PR</h4><p>Manual da Controladoria Geral do Paraná</p><a href="../materiais/of-06-cge-pr-manual-implementacao-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+        </div>
+
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Salve o Gem</div><div class="tool-hint">Com os campos preenchidos e os arquivos carregados, clique em <strong>"Salvar"</strong>. O Gem estará pronto para uso.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📚 Gem criado com os 10 documentos de LGPD?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="Você acabou de criar um consultor de LGPD que conhece a lei, os guias do TRE-RN, do TSE, do STF e da ANPD. Pense na utilidade: qualquer servidor do Tribunal que tenha uma dúvida sobre proteção de dados pode consultar esse Gem e receber uma resposta fundamentada nos documentos oficiais, em vez de depender de uma busca genérica na internet. É conhecimento institucional organizado e acessível via linguagem natural.">Gem salvo com sucesso!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="encouraging" data-msg="Se houve problema no upload dos PDFs, verifique se os arquivos não estão corrompidos e se o tamanho total não excede o limite. PDFs protegidos por senha ou com restrições de cópia podem não ser processados corretamente. Se algum arquivo não carregou, prossiga com os que funcionaram — o Gem funciona com qualquer quantidade de documentos, a qualidade das respostas é que será proporcional à base de conhecimento disponível.">Problemas no upload</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+
+        <h3>Passo 4: Testando o Gem</h3>
+        <p>Agora é hora de colocar o Gem à prova. Acesse-o pela lista de Gems e teste com os prompts abaixo. Observe se ele fundamenta as respostas nos documentos carregados.</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Teste 1 — Conceitos e contexto eleitoral</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Qual a diferença entre "dado pessoal" e "dado pessoal sensível"? Cite um exemplo de cada que seja relevante no contexto da Justiça Eleitoral.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Teste 2 — Atendimento ao cidadão</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Um eleitor ligou para a Zona Eleitoral solicitando a correção de um dado em seu cadastro. De acordo com a LGPD, quais são os direitos dele neste caso e qual o procedimento básico que o servidor deve orientar?</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Teste 3 — Incidentes de segurança</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Descobri um vazamento acidental de uma lista de e-mails de mesários. Qual a primeira providência que devo tomar e quem devo acionar imediatamente dentro da estrutura do TRE-RN?</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🧪 O Gem respondeu com base nos documentos?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Quando o Gem cita documentos específicos (como 'conforme o Guia de Proteção de Dados do TRE-RN' ou 'segundo o art. 18 da LGPD'), isso indica que ele está consultando a base de conhecimento corretamente. Esse é o grande diferencial de um Gem com documentos carregados versus uma conversa comum: as respostas são fundamentadas em fontes confiáveis e específicas do contexto institucional. Compare mentalmente com o que o Gemini responderia sem esses documentos — a diferença de qualidade e especificidade é enorme.">Respostas fundamentadas!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="Se as respostas vieram genéricas (sem mencionar os documentos carregados), pode ser que as instruções do Gem não estejam enfatizando suficientemente a consulta à base de conhecimento. Volte à edição do Gem e adicione nas instruções algo como: 'SEMPRE consulte os documentos carregados antes de responder. Cite o nome do documento e, quando possível, a seção ou artigo relevante. Se a resposta não puder ser encontrada nos documentos, informe explicitamente.' Salve e teste novamente.">Respostas genéricas</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+
+        <h3>Passo 5: Compartilhando o Gem</h3>
+        <p>Um Gem só faz sentido se as pessoas certas tiverem acesso a ele. Vamos compartilhá-lo.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">🔗</div><div><div class="tool-name">Compartilhar o Gem</div><div class="tool-hint">Na tela do Gem, clique em <strong>"Compartilhar"</strong>. Você pode gerar um link de acesso ou compartilhar diretamente com e-mails específicos. Quem receber o link poderá usar o Gem (e sua base de conhecimento) sem precisar recriá-lo.</div></div></div>
+
+        <div class="callout callout-success">
+          <div class="callout-title">💡 Onde encontrar seus Gems</div>
+          <p>Todos os Gems que você cria ficam salvos automaticamente na pasta <strong>"Gemini Gems"</strong> do seu Google Drive. Isso significa que você pode gerenciá-los, organizá-los e compartilhá-los usando a mesma estrutura de pastas que já conhece no Drive.</p>
+        </div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🔗 Compartilhou o Gem de LGPD?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Agora qualquer servidor que receber o link terá acesso a um consultor de LGPD alimentado por 10 documentos oficiais. Imagine o impacto: o encarregado de dados do TRE-RN pode criar o Gem, refiná-lo com o tempo, e distribuir para todas as unidades do Tribunal. Quando surgir uma dúvida sobre tratamento de dados, o servidor consulta o Gem em vez de enviar um e-mail e esperar dias por uma resposta. É descentralização do conhecimento com qualidade controlada.">Link gerado e compartilhado!</button>
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="neutral" data-msg="Se a opção de compartilhamento não apareceu ou está restrita, pode ser uma configuração do administrador do Workspace da sua organização. Alguns domínios restringem o compartilhamento externo de Gems por questões de segurança. Nesse caso, o Gem ainda funciona para uso pessoal, e você pode solicitar ao administrador a liberação do compartilhamento interno (dentro do domínio @tre-rn.jus.br).">Compartilhamento restrito</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 1: GEM LGPD ==================== -->
+    
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <p>Você criou um Gem especialista em LGPD alimentado por 10 documentos oficiais e o compartilhou com outros servidores. Esse Gem pode se tornar uma referência institucional para consultas sobre proteção de dados no TRE-RN.</p>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia o Gem de LGPD?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="positive" data-msg="Você criou um consultor de LGPD institucional que qualquer servidor pode acessar. Esse é o poder dos Gems: conhecimento especializado, fundamentado em documentos oficiais, disponível 24h. Na próxima oficina, vamos criar um Gem completamente diferente: um gerenciador de agentes inteligentes cooperativos para resolução de problemas complexos.">Gem valioso para o TRE-RN!</button>
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="neutral" data-msg="Gems exigem refinamento contínuo. Atualize os documentos quando a legislação mudar, ajuste as instruções com base no feedback dos usuários, e teste periodicamente para garantir a qualidade das respostas. Na próxima oficina, vamos criar um Gem de agentes inteligentes cooperativos.">Funcional, precisa evoluir</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-4"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 09</strong>, vamos criar um Gem para gerenciar agentes inteligentes cooperativos que debatem e resolvem problemas complexos.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-07-gemini-integracoes.html" class="btn btn-secondary btn-sm">← Oficina anterior</a>
+      <a href="./oficina-09-gems-agentes.html" class="btn btn-primary btn-sm">Próxima oficina →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=5,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>

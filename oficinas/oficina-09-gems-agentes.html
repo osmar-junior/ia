@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 09 — Criação de Gems: Agentes Inteligentes | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body h4{margin-top:var(--space-lg);margin-bottom:var(--space-sm);color:var(--text);font-size:1.15rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">💎 Oficina 09 de 11</div>
+      <h1>Criação de Gems — Agentes Inteligentes</h1>
+      <p class="oficina-desc">Crie um Gem que gerencia agentes inteligentes cooperativos: múltiplas perspectivas que debatem entre si em rodadas para resolver problemas complexos do TRE-RN.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 45–60 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário-Avançado</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Gemini (Oficinas 05–08 concluídas)</div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 2: GEM DE AGENTES INTELIGENTES ==================== -->
+    <div class="etapa" id="etapa2">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Gem de Agentes Inteligentes Cooperativos</h2><div class="etapa-sub">Múltiplas perspectivas para resolver um problema</div></div></div>
+      <div class="etapa-body">
+        <p>Este segundo Gem é conceitualmente diferente do primeiro. Em vez de ser um especialista em um tema, ele funciona como um <strong>gerenciador de agentes inteligentes</strong> que simulam diferentes papéis e colaboram entre si para resolver um problema complexo. O usuário define o problema, os agentes debatem em rodadas e refinam suas soluções progressivamente.</p>
+
+        <h3>Passo 1: Criar o Gem</h3>
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name">Acesse "Meus Gems" → "+ Novo Gem"</div><div class="tool-hint">Preencha os campos conforme abaixo.</div></div></div>
+
+        <p>Preencha o campo <strong>Nome</strong> com algo como: <em>"Agentes Cooperativos"</em></p>
+        <p>Para o campo <strong>Descrição</strong>, use: <em>"Gerencia agentes inteligentes que colaboram em rodadas de debate para resolver problemas complexos."</em></p>
+        <p>No campo <strong>Instruções</strong>, cole o conteúdo abaixo:</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Instruções do Gem — Agentes Cooperativos</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Você gerencia Agentes Inteligentes que colaboram para resolver problemas. O usuário define quantos Agentes deseja usar e quantas rodadas de debate eles realizarão. Cada Agente trabalha de forma independente, mas compartilha e refina suas soluções ao longo das rodadas.
+
+# Fluxo de interação
+
+1. Configuração Inicial:
+- Explique ao usuário o seu modo de funcionamento, esclarecendo que ele precisa definir quantos Agentes Inteligentes e quantas rodadas de debates entre eles serão necessárias para resolver um problema a ser informado.
+- Pergunte ao usuário quantos Agentes Inteligentes deseja usar e quantas rodadas de debate realizar.
+
+2. Definição do problema:
+- Solicite ao usuário a descrição do problema a ser resolvido pelos Agentes.
+
+3. Atribuição dos papéis de cada Agente:
+- Com base no problema a ser resolvido, defina papéis para cada Agente Inteligente (Marketing, Tecnologia da Informação, Jurídico, Administrativo, etc.) e apresente ao usuário.
+
+4. Resolução e debate:
+- Cada Agente propõe uma solução inicial, apresentando ao final da primeira rodada.
+- A partir da segunda rodada os Agentes analisam as soluções uns dos outros, avaliando de que forma elas podem melhorar as suas respostas futuras, considerando os seus papéis definidos.
+- Cada Agente refina suas respostas mostrando quais influências foram consideradas das respostas dos demais.
+- Ao final de cada rodada perguntar ao usuário se ele quer revisar as soluções apresentadas até o momento ou se prefere seguir para próxima rodada.
+
+5. Ao final:
+- Apresente um relatório objetivo consolidando as respostas finais de cada Agente.
+- Identifique a contribuição de cada Agente.
+- Permitir que o usuário refine os resultados.</div></div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">⚙️ Configuração do Gem</div>
+          <p><strong>Ferramenta padrão:</strong> Mantenha em "Automático".</p>
+          <p><strong>Conhecimento:</strong> Este Gem não precisa de documentos. O conhecimento vem do próprio modelo do Gemini e do problema que o usuário fornece a cada sessão.</p>
+        </div>
+
+        <div class="tool-instruction"><div class="tool-icon">💾</div><div><div class="tool-name">Salve o Gem</div><div class="tool-hint">Com os campos preenchidos, clique em <strong>"Salvar"</strong>.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">💎 Gem de Agentes Cooperativos criado?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="Esse Gem implementa uma técnica avançada de IA chamada 'debate multiagente'. Na pesquisa acadêmica, já se demonstrou que múltiplas instâncias de IA com papéis diferentes produzem soluções mais robustas do que uma única instância trabalhando sozinha. Ao simular agentes com perspectivas distintas (TI, Jurídico, Administração), o Gem força a IA a considerar ângulos que normalmente seriam ignorados. É pensamento sistêmico automatizado.">Gem salvo!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="encouraging" data-msg="Se houve dificuldade, verifique se o texto das instruções foi colado corretamente (sem quebras ou truncamentos). O campo de instruções aceita textos longos, mas eventualmente a formatação pode se perder na colagem. Se o texto ficou desformatado, tente colar como 'texto sem formatação' (Ctrl+Shift+V). O importante é que a estrutura de passos (1 a 5) esteja preservada.">Tive dificuldades</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+
+        <h3>Passo 2: Testando o Gem com um cenário real</h3>
+        <p>Abra o Gem recém-criado e vamos testá-lo com um problema concreto do TRE-RN. Quando o Gem perguntar a configuração, informe <strong>4 agentes</strong> e <strong>4 rodadas</strong>.</p>
+
+        <h4>Definindo os agentes</h4>
+        <p>Quando o Gem solicitar os papéis, sugira que os 4 agentes assumam as seguintes perspectivas:</p>
+        <ul>
+          <li><strong>Agente 1 — Gestão de Pessoas:</strong> Foco em impacto para servidores, capacitação, adesão e cultura organizacional.</li>
+          <li><strong>Agente 2 — Tecnologia da Informação:</strong> Foco em viabilidade técnica, infraestrutura, segurança e integração com sistemas existentes.</li>
+          <li><strong>Agente 3 — Judiciário e Administração:</strong> Foco em conformidade legal, alinhamento com o planejamento estratégico e impacto na prestação jurisdicional.</li>
+          <li><strong>Agente 4 — Orçamento e Finanças:</strong> Foco em custos, sustentabilidade financeira, retorno sobre investimento e priorização orçamentária.</li>
+        </ul>
+
+        <h4>Apresentando o problema</h4>
+        <p>Quando o Gem solicitar a descrição do problema, copie e cole o texto abaixo:</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Problema para os agentes — Transformação digital no TRE-RN</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">O TRE-RN pretende ampliar suas soluções voltadas à sociedade e incrementar suas iniciativas de transformação digital. Elabore uma lista de 3 projetos que sejam tecnicamente viáveis, com forte apelo disruptivo e inovador, para implementação pelo Tribunal nos próximos 2 anos. Os projetos devem considerar os recursos humanos e orçamentários disponíveis em um tribunal de médio porte e estar alinhados com a Estratégia Nacional do Poder Judiciário 2021-2026.</div></div>
+
+        <h4>Acompanhando as rodadas</h4>
+        <p>O Gem vai conduzir o debate entre os 4 agentes. Em cada rodada:</p>
+        <ul>
+          <li><strong>Rodada 1:</strong> Cada agente propõe sua visão inicial dos 3 projetos, de acordo com seu papel.</li>
+          <li><strong>Rodada 2:</strong> Os agentes analisam as propostas uns dos outros e refinam suas respostas, incorporando perspectivas complementares.</li>
+          <li><strong>Rodada 3:</strong> As propostas convergem, com cada agente indicando quais influências absorveu dos demais.</li>
+          <li><strong>Rodada 4:</strong> Consolidação final com propostas amadurecidas pelas 4 perspectivas.</li>
+        </ul>
+        <p>Ao final de cada rodada, o Gem perguntará se você quer revisar ou seguir adiante. Avance pelas 4 rodadas para ver o efeito completo do refinamento progressivo.</p>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🤖 Executou as 4 rodadas de debate entre os agentes?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="Observe como as propostas evoluíram entre a primeira e a última rodada. Na rodada 1, cada agente pensa isoladamente. Na rodada 4, as propostas já incorporam preocupações orçamentárias (Agente 4), viabilidade técnica (Agente 2), conformidade legal (Agente 3) e impacto humano (Agente 1). Esse é o poder do debate multiagente: o resultado final é muito mais robusto do que qualquer proposta individual. Em uma reunião real de planejamento estratégico, esse processo levaria horas com várias pessoas. Com o Gem, você simula a dinâmica em minutos.">Resultado impressionante!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="neutral" data-msg="Se as rodadas ficaram repetitivas ou os agentes não divergiram o suficiente, o problema pode estar muito amplo ou os papéis muito similares. Tente problemas mais específicos e controversos, onde as perspectivas naturalmente colidem. Exemplo: 'Devemos migrar o PJe para nuvem pública?' — o agente de TI veria vantagens técnicas, o de Orçamento veria economia, o Jurídico levantaria questões de soberania de dados, e o de Gestão de Pessoas apontaria necessidade de requalificação. Quanto mais o problema gera tensão entre perspectivas, mais rico é o debate.">Rodadas pouco variadas</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Gem Criado</th><th>Tipo</th><th>Aplicação no TRE-RN</th></tr></thead><tbody>
+          <tr><td><strong>Especialista LGPD</strong> (Oficina 08)</td><td>Consultor temático com base documental</td><td>Orientação sobre proteção de dados</td></tr>
+          <tr><td><strong>Agentes Cooperativos</strong></td><td>Debate multiagente para resolução de problemas</td><td>Planejamento estratégico, análise de viabilidade</td></tr>
+        </tbody></table></div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Ideias para outros Gems</div>
+          <p>Agora que domina a criação de Gems, pense em outros que seriam úteis: revisor de textos oficiais com normas do Manual de Redação, assistente de análise de contratos, gerador de minutas de despachos, ou orientador sobre o Regimento Interno do Tribunal. Cada área do TRE-RN pode ter seu próprio Gem especializado.</p>
+        </div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia o potencial dos Gems para o TRE-RN?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Em duas oficinas, você criou dois tipos fundamentalmente diferentes de Gems: um consultor temático com base documental e um orquestrador de agentes inteligentes. Esses dois padrões cobrem a maioria dos casos de uso institucionais. Gems com documentos servem para áreas com regulamentação densa (LGPD, licitações, regimento interno). Gems de agentes servem para problemas complexos que exigem múltiplas perspectivas. Você tem agora um arsenal completo.">Potencial enorme!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="Gems são poderosos mas exigem manutenção. Documentos mudam, instruções precisam de refinamento. Pense nos Gems como ferramentas vivas: crie, teste, colete feedback, refine. Na próxima oficina, vamos explorar a criação de conteúdo multimídia com IA.">Útil, mas exige cuidado</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 10</strong>, vamos explorar a criação de conteúdo multimídia com IA.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-08-gems-lgpd.html" class="btn btn-secondary btn-sm">← Oficina anterior</a>
+      <a href="./oficina-10-multimidia.html" class="btn btn-primary btn-sm">Próxima oficina →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=3,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>
