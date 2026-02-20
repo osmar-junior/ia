@@ -14,8 +14,7 @@
     .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
     .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
     .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .file-list{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);margin:var(--space-lg) 0}.file-list ol{margin:var(--space-sm) 0 0;padding-left:var(--space-lg)}.file-list li{font-size:.98rem;line-height:2;color:var(--text-secondary);font-family:'Courier New',monospace}.file-list li code{background:rgba(200,164,92,.08);padding:2px 8px;border-radius:4px;font-size:.92rem}
-    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}.material-grid{grid-template-columns:1fr!important}}
   </style>
 </head>
 <body>
@@ -103,26 +102,24 @@
         </div>
 
         <h3>Passo 3: Carregar a base de conhecimento</h3>
-        <p>Agora vamos alimentar o Gem com os documentos que formarão sua base de referência. Baixe os arquivos PDF disponibilizados pelo instrutor e adicione-os no campo <strong>"Conhecimento"</strong>.</p>
+        <p>Agora vamos alimentar o Gem com os documentos que formarão sua base de referência. Baixe os 10 arquivos PDF abaixo para o seu computador e depois adicione-os no campo <strong>"Conhecimento"</strong> da tela de criação do Gem.</p>
 
         <div class="callout callout-info">
-          <div class="callout-title">📚 Arquivos para o campo "Conhecimento"</div>
-          <p>Adicione os 10 arquivos PDF abaixo. Lembre-se: o limite máximo por Gem é de <strong>10 arquivos</strong>.</p>
+          <div class="callout-title">📚 Limite de arquivos</div>
+          <p>O Gem aceita no máximo <strong>10 arquivos</strong> no campo "Conhecimento". Os documentos abaixo completam exatamente esse limite.</p>
         </div>
 
-        <div class="file-list">
-          <ol>
-            <li><code>lgpd-lei-13709.pdf</code> — Lei Geral de Proteção de Dados (texto integral)</li>
-            <li><code>tre-rn-programa-tratamento-protecao-dados-pessoais.pdf</code> — Programa de Tratamento e Proteção de Dados do TRE-RN</li>
-            <li><code>tre-rn-guia-protecao-dados-pessoais.pdf</code> — Guia de Proteção de Dados Pessoais do TRE-RN</li>
-            <li><code>tse-guia-orientativo-lgpd.pdf</code> — Guia Orientativo LGPD do TSE</li>
-            <li><code>stf-guia-boas-praticas-lgpd.pdf</code> — Guia de Boas Práticas LGPD do STF</li>
-            <li><code>anpd-guia-agentes-tratamento.pdf</code> — Guia de Agentes de Tratamento da ANPD</li>
-            <li><code>gov-br-guia-boas-praticas-lgpd.pdf</code> — Guia de Boas Práticas LGPD do Governo Federal</li>
-            <li><code>gov-ms-cartilha-lgpd.pdf</code> — Cartilha LGPD do Governo do Mato Grosso do Sul</li>
-            <li><code>tce-ro-guia-orientativo-Implementacao-lgpd-para-gestores-publicos.pdf</code> — Guia de Implementação LGPD do TCE-RO</li>
-            <li><code>cge-pr-manual-implementacao-lgpd.pdf</code> — Manual de Implementação LGPD da CGE-PR</li>
-          </ol>
+        <div class="material-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+          <div class="material-card"><div class="mat-icon">⚖️</div><div><h4>Lei Geral de Proteção de Dados</h4><p>Texto integral da Lei 13.709/2018</p><a href="../materiais/lgpd/lgpd-lei-13709.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🏛️</div><div><h4>Programa de Proteção de Dados do TRE-RN</h4><p>Programa institucional de tratamento e proteção de dados pessoais</p><a href="../materiais/lgpd/tre-rn-programa-tratamento-protecao-dados-pessoais.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🏛️</div><div><h4>Guia de Proteção de Dados do TRE-RN</h4><p>Orientações práticas para servidores do Tribunal</p><a href="../materiais/lgpd/tre-rn-guia-protecao-dados-pessoais.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📘</div><div><h4>Guia Orientativo LGPD do TSE</h4><p>Diretrizes do Tribunal Superior Eleitoral</p><a href="../materiais/lgpd/tse-guia-orientativo-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📗</div><div><h4>Guia de Boas Práticas LGPD do STF</h4><p>Referência do Supremo Tribunal Federal</p><a href="../materiais/lgpd/stf-guia-boas-praticas-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🔐</div><div><h4>Guia de Agentes de Tratamento da ANPD</h4><p>Orientações da Autoridade Nacional de Proteção de Dados</p><a href="../materiais/lgpd/anpd-guia-agentes-tratamento.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">🇧🇷</div><div><h4>Guia de Boas Práticas LGPD — Gov.br</h4><p>Referência do Governo Federal</p><a href="../materiais/lgpd/gov-br-guia-boas-praticas-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📙</div><div><h4>Cartilha LGPD — Governo do MS</h4><p>Cartilha prática do Governo do Mato Grosso do Sul</p><a href="../materiais/lgpd/gov-ms-cartilha-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📕</div><div><h4>Guia de Implementação LGPD para Gestores Públicos</h4><p>Guia orientativo do TCE-RO</p><a href="../materiais/lgpd/tce-ro-guia-orientativo-Implementacao-lgpd-para-gestores-publicos.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
+          <div class="material-card"><div class="mat-icon">📒</div><div><h4>Manual de Implementação LGPD — CGE-PR</h4><p>Manual da Controladoria Geral do Paraná</p><a href="../materiais/lgpd/cge-pr-manual-implementacao-lgpd.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
         </div>
 
         <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Salve o Gem</div><div class="tool-hint">Com os campos preenchidos e os arquivos carregados, clique em <strong>"Salvar"</strong>. O Gem estará pronto para uso.</div></div></div>
