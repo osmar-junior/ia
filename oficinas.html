@@ -19,6 +19,28 @@
       margin-bottom: var(--space-3xl);
     }
     .oficina-link { text-decoration: none; display: block; }
+
+    /* Identidade visual por grupo */
+    .oficina-card.grupo-notebooklm { border-left: 4px solid #4A90D9; }
+    .oficina-card.grupo-notebooklm .oficina-number { color: #4A90D9; }
+    .oficina-card.grupo-gemini { border-left: 4px solid #34A853; }
+    .oficina-card.grupo-gemini .oficina-number { color: #34A853; }
+    .oficina-card.grupo-gems { border-left: 4px solid #AB47BC; }
+    .oficina-card.grupo-gems .oficina-number { color: #AB47BC; }
+
+    .grupo-label {
+      grid-column: 1 / -1;
+      display: flex; align-items: center; gap: var(--space-md);
+      padding: var(--space-sm) 0;
+      margin-top: var(--space-md);
+    }
+    .grupo-label .grupo-dot {
+      width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0;
+    }
+    .grupo-label span {
+      font-size: 0.88rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
@@ -32,7 +54,7 @@
         <div class="section-header">
           <div class="eyebrow"><span class="dot"></span> Módulo 06</div>
           <h1>Oficinas Práticas</h1>
-          <p>8 oficinas mão na massa para dominar as ferramentas de IA no seu dia a dia no TRE-RN.</p>
+          <p>11 oficinas mão na massa para dominar as ferramentas de IA no seu dia a dia no TRE-RN.</p>
         </div>
 
         <p class="oficinas-intro">As oficinas estão organizadas em uma sequência progressiva — da familiarização com as ferramentas até a produção de documentos com IA. Cada oficina é independente, mas recomendamos seguir a ordem para melhor aproveitamento.</p>
@@ -54,8 +76,11 @@
             </div>
           </a>
 
+          <!-- GRUPO NOTEBOOKLM -->
+          <div class="grupo-label"><div class="grupo-dot" style="background:#4A90D9"></div><span>NotebookLM</span></div>
+
           <a href="./oficinas/oficina-02-notebooklm-fundamentos.html" class="oficina-link">
-            <div class="oficina-card">
+            <div class="oficina-card grupo-notebooklm">
               <div class="oficina-number">02</div>
               <h3>NotebookLM — Fundamentos</h3>
               <div class="oficina-subtitle">Análise inteligente de documentos</div>
@@ -67,7 +92,7 @@
           </a>
 
           <a href="./oficinas/oficina-03-relatorio-eventos.html" class="oficina-link">
-            <div class="oficina-card">
+            <div class="oficina-card grupo-notebooklm">
               <div class="oficina-number">03</div>
               <h3>NotebookLM — Relatório de Eventos</h3>
               <div class="oficina-subtitle">De áudio gravado a relatório institucional</div>
@@ -80,7 +105,7 @@
           </a>
 
           <a href="./oficinas/oficina-04-notebooklm-videos.html" class="oficina-link">
-            <div class="oficina-card">
+            <div class="oficina-card grupo-notebooklm">
               <div class="oficina-number">04</div>
               <h3>NotebookLM — Vídeos como Fontes</h3>
               <div class="oficina-subtitle">Do YouTube ao relatório institucional</div>
@@ -92,36 +117,86 @@
             </div>
           </a>
 
-          <a href="./oficinas/oficina-05-gemini-workspace.html" class="oficina-link">
-            <div class="oficina-card">
+          <!-- GRUPO GEMINI WORKSPACE -->
+          <div class="grupo-label"><div class="grupo-dot" style="background:#34A853"></div><span>Gemini com Google Workspace</span></div>
+
+          <a href="./oficinas/oficina-05-gemini-ferramentas.html" class="oficina-link">
+            <div class="oficina-card grupo-gemini">
               <div class="oficina-number">05</div>
-              <h3>Gemini com Google Workspace</h3>
-              <div class="oficina-subtitle">Planilhas, Documentos, Gmail, Canvas e integrações</div>
-              <p>Analise dados eleitorais, revise documentos, redija e-mails, use o Canvas e conecte Gmail, Agenda e Drive pelo chat do Gemini.</p>
+              <h3>Gemini com Workspace — Ferramentas</h3>
+              <div class="oficina-subtitle">Acesso a partir das ferramentas do Google</div>
+              <p>Use o Gemini dentro do Google Planilhas, Documentos e Gmail para análise de dados, revisão de textos e redação de e-mails.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">Gemini</span>
+                <span class="tool-tag">Sheets</span>
+                <span class="tool-tag">Docs</span>
+                <span class="tool-tag">Gmail</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-06-gemini-canvas.html" class="oficina-link">
+            <div class="oficina-card grupo-gemini">
+              <div class="oficina-number">06</div>
+              <h3>Gemini com Workspace — Canvas</h3>
+              <div class="oficina-subtitle">Geração e transformação visual de conteúdo</div>
+              <p>Use o Canvas do Gemini para gerar textos, ajustar tamanho e tom, criar páginas web e infográficos, e exportar para o Google Docs.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">Gemini</span>
+                <span class="tool-tag">Canvas</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="./oficinas/oficina-07-gemini-integracoes.html" class="oficina-link">
+            <div class="oficina-card grupo-gemini">
+              <div class="oficina-number">07</div>
+              <h3>Gemini com Workspace — Integrações</h3>
+              <div class="oficina-subtitle">Gmail, Agenda e Drive via chat + Ações agendadas</div>
+              <p>Conecte Gmail, Agenda e Drive ao chat do Gemini e configure ações automatizadas recorrentes.</p>
               <div class="oficina-tools">
                 <span class="tool-tag">Gemini</span>
                 <span class="tool-tag">Gmail</span>
-                <span class="tool-tag">Docs</span>
-                <span class="tool-tag">Sheets</span>
+                <span class="tool-tag">Agenda</span>
               </div>
             </div>
           </a>
 
-          <a href="./oficinas/oficina-06-gems.html" class="oficina-link">
-            <div class="oficina-card">
-              <div class="oficina-number">06</div>
-              <h3>Criação de Gems</h3>
-              <div class="oficina-subtitle">Assistentes de IA personalizados</div>
-              <p>Crie Gems no Gemini para tarefas reais: um consultor LGPD com base documental e um gerenciador de agentes inteligentes cooperativos.</p>
+          <!-- GRUPO GEMS -->
+          <div class="grupo-label"><div class="grupo-dot" style="background:#AB47BC"></div><span>Criação de Gems</span></div>
+
+          <a href="./oficinas/oficina-08-gems-lgpd.html" class="oficina-link">
+            <div class="oficina-card grupo-gems">
+              <div class="oficina-number">08</div>
+              <h3>Criação de Gems — Especialista em LGPD</h3>
+              <div class="oficina-subtitle">Consultor de proteção de dados com base documental</div>
+              <p>Crie um Gem alimentado por 10 documentos oficiais de LGPD para orientar servidores do TRE-RN sobre proteção de dados.</p>
               <div class="oficina-tools">
                 <span class="tool-tag">Gemini Gems</span>
+                <span class="tool-tag">LGPD</span>
               </div>
             </div>
           </a>
 
-          <a href="./oficinas/oficina-07-multimidia.html" class="oficina-link">
+          <a href="./oficinas/oficina-09-gems-agentes.html" class="oficina-link">
+            <div class="oficina-card grupo-gems">
+              <div class="oficina-number">09</div>
+              <h3>Criação de Gems — Agentes Inteligentes</h3>
+              <div class="oficina-subtitle">Debate multiagente para resolução de problemas</div>
+              <p>Crie um Gem que gerencia agentes cooperativos com papéis distintos para resolver problemas complexos do TRE-RN.</p>
+              <div class="oficina-tools">
+                <span class="tool-tag">Gemini Gems</span>
+                <span class="tool-tag">Multi-agente</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- OFICINAS AVANÇADAS -->
+          <div class="grupo-label"><div class="grupo-dot" style="background:var(--dourado)"></div><span>Oficinas Avançadas</span></div>
+
+          <a href="./oficinas/oficina-10-multimidia.html" class="oficina-link">
             <div class="oficina-card">
-              <div class="oficina-number">07</div>
+              <div class="oficina-number">10</div>
               <h3>Multimídia com IA</h3>
               <div class="oficina-subtitle">Imagens, sons e vídeos</div>
               <p>Explore Grok Imagine, ImageFX, Whisk, restauração de imagens e ferramentas de áudio e vídeo com IA.</p>
@@ -133,9 +208,9 @@
             </div>
           </a>
 
-          <a href="./oficinas/oficina-08-documentos.html" class="oficina-link">
+          <a href="./oficinas/oficina-11-documentos.html" class="oficina-link">
             <div class="oficina-card">
-              <div class="oficina-number">08</div>
+              <div class="oficina-number">11</div>
               <h3>Produção de Documentos</h3>
               <div class="oficina-subtitle">IA para documentos jurídicos e administrativos</div>
               <p>Use IA para elaborar minutas, ofícios, pareceres, relatórios e outros documentos do TRE-RN com qualidade profissional.</p>
