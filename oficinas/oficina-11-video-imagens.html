@@ -7,25 +7,241 @@
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body h4{margin-top:var(--space-lg);margin-bottom:var(--space-sm);color:var(--text);font-size:1.15rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-lg);background:var(--bg-elevated);border:1px solid rgba(200,164,92,.25);border-radius:var(--radius-lg);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:1.05rem;color:var(--text);margin-top:10px;padding:12px 16px;background:rgba(200,164,92,.1);border:1px solid rgba(200,164,92,.2);border-radius:var(--radius-md);line-height:1.75}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .thumb-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-md);margin:var(--space-lg) 0;max-width:480px}.thumb-gallery .thumb-item{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-md);overflow:hidden;text-align:center}.thumb-gallery .thumb-item img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}.thumb-gallery .thumb-item a{display:block;padding:8px;font-size:.82rem;font-weight:600;color:var(--dourado);text-decoration:none}.thumb-gallery .thumb-item a:hover{text-decoration:underline}
+    .thumb-section{margin:var(--space-lg) 0}.thumb-section h4{margin-bottom:var(--space-sm)}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}.thumb-gallery{max-width:100%}}
+  </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="page-content"><div class="container"><section class="section">
-    <div class="section-header">
-      <div class="eyebrow"><span class="line"></span> Oficina 11</div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">🎬 Oficina 11 de 12</div>
       <h1>Geração de Vídeos a partir de Imagens</h1>
-      <p>Transforme imagens estáticas em vídeos usando o Grok Imagine.</p>
+      <p class="oficina-desc">Transforme imagens estáticas em vídeos curtos com IA. Aprenda a usar o Grok Imagine para criar vídeos com movimento, fala e sincronia labial a partir de fotografias, e descubra técnicas para produzir vídeos mais longos combinando múltiplos clipes.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 45–60 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Conta no X/Twitter (Grok Imagine)</div>
+      </div>
     </div>
-    <p style="color: var(--text-muted); font-style: italic;">Conteúdo em construção...</p>
-  </section>
+
+    <!-- ==================== FUNDAMENTOS ==================== -->
+    <div class="etapa" id="fundamentos">
+      <div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Modelos de IA para Vídeo</h2></div></div>
+      <div class="etapa-body">
+        <p>Assim como existem modelos especializados em gerar texto (GPT, Gemini, Claude) e imagens (Imagen, DALL-E), existem modelos projetados especificamente para gerar vídeos. Os principais atualmente são:</p>
+
+        <ul>
+          <li><strong>VEO 3 (Google/DeepMind):</strong> Modelo de última geração do Google, capaz de gerar vídeos com sincronia labial e áudio. Integrado ao Gemini e ao VideoFX.</li>
+          <li><strong>Aurora (xAI):</strong> Modelo que alimenta a geração de vídeos no Grok Imagine. Produz vídeos de 6 segundos a partir de imagens ou prompts textuais, com qualidade crescente a cada atualização.</li>
+          <li><strong>Sora (OpenAI):</strong> Modelo da OpenAI para geração de vídeos a partir de texto, com foco em coerência temporal e realismo visual.</li>
+          <li><strong>Kling (Kuaishou):</strong> Modelo chinês que se destacou pela qualidade visual e capacidade de gerar vídeos mais longos.</li>
+        </ul>
+
+        <h3>Por que usar o Grok Imagine nesta oficina?</h3>
+        <p>A escolha da ferramenta se dá por uma questão prática de <strong>custo-benefício e limites de uso</strong>. Veja a comparação:</p>
+
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Ferramenta</th><th>Duração por vídeo</th><th>Limite diário (gratuito)</th><th>Plano pago</th></tr></thead><tbody>
+          <tr><td><strong>VEO 3 (Google)</strong></td><td>Até 8 segundos</td><td>3 a 4 vídeos/dia</td><td>Workspace: limite igualmente baixo</td></tr>
+          <tr><td><strong>Grok Imagine</strong></td><td>~6 segundos</td><td>~20 vídeos + ~30 imagens/dia</td><td>Super Grok (US$ 30/mês): ~200+/dia</td></tr>
+        </tbody></table></div>
+
+        <p>Mesmo na conta corporativa Google Workspace contratada pelo TRE-RN, o limite do VEO 3 é bastante restritivo para uma oficina prática. O Grok Imagine oferece uma margem confortável para experimentação: cerca de 20 vídeos por dia na conta gratuita, podendo em alguns casos exceder esse limite dependendo da demanda. Na versão paga Super Grok (US$ 30/mês), os limites ampliam para cerca de 200 gerações por dia, com janelas de 2 horas para 50 a 100+ gerações.</p>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Limites podem variar</div>
+          <p>Os limites de uso do Grok Imagine são dinâmicos e podem variar conforme a demanda nos servidores da xAI. Os números acima são estimativas baseadas no uso típico. Se você atingir o limite, aguarde algumas horas e tente novamente.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== MATERIAL DE APOIO ==================== -->
+    <div class="etapa" id="material">
+      <div class="etapa-header"><div class="etapa-num">📦</div><div><h2>Material de Apoio</h2></div></div>
+      <div class="etapa-body">
+        <p>Baixe as imagens abaixo para o seu computador. Você vai usá-las como base para gerar vídeos no Grok Imagine.</p>
+
+        <div class="thumb-section">
+          <h4>📸 Personagens para animação</h4>
+          <div class="thumb-gallery">
+            <div class="thumb-item"><img src="../materiais/of-11-reporter.jpeg" alt="Repórter"><a href="../materiais/of-11-reporter.jpeg" download>⬇ Baixar</a></div>
+            <div class="thumb-item"><img src="../materiais/of-11-rapaz.jpeg" alt="Rapaz"><a href="../materiais/of-11-rapaz.jpeg" download>⬇ Baixar</a></div>
+            <div class="thumb-item"><img src="../materiais/of-11-garota.jpeg" alt="Garota"><a href="../materiais/of-11-garota.jpeg" download>⬇ Baixar</a></div>
+          </div>
+        </div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📸 Baixou as imagens para o seu computador?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="Ótimo! Essas imagens foram escolhidas por representarem cenários diferentes de animação: uma repórter em ambiente externo, um rapaz em café ao ar livre e uma jovem em praça. Cada uma vai gerar um tipo diferente de vídeo, com expressões faciais, movimentos e falas distintas. Vamos começar.">Imagens salvas!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="neutral" data-msg="Se teve dificuldade para baixar, clique com o botão direito na imagem e selecione 'Salvar imagem como...'. Alternativamente, clique no botão 'Baixar' abaixo de cada thumbnail. Qualquer imagem funciona para a atividade, então se preferir, pode usar uma foto própria.">Tive dificuldades</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 1: CRIANDO VÍDEOS ==================== -->
+    <div class="etapa" id="etapa1">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Criando Vídeos com o Grok Imagine</h2><div class="etapa-sub">De imagem estática a vídeo com movimento e fala</div></div></div>
+      <div class="etapa-body">
+
+        <h3>Acessando o Grok Imagine</h3>
+        <div class="tool-instruction"><div class="tool-icon">🎬</div><div><div class="tool-name"><a href="https://grok.com/imagine" target="_blank">Abra o Grok Imagine ↗</a></div><div class="tool-hint">Acesse com sua conta do X (Twitter). Na interface, selecione a opção <strong>"Vídeo"</strong> (não "Imagem"). Essa seleção é importante — por padrão o Grok Imagine pode estar configurado para gerar imagens.</div></div></div>
+
+        <h3>Como funciona a geração de vídeo</h3>
+        <p>O processo é simples: você faz o <strong>upload de uma imagem</strong> e o Grok Imagine transforma essa imagem estática em um vídeo curto de aproximadamente 6 segundos. O modelo Aurora analisa a imagem, interpreta o contexto e gera movimento, expressões faciais e até fala com sincronia labial.</p>
+        <p>Ao fazer o upload da imagem, o Grok Imagine <strong>já inicia automaticamente a geração</strong> de um vídeo, mesmo sem nenhum prompt. No entanto, o resultado será muito mais interessante e controlado se você especificar o que deseja em um prompt descritivo.</p>
+
+        <h3>Atividade prática: Vídeo da repórter</h3>
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name">Faça upload da imagem <em>of-11-reporter.jpeg</em></div><div class="tool-hint">Na interface do Grok Imagine (modo <strong>Vídeo</strong>), arraste a imagem da repórter para a área de upload ou clique para selecioná-la. <strong>Antes de gerar</strong>, cole o prompt abaixo no campo de texto e clique em <strong>"Fazer vídeo"</strong>.</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Vídeo da repórter</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">A repórter está no meio de uma rua movimentada, falando seriamente para a câmera. De repente, um homem fantasiado de coxinha gigante entra em cena caminhando e começa a fazer dancinhas desengonçadas. A repórter tenta manter o profissionalismo por dois segundos, mas começa a rir, olha para a câmera e diz em Português-BR: "Gente, não dá! É sério que tem uma coxinha dançando no meu link ao vivo?". O áudio deve ter sincronia labial perfeita (lip-sync), com ruídos de trânsito ao fundo e iluminação de dia nublado.</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎬 Gerou o vídeo da repórter?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="Impressionante, não? O modelo Aurora consegue interpretar uma cena complexa com múltiplos elementos: a ação da repórter, a entrada de um personagem secundário, a reação emocional e a fala com sincronia labial. O resultado nem sempre será perfeito, especialmente em cenários muito elaborados, mas a capacidade de transformar uma foto estática em uma cena dinâmica e narrativa é notável. Cada geração produz um resultado ligeiramente diferente, então experimente gerar mais de uma vez para comparar.">Resultado surpreendente!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="neutral" data-msg="A geração de vídeo com IA ainda está em evolução e os resultados podem variar bastante. Se o vídeo ficou estranho ou não seguiu o prompt, tente simplificar a descrição. Prompts muito complexos com muitos elementos simultâneos podem confundir o modelo. Comece com algo mais simples como 'A repórter fala para a câmera e sorri' e vá adicionando complexidade gradualmente. A sincronia labial em português pode não ser perfeita, pois os modelos são treinados predominantemente em inglês.">Resultado irregular</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+
+        <h3>Atividade prática: Vídeo do rapaz</h3>
+        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Faça upload da imagem <em>of-11-rapaz.jpeg</em></div><div class="tool-hint">Selecione a opção <strong>"Vídeo"</strong>, faça o upload da imagem do rapaz, cole o prompt abaixo e clique em <strong>"Fazer vídeo"</strong>.</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Vídeo do rapaz no café</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">O jovem está em um café ao ar livre iluminado pelo sol, conversando com sua amiga. Ele mantém uma postura confiante e um olhar profundamente encorajador. Ele sorri de forma genuína, gesticula com as mãos e diz em Português-BR: "Acredita no seu sonho, você tem tudo para vencer!". A amiga olha para o rapaz de volta, e fica visivelmente inspirada e emocionada. A luz do "golden hour" banha a cena, criando uma atmosfera calorosa, positiva e de apoio. Sincronia labial (lip-sync) perfeita, movimentos de câmera sutis e texturas de pele em altíssima definição.</div></div>
+
+        <h3>Atividade prática: Vídeo da garota</h3>
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Faça upload da imagem <em>of-11-garota.jpeg</em></div><div class="tool-hint">Mesmo procedimento: modo <strong>"Vídeo"</strong>, upload da imagem, cole o prompt e clique em <strong>"Fazer vídeo"</strong>.</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Vídeo da garota na praça</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">A jovem mulher brasileira de camiseta branca está em pé na praça, com o sol da tarde criando um brilho suave ao seu redor. O vento balança levemente seus cabelos enquanto ela olha para alguém (fora da câmera) com os olhos brilhando de emoção. Ela respira fundo, abre um sorriso doce e carregado de saudade, e diz em Português-BR: "Eu sabia que você vinha... que bom que você está aqui.". A câmera faz um movimento de aproximação lenta (slow zoom-in) no rosto dela, capturando a textura da pele e a sinceridade do olhar. Atmosfera cinematográfica, emotiva e acolhedora.</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎬 Gerou os vídeos do rapaz e da garota?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Observe como o mesmo modelo consegue interpretar cenários emocionalmente distintos: o rapaz transmitindo confiança e encorajamento, a garota expressando saudade e ternura. A qualidade da expressão facial e da sincronia labial depende muito da clareza do prompt e da resolução da imagem de entrada. Imagens com rosto em destaque e boa iluminação tendem a produzir os melhores resultados. Agora vamos aprender a melhorar e salvar esses vídeos.">Resultados emocionantes!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="Se algum dos vídeos não ficou como esperado, lembre-se de que você pode gerar novamente o mesmo prompt para obter um resultado diferente. O modelo tem um componente aleatório e cada geração produz uma variação. Tente também simplificar o prompt se o resultado estiver muito distante do desejado. A dica é: quanto mais clara e específica a descrição da ação principal, melhor o resultado.">Alguns ficaram bons, outros não</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 2: UPSCALE E DOWNLOAD ==================== -->
+    <div class="etapa" id="etapa2">
+      <div class="etapa-header"><div class="etapa-num">02</div><div><h2>Upscale e Download</h2><div class="etapa-sub">Melhorando a qualidade antes de salvar</div></div></div>
+      <div class="etapa-body">
+        <p>Antes de baixar seus vídeos, o Grok Imagine oferece um recurso importante: o <strong>Upscale de vídeo</strong>, que melhora a resolução e a qualidade visual do resultado.</p>
+
+        <h3>Como fazer o Upscale</h3>
+        <div class="tool-instruction"><div class="tool-icon">⬆️</div><div><div class="tool-name">Menu "..." → Upscale vídeo</div><div class="tool-hint">No vídeo gerado, clique no ícone de três pontos <strong>"..."</strong> (canto do vídeo). Selecione a opção <strong>"Upscale vídeo"</strong>. O processo leva alguns segundos e gera uma versão com resolução superior. <strong>Faça isso antes de baixar</strong> para garantir a melhor qualidade possível.</div></div></div>
+
+        <h3>Baixando o vídeo</h3>
+        <div class="tool-instruction"><div class="tool-icon">💾</div><div><div class="tool-name">Menu "..." → Download</div><div class="tool-hint">Após o upscale, clique novamente no ícone <strong>"..."</strong> e selecione <strong>"Download"</strong>. O vídeo será salvo no seu computador em formato MP4.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">⬆️ Fez o upscale e baixou pelo menos um vídeo?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Compare a versão com e sem upscale: a diferença na nitidez dos detalhes faciais e na textura é perceptível, especialmente quando o vídeo é reproduzido em tela cheia. Para uso profissional (apresentações, publicações), sempre faça o upscale antes de baixar. É um passo simples que eleva significativamente a qualidade do produto final.">Upscale + download feitos!</button>
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="neutral" data-msg="Se a opção de upscale não apareceu, pode ser que o vídeo já tenha sido gerado na resolução máxima disponível para sua conta, ou que o recurso esteja temporariamente indisponível por alta demanda. Nesse caso, baixe o vídeo normalmente — a qualidade padrão já é boa para a maioria dos usos.">Opção não disponível</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA EXTRA: VÍDEOS MAIS LONGOS ==================== -->
+    <div class="etapa" id="etapa-extra">
+      <div class="etapa-header"><div class="etapa-num">⭐</div><div><h2>Extra: Criando Vídeos Mais Longos</h2><div class="etapa-sub">Técnica de encadeamento de clipes</div></div></div>
+      <div class="etapa-body">
+        <p>Os vídeos gerados pelo Grok Imagine têm cerca de 6 segundos. Mas e se você precisar de um vídeo mais longo? Existe uma técnica simples e eficaz: o <strong>encadeamento de clipes</strong>.</p>
+
+        <h3>Como funciona</h3>
+        <p>A ideia é usar o <strong>último quadro</strong> de um vídeo gerado como imagem de entrada para gerar o próximo vídeo, criando uma continuidade visual. Repetindo o processo, você produz vários clipes de 6 segundos que, unidos, formam um vídeo contínuo.</p>
+
+        <h4>Passo a passo</h4>
+        <ul>
+          <li><strong>1. Gere o primeiro vídeo</strong> normalmente no Grok Imagine (como você acabou de fazer).</li>
+          <li><strong>2. Extraia o último quadro:</strong> Abra o vídeo em um software de edição como o <a href="https://www.capcut.com/pt-br/" target="_blank"><strong>CapCut</strong></a> (gratuito, web ou desktop) ou o <strong>InShot</strong> (mobile). Pause no último segundo e exporte esse frame como imagem (screenshot ou função de exportar frame).</li>
+          <li><strong>3. Gere o segundo vídeo:</strong> Use essa imagem do último quadro como entrada no Grok Imagine, com um novo prompt que dê continuidade à cena.</li>
+          <li><strong>4. Repita</strong> quantas vezes for necessário para atingir a duração desejada.</li>
+          <li><strong>5. Junte os clipes:</strong> Importe todos os vídeos gerados no editor (CapCut, InShot, ou qualquer outro), coloque-os na timeline em sequência, ajuste as transições se necessário, e exporte como um vídeo único.</li>
+        </ul>
+
+        <div class="callout callout-success">
+          <div class="callout-title">💡 Dica para melhores resultados</div>
+          <p>Ao escrever o prompt do segundo clipe em diante, faça referência ao que está acontecendo no final do clipe anterior. Isso ajuda o modelo a manter a continuidade da cena. Exemplo: se o primeiro vídeo termina com a personagem sorrindo, comece o prompt do segundo com "A mulher que estava sorrindo agora começa a caminhar em direção à câmera...".</p>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">🛠️ Ferramentas de edição sugeridas</div>
+          <p><strong>CapCut</strong> (gratuito): Disponível na web (<a href="https://www.capcut.com/pt-br/" target="_blank">capcut.com</a>), desktop e mobile. Interface intuitiva, exporta em até 4K.</p>
+          <p><strong>InShot</strong> (gratuito com ads): Aplicativo mobile para iOS e Android. Ideal para edições rápidas no celular.</p>
+          <p>Ambos permitem importar múltiplos vídeos, organizá-los na timeline, adicionar transições suaves entre os clipes e exportar como um vídeo único.</p>
+        </div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎞️ Entendeu a técnica de encadeamento de clipes?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="positive" data-msg="Essa técnica é usada por criadores de conteúdo profissionais que trabalham com IA generativa. Vídeos virais de 30 segundos a 1 minuto frequentemente são produzidos exatamente assim: encadeando múltiplos clipes de 6 a 8 segundos gerados a partir do último frame do anterior. O resultado, quando bem feito, é surpreendentemente fluido. A chave está na qualidade do prompt de continuidade e na escolha precisa do frame de transição.">Técnica clara, vou experimentar!</button>
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="neutral" data-msg="Se parece trabalhoso, lembre-se de que esta é uma técnica avançada e opcional. Para a maioria dos usos no TRE-RN (demonstrações, apresentações, redes sociais), vídeos de 6 segundos já são suficientes. A técnica de encadeamento é útil quando você precisa de algo mais elaborado, como um vídeo institucional ou narrativo mais longo.">Prefiro vídeos curtos por enquanto</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== CONCLUSÃO ==================== -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Habilidade</th><th>O que você aprendeu</th><th>Ferramenta</th></tr></thead><tbody>
+          <tr><td><strong>Geração de vídeo a partir de imagem</strong></td><td>Transformar fotos estáticas em vídeos com movimento e fala</td><td>Grok Imagine</td></tr>
+          <tr><td><strong>Prompts descritivos para vídeo</strong></td><td>Descrever cenas, ações, falas e atmosfera</td><td>Grok Imagine</td></tr>
+          <tr><td><strong>Upscale de vídeo</strong></td><td>Melhorar a resolução antes de baixar</td><td>Grok Imagine</td></tr>
+          <tr><td><strong>Encadeamento de clipes</strong></td><td>Produzir vídeos mais longos unindo múltiplos clipes</td><td>CapCut / InShot</td></tr>
+        </tbody></table></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia a geração de vídeos com IA?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="positive" data-msg="A geração de vídeo com IA está evoluindo em velocidade impressionante. Há menos de um ano, os resultados eram rudimentares — hoje já temos sincronia labial, expressões faciais realistas e composição de cena. Para o TRE-RN, as aplicações são múltiplas: vídeos de conscientização sobre o processo eleitoral, tutoriais animados para mesários, conteúdo para redes sociais institucionais, e materiais de treinamento com personagens gerados por IA. Na próxima oficina, vamos explorar restauração de imagens antigas e geração de fotos similares.">Tecnologia revolucionária!</button>
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="neutral" data-msg="A tecnologia é impressionante mas ainda apresenta imperfeições, especialmente em movimentos complexos, mãos e sincronia labial em português. Os resultados vão melhorar rapidamente — o que importa agora é entender o fluxo de trabalho e as possibilidades. Na próxima oficina, vamos explorar restauração de imagens e geração de fotos similares.">Promissora, mas ainda imperfeita</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-5"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 12</strong>, vamos explorar a restauração de imagens antigas e a geração de fotos similares com IA.</p></div>
+      </div>
+    </div>
+
     <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
       <a href="./oficina-10-imagens-prompts.html" class="btn btn-secondary btn-sm">← Oficina 10</a>
       <a href="./oficina-12-restauracao-similares.html" class="btn btn-primary btn-sm">Oficina 12 →</a>
     </div>
+
   </div></main>
+
   <div id="footer-placeholder"></div>
   <script src="../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=6,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
 </body>
 </html>
