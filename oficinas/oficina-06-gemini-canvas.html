@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 06 — Gemini com Workspace: Canvas | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body h4{margin-top:var(--space-lg);margin-bottom:var(--space-sm);color:var(--text);font-size:1.15rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">⚡ Oficina 06 de 11</div>
+      <h1>Gemini com Workspace — Uso do Canvas</h1>
+      <p class="oficina-desc">Descubra o Canvas do Gemini: um espaço de trabalho visual para gerar, editar e transformar textos. Ajuste tamanho e tom, crie páginas web e infográficos, e exporte para o Google Documentos.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 30–45 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Google Workspace com Gemini ativo</div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 2: CANVAS DO GEMINI ==================== -->
+    <div class="etapa" id="etapa2">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Canvas do Gemini</h2><div class="etapa-sub">Gerando e transformando conteúdo visualmente</div></div></div>
+      <div class="etapa-body">
+        <p>O <strong>Canvas</strong> é um recurso do Gemini que permite gerar, editar e transformar textos em um espaço de trabalho visual dedicado. Diferente do chat convencional, o Canvas mantém o conteúdo em uma área editável separada, com ferramentas de refinamento integradas.</p>
+
+        <h3>Gerando um texto com Canvas</h3>
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Abra o Gemini ↗</a></div><div class="tool-hint">Inicie um novo chat. Em <strong>"Ferramentas"</strong>, ative a opção <strong>"Canvas"</strong>.</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Texto institucional com Canvas (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um consultor especialista na adoção de IA por órgãos públicos.
+
+[CONTEXT] O TRE-RN contratou o Google Workspace com Gemini e está capacitando seus servidores para utilização dos recursos de IA integrados.
+
+[TASK] Gere um documento apresentando as vantagens e diferenciais de negócio da utilização dos recursos de IA generativa por parte dos servidores do Tribunal. Inclua benefícios operacionais, ganhos de produtividade e impactos na prestação jurisdicional.
+
+[STYLE] Texto com estrutura de tópicos hierárquicos, aproximadamente 3000 caracteres, linguagem simples porém institucional.
+
+[EXAMPLE] Cada tópico deve ter um título curto e descritivo, seguido de 2-3 parágrafos de explicação com exemplos concretos do contexto judiciário.</div></div>
+
+        <h3>Explorando os recursos do Canvas</h3>
+        <p>Com o texto gerado na área do Canvas, explore as ferramentas disponíveis:</p>
+        <ul>
+          <li><strong>Mudar tamanho:</strong> Ajuste o texto para ser mais curto ou mais longo, mantendo o conteúdo essencial. Útil para adaptar o mesmo texto a diferentes formatos (resumo executivo vs. documento detalhado).</li>
+          <li><strong>Mudar tom:</strong> Alterne entre tons: mais formal, mais casual, mais conciso, mais persuasivo. Teste como o mesmo conteúdo soa em diferentes registros de linguagem.</li>
+          <li><strong>Sugerir edições:</strong> O Gemini analisa o texto e propõe melhorias de clareza, estilo e precisão. Você aceita ou rejeita cada sugestão individualmente.</li>
+        </ul>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">✍️ Testou os recursos de edição do Canvas?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="O Canvas é uma ferramenta subestimada. Enquanto o chat do Gemini gera texto e 'esquece', o Canvas mantém o conteúdo vivo para refinamento iterativo. É como ter um editor de texto inteligente: você gera, ajusta o tamanho, muda o tom, pede sugestões — tudo na mesma sessão. Para documentos institucionais do TRE-RN, o fluxo ideal é: gerar no Canvas → ajustar tom para formal → exportar para Google Documentos → refinar manualmente. Você vai praticar essa exportação logo a seguir.">Recursos muito úteis!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="neutral" data-msg="O Canvas é uma funcionalidade relativamente nova e pode não estar disponível para todas as contas ou ter comportamentos inconsistentes. Se os botões de 'Mudar tamanho' ou 'Mudar tom' não apareceram, verifique se o Canvas está realmente ativado (indicador visual no chat). Se os resultados foram decepcionantes, tente com um texto mais longo e estruturado — o Canvas funciona melhor com conteúdos substanciais (acima de 500 palavras) do que com textos curtos.">Não vi muita diferença</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+
+        <h3>O botão "Criar" do Canvas</h3>
+        <p>Além de textos, o Canvas permite gerar outros formatos a partir do conteúdo. Clique em <strong>"Criar"</strong> e explore:</p>
+        <ul>
+          <li><strong>Página da Web:</strong> Transforma o texto em uma página HTML estilizada, pronta para publicar na intranet ou compartilhar como link. Ideal para comunicados internos visualmente atraentes.</li>
+          <li><strong>Infográfico:</strong> Gera uma representação visual compacta do conteúdo, com ícones, dados em destaque e layout gráfico. Perfeito para murais, apresentações ou redes sociais institucionais.</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Recursos similares ao NotebookLM</div>
+          <p>O Canvas também oferece <strong>Teste</strong>, <strong>Cartões didáticos</strong> e <strong>Recursos em áudio</strong> — funcionalidades similares às que você já conhece do Estúdio do NotebookLM. A diferença é que no Canvas elas trabalham sobre textos gerados pelo Gemini, enquanto no NotebookLM trabalham sobre documentos e fontes carregadas.</p>
+        </div>
+
+        <h4>Exportando para Google Documentos</h4>
+        <div class="tool-instruction"><div class="tool-icon">📤</div><div><div class="tool-name">Clique em "Compartilhar e Exportar" → "Exportar para os Documentos Google"</div><div class="tool-hint">Isso cria um Google Documento com o conteúdo do Canvas, onde você pode continuar a edição com as ferramentas da Etapa 1 (Revisar, Reformular, etc.)</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎨 Testou Página da Web ou Infográfico no Canvas?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="A capacidade de transformar texto em página web ou infográfico com um clique é um diferencial real do Canvas. Para o TRE-RN, imagine gerar comunicados internos como páginas web estilizadas em vez de PDFs sem graça, ou criar infográficos para o mural de avisos da unidade — tudo sem precisar de designer. O fluxo Canvas → Exportar para Google Docs também é poderoso: você gera o conteúdo com IA, exporta, e depois usa o 'Revisar' do Google Documentos para refinamentos finais.">Página web/infográfico impressionante!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="neutral" data-msg="Os formatos visuais (página web, infográfico) são funcionais mas nem sempre atendem padrões profissionais de design. Eles são melhores como ponto de partida do que como produto final. Para comunicados oficiais do TRE-RN, o fluxo mais seguro é: gerar o texto no Canvas → exportar para Google Docs → refinar → se precisar de layout visual, usar o Canva (como aprendeu na Oficina 03). O Canvas brilha na geração e refinamento de texto, não necessariamente nos outputs visuais.">Visual básico</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Recurso</th><th>O que faz</th><th>Aplicação no TRE-RN</th></tr></thead><tbody>
+          <tr><td><strong>Canvas — Edição</strong></td><td>Mudar tamanho, tom e sugerir edições</td><td>Ajustar documentos para diferentes públicos</td></tr>
+          <tr><td><strong>Canvas — Criar</strong></td><td>Página web, Infográfico, Teste, Cartões</td><td>Comunicados visuais, materiais de capacitação</td></tr>
+          <tr><td><strong>Exportação</strong></td><td>Canvas → Google Documentos</td><td>Fluxo completo de geração e refinamento</td></tr>
+        </tbody></table></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia o recurso Canvas do Gemini?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="O Canvas preenche uma lacuna importante: a geração e o refinamento iterativo de conteúdo. Diferente do chat comum, o Canvas mantém o texto vivo para edições sucessivas. Para o TRE-RN, o fluxo Canvas → Exportar para Google Docs → Revisar com Gemini no Docs é extremamente produtivo. Na próxima oficina, vamos conectar o Gemini a Gmail, Agenda e Drive via integrações.">Ferramenta valiosa!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="O Canvas é relativamente novo e ainda está evoluindo. Mesmo que nem tudo tenha funcionado como esperado, o conceito é poderoso e a tendência é de melhoria rápida. Na próxima oficina, vamos explorar as integrações do Gemini com Gmail, Agenda e Drive.">Precisa amadurecer</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 07</strong>, vamos conectar o Gemini ao Gmail, Agenda e Drive via integrações e configurar ações agendadas.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-05-gemini-ferramentas.html" class="btn btn-secondary btn-sm">← Oficina anterior</a>
+      <a href="./oficina-07-gemini-integracoes.html" class="btn btn-primary btn-sm">Próxima oficina →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=3,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>

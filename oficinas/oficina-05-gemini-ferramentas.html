@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 05 — Gemini com Workspace: Ferramentas | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body h4{margin-top:var(--space-lg);margin-bottom:var(--space-sm);color:var(--text);font-size:1.15rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">⚡ Oficina 05 de 11</div>
+      <h1>Gemini com Workspace — Acesso a partir das Ferramentas do Google</h1>
+      <p class="oficina-desc">Explore o Gemini integrado diretamente ao Google Planilhas, Google Documentos e Gmail. Analise dados eleitorais, revise textos institucionais e redija e-mails com assistência de IA, sem sair das ferramentas que você já usa.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 40–60 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Google Workspace com Gemini ativo</div>
+      </div>
+    </div>
+
+    <!-- OBJETIVOS + MATERIAL -->
+    <div class="etapa" id="objetivos">
+      <div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Objetivos e Material de Apoio</h2></div></div>
+      <div class="etapa-body">
+        <ul>
+          <li>Utilizar o Gemini dentro do Google Planilhas para análise e manipulação de dados</li>
+          <li>Explorar o Gemini no Google Documentos para revisão e reformulação de textos</li>
+          <li>Redigir e-mails com auxílio do Gemini no Gmail</li>
+          <li>Dominar o recurso Canvas do Gemini para geração e transformação de conteúdo</li>
+          <li>Integrar o Gemini com Gmail, Agenda e Drive para consultas cruzadas via chat</li>
+          <li>Configurar ações agendadas para automações recorrentes</li>
+        </ul>
+        <h3>📦 Material de Apoio</h3>
+        <p>Baixe os arquivos abaixo. Você vai copiá-los para o seu Google Drive e convertê-los para os formatos nativos do Google.</p>
+        <div class="material-grid">
+          <div class="material-card"><div class="mat-icon">📊</div><div><h4>Planilha — Logs de Urnas Eletrônicas</h4><p>Dados do 1º turno das eleições 2024 no RN</p><a href="../materiais/of-05-logs-urnas-1t-2024.xlsx" download class="mat-link">⬇ Baixar XLSX</a></div></div>
+          <div class="material-card"><div class="mat-icon">📄</div><div><h4>Documento — Modernização Tecnológica</h4><p>Texto sobre transformação digital no TRE-RN</p><a href="../materiais/of-05-modernizacao-tre-rn.docx" download class="mat-link">⬇ Baixar DOCX</a></div></div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">⚙️ Preparação dos arquivos</div>
+          <p><strong>Planilha XLSX:</strong> Faça upload para o Google Drive → clique com o botão direito → "Abrir com" → "Google Planilhas". Isso converte para o formato nativo. Depois, pode apagar o arquivo .xlsx original para não confundir.</p>
+          <p style="margin-top:var(--space-sm)"><strong>Documento DOCX:</strong> Mesmo processo → "Abrir com" → "Google Documentos".</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== ETAPA 1: GEMINI NAS FERRAMENTAS ==================== -->
+    <div class="etapa" id="etapa1">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Gemini Dentro das Ferramentas do Google</h2><div class="etapa-sub">Planilhas, Documentos e Gmail</div></div></div>
+      <div class="etapa-body">
+
+        <!-- 1A: PLANILHAS -->
+        <h3>📊 Gemini no Google Planilhas</h3>
+        <p>Abra a planilha de Logs de Urnas que você converteu no Google Drive. Clique no botão <strong>"Pedir para o Gemini"</strong> (ícone de estrela ✨ no canto superior direito) para abrir o painel lateral da IA.</p>
+
+        <h4>Analisando dados com prompts</h4>
+        <p>Teste os prompts abaixo, um por vez. Observe como o Gemini interpreta sua planilha e gera respostas com base nos dados reais:</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Contagem por município</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Quantos locais de votação existem em Mossoró?</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Agrupamento por zona</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Quantos aptos existem em cada zona de Natal?</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Análise de horários</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Qual local de votação registrou o primeiro voto mais tarde? E qual registrou o último voto mais cedo?</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Tabela derivada</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Apresente uma tabela contendo a qtde de aptos, a qtde de urnas e a relação entre eles para todos os locais de votação de Rio do Fogo.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Soma agrupada</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Monte uma tabela com a soma das colunas Tentativa 1 a Tentativa 4 e Habilitado pelo Mesário, agrupada por zona eleitoral.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Cálculo de diferença temporal</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Qual a média, por zona eleitoral, da diferença entre o horário de Recebimento e o de Encerramento? Apresente em formato hh:mm em uma tabela.</div></div>
+
+        <div class="callout callout-success">
+          <div class="callout-title">💡 Inserindo resultados na planilha</div>
+          <p>Quando o Gemini gera uma tabela como resposta, observe que aparece um botão <strong>"Inserir"</strong> abaixo do resultado. Clique nele para inserir a tabela diretamente em uma nova aba da planilha. Isso é útil para consolidar análises sem sair da ferramenta.</p>
+        </div>
+
+        <h4>🧪 O desafio do idioma: modificando a planilha</h4>
+        <p>Agora tente algo diferente: peça para o Gemini <strong>modificar a planilha</strong> (não apenas analisá-la).</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Inserir coluna (teste em português)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Insira uma coluna após a coluna Aptos contendo o percentual de comparecimento (relação entre Comparecimento e Aptos).</div></div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">🌐 Atenção: mensagem de idioma!</div>
+          <p>O Gemini vai informar que <strong>só consegue modificar planilhas usando comandos em inglês</strong>. Isso é uma limitação atual da integração com o Google Planilhas. A solução é simples: traduza o prompt para inglês. Use o <a href="https://translate.google.com.br/" target="_blank">Google Tradutor</a> e tente novamente.</p>
+        </div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Inserir coluna (em inglês)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Insert a column after the column "Aptos" containing the attendance percentage (ratio between "Comparecimento" and "Aptos").</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📊 Como foi a experiência com o Gemini no Planilhas?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="O Gemini no Google Planilhas é absurdamente poderoso para quem não domina fórmulas complexas. Você acabou de fazer análises que exigiriam PROCV, SOMASE, tabelas dinâmicas e fórmulas de data — tudo com linguagem natural. A limitação do idioma para edição é irritante, mas contornável. Dica prática: mantenha o Google Tradutor aberto em outra aba quando for editar planilhas via Gemini. Com o tempo, você vai memorizar os comandos em inglês mais comuns (Insert, Add column, Calculate, Filter).">Impressionante, respostas precisas!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="neutral" data-msg="É normal que algumas respostas não sejam 100% precisas, especialmente com dados complexos como horários e cálculos percentuais. O Gemini às vezes interpreta colunas erradas ou confunde formatos. Dica: seja mais explícito nos prompts — em vez de 'a coluna de comparecimento', diga 'a coluna O (Comparecimento)'. Referenciar a letra da coluna reduz ambiguidade. E lembre-se: o Gemini no Planilhas analisa os dados que estão visíveis — se houver muitas abas ou filtros aplicados, ele pode se confundir.">Algumas respostas imprecisas</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="encouraging" data-msg="Se o botão 'Pedir para o Gemini' não aparece, verifique se: (1) o arquivo está em formato Google Planilhas (não .xlsx); (2) sua conta tem o Gemini habilitado no Workspace; (3) você está usando o navegador Chrome. Se tudo estiver correto e mesmo assim não funcionar, tente atualizar a página (F5) ou acessar por uma janela anônima. A funcionalidade depende de uma configuração que o administrador do Workspace precisa ter habilitado para a sua conta.">Botão do Gemini não apareceu</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+
+        <!-- 1B: DOCUMENTOS -->
+        <h3>📄 Gemini no Google Documentos</h3>
+        <p>Abra o documento "Modernização Tecnológica" que você converteu no Google Drive.</p>
+
+        <h4>Usando o Gemini integrado ao documento</h4>
+        <div class="tool-instruction"><div class="tool-icon">✨</div><div><div class="tool-name">Clique em "Pedir para o Gemini" (painel lateral)</div><div class="tool-hint">Teste prompts que modifiquem o conteúdo do documento</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Reformatar conteúdo</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Reescreva a seção "Benefícios Esperados" usando bullet points objetivos, com no máximo 2 linhas por item.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Gerar tabela</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Insira uma tabela com 5 indicadores de maturidade digital para o TRE-RN, com colunas: Indicador, Descrição, Meta 2025 e Responsável.</div></div>
+
+        <h4>Usando o botão "Revisar"</h4>
+        <p>Selecione um trecho do texto (por exemplo, o parágrafo sobre a Resolução CNJ) e clique no botão <strong>"Revisar"</strong> que aparece. Experimente as opções:</p>
+        <ul>
+          <li><strong>Reformular:</strong> reescreve o trecho mantendo o sentido, com novas palavras</li>
+          <li><strong>Encurtar:</strong> condensa o texto, eliminando redundâncias</li>
+          <li><strong>Detalhar:</strong> expande com mais informações e contexto</li>
+          <li><strong>Mais formal:</strong> eleva o tom para linguagem institucional/jurídica</li>
+        </ul>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📄 Testou o Gemini no Google Documentos?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="O botão 'Revisar' é um dos recursos mais subestimados do Gemini no Workspace. Ele transforma a edição de documentos: em vez de reescrever parágrafos manualmente, você seleciona, clica e escolhe o estilo. Para documentos do TRE-RN, a opção 'Mais formal' é especialmente útil — ela converte rascunhos informais em linguagem institucional em segundos. E o melhor: as alterações são sugeridas (não aplicadas diretamente), então você mantém o controle total.">Revisão muito útil!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="neutral" data-msg="O Gemini no Documentos funciona melhor para textos em português quando os prompts são específicos. Se o resultado ficou genérico ou diferente do esperado, tente ser mais direcionado: em vez de 'reescreva', use 'reescreva em linguagem jurídica formal, mantendo todos os dados e referências legais'. Quanto mais contexto no prompt, melhor o resultado. A funcionalidade de Revisar (Reformular, Encurtar, etc.) costuma ser mais consistente que prompts livres porque usa modelos pré-configurados.">Resultado irregular</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+
+        <!-- 1C: GMAIL -->
+        <h3>📧 Gemini no Gmail</h3>
+        <p>Abra o <a href="https://mail.google.com/" target="_blank"><strong>Gmail</strong></a> e explore o Gemini em dois cenários: buscando e-mails e redigindo novos.</p>
+
+        <h4>Buscando e filtrando e-mails</h4>
+        <div class="tool-instruction"><div class="tool-icon">✨</div><div><div class="tool-name">Clique em "Pedir para o Gemini" no Gmail</div><div class="tool-hint">Use prompts para filtrar e localizar e-mails</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Filtrar por remetente</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Filtre os e-mails enviados pelo TSE.</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — E-mails importantes</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Quais os meus e-mails mais importantes desta semana?</div></div>
+
+        <h4>Resumindo e redigindo e-mails</h4>
+        <p>Abra um e-mail longo e clique em <strong>"Resumir este e-mail"</strong> (link que aparece abaixo do campo assunto). Depois, inicie um novo e-mail e use o Gemini para gerar o conteúdo:</p>
+
+        <div class="tool-instruction"><div class="tool-icon">✏️</div><div><div class="tool-name">Clique em "Escrever" (novo e-mail) → ícone ✨ do Gemini</div><div class="tool-hint">O Gemini vai gerar o corpo do e-mail com base no seu prompt</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Redigir e-mail</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Escreva um e-mail agradecendo ao TRE-PR pelo convite para palestrar no evento de LGPD. Mencione que a troca de experiências entre regionais fortalece a Justiça Eleitoral como um todo.</div></div>
+
+        <div class="callout callout-success">
+          <div class="callout-title">💡 Inserindo o texto gerado</div>
+          <p>Após o Gemini gerar o conteúdo, clique em <strong>"Inserir"</strong> para levar o texto para o corpo do e-mail. Você pode editar livremente antes de enviar. Se não ficou bom, clique em "Refinar" para ajustar ou peça uma nova versão.</p>
+        </div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📧 Testou o Gemini no Gmail?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="O Gemini no Gmail resolve um problema que todo servidor conhece: aquele e-mail que você sabe o que quer dizer, mas leva 20 minutos para redigir no tom certo. Com o Gemini, você descreve a intenção em uma frase e ele gera o e-mail completo — formal, educado e com a estrutura adequada. Para e-mails repetitivos (agradecimentos, solicitações, confirmações), a economia de tempo é enorme. O recurso de resumo de e-mails longos é igualmente valioso: em vez de ler 3 páginas de thread, você lê 3 linhas.">Muito prático para o dia a dia!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="O Gemini no Gmail ainda está evoluindo em português. Se os filtros não funcionaram bem, tente ser mais específico: em vez de 'e-mails do TSE', use 'e-mails recebidos de endereços @tse.jus.br'. Para redação, se o tom ficou estranho, peça 'tom institucional formal' ou 'tom cordial e profissional' no prompt. O recurso 'Resumir este e-mail' funciona melhor com e-mails longos (mais de 5 parágrafos). E-mails curtos geram resumos desnecessários.">Funcionalidade limitada</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Recurso</th><th>O que faz</th><th>Aplicação no TRE-RN</th></tr></thead><tbody>
+          <tr><td><strong>Gemini no Planilhas</strong></td><td>Análise e manipulação de dados via chat</td><td>Dados eleitorais, indicadores, logs</td></tr>
+          <tr><td><strong>Gemini no Documentos</strong></td><td>Revisão, reformulação e geração de conteúdo</td><td>Ofícios, relatórios, pareceres</td></tr>
+          <tr><td><strong>Gemini no Gmail</strong></td><td>Busca, resumo e redação de e-mails</td><td>Comunicação institucional</td></tr>
+        </tbody></table></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia o Gemini dentro das ferramentas do Google?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Você experimentou o Gemini onde ele é mais poderoso: integrado diretamente ao ambiente de trabalho. Sem trocar de ferramenta, sem copiar e colar entre abas. Análise de dados, revisão de textos e redação de e-mails — tudo com linguagem natural, dentro das ferramentas que você já usa. Na próxima oficina, vamos explorar o Canvas do Gemini para geração e transformação visual de conteúdo.">Transformador para produtividade!</button>
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="neutral" data-msg="A integração do Gemini com o Workspace está em constante evolução, especialmente em português. Os resultados tendem a melhorar com prompts mais específicos e contextualizados. Continue testando e incorporando os recursos que já funcionam bem ao seu fluxo de trabalho. Na próxima oficina, vamos explorar o Canvas do Gemini.">Útil, mas com ressalvas</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-3"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 06</strong>, vamos explorar o recurso Canvas do Gemini para gerar e transformar conteúdo visualmente.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-04-notebooklm-videos.html" class="btn btn-secondary btn-sm">← Oficina anterior</a>
+      <a href="./oficina-06-gemini-canvas.html" class="btn btn-primary btn-sm">Próxima oficina →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=4,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>
