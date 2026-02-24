@@ -182,6 +182,47 @@
       font-size: 1rem; margin-bottom: var(--space-xs);
     }
     .security-alert p { font-size: 0.95rem; }
+
+    /* ===== HERO COM IMAGEM DE FUNDO ===== */
+    .page-hero {
+      position: relative;
+      padding: calc(var(--navbar-height) + 48px) var(--space-2xl) var(--space-2xl);
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: right center;
+    }
+    .page-hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(to right,
+          var(--bg) 0%, var(--bg) 20%,
+          rgba(30,45,77,0.92) 35%, rgba(30,45,77,0.65) 55%,
+          rgba(30,45,77,0.2) 75%, transparent 100%),
+        linear-gradient(to top, var(--bg) 0%, transparent 15%);
+    }
+    .page-hero .section-header { position: relative; z-index: 2; max-width: 700px; }
+    .page-hero .section-header h1 { margin-bottom: var(--space-sm); }
+    .page-hero .section-header p { margin-bottom: 0; }
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: calc(var(--navbar-height) + 24px) var(--space-md) var(--space-xl);
+        min-height: 260px;
+      }
+      .page-hero-bg img { object-position: 70% center; }
+      .page-hero-bg::after {
+        background:
+          linear-gradient(to right, var(--bg) 0%, rgba(30,45,77,0.95) 30%, rgba(30,45,77,0.8) 60%, rgba(30,45,77,0.6) 100%),
+          linear-gradient(to top, var(--bg) 0%, transparent 20%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -189,15 +230,23 @@
   <div id="header-placeholder"></div>
 
   <main class="page-content">
+    <!-- HERO COM IMAGEM DE FUNDO -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <img src="./assets/heroes/hero-conceitos.jpg" alt="" loading="eager">
+      </div>
+      <div class="section-header">
+        <div class="eyebrow"><span class="dot"></span> Módulo 01</div>
+        <h1>Conceitos Essenciais de IA</h1>
+        <p>Fundamentos para compreender a revolução da Inteligência Artificial generativa e suas aplicações no Judiciário.</p>
+      </div>
+    </section>
+
     <div class="container">
 
       <!-- Cabeçalho do módulo -->
       <section class="section" style="padding-bottom: 0;">
-        <div class="section-header">
-          <div class="eyebrow"><span class="dot"></span> Módulo 01</div>
-          <h1>Conceitos Essenciais de IA</h1>
-          <p>Fundamentos para compreender a revolução da Inteligência Artificial generativa e suas aplicações no Judiciário.</p>
-        </div>
+        
 
         <nav class="page-nav">
           <a href="#o-que-e-ia">O que é IA?</a>

@@ -137,6 +137,47 @@
       .dashboard { grid-template-columns: 1fr; text-align: center; }
       .dash-details { align-items: center; }
     }
+
+    /* ===== HERO COM IMAGEM DE FUNDO ===== */
+    .page-hero {
+      position: relative;
+      padding: calc(var(--navbar-height) + 48px) var(--space-2xl) var(--space-2xl);
+      overflow: hidden;
+      min-height: 340px;
+      display: flex;
+      align-items: flex-end;
+    }
+    .page-hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+    }
+    .page-hero-bg img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: right center;
+    }
+    .page-hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(to right,
+          var(--bg) 0%, var(--bg) 20%,
+          rgba(30,45,77,0.92) 35%, rgba(30,45,77,0.65) 55%,
+          rgba(30,45,77,0.2) 75%, transparent 100%),
+        linear-gradient(to top, var(--bg) 0%, transparent 15%);
+    }
+    .page-hero .section-header { position: relative; z-index: 2; max-width: 700px; }
+    .page-hero .section-header h1 { margin-bottom: var(--space-sm); }
+    .page-hero .section-header p { margin-bottom: 0; }
+    @media (max-width: 768px) {
+      .page-hero {
+        padding: calc(var(--navbar-height) + 24px) var(--space-md) var(--space-xl);
+        min-height: 260px;
+      }
+      .page-hero-bg img { object-position: 70% center; }
+      .page-hero-bg::after {
+        background:
+          linear-gradient(to right, var(--bg) 0%, rgba(30,45,77,0.95) 30%, rgba(30,45,77,0.8) 60%, rgba(30,45,77,0.6) 100%),
+          linear-gradient(to top, var(--bg) 0%, transparent 20%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -144,14 +185,22 @@
   <div id="header-placeholder"></div>
 
   <main class="page-content">
+    <!-- HERO COM IMAGEM DE FUNDO -->
+    <section class="page-hero">
+      <div class="page-hero-bg">
+        <img src="./assets/heroes/hero-oficinas.jpg" alt="" loading="eager">
+      </div>
+      <div class="section-header">
+        <div class="eyebrow"><span class="dot"></span> Módulo 06</div>
+        <h1>Oficinas Práticas</h1>
+        <p>12 oficinas mão na massa para dominar as ferramentas de IA no seu dia a dia no TRE-RN.</p>
+      </div>
+    </section>
+
     <div class="container">
 
       <section class="section">
-        <div class="section-header">
-          <div class="eyebrow"><span class="dot"></span> Módulo 06</div>
-          <h1>Oficinas Práticas</h1>
-          <p>12 oficinas mão na massa para dominar as ferramentas de IA no seu dia a dia no TRE-RN.</p>
-        </div>
+        
 
         <p class="oficinas-intro">As oficinas estão organizadas em uma sequência progressiva — da familiarização com as ferramentas até a produção de conteúdo multimídia com IA. Cada oficina é independente, mas recomendamos seguir a ordem para melhor aproveitamento.</p>
 
