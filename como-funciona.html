@@ -21,12 +21,32 @@
     .page-nav a { padding: 8px 16px; border-radius: var(--radius-sm); font-size: 0.92rem; font-weight: 600; background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); transition: all var(--transition-base); }
     .page-nav a:hover { color: var(--dourado); border-color: var(--border-hover); }
 
-    .token-demo { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-lg) 0; }
-    .token-demo .original { font-size: 1.05rem; color: var(--text-secondary); margin-bottom: var(--space-md); }
-    .token-demo .tokens { display: flex; flex-wrap: wrap; gap: 5px; }
-    .token-demo .token-chip { padding: 6px 14px; border-radius: 6px; font-size: 0.95rem; font-weight: 500; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.2); }
-    .token-demo .token-chip:nth-child(even) { background: var(--azul-accent-light); color: #6BA3E8; border-color: rgba(46,92,154,0.2); }
-    .token-demo .token-count { margin-top: var(--space-md); font-size: 0.95rem; color: var(--text-muted); }
+    .token-demo { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-lg) 0; overflow: hidden; }
+    .token-demo .original { font-size: 1.08rem; color: var(--text-secondary); margin-bottom: var(--space-lg); padding: var(--space-md); background: rgba(0,0,0,.15); border-radius: var(--radius-md); font-family: 'Courier New', monospace; line-height: 1.8; }
+    .token-demo .original strong { color: var(--text); }
+    .token-stage { display: flex; flex-wrap: wrap; gap: 6px; min-height: 48px; margin-bottom: var(--space-md); }
+    .tk { padding: 8px 16px; border-radius: 8px; font-size: 0.98rem; font-weight: 600; opacity: 0; transform: translateY(12px) scale(0.85); transition: all 0.4s cubic-bezier(0.34,1.56,0.64,1); position: relative; }
+    .tk.show { opacity: 1; transform: translateY(0) scale(1); }
+    .tk-a { background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.3); }
+    .tk-b { background: var(--azul-accent-light); color: #6BA3E8; border: 1px solid rgba(46,92,154,0.25); }
+    .tk-c { background: var(--verde-light); color: var(--verde); border: 1px solid rgba(76,175,130,0.25); }
+    .tk-d { background: var(--roxo-light); color: var(--roxo); border: 1px solid rgba(155,126,216,0.25); }
+    .tk .tk-id { position: absolute; top: -8px; right: -4px; font-size: 0.65rem; font-weight: 800; background: rgba(0,0,0,0.5); color: #fff; padding: 1px 5px; border-radius: 8px; opacity: 0; transition: opacity 0.3s ease 0.5s; }
+    .tk.show .tk-id { opacity: 0.7; }
+    .token-controls { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-md); }
+    .token-btn { padding: 10px 22px; border-radius: var(--radius-md); font-size: 0.95rem; font-weight: 700; border: 1px solid rgba(200,164,92,0.3); background: var(--dourado-dim); color: var(--dourado); cursor: pointer; transition: all 0.2s ease; }
+    .token-btn:hover { background: rgba(200,164,92,0.25); transform: translateY(-1px); }
+    .token-btn-sec { background: var(--bg-elevated); color: var(--text-secondary); border-color: var(--border); }
+    .token-btn-sec:hover { color: var(--dourado); border-color: var(--border-hover); }
+    .token-custom { margin-top: var(--space-md); display: flex; gap: var(--space-sm); }
+    .token-custom input { flex: 1; padding: 10px 16px; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--bg-elevated); color: var(--text); font-size: 0.98rem; }
+    .token-custom input::placeholder { color: var(--text-muted); }
+    .token-summary { margin-top: var(--space-md); padding: var(--space-md); background: rgba(200,164,92,0.06); border: 1px solid rgba(200,164,92,0.15); border-radius: var(--radius-md); font-size: 0.95rem; color: var(--text-secondary); line-height: 1.8; display: none; }
+    .token-summary.show { display: block; animation: fadeSlideIn 0.5s ease; }
+    .token-summary strong { color: var(--dourado); }
+    @keyframes fadeSlideIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+    .token-phrase-bar { display: flex; height: 8px; border-radius: 4px; overflow: hidden; margin: var(--space-md) 0; gap: 2px; }
+    .token-phrase-bar .tpb { transition: flex-grow 0.4s ease; border-radius: 2px; }
 
     .security-alert { background: rgba(232,92,92,0.08); border: 1px solid rgba(232,92,92,0.2); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-md) 0; }
     .security-alert .alert-title { color: var(--vermelho); font-weight: 700; font-size: 1.05rem; margin-bottom: var(--space-xs); }
@@ -127,12 +147,21 @@
           <p><strong>Regra prática:</strong> 1 token ≈ 0,75 palavras em português (aproximadamente 4 caracteres).</p>
 
           <h3>Exemplo prático de tokenização</h3>
-          <div class="token-demo">
-            <div class="original"><strong>Frase:</strong> "O requerente solicita a expedição de certidão eleitoral"</div>
-            <div class="tokens">
-              <span class="token-chip">O</span><span class="token-chip">requer</span><span class="token-chip">ente</span><span class="token-chip">solic</span><span class="token-chip">ita</span><span class="token-chip">a</span><span class="token-chip">exped</span><span class="token-chip">ição</span><span class="token-chip">de</span><span class="token-chip">cert</span><span class="token-chip">idão</span><span class="token-chip">ele</span><span class="token-chip">itor</span><span class="token-chip">al</span>
+          <p>Clique no botão abaixo para ver, em tempo real, como a IA "quebra" uma frase em tokens. Observe como palavras comuns podem virar 2 ou 3 tokens, e palavras curtas permanecem inteiras.</p>
+          <div class="token-demo" id="tokenDemo">
+            <div class="original" id="tokenOriginal"><strong>Frase:</strong> "O requerente solicita a expedição de certidão eleitoral"</div>
+            <div class="token-phrase-bar" id="tokenBar"></div>
+            <div class="token-stage" id="tokenStage"></div>
+            <div class="token-controls">
+              <button class="token-btn" id="btnTokenize" onclick="runTokenAnimation()">▶ Tokenizar</button>
+              <button class="token-btn token-btn-sec" id="btnReset" onclick="resetTokenAnimation()" style="display:none;">↻ Reiniciar</button>
+              <button class="token-btn token-btn-sec" id="btnCustom" onclick="showCustomInput()">✏️ Testar outra frase</button>
             </div>
-            <div class="token-count">= <strong>14 tokens</strong> para 8 palavras</div>
+            <div class="token-custom" id="tokenCustom" style="display:none;">
+              <input type="text" id="tokenInput" placeholder="Digite uma frase para tokenizar..." maxlength="120">
+              <button class="token-btn" onclick="tokenizeCustom()">Tokenizar</button>
+            </div>
+            <div class="token-summary" id="tokenSummary"></div>
           </div>
 
           <h3>Por que isso importa na prática?</h3>

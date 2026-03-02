@@ -42,12 +42,33 @@
       <div class="etapa-body">
         <p>Assim como existem modelos especializados em gerar texto (GPT, Gemini, Claude) e imagens (Imagen, DALL-E), existem modelos projetados especificamente para gerar vídeos. Os principais atualmente são:</p>
 
+        <h3>Principais Modelos de Geração de Vídeo</h3>
+
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Modelo</th><th>Desenvolvedor</th><th>Ponto Forte</th><th>Melhor Uso</th></tr></thead><tbody>
+          <tr><td><strong>VEO 3.1</strong></td><td>Google</td><td>Resolução 4K nativa e geração de áudio espacial sincronizado</td><td>Produção cinematográfica e integração técnica via Vertex AI</td></tr>
+          <tr><td><strong>Sora 2</strong></td><td>OpenAI</td><td>Simulação avançada de física e consistência de personagens entre cenas</td><td>Narrativas complexas, cenas de ação e simulações de mundo real</td></tr>
+          <tr><td><strong>Aurora (Grok-Video)</strong></td><td>xAI</td><td>Integração em tempo real com dados da plataforma X e filtros de segurança mais flexíveis</td><td>Conteúdo viral, sátira, notícias de última hora e engajamento social</td></tr>
+          <tr><td><strong>Kling 3.0 (Omni)</strong></td><td>Kuaishou</td><td>Geração "Multi-Shot" (mantém cenário e personagens em diferentes ângulos)</td><td>Marketing digital de estilo lifestyle e vídeos curtos de alta fidelidade humana</td></tr>
+        </tbody></table></div>
+
+        <h3>Prompts para vídeo ≠ Prompts para texto</h3>
+        <p>Assim como na geração de imagens (Oficina 10), a metodologia <strong>RCTS+E</strong> não é a mais adequada para criar prompts de vídeo. Os modelos de vídeo precisam de uma <strong>descrição cinematográfica da cena</strong>, não de uma instrução com papéis e contextos.</p>
+        <p>Um bom prompt de vídeo deve incluir:</p>
         <ul>
-          <li><strong>VEO 3 (Google/DeepMind):</strong> Modelo de última geração do Google, capaz de gerar vídeos com sincronia labial e áudio. Integrado ao Gemini e ao VideoFX.</li>
-          <li><strong>Aurora (xAI):</strong> Modelo que alimenta a geração de vídeos no Grok Imagine. Produz vídeos de 6 segundos a partir de imagens ou prompts textuais, com qualidade crescente a cada atualização.</li>
-          <li><strong>Sora (OpenAI):</strong> Modelo da OpenAI para geração de vídeos a partir de texto, com foco em coerência temporal e realismo visual.</li>
-          <li><strong>Kling (Kuaishou):</strong> Modelo chinês que se destacou pela qualidade visual e capacidade de gerar vídeos mais longos.</li>
+          <li><strong>Descrição da cena:</strong> O que está acontecendo, onde, e quem são os personagens.</li>
+          <li><strong>Ação e movimento:</strong> O que os personagens fazem, para onde se movem, quais gestos realizam.</li>
+          <li><strong>Diálogo e áudio:</strong> Falas com indicação de idioma (ex.: "diz em Português-BR: '...'"), efeitos sonoros e ambientação sonora.</li>
+          <li><strong>Sincronia labial (lip-sync):</strong> Indicar explicitamente quando se deseja que a fala esteja sincronizada com o movimento dos lábios.</li>
+          <li><strong>Movimentos de câmera:</strong> Zoom-in, zoom-out, pan lateral, câmera estática, travelling, plano-sequência.</li>
+          <li><strong>Iluminação e atmosfera:</strong> Golden hour, dia nublado, iluminação de estúdio, contraluz, etc.</li>
+          <li><strong>Estilo visual:</strong> Cinematográfico, documental, hiper-realista, animação, vintage.</li>
+          <li><strong>Resolução e textura:</strong> Altíssima definição, textura de pele, profundidade de campo.</li>
         </ul>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Dica importante</div>
+          <p>Prompts muito longos e com muitos elementos simultâneos podem confundir o modelo. Se o resultado não for satisfatório, simplifique: descreva a ação principal com clareza e adicione detalhes progressivamente. A sincronia labial em português pode apresentar imperfeições, pois os modelos são treinados predominantemente em inglês.</p>
+        </div>
 
         <h3>Por que usar o Grok Imagine nesta oficina?</h3>
         <p>A escolha da ferramenta se dá por uma questão prática de <strong>custo-benefício e limites de uso</strong>. Veja a comparação:</p>
@@ -70,7 +91,7 @@
     <div class="etapa" id="material">
       <div class="etapa-header"><div class="etapa-num">📦</div><div><h2>Material de Apoio</h2></div></div>
       <div class="etapa-body">
-        <p>Baixe as imagens abaixo para o seu computador. Você vai usá-las como base para gerar vídeos no Grok Imagine.</p>
+        <p>As imagens abaixo são <strong>sugestões para agilizar as atividades desta oficina</strong>. Baixe-as para o seu computador e use-as como base para gerar vídeos no Grok Imagine. Você também pode usar fotos próprias, se preferir.</p>
 
         <div class="thumb-section">
           <h4>📸 Personagens para animação</h4>

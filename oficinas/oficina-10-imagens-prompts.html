@@ -43,7 +43,19 @@
       <div class="etapa-body">
         <p>Modelos de geração de imagens são redes neurais treinadas para criar imagens a partir de descrições textuais (prompts). Diferente dos LLMs baseados em texto que você usou nas oficinas anteriores (Gemini, ChatGPT, Claude), esses modelos transformam palavras em pixels.</p>
 
-        <p>O Google utiliza o modelo <strong>Imagen</strong> em suas ferramentas, incluindo variantes como o <strong>NanoBanana</strong> e o <strong>NanoBanana Pro</strong>, que alimentam a geração de imagens no Gemini e no Whisk. Já o Grok Imagine (da xAI/Twitter) utiliza o modelo <strong>Aurora</strong>. Cada modelo tem suas características, pontos fortes e limitações.</p>
+        <h3>Principais Modelos de Geração de Imagens</h3>
+        <p>O ecossistema de geração de imagens por IA possui diversos modelos especializados, cada um com pontos fortes distintos:</p>
+
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Modelo</th><th>Desenvolvedor</th><th>Ponto Forte</th><th>Melhor Uso</th></tr></thead><tbody>
+          <tr><td><strong>Nano Banana Pro</strong></td><td>Google</td><td>Raciocínio visual (refinamento lógico interno antes da geração)</td><td>Projetos técnicos, diagramas complexos e alta precisão</td></tr>
+          <tr><td><strong>Imagen 4.0</strong></td><td>Google</td><td>Fotorrealismo editorial e física de luz avançada</td><td>Publicidade de alto padrão e fotografia digital</td></tr>
+          <tr><td><strong>DALL-E 3.5</strong></td><td>OpenAI</td><td>Interpretação semântica de prompts longos e complexos</td><td>Storyboarding e ilustrações conceituais abstratas</td></tr>
+          <tr><td><strong>EMU 3.5</strong></td><td>Meta</td><td>Tipografia perfeita (letras e logos sem erros)</td><td>Design gráfico, banners e materiais com texto integrado</td></tr>
+          <tr><td><strong>LLaMA 4</strong></td><td>Meta</td><td>Multimodalidade nativa (processa e gera no mesmo fluxo)</td><td>Agentes inteligentes e análise/geração contextual</td></tr>
+          <tr><td><strong>Aurora</strong></td><td>xAI</td><td>Filtros de segurança flexíveis e foco em engajamento social</td><td>Humor, sátira e conteúdo para redes sociais</td></tr>
+        </tbody></table></div>
+
+        <p>Nesta oficina, você vai usar o <strong>Nano Banana Pro</strong> (via Gemini e Whisk) e o <strong>Aurora</strong> (via Grok Imagine), que são os modelos com melhor acessibilidade nas ferramentas gratuitas disponíveis.</p>
 
         <h3>Prompts para imagens ≠ Prompts para texto</h3>
         <p>A metodologia <strong>RCTS+E</strong> que você usou nas oficinas anteriores foi projetada para LLMs de texto. Para geração de imagens, a lógica é diferente: o modelo precisa de uma <strong>descrição visual detalhada</strong>, não de uma instrução com papéis e contextos. Quanto mais específica e visual for a descrição, melhor o resultado.</p>
