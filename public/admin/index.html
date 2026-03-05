@@ -950,7 +950,7 @@ function renderUsuarios() {
   `).join('');
 }
 
-document.getElementById('btnNovoUsuario').addEventListener('click', () => {
+document.getElementById('btnNovoUsuario').addEventListener('click', async () => {
   document.getElementById('modalUsuarioTitle').textContent = 'Novo Usuário';
   document.getElementById('editUsuarioId').value = '';
   document.getElementById('usuNome').value = '';
@@ -960,7 +960,31 @@ document.getElementById('btnNovoUsuario').addEventListener('click', () => {
   document.getElementById('usuAtivo').value = 'true';
   document.getElementById('usuCpf').disabled = false;
   document.getElementById('usuEmail').disabled = false;
-  document.getElementById('turmasVinculoSection').style.display = 'none';
+
+  // Carrega turmas para vínculo na criação
+  const { data: turmasAtualizadas } = await sb
+    .from('turma')
+    .select('*, curso(curso)')
+    .order('cd_turma');
+  allTurmas = turmasAtualizadas || [];
+
+  document.getElementById('turmasVinculoSection').style.display = 'block';
+  const listEl = document.getElementById('turmasVinculoList');
+  const hoje = new Date().toISOString().slice(0, 10);
+  listEl.innerHTML = allTurmas.map(t => `
+    <div style="padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+      <label style="display:flex; align-items:center; gap:8px; cursor:pointer; min-width:200px; margin:0; text-transform:none; letter-spacing:0; font-size:0.88rem; color:var(--text);">
+        <input type="checkbox" class="turma-check" data-turma="${t.cd_turma}">
+        ${t.nome_turma || t.turma}
+      </label>
+      <input type="date" class="turma-inicio" data-turma="${t.cd_turma}" value="${hoje}"
+        style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
+      <span style="color:var(--text-muted); font-size:0.8rem;">até</span>
+      <input type="date" class="turma-fim" data-turma="${t.cd_turma}" value="2026-12-31"
+        style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
+    </div>
+  `).join('');
+
   openModal('modalUsuario');
 });
 
@@ -977,6 +1001,13 @@ window.editUsuario = async function(id) {
   document.getElementById('usuAtivo').value = String(u.ativo);
   document.getElementById('usuCpf').disabled = true;
   document.getElementById('usuEmail').disabled = true;
+
+  // Sempre recarrega turmas do banco antes de exibir
+  const { data: turmasAtualizadas } = await sb
+    .from('turma')
+    .select('*, curso(curso)')
+    .order('cd_turma');
+  allTurmas = turmasAtualizadas || [];
 
   // Carrega vínculos com turmas
   document.getElementById('turmasVinculoSection').style.display = 'block';
@@ -1067,6 +1098,9 @@ document.getElementById('btnSalvarUsuario').addEventListener('click', async () =
     if (dbError) {
       toast('Erro ao salvar dados: ' + dbError.message, 'error'); return;
     }
+
+    // 3. Salva vínculos com turmas
+    await saveVinculosTurma(authData.user.id);
 
     toast('Usuário criado (senha inicial = CPF)');
   }
