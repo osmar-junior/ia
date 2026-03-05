@@ -576,7 +576,7 @@
 const SUPABASE_URL = 'https://hlfndpjmkpnwxiackvce.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhsZm5kcGpta3Bud3hpYWNrdmNlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MzQ5NDYsImV4cCI6MjA4ODMxMDk0Nn0.1TbQdqG78Ohnc7kBp4VXdLuhOkMuwfB27EJAYCdhIWc';
 
-const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 // Estado global
 let currentUser = null;
@@ -629,7 +629,7 @@ async function handleLogin() {
     return;
   }
 
-  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  const { data, error } = await sb.auth.signInWithPassword({ email, password });
 
   if (error) {
     errorEl.textContent = 'E-mail ou senha incorretos.';
@@ -647,7 +647,7 @@ async function handleLogin() {
   if (userErr || !usuario || usuario.perfil !== 'admin') {
     errorEl.textContent = 'Acesso restrito a administradores.';
     errorEl.style.display = 'block';
-    await supabase.auth.signOut();
+    await sb.auth.signOut();
     return;
   }
 
@@ -656,14 +656,14 @@ async function handleLogin() {
 }
 
 document.getElementById('btnLogout').addEventListener('click', async () => {
-  await supabase.auth.signOut();
+  await sb.auth.signOut();
   currentUser = null;
   document.getElementById('adminPanel').style.display = 'none';
   document.getElementById('loginScreen').style.display = 'flex';
 });
 
 async function checkSession() {
-  const { data: { session } } = await supabase.auth.getSession();
+  const { data: { session } } = await sb.auth.getSession();
   if (!session) return;
 
   const { data: usuario } = await supabase
@@ -716,10 +716,10 @@ async function loadDashboard() {
     { count: totalTurmas },
     { count: usuariosAtivos }
   ] = await Promise.all([
-    supabase.from('usuario').select('*', { count: 'exact', head: true }),
-    supabase.from('curso').select('*', { count: 'exact', head: true }),
-    supabase.from('turma').select('*', { count: 'exact', head: true }),
-    supabase.from('usuario').select('*', { count: 'exact', head: true }).eq('ativo', true)
+    sb.from('usuario').select('*', { count: 'exact', head: true }),
+    sb.from('curso').select('*', { count: 'exact', head: true }),
+    sb.from('turma').select('*', { count: 'exact', head: true }),
+    sb.from('usuario').select('*', { count: 'exact', head: true }).eq('ativo', true)
   ]);
 
   document.getElementById('statsRow').innerHTML = `
@@ -746,7 +746,7 @@ async function loadDashboard() {
 // CURSOS - CRUD
 // ============================================
 async function loadCursos() {
-  const { data, error } = await supabase.from('curso').select('*').order('cd_curso');
+  const { data, error } = await sb.from('curso').select('*').order('cd_curso');
   if (error) { toast('Erro ao carregar cursos', 'error'); return; }
   allCursos = data || [];
   renderCursos();
@@ -805,9 +805,9 @@ document.getElementById('btnSalvarCurso').addEventListener('click', async () => 
 
   let error;
   if (id) {
-    ({ error } = await supabase.from('curso').update(payload).eq('cd_curso', id));
+    ({ error } = await sb.from('curso').update(payload).eq('cd_curso', id));
   } else {
-    ({ error } = await supabase.from('curso').insert(payload));
+    ({ error } = await sb.from('curso').insert(payload));
   }
 
   if (error) { toast('Erro ao salvar curso: ' + error.message, 'error'); return; }
@@ -829,7 +829,7 @@ async function loadTurmas() {
 
   // Carrega cursos para o select
   if (!allCursos.length) {
-    const { data: cursos } = await supabase.from('curso').select('*').order('cd_curso');
+    const { data: cursos } = await sb.from('curso').select('*').order('cd_curso');
     allCursos = cursos || [];
   }
 
@@ -900,9 +900,9 @@ document.getElementById('btnSalvarTurma').addEventListener('click', async () => 
 
   let error;
   if (id) {
-    ({ error } = await supabase.from('turma').update(payload).eq('cd_turma', id));
+    ({ error } = await sb.from('turma').update(payload).eq('cd_turma', id));
   } else {
-    ({ error } = await supabase.from('turma').insert(payload));
+    ({ error } = await sb.from('turma').insert(payload));
   }
 
   if (error) { toast('Erro ao salvar turma: ' + error.message, 'error'); return; }
@@ -915,13 +915,13 @@ document.getElementById('btnSalvarTurma').addEventListener('click', async () => 
 // USUARIOS - CRUD
 // ============================================
 async function loadUsuarios() {
-  const { data, error } = await supabase.from('usuario').select('*').order('nome');
+  const { data, error } = await sb.from('usuario').select('*').order('nome');
   if (error) { toast('Erro ao carregar usuários', 'error'); return; }
   allUsuarios = data || [];
 
   // Carrega turmas para vínculo
   if (!allTurmas.length) {
-    const { data: turmas } = await supabase.from('turma').select('*, curso(curso)').order('cd_turma');
+    const { data: turmas } = await sb.from('turma').select('*, curso(curso)').order('cd_turma');
     allTurmas = turmas || [];
   }
 
@@ -1030,7 +1030,7 @@ document.getElementById('btnSalvarUsuario').addEventListener('click', async () =
 
   if (id) {
     // Atualizar usuário existente
-    const { error } = await supabase.from('usuario')
+    const { error } = await sb.from('usuario')
       .update({ nome, perfil, ativo })
       .eq('cd_usuario', id);
 
@@ -1043,7 +1043,7 @@ document.getElementById('btnSalvarUsuario').addEventListener('click', async () =
   } else {
     // Criar novo usuário
     // 1. Cria no auth do Supabase (senha = CPF)
-    const { data: authData, error: authError } = await supabase.auth.signUp({
+    const { data: authData, error: authError } = await sb.auth.signUp({
       email,
       password: cpf,
       options: { data: { nome, cpf } }
@@ -1054,7 +1054,7 @@ document.getElementById('btnSalvarUsuario').addEventListener('click', async () =
     }
 
     // 2. Cria na tabela usuario
-    const { error: dbError } = await supabase.from('usuario').insert({
+    const { error: dbError } = await sb.from('usuario').insert({
       cd_usuario: authData.user.id,
       cpf,
       nome,
@@ -1094,19 +1094,19 @@ async function saveVinculosTurma(userId) {
     const exists = existing && existing.length > 0;
 
     if (isChecked && !exists) {
-      await supabase.from('usuario_turma').insert({
+      await sb.from('usuario_turma').insert({
         cd_usuario: userId,
         cd_turma: turmaId,
         dt_inicio: dtInicio,
         dt_fim: dtFim
       });
     } else if (isChecked && exists) {
-      await supabase.from('usuario_turma')
+      await sb.from('usuario_turma')
         .update({ dt_inicio: dtInicio, dt_fim: dtFim })
         .eq('cd_usuario', userId)
         .eq('cd_turma', turmaId);
     } else if (!isChecked && exists) {
-      await supabase.from('usuario_turma')
+      await sb.from('usuario_turma')
         .delete()
         .eq('cd_usuario', userId)
         .eq('cd_turma', turmaId);
@@ -1135,7 +1135,7 @@ document.getElementById('btnConfirmarReset').addEventListener('click', async () 
   }
 
   // Usa a Admin API via função RPC para resetar senha
-  const { error } = await supabase.rpc('admin_reset_password', {
+  const { error } = await sb.rpc('admin_reset_password', {
     target_user_id: id,
     new_password: novaSenha
   });
@@ -1145,7 +1145,7 @@ document.getElementById('btnConfirmarReset').addEventListener('click', async () 
   }
 
   // Marca como primeiro acesso para forçar troca
-  await supabase.from('usuario')
+  await sb.from('usuario')
     .update({ primeiro_acesso: true })
     .eq('cd_usuario', id);
 
