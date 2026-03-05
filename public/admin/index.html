@@ -638,7 +638,7 @@ async function handleLogin() {
   }
 
   // Verifica se é admin
-  const { data: usuario, error: userErr } = await supabase
+  const { data: usuario, error: userErr } = await sb
     .from('usuario')
     .select('perfil, nome')
     .eq('cd_usuario', data.user.id)
@@ -666,7 +666,7 @@ async function checkSession() {
   const { data: { session } } = await sb.auth.getSession();
   if (!session) return;
 
-  const { data: usuario } = await supabase
+  const { data: usuario } = await sb
     .from('usuario')
     .select('perfil, nome')
     .eq('cd_usuario', session.user.id)
@@ -820,7 +820,7 @@ document.getElementById('btnSalvarCurso').addEventListener('click', async () => 
 // TURMAS - CRUD
 // ============================================
 async function loadTurmas() {
-  const { data, error } = await supabase
+  const { data, error } = await sb
     .from('turma')
     .select('*, curso(curso)')
     .order('cd_turma');
@@ -980,7 +980,7 @@ window.editUsuario = async function(id) {
 
   // Carrega vínculos com turmas
   document.getElementById('turmasVinculoSection').style.display = 'block';
-  const { data: vinculos } = await supabase
+  const { data: vinculos } = await sb
     .from('usuario_turma')
     .select('cd_turma, dt_inicio, dt_fim')
     .eq('cd_usuario', id);
@@ -1085,7 +1085,7 @@ async function saveVinculosTurma(userId) {
     const dtFim = document.querySelector(`.turma-fim[data-turma="${turmaId}"]`).value;
 
     // Verifica se já existe vínculo
-    const { data: existing } = await supabase
+    const { data: existing } = await sb
       .from('usuario_turma')
       .select('cd_usuario')
       .eq('cd_usuario', userId)
