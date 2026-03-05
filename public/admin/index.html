@@ -1,0 +1,1163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IAMaster — Painel Administrativo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    :root {
+      --bg: #0B0F1A;
+      --bg-card: #111827;
+      --bg-input: #1A2234;
+      --bg-hover: #1E293B;
+      --border: #1E293B;
+      --border-focus: #C8A45C;
+      --text: #E2E8F0;
+      --text-secondary: #8A9AB5;
+      --text-muted: #4A5568;
+      --dourado: #C8A45C;
+      --dourado-dim: rgba(200,164,92,0.12);
+      --verde: #34D399;
+      --verde-dim: rgba(52,211,153,0.12);
+      --vermelho: #F87171;
+      --vermelho-dim: rgba(248,113,113,0.12);
+      --azul: #60A5FA;
+      --azul-dim: rgba(96,165,250,0.12);
+      --radius: 10px;
+      --radius-sm: 6px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+      --transition: 0.2s ease;
+      --font: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ===== LOGIN ===== */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0B0F1A 0%, #1A1F35 50%, #0B0F1A 100%);
+    }
+
+    .login-box {
+      width: 100%; max-width: 400px; padding: 0 24px;
+    }
+
+    .login-box h1 {
+      text-align: center; font-size: 1.6rem; font-weight: 700;
+      margin-bottom: 8px; letter-spacing: -0.02em;
+    }
+    .login-box h1 span { color: var(--dourado); }
+    .login-box .login-sub {
+      text-align: center; color: var(--text-secondary);
+      font-size: 0.9rem; margin-bottom: 36px;
+    }
+
+    .login-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 28px;
+    }
+
+    /* ===== LAYOUT ===== */
+    #adminPanel { display: none; }
+
+    .topbar {
+      height: 56px; background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 28px; position: sticky; top: 0; z-index: 100;
+    }
+    .topbar-brand { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+    .topbar-brand span { color: var(--dourado); }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .topbar-user { font-size: 0.85rem; color: var(--text-secondary); }
+
+    .main-layout { display: flex; min-height: calc(100vh - 56px); }
+
+    .sidebar {
+      width: 220px; background: var(--bg-card);
+      border-right: 1px solid var(--border);
+      padding: 20px 0; flex-shrink: 0;
+    }
+    .sidebar-nav { list-style: none; }
+    .sidebar-nav li a {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 24px; color: var(--text-secondary);
+      text-decoration: none; font-size: 0.9rem; font-weight: 500;
+      border-left: 3px solid transparent;
+      transition: all var(--transition);
+    }
+    .sidebar-nav li a:hover { background: var(--bg-hover); color: var(--text); }
+    .sidebar-nav li a.active {
+      color: var(--dourado); border-left-color: var(--dourado);
+      background: var(--dourado-dim);
+    }
+    .sidebar-nav li a .icon { font-size: 1.1rem; width: 22px; text-align: center; }
+
+    .content { flex: 1; padding: 28px; overflow-x: auto; }
+
+    /* ===== COMPONENTES ===== */
+    .page-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 24px;
+    }
+    .page-header h2 { font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
+
+    .stats-row {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px; margin-bottom: 28px;
+    }
+    .stat-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 20px;
+    }
+    .stat-card .stat-label { font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .stat-card .stat-value { font-size: 1.8rem; font-weight: 700; font-family: var(--font-mono); }
+    .stat-card.gold .stat-value { color: var(--dourado); }
+    .stat-card.green .stat-value { color: var(--verde); }
+    .stat-card.blue .stat-value { color: var(--azul); }
+
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .card-header {
+      padding: 16px 20px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .card-header h3 { font-size: 1rem; font-weight: 600; }
+    .card-body { padding: 20px; }
+
+    /* ===== TABELA ===== */
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      text-align: left; padding: 10px 16px;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--text-muted); text-transform: uppercase;
+      letter-spacing: 0.06em; border-bottom: 1px solid var(--border);
+    }
+    tbody td {
+      padding: 12px 16px; font-size: 0.88rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tbody tr:hover { background: var(--bg-hover); }
+    tbody tr:last-child td { border-bottom: none; }
+
+    .badge {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .badge-green { background: var(--verde-dim); color: var(--verde); }
+    .badge-red { background: var(--vermelho-dim); color: var(--vermelho); }
+    .badge-blue { background: var(--azul-dim); color: var(--azul); }
+    .badge-gold { background: var(--dourado-dim); color: var(--dourado); }
+
+    /* ===== FORMS ===== */
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 0.8rem; font-weight: 600;
+      color: var(--text-secondary); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .form-group input, .form-group select {
+      width: 100%; padding: 10px 14px;
+      background: var(--bg-input); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text);
+      font-family: var(--font); font-size: 0.92rem;
+      outline: none; transition: border-color var(--transition);
+    }
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--border-focus);
+    }
+    .form-group input::placeholder { color: var(--text-muted); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+    /* ===== BOTÕES ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 18px; border: none; border-radius: var(--radius-sm);
+      font-family: var(--font); font-size: 0.85rem; font-weight: 600;
+      cursor: pointer; transition: all var(--transition);
+      text-decoration: none;
+    }
+    .btn-primary { background: var(--dourado); color: var(--bg); }
+    .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+    .btn-secondary { background: var(--bg-input); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: var(--bg-hover); }
+    .btn-danger { background: var(--vermelho-dim); color: var(--vermelho); }
+    .btn-danger:hover { background: rgba(248,113,113,0.2); }
+    .btn-sm { padding: 5px 12px; font-size: 0.78rem; }
+
+    .btn-icon {
+      background: none; border: none; color: var(--text-muted);
+      cursor: pointer; padding: 4px; font-size: 1rem;
+      transition: color var(--transition);
+    }
+    .btn-icon:hover { color: var(--text); }
+
+    /* ===== MODAL ===== */
+    .modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.7); backdrop-filter: blur(4px);
+      align-items: center; justify-content: center;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius); width: 100%; max-width: 520px;
+      max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow);
+    }
+    .modal-header {
+      padding: 20px 24px; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .modal-header h3 { font-size: 1.1rem; font-weight: 700; }
+    .modal-body { padding: 24px; }
+    .modal-footer {
+      padding: 16px 24px; border-top: 1px solid var(--border);
+      display: flex; justify-content: flex-end; gap: 10px;
+    }
+
+    /* ===== TOAST ===== */
+    .toast-container {
+      position: fixed; top: 20px; right: 20px; z-index: 2000;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .toast {
+      padding: 12px 20px; border-radius: var(--radius-sm);
+      font-size: 0.88rem; font-weight: 500;
+      animation: slideIn 0.3s ease;
+      box-shadow: var(--shadow);
+    }
+    .toast-success { background: #065F46; color: #A7F3D0; border: 1px solid #10B981; }
+    .toast-error { background: #7F1D1D; color: #FCA5A5; border: 1px solid #EF4444; }
+
+    @keyframes slideIn {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* ===== ALERT ===== */
+    .alert {
+      padding: 12px 16px; border-radius: var(--radius-sm);
+      font-size: 0.88rem; margin-bottom: 16px; display: none;
+    }
+    .alert-error { background: var(--vermelho-dim); color: var(--vermelho); border: 1px solid rgba(248,113,113,0.3); }
+
+    /* ===== LOADING ===== */
+    .spinner {
+      display: inline-block; width: 18px; height: 18px;
+      border: 2px solid var(--text-muted); border-top-color: var(--dourado);
+      border-radius: 50%; animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .loading-overlay {
+      display: flex; align-items: center; justify-content: center;
+      padding: 60px; color: var(--text-muted); gap: 12px; font-size: 0.9rem;
+    }
+
+    /* ===== EMPTY STATE ===== */
+    .empty-state {
+      text-align: center; padding: 48px 20px; color: var(--text-muted);
+    }
+    .empty-state .icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .empty-state p { font-size: 0.92rem; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .sidebar { display: none; }
+      .content { padding: 16px; }
+      .form-row { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .page-header { flex-direction: column; gap: 12px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- ===== LOGIN SCREEN ===== -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>IAMaster <span>Admin</span></h1>
+    <p class="login-sub">Painel Administrativo</p>
+    <div class="login-card">
+      <div class="form-group">
+        <label for="loginEmail">E-mail</label>
+        <input type="email" id="loginEmail" placeholder="admin@exemplo.com">
+      </div>
+      <div class="form-group">
+        <label for="loginPassword">Senha</label>
+        <input type="password" id="loginPassword" placeholder="••••••••">
+      </div>
+      <div class="alert alert-error" id="loginError"></div>
+      <button class="btn btn-primary" style="width:100%; margin-top:8px; padding:12px;" id="btnLogin">Entrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div id="adminPanel">
+  <div class="topbar">
+    <div class="topbar-brand">IAMaster <span>Admin</span></div>
+    <div class="topbar-right">
+      <span class="topbar-user" id="adminEmail"></span>
+      <button class="btn btn-secondary btn-sm" id="btnLogout">Sair</button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <nav class="sidebar">
+      <ul class="sidebar-nav">
+        <li><a href="#" data-page="dashboard" class="active"><span class="icon">📊</span> Dashboard</a></li>
+        <li><a href="#" data-page="usuarios"><span class="icon">👤</span> Usuários</a></li>
+        <li><a href="#" data-page="cursos"><span class="icon">📚</span> Cursos</a></li>
+        <li><a href="#" data-page="turmas"><span class="icon">🎓</span> Turmas</a></li>
+      </ul>
+    </nav>
+
+    <main class="content">
+      <!-- DASHBOARD -->
+      <div id="page-dashboard" class="page-section">
+        <div class="page-header"><h2>Dashboard</h2></div>
+        <div class="stats-row" id="statsRow"></div>
+      </div>
+
+      <!-- USUARIOS -->
+      <div id="page-usuarios" class="page-section" style="display:none;">
+        <div class="page-header">
+          <h2>Usuários</h2>
+          <button class="btn btn-primary" id="btnNovoUsuario">+ Novo Usuário</button>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0; overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>Nome</th>
+                  <th>CPF</th>
+                  <th>E-mail</th>
+                  <th>Perfil</th>
+                  <th>Status</th>
+                  <th>1º Acesso</th>
+                  <th style="width:100px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tblUsuarios"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- CURSOS -->
+      <div id="page-cursos" class="page-section" style="display:none;">
+        <div class="page-header">
+          <h2>Cursos</h2>
+          <button class="btn btn-primary" id="btnNovoCurso">+ Novo Curso</button>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0; overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Curso</th>
+                  <th>Subpasta</th>
+                  <th>Status</th>
+                  <th style="width:100px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tblCursos"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- TURMAS -->
+      <div id="page-turmas" class="page-section" style="display:none;">
+        <div class="page-header">
+          <h2>Turmas</h2>
+          <button class="btn btn-primary" id="btnNovaTurma">+ Nova Turma</button>
+        </div>
+        <div class="card">
+          <div class="card-body" style="padding:0; overflow-x:auto;">
+            <table>
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Código</th>
+                  <th>Nome</th>
+                  <th>Curso</th>
+                  <th>Status</th>
+                  <th style="width:100px;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="tblTurmas"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ===== MODAL: USUARIO ===== -->
+<div class="modal-overlay" id="modalUsuario">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalUsuarioTitle">Novo Usuário</h3>
+      <button class="btn-icon" onclick="closeModal('modalUsuario')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editUsuarioId">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="usuNome">Nome</label>
+          <input type="text" id="usuNome" placeholder="Nome completo">
+        </div>
+        <div class="form-group">
+          <label for="usuCpf">CPF (apenas números)</label>
+          <input type="text" id="usuCpf" placeholder="00000000000" maxlength="11">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="usuEmail">E-mail</label>
+        <input type="email" id="usuEmail" placeholder="email@exemplo.com">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="usuPerfil">Perfil</label>
+          <select id="usuPerfil">
+            <option value="aluno">Aluno</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="usuAtivo">Status</label>
+          <select id="usuAtivo">
+            <option value="true">Ativo</option>
+            <option value="false">Inativo</option>
+          </select>
+        </div>
+      </div>
+      <!-- Vincular a turmas -->
+      <div class="form-group" id="turmasVinculoSection">
+        <label>Turmas vinculadas</label>
+        <div id="turmasVinculoList" style="max-height:200px; overflow-y:auto;"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalUsuario')">Cancelar</button>
+      <button class="btn btn-primary" id="btnSalvarUsuario">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: CURSO ===== -->
+<div class="modal-overlay" id="modalCurso">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalCursoTitle">Novo Curso</h3>
+      <button class="btn-icon" onclick="closeModal('modalCurso')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editCursoId">
+      <div class="form-group">
+        <label for="cursoNome">Nome do Curso</label>
+        <input type="text" id="cursoNome" placeholder="Ex: IA na Prática — Workshop TRE/RN 2026">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="cursoSubpasta">Subpasta</label>
+          <input type="text" id="cursoSubpasta" placeholder="Ex: tre-rn-2026">
+        </div>
+        <div class="form-group">
+          <label for="cursoAtivo">Status</label>
+          <select id="cursoAtivo">
+            <option value="true">Ativo</option>
+            <option value="false">Inativo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalCurso')">Cancelar</button>
+      <button class="btn btn-primary" id="btnSalvarCurso">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: TURMA ===== -->
+<div class="modal-overlay" id="modalTurma">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modalTurmaTitle">Nova Turma</h3>
+      <button class="btn-icon" onclick="closeModal('modalTurma')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="editTurmaId">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="turmaCodigo">Código da Turma</label>
+          <input type="text" id="turmaCodigo" placeholder="Ex: tre-2026-1">
+        </div>
+        <div class="form-group">
+          <label for="turmaNome">Nome descritivo</label>
+          <input type="text" id="turmaNome" placeholder="Ex: TRE/RN 2026 - Turma 1">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="turmaCurso">Curso</label>
+          <select id="turmaCurso"></select>
+        </div>
+        <div class="form-group">
+          <label for="turmaAtivo">Status</label>
+          <select id="turmaAtivo">
+            <option value="true">Ativo</option>
+            <option value="false">Inativo</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalTurma')">Cancelar</button>
+      <button class="btn btn-primary" id="btnSalvarTurma">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: RESET SENHA ===== -->
+<div class="modal-overlay" id="modalResetSenha">
+  <div class="modal">
+    <div class="modal-header">
+      <h3>Redefinir Senha</h3>
+      <button class="btn-icon" onclick="closeModal('modalResetSenha')">✕</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="resetUsuarioId">
+      <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:18px;">
+        Defina uma nova senha para o usuário <strong id="resetUsuarioNome"></strong>.
+      </p>
+      <div class="form-group">
+        <label for="novaSenha">Nova Senha</label>
+        <input type="password" id="novaSenha" placeholder="Mínimo 6 caracteres">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('modalResetSenha')">Cancelar</button>
+      <button class="btn btn-primary" id="btnConfirmarReset">Redefinir Senha</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================
+// CONFIGURAÇÃO SUPABASE
+// ============================================
+const SUPABASE_URL = 'https://hlfndpjmkpnwxiackvce.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable__QPgbMGC_kJlVDRsT1UOhA_Bf2FsEOW';
+
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+// Estado global
+let currentUser = null;
+let allCursos = [];
+let allTurmas = [];
+let allUsuarios = [];
+
+// ============================================
+// UTILIDADES
+// ============================================
+function toast(msg, type = 'success') {
+  const container = document.getElementById('toastContainer');
+  const el = document.createElement('div');
+  el.className = `toast toast-${type}`;
+  el.textContent = msg;
+  container.appendChild(el);
+  setTimeout(() => el.remove(), 4000);
+}
+
+function openModal(id) {
+  document.getElementById(id).classList.add('active');
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('active');
+}
+
+function formatCpf(cpf) {
+  if (!cpf || cpf.length !== 11) return cpf;
+  return `${cpf.slice(0,3)}.${cpf.slice(3,6)}.${cpf.slice(6,9)}-${cpf.slice(9)}`;
+}
+
+// ============================================
+// AUTENTICAÇÃO
+// ============================================
+document.getElementById('btnLogin').addEventListener('click', handleLogin);
+document.getElementById('loginPassword').addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') handleLogin();
+});
+
+async function handleLogin() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const password = document.getElementById('loginPassword').value;
+  const errorEl = document.getElementById('loginError');
+  errorEl.style.display = 'none';
+
+  if (!email || !password) {
+    errorEl.textContent = 'Preencha e-mail e senha.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+  if (error) {
+    errorEl.textContent = 'E-mail ou senha incorretos.';
+    errorEl.style.display = 'block';
+    return;
+  }
+
+  // Verifica se é admin
+  const { data: usuario, error: userErr } = await supabase
+    .from('usuario')
+    .select('perfil, nome')
+    .eq('cd_usuario', data.user.id)
+    .single();
+
+  if (userErr || !usuario || usuario.perfil !== 'admin') {
+    errorEl.textContent = 'Acesso restrito a administradores.';
+    errorEl.style.display = 'block';
+    await supabase.auth.signOut();
+    return;
+  }
+
+  currentUser = { ...data.user, ...usuario };
+  showAdminPanel();
+}
+
+document.getElementById('btnLogout').addEventListener('click', async () => {
+  await supabase.auth.signOut();
+  currentUser = null;
+  document.getElementById('adminPanel').style.display = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+});
+
+async function checkSession() {
+  const { data: { session } } = await supabase.auth.getSession();
+  if (!session) return;
+
+  const { data: usuario } = await supabase
+    .from('usuario')
+    .select('perfil, nome')
+    .eq('cd_usuario', session.user.id)
+    .single();
+
+  if (usuario && usuario.perfil === 'admin') {
+    currentUser = { ...session.user, ...usuario };
+    showAdminPanel();
+  }
+}
+
+function showAdminPanel() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('adminPanel').style.display = 'block';
+  document.getElementById('adminEmail').textContent = currentUser.nome || currentUser.email;
+  loadDashboard();
+}
+
+// ============================================
+// NAVEGAÇÃO
+// ============================================
+document.querySelectorAll('.sidebar-nav a').forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const page = link.dataset.page;
+
+    document.querySelectorAll('.sidebar-nav a').forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+
+    document.querySelectorAll('.page-section').forEach(s => s.style.display = 'none');
+    document.getElementById(`page-${page}`).style.display = 'block';
+
+    if (page === 'dashboard') loadDashboard();
+    if (page === 'usuarios') loadUsuarios();
+    if (page === 'cursos') loadCursos();
+    if (page === 'turmas') loadTurmas();
+  });
+});
+
+// ============================================
+// DASHBOARD
+// ============================================
+async function loadDashboard() {
+  const [
+    { count: totalUsuarios },
+    { count: totalCursos },
+    { count: totalTurmas },
+    { count: usuariosAtivos }
+  ] = await Promise.all([
+    supabase.from('usuario').select('*', { count: 'exact', head: true }),
+    supabase.from('curso').select('*', { count: 'exact', head: true }),
+    supabase.from('turma').select('*', { count: 'exact', head: true }),
+    supabase.from('usuario').select('*', { count: 'exact', head: true }).eq('ativo', true)
+  ]);
+
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card gold">
+      <div class="stat-label">Usuários</div>
+      <div class="stat-value">${totalUsuarios || 0}</div>
+    </div>
+    <div class="stat-card green">
+      <div class="stat-label">Ativos</div>
+      <div class="stat-value">${usuariosAtivos || 0}</div>
+    </div>
+    <div class="stat-card blue">
+      <div class="stat-label">Cursos</div>
+      <div class="stat-value">${totalCursos || 0}</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Turmas</div>
+      <div class="stat-value">${totalTurmas || 0}</div>
+    </div>
+  `;
+}
+
+// ============================================
+// CURSOS - CRUD
+// ============================================
+async function loadCursos() {
+  const { data, error } = await supabase.from('curso').select('*').order('cd_curso');
+  if (error) { toast('Erro ao carregar cursos', 'error'); return; }
+  allCursos = data || [];
+  renderCursos();
+}
+
+function renderCursos() {
+  const tbody = document.getElementById('tblCursos');
+  if (!allCursos.length) {
+    tbody.innerHTML = '<tr><td colspan="5"><div class="empty-state"><div class="icon">📚</div><p>Nenhum curso cadastrado</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = allCursos.map(c => `
+    <tr>
+      <td style="font-family:var(--font-mono); color:var(--text-muted);">${c.cd_curso}</td>
+      <td><strong>${c.curso}</strong></td>
+      <td><code style="background:var(--bg-input); padding:2px 8px; border-radius:4px; font-size:0.82rem;">${c.subpasta}</code></td>
+      <td>${c.ativo ? '<span class="badge badge-green">Ativo</span>' : '<span class="badge badge-red">Inativo</span>'}</td>
+      <td>
+        <button class="btn-icon" title="Editar" onclick="editCurso(${c.cd_curso})">✏️</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+document.getElementById('btnNovoCurso').addEventListener('click', () => {
+  document.getElementById('modalCursoTitle').textContent = 'Novo Curso';
+  document.getElementById('editCursoId').value = '';
+  document.getElementById('cursoNome').value = '';
+  document.getElementById('cursoSubpasta').value = '';
+  document.getElementById('cursoAtivo').value = 'true';
+  openModal('modalCurso');
+});
+
+window.editCurso = function(id) {
+  const c = allCursos.find(x => x.cd_curso === id);
+  if (!c) return;
+  document.getElementById('modalCursoTitle').textContent = 'Editar Curso';
+  document.getElementById('editCursoId').value = c.cd_curso;
+  document.getElementById('cursoNome').value = c.curso;
+  document.getElementById('cursoSubpasta').value = c.subpasta;
+  document.getElementById('cursoAtivo').value = String(c.ativo);
+  openModal('modalCurso');
+};
+
+document.getElementById('btnSalvarCurso').addEventListener('click', async () => {
+  const id = document.getElementById('editCursoId').value;
+  const payload = {
+    curso: document.getElementById('cursoNome').value.trim(),
+    subpasta: document.getElementById('cursoSubpasta').value.trim(),
+    ativo: document.getElementById('cursoAtivo').value === 'true'
+  };
+
+  if (!payload.curso || !payload.subpasta) {
+    toast('Preencha todos os campos', 'error'); return;
+  }
+
+  let error;
+  if (id) {
+    ({ error } = await supabase.from('curso').update(payload).eq('cd_curso', id));
+  } else {
+    ({ error } = await supabase.from('curso').insert(payload));
+  }
+
+  if (error) { toast('Erro ao salvar curso: ' + error.message, 'error'); return; }
+  toast(id ? 'Curso atualizado' : 'Curso criado');
+  closeModal('modalCurso');
+  loadCursos();
+});
+
+// ============================================
+// TURMAS - CRUD
+// ============================================
+async function loadTurmas() {
+  const { data, error } = await supabase
+    .from('turma')
+    .select('*, curso(curso)')
+    .order('cd_turma');
+  if (error) { toast('Erro ao carregar turmas', 'error'); return; }
+  allTurmas = data || [];
+
+  // Carrega cursos para o select
+  if (!allCursos.length) {
+    const { data: cursos } = await supabase.from('curso').select('*').order('cd_curso');
+    allCursos = cursos || [];
+  }
+
+  renderTurmas();
+}
+
+function renderTurmas() {
+  const tbody = document.getElementById('tblTurmas');
+  if (!allTurmas.length) {
+    tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="icon">🎓</div><p>Nenhuma turma cadastrada</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = allTurmas.map(t => `
+    <tr>
+      <td style="font-family:var(--font-mono); color:var(--text-muted);">${t.cd_turma}</td>
+      <td><code style="background:var(--bg-input); padding:2px 8px; border-radius:4px; font-size:0.82rem;">${t.turma}</code></td>
+      <td>${t.nome_turma || '—'}</td>
+      <td>${t.curso?.curso || '—'}</td>
+      <td>${t.ativo ? '<span class="badge badge-green">Ativo</span>' : '<span class="badge badge-red">Inativo</span>'}</td>
+      <td>
+        <button class="btn-icon" title="Editar" onclick="editTurma(${t.cd_turma})">✏️</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function populateCursoSelect(selectId, selectedId) {
+  const sel = document.getElementById(selectId);
+  sel.innerHTML = allCursos.map(c =>
+    `<option value="${c.cd_curso}" ${c.cd_curso === selectedId ? 'selected' : ''}>${c.curso}</option>`
+  ).join('');
+}
+
+document.getElementById('btnNovaTurma').addEventListener('click', () => {
+  document.getElementById('modalTurmaTitle').textContent = 'Nova Turma';
+  document.getElementById('editTurmaId').value = '';
+  document.getElementById('turmaCodigo').value = '';
+  document.getElementById('turmaNome').value = '';
+  document.getElementById('turmaAtivo').value = 'true';
+  populateCursoSelect('turmaCurso');
+  openModal('modalTurma');
+});
+
+window.editTurma = function(id) {
+  const t = allTurmas.find(x => x.cd_turma === id);
+  if (!t) return;
+  document.getElementById('modalTurmaTitle').textContent = 'Editar Turma';
+  document.getElementById('editTurmaId').value = t.cd_turma;
+  document.getElementById('turmaCodigo').value = t.turma;
+  document.getElementById('turmaNome').value = t.nome_turma || '';
+  document.getElementById('turmaAtivo').value = String(t.ativo);
+  populateCursoSelect('turmaCurso', t.cd_curso);
+  openModal('modalTurma');
+};
+
+document.getElementById('btnSalvarTurma').addEventListener('click', async () => {
+  const id = document.getElementById('editTurmaId').value;
+  const payload = {
+    turma: document.getElementById('turmaCodigo').value.trim(),
+    nome_turma: document.getElementById('turmaNome').value.trim(),
+    cd_curso: parseInt(document.getElementById('turmaCurso').value),
+    ativo: document.getElementById('turmaAtivo').value === 'true'
+  };
+
+  if (!payload.turma || !payload.cd_curso) {
+    toast('Preencha todos os campos obrigatórios', 'error'); return;
+  }
+
+  let error;
+  if (id) {
+    ({ error } = await supabase.from('turma').update(payload).eq('cd_turma', id));
+  } else {
+    ({ error } = await supabase.from('turma').insert(payload));
+  }
+
+  if (error) { toast('Erro ao salvar turma: ' + error.message, 'error'); return; }
+  toast(id ? 'Turma atualizada' : 'Turma criada');
+  closeModal('modalTurma');
+  loadTurmas();
+});
+
+// ============================================
+// USUARIOS - CRUD
+// ============================================
+async function loadUsuarios() {
+  const { data, error } = await supabase.from('usuario').select('*').order('nome');
+  if (error) { toast('Erro ao carregar usuários', 'error'); return; }
+  allUsuarios = data || [];
+
+  // Carrega turmas para vínculo
+  if (!allTurmas.length) {
+    const { data: turmas } = await supabase.from('turma').select('*, curso(curso)').order('cd_turma');
+    allTurmas = turmas || [];
+  }
+
+  renderUsuarios();
+}
+
+function renderUsuarios() {
+  const tbody = document.getElementById('tblUsuarios');
+  if (!allUsuarios.length) {
+    tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="icon">👤</div><p>Nenhum usuário cadastrado</p></div></td></tr>';
+    return;
+  }
+  tbody.innerHTML = allUsuarios.map(u => `
+    <tr>
+      <td><strong>${u.nome}</strong></td>
+      <td style="font-family:var(--font-mono); font-size:0.82rem;">${formatCpf(u.cpf)}</td>
+      <td style="font-size:0.85rem;">${u.email}</td>
+      <td>${u.perfil === 'admin' ? '<span class="badge badge-gold">Admin</span>' : '<span class="badge badge-blue">Aluno</span>'}</td>
+      <td>${u.ativo ? '<span class="badge badge-green">Ativo</span>' : '<span class="badge badge-red">Inativo</span>'}</td>
+      <td>${u.primeiro_acesso ? '<span class="badge badge-red">Pendente</span>' : '<span class="badge badge-green">OK</span>'}</td>
+      <td>
+        <button class="btn-icon" title="Editar" onclick="editUsuario('${u.cd_usuario}')">✏️</button>
+        <button class="btn-icon" title="Redefinir senha" onclick="resetSenha('${u.cd_usuario}')">🔑</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+document.getElementById('btnNovoUsuario').addEventListener('click', () => {
+  document.getElementById('modalUsuarioTitle').textContent = 'Novo Usuário';
+  document.getElementById('editUsuarioId').value = '';
+  document.getElementById('usuNome').value = '';
+  document.getElementById('usuCpf').value = '';
+  document.getElementById('usuEmail').value = '';
+  document.getElementById('usuPerfil').value = 'aluno';
+  document.getElementById('usuAtivo').value = 'true';
+  document.getElementById('usuCpf').disabled = false;
+  document.getElementById('usuEmail').disabled = false;
+  document.getElementById('turmasVinculoSection').style.display = 'none';
+  openModal('modalUsuario');
+});
+
+window.editUsuario = async function(id) {
+  const u = allUsuarios.find(x => x.cd_usuario === id);
+  if (!u) return;
+
+  document.getElementById('modalUsuarioTitle').textContent = 'Editar Usuário';
+  document.getElementById('editUsuarioId').value = u.cd_usuario;
+  document.getElementById('usuNome').value = u.nome;
+  document.getElementById('usuCpf').value = u.cpf;
+  document.getElementById('usuEmail').value = u.email;
+  document.getElementById('usuPerfil').value = u.perfil;
+  document.getElementById('usuAtivo').value = String(u.ativo);
+  document.getElementById('usuCpf').disabled = true;
+  document.getElementById('usuEmail').disabled = true;
+
+  // Carrega vínculos com turmas
+  document.getElementById('turmasVinculoSection').style.display = 'block';
+  const { data: vinculos } = await supabase
+    .from('usuario_turma')
+    .select('cd_turma, dt_inicio, dt_fim')
+    .eq('cd_usuario', id);
+
+  const vinculosMap = {};
+  (vinculos || []).forEach(v => { vinculosMap[v.cd_turma] = v; });
+
+  const listEl = document.getElementById('turmasVinculoList');
+  listEl.innerHTML = allTurmas.map(t => {
+    const v = vinculosMap[t.cd_turma];
+    const checked = v ? 'checked' : '';
+    const dtInicio = v ? v.dt_inicio : new Date().toISOString().slice(0, 10);
+    const dtFim = v ? v.dt_fim : '2026-12-31';
+    return `
+      <div style="padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; min-width:200px; margin:0; text-transform:none; letter-spacing:0; font-size:0.88rem; color:var(--text);">
+          <input type="checkbox" class="turma-check" data-turma="${t.cd_turma}" ${checked}>
+          ${t.nome_turma || t.turma}
+        </label>
+        <input type="date" class="turma-inicio" data-turma="${t.cd_turma}" value="${dtInicio}"
+          style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
+        <span style="color:var(--text-muted); font-size:0.8rem;">até</span>
+        <input type="date" class="turma-fim" data-turma="${t.cd_turma}" value="${dtFim}"
+          style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
+      </div>
+    `;
+  }).join('');
+
+  openModal('modalUsuario');
+};
+
+document.getElementById('btnSalvarUsuario').addEventListener('click', async () => {
+  const id = document.getElementById('editUsuarioId').value;
+  const nome = document.getElementById('usuNome').value.trim();
+  const cpf = document.getElementById('usuCpf').value.trim().replace(/\D/g, '');
+  const email = document.getElementById('usuEmail').value.trim();
+  const perfil = document.getElementById('usuPerfil').value;
+  const ativo = document.getElementById('usuAtivo').value === 'true';
+
+  if (!nome || !cpf || !email) {
+    toast('Preencha todos os campos obrigatórios', 'error'); return;
+  }
+
+  if (cpf.length !== 11) {
+    toast('CPF deve ter 11 dígitos', 'error'); return;
+  }
+
+  if (id) {
+    // Atualizar usuário existente
+    const { error } = await supabase.from('usuario')
+      .update({ nome, perfil, ativo })
+      .eq('cd_usuario', id);
+
+    if (error) { toast('Erro ao atualizar: ' + error.message, 'error'); return; }
+
+    // Atualizar vínculos com turmas
+    await saveVinculosTurma(id);
+
+    toast('Usuário atualizado');
+  } else {
+    // Criar novo usuário
+    // 1. Cria no auth do Supabase (senha = CPF)
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email,
+      password: cpf,
+      options: { data: { nome, cpf } }
+    });
+
+    if (authError) {
+      toast('Erro ao criar usuário: ' + authError.message, 'error'); return;
+    }
+
+    // 2. Cria na tabela usuario
+    const { error: dbError } = await supabase.from('usuario').insert({
+      cd_usuario: authData.user.id,
+      cpf,
+      nome,
+      email,
+      perfil,
+      ativo,
+      primeiro_acesso: true
+    });
+
+    if (dbError) {
+      toast('Erro ao salvar dados: ' + dbError.message, 'error'); return;
+    }
+
+    toast('Usuário criado (senha inicial = CPF)');
+  }
+
+  closeModal('modalUsuario');
+  loadUsuarios();
+});
+
+async function saveVinculosTurma(userId) {
+  const checkboxes = document.querySelectorAll('.turma-check');
+
+  for (const cb of checkboxes) {
+    const turmaId = parseInt(cb.dataset.turma);
+    const isChecked = cb.checked;
+    const dtInicio = document.querySelector(`.turma-inicio[data-turma="${turmaId}"]`).value;
+    const dtFim = document.querySelector(`.turma-fim[data-turma="${turmaId}"]`).value;
+
+    // Verifica se já existe vínculo
+    const { data: existing } = await supabase
+      .from('usuario_turma')
+      .select('cd_usuario')
+      .eq('cd_usuario', userId)
+      .eq('cd_turma', turmaId);
+
+    const exists = existing && existing.length > 0;
+
+    if (isChecked && !exists) {
+      await supabase.from('usuario_turma').insert({
+        cd_usuario: userId,
+        cd_turma: turmaId,
+        dt_inicio: dtInicio,
+        dt_fim: dtFim
+      });
+    } else if (isChecked && exists) {
+      await supabase.from('usuario_turma')
+        .update({ dt_inicio: dtInicio, dt_fim: dtFim })
+        .eq('cd_usuario', userId)
+        .eq('cd_turma', turmaId);
+    } else if (!isChecked && exists) {
+      await supabase.from('usuario_turma')
+        .delete()
+        .eq('cd_usuario', userId)
+        .eq('cd_turma', turmaId);
+    }
+  }
+}
+
+// ============================================
+// RESET DE SENHA
+// ============================================
+window.resetSenha = function(id) {
+  const u = allUsuarios.find(x => x.cd_usuario === id);
+  if (!u) return;
+  document.getElementById('resetUsuarioId').value = id;
+  document.getElementById('resetUsuarioNome').textContent = u.nome;
+  document.getElementById('novaSenha').value = '';
+  openModal('modalResetSenha');
+};
+
+document.getElementById('btnConfirmarReset').addEventListener('click', async () => {
+  const id = document.getElementById('resetUsuarioId').value;
+  const novaSenha = document.getElementById('novaSenha').value;
+
+  if (!novaSenha || novaSenha.length < 6) {
+    toast('A senha deve ter no mínimo 6 caracteres', 'error'); return;
+  }
+
+  // Usa a Admin API via função RPC para resetar senha
+  const { error } = await supabase.rpc('admin_reset_password', {
+    target_user_id: id,
+    new_password: novaSenha
+  });
+
+  if (error) {
+    toast('Erro ao redefinir senha: ' + error.message, 'error'); return;
+  }
+
+  // Marca como primeiro acesso para forçar troca
+  await supabase.from('usuario')
+    .update({ primeiro_acesso: true })
+    .eq('cd_usuario', id);
+
+  toast('Senha redefinida com sucesso');
+  closeModal('modalResetSenha');
+  loadUsuarios();
+});
+
+// ============================================
+// INICIALIZAÇÃO
+// ============================================
+checkSession();
+</script>
+</body>
+</html>
