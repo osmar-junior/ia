@@ -47,11 +47,18 @@ const Auth = (() => {
     return './';
   }
 
+  // Detecta o caminho absoluto até /treinamento/ a partir da URL
+  function getTreinamentoRoot() {
+    const path = window.location.pathname;
+    const match = path.match(/(.*\/treinamento\/)/);
+    return match ? match[1] : '/treinamento/';
+  }
+
   // Carrega e parseia o CSV de turmas
   async function loadTurmas() {
     try {
-      const basePath = getBasePath();
-      const response = await fetch(`${basePath}data/turmas.csv`);
+      const root = getTreinamentoRoot();
+      const response = await fetch(`${root}data/turmas.csv`);
       if (!response.ok) throw new Error('CSV não encontrado');
       const text = await response.text();
       return parseCSV(text);
@@ -134,15 +141,15 @@ const Auth = (() => {
     sessionStorage.removeItem(SESSION_SUBPASTA);
     sessionStorage.removeItem(SESSION_CURSO);
     sessionStorage.removeItem(SESSION_TIMESTAMP);
-    const basePath = getBasePath();
-    window.location.href = `${basePath}login.html`;
+    const root = getTreinamentoRoot();
+    window.location.href = `${root}login.html`;
   }
 
   // Protege uma página: verifica autenticação E se a subpasta corresponde
   function guardPage() {
     if (!isAuthenticated()) {
-      const basePath = getBasePath();
-      window.location.href = `${basePath}login.html`;
+      const root = getTreinamentoRoot();
+      window.location.href = `${root}login.html`;
       return false;
     }
 
@@ -156,8 +163,8 @@ const Auth = (() => {
       sessionStorage.removeItem(SESSION_SUBPASTA);
       sessionStorage.removeItem(SESSION_CURSO);
       sessionStorage.removeItem(SESSION_TIMESTAMP);
-      const basePath = getBasePath();
-      window.location.href = `${basePath}login.html`;
+      const root = getTreinamentoRoot();
+      window.location.href = `${root}login.html`;
       return false;
     }
 
@@ -187,8 +194,9 @@ const Auth = (() => {
   async function initLoginPage() {
     // Se já autenticado, redireciona para o curso correspondente
     if (isAuthenticated()) {
+      const root = getTreinamentoRoot();
       const subpasta = getSubpasta();
-      window.location.href = `./${subpasta}/index.html`;
+      window.location.href = `${root}${subpasta}/index.html`;
       return;
     }
 
@@ -226,7 +234,8 @@ const Auth = (() => {
 
       if (result.valid) {
         saveSession(result.turma, result.subpasta, result.nome_curso);
-        window.location.href = `./${result.subpasta}/index.html`;
+        const root = getTreinamentoRoot();
+        window.location.href = `${root}${result.subpasta}/index.html`;
       } else {
         showError(result.reason);
         input.focus();
