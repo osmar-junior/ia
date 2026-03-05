@@ -609,6 +609,69 @@ function formatCpf(cpf) {
   return `${cpf.slice(0,3)}.${cpf.slice(3,6)}.${cpf.slice(6,9)}-${cpf.slice(9)}`;
 }
 
+function validarCpf(cpf) {
+  cpf = cpf.replace(/\D/g, '');
+  if (cpf.length !== 11) return false;
+  // Rejeita CPFs com todos os dígitos iguais
+  if (/^(\d)\1{10}$/.test(cpf)) return false;
+  // Valida dígitos verificadores
+  for (let t = 9; t < 11; t++) {
+    let sum = 0;
+    for (let i = 0; i < t; i++) {
+      sum += parseInt(cpf.charAt(i)) * ((t + 1) - i);
+    }
+    let digit = ((10 * sum) % 11) % 10;
+    if (parseInt(cpf.charAt(t)) !== digit) return false;
+  }
+  return true;
+}
+
+function renderTurmasVinculo(turmas, vinculosMap = {}) {
+  const hoje = new Date().toISOString().slice(0, 10);
+  if (!turmas.length) {
+    return '<p style="color:var(--text-muted); font-size:0.88rem; padding:8px 0;">Nenhuma turma cadastrada.</p>';
+  }
+  return `
+    <table style="width:100%; border-collapse:collapse; font-size:0.85rem;">
+      <thead>
+        <tr>
+          <th style="text-align:left; padding:8px 6px; font-size:0.72rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--border); width:36px;">✓</th>
+          <th style="text-align:left; padding:8px 6px; font-size:0.72rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--border);">Turma</th>
+          <th style="text-align:left; padding:8px 6px; font-size:0.72rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--border);">Curso</th>
+          <th style="text-align:center; padding:8px 6px; font-size:0.72rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--border);">Início</th>
+          <th style="text-align:center; padding:8px 6px; font-size:0.72rem; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--border);">Fim</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${turmas.map(t => {
+          const v = vinculosMap[t.cd_turma];
+          const checked = v ? 'checked' : '';
+          const dtInicio = v ? v.dt_inicio : hoje;
+          const dtFim = v ? v.dt_fim : '2026-12-31';
+          const cursoNome = t.curso?.curso || '—';
+          return `
+            <tr style="border-bottom:1px solid var(--border);">
+              <td style="padding:8px 6px; text-align:center;">
+                <input type="checkbox" class="turma-check" data-turma="${t.cd_turma}" ${checked}>
+              </td>
+              <td style="padding:8px 6px; color:var(--text);">${t.nome_turma || t.turma}</td>
+              <td style="padding:8px 6px; color:var(--text-secondary); font-size:0.82rem;">${cursoNome}</td>
+              <td style="padding:8px 6px; text-align:center;">
+                <input type="date" class="turma-inicio" data-turma="${t.cd_turma}" value="${dtInicio}"
+                  style="padding:3px 6px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.78rem; font-family:var(--font); width:130px;">
+              </td>
+              <td style="padding:8px 6px; text-align:center;">
+                <input type="date" class="turma-fim" data-turma="${t.cd_turma}" value="${dtFim}"
+                  style="padding:3px 6px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.78rem; font-family:var(--font); width:130px;">
+              </td>
+            </tr>
+          `;
+        }).join('')}
+      </tbody>
+    </table>
+  `;
+}
+
 // ============================================
 // AUTENTICAÇÃO
 // ============================================
@@ -970,20 +1033,7 @@ document.getElementById('btnNovoUsuario').addEventListener('click', async () => 
 
   document.getElementById('turmasVinculoSection').style.display = 'block';
   const listEl = document.getElementById('turmasVinculoList');
-  const hoje = new Date().toISOString().slice(0, 10);
-  listEl.innerHTML = allTurmas.map(t => `
-    <div style="padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-      <label style="display:flex; align-items:center; gap:8px; cursor:pointer; min-width:200px; margin:0; text-transform:none; letter-spacing:0; font-size:0.88rem; color:var(--text);">
-        <input type="checkbox" class="turma-check" data-turma="${t.cd_turma}">
-        ${t.nome_turma || t.turma}
-      </label>
-      <input type="date" class="turma-inicio" data-turma="${t.cd_turma}" value="${hoje}"
-        style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
-      <span style="color:var(--text-muted); font-size:0.8rem;">até</span>
-      <input type="date" class="turma-fim" data-turma="${t.cd_turma}" value="2026-12-31"
-        style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
-    </div>
-  `).join('');
+  listEl.innerHTML = renderTurmasVinculo(allTurmas);
 
   openModal('modalUsuario');
 });
@@ -1020,25 +1070,7 @@ window.editUsuario = async function(id) {
   (vinculos || []).forEach(v => { vinculosMap[v.cd_turma] = v; });
 
   const listEl = document.getElementById('turmasVinculoList');
-  listEl.innerHTML = allTurmas.map(t => {
-    const v = vinculosMap[t.cd_turma];
-    const checked = v ? 'checked' : '';
-    const dtInicio = v ? v.dt_inicio : new Date().toISOString().slice(0, 10);
-    const dtFim = v ? v.dt_fim : '2026-12-31';
-    return `
-      <div style="padding:8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
-        <label style="display:flex; align-items:center; gap:8px; cursor:pointer; min-width:200px; margin:0; text-transform:none; letter-spacing:0; font-size:0.88rem; color:var(--text);">
-          <input type="checkbox" class="turma-check" data-turma="${t.cd_turma}" ${checked}>
-          ${t.nome_turma || t.turma}
-        </label>
-        <input type="date" class="turma-inicio" data-turma="${t.cd_turma}" value="${dtInicio}"
-          style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
-        <span style="color:var(--text-muted); font-size:0.8rem;">até</span>
-        <input type="date" class="turma-fim" data-turma="${t.cd_turma}" value="${dtFim}"
-          style="padding:4px 8px; background:var(--bg-input); border:1px solid var(--border); border-radius:4px; color:var(--text); font-size:0.8rem; font-family:var(--font);">
-      </div>
-    `;
-  }).join('');
+  listEl.innerHTML = renderTurmasVinculo(allTurmas, vinculosMap);
 
   openModal('modalUsuario');
 };
@@ -1057,6 +1089,10 @@ document.getElementById('btnSalvarUsuario').addEventListener('click', async () =
 
   if (cpf.length !== 11) {
     toast('CPF deve ter 11 dígitos', 'error'); return;
+  }
+
+  if (!validarCpf(cpf)) {
+    toast('CPF inválido. Verifique os dígitos informados.', 'error'); return;
   }
 
   if (id) {
