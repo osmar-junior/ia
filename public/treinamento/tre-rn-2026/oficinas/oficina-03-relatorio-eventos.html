@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 03 — Relatório de Eventos | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    .destaque-canva{background:linear-gradient(135deg,rgba(0,195,169,.06),rgba(121,87,213,.06));border:1px solid rgba(0,195,169,.2);border-radius:var(--radius-xl);padding:var(--space-xl);margin:var(--space-xl) 0}.destaque-canva h4{color:#00C3A9;font-size:1.15rem;margin-bottom:var(--space-md)}.destaque-canva .exemplos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);margin-top:var(--space-md)}.destaque-canva .exemplo-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg)}.destaque-canva .exemplo-card h5{font-family:var(--font-body);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:var(--space-sm)}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}.destaque-canva .exemplos-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">🎤 Oficina 03 de 12</div>
+      <h1>Relatório de Eventos</h1>
+      <p class="oficina-desc">Aprenda a usar o NotebookLM para transformar áudios gravados em eventos e congressos em relatórios institucionais completos. Importe gravações, aplique prompts estratégicos e produza documentos prontos para divulgação interna.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 60–90 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> NotebookLM (Oficina 02 concluída)</div>
+      </div>
+    </div>
+
+    <!-- OBJETIVOS + MATERIAL -->
+    <div class="etapa" id="objetivos">
+      <div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Objetivos e Material de Apoio</h2></div></div>
+      <div class="etapa-body">
+        <ul>
+          <li>Compreender o fluxo de uso do NotebookLM para análise de áudios gravados</li>
+          <li>Dominar prompts estratégicos para gerar resumos por palestrante, tema ou eixo</li>
+          <li>Produzir um relatório de participação institucional completo</li>
+          <li>Explorar a capacidade de detectar citações e sugerir insights gerenciais</li>
+          <li>Desenvolver autonomia no uso da IA para transparência, registro e memória institucional</li>
+        </ul>
+
+        <h3>📦 Material de Apoio</h3>
+        <div class="material-grid">
+          <div class="material-card"><div class="mat-icon">🎙️</div><div><h4>Áudio — CPSI na Prática (CONIP)</h4><p>Palestra sobre transformação digital no setor público</p><a href="https://drive.google.com/file/d/1_GjkV4fcUOrd3R-9_lRgL2NTOLG5bWQi/" target="_blank" download class="mat-link">⬇ Baixar áudio</a></div></div>
+          <div class="material-card"><div class="mat-icon">🎙️</div><div><h4>Áudio — Jornada para Nuvem (CONIP)</h4><p>Palestra sobre migração para nuvem no setor público</p><a href="https://drive.google.com/file/d/1ek1cLs5Dy3nCh7yhg0Qx4iw5c5pDaExA/" target="_blank" ßdownload class="mat-link">⬇ Baixar áudio</a></div></div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Dicas sobre gravação de áudios em eventos</div>
+          <p><strong>Formatos aceitos:</strong> Android grava em .M4A, iPhone/iPad em .opus. Ambos são suportados pelo NotebookLM.</p>
+          <p style="margin-top:var(--space-sm)"><strong>Tamanho máximo:</strong> Arquivos acima de 200MB não são aceitos. Para eventos longos, grave um arquivo separado por palestra. Se precisar fracionar, use o <a href="https://www.audacityteam.org/download/" target="_blank">Audacity</a> (gratuito). Para MP3, instale o <a href="https://lame.buanzo.org/ffmpeg.php" target="_blank">FFmpeg</a>.</p>
+          <p style="margin-top:var(--space-sm)"><strong>Dica prática:</strong> Sempre gere um arquivo de áudio separado por palestra. Facilita a organização e evita problemas de tamanho.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 1 -->
+    <div class="etapa" id="etapa1">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Criar o Caderno e Importar Áudios</h2><div class="etapa-sub">Transformando gravações em fontes analisáveis</div></div></div>
+      <div class="etapa-body">
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></div><div class="tool-hint">Crie um novo caderno chamado <strong>"Relatório CONIP 2025"</strong></div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Adicione os 2 arquivos de áudio como fontes</div><div class="tool-hint"><strong>"Adicionar fonte" → "Fazer upload"</strong>. O NotebookLM transcreve automaticamente.</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Renomeie as fontes</div><div class="tool-hint"><strong>"CPSI na Prática — CONIP"</strong> e <strong>"Jornada para Nuvem — CONIP"</strong></div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎤 Áudios carregados e transcritos?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="O NotebookLM acabou de transcrever palestras inteiras automaticamente. Antes da IA, degravação manual levaria horas de trabalho. Agora, em minutos, você tem o conteúdo completo indexado e pronto para análise. Clique em uma das fontes para verificar a transcrição — não será perfeita (nomes próprios e termos técnicos podem conter erros), mas a essência estará lá. Vamos transformar isso em relatório!">Transcrição pronta!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="encouraging" data-msg="A transcrição pode levar alguns minutos dependendo do tamanho. Se deu erro, verifique: o arquivo tem menos de 200MB? O formato é .m4a, .opus, .mp3 ou .wav? Se é muito grande, use o Audacity para dividi-lo. Se a qualidade do áudio é baixa (muito ruído), o NotebookLM pode falhar. Tente com o outro arquivo enquanto investiga. Também vale verificar se sua conta Google tem espaço disponível.">Tive dificuldade</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 2 — GERAR RELATÓRIOS -->
+    <div class="etapa" id="etapa2">
+      <div class="etapa-header"><div class="etapa-num">02</div><div><h2>Gerando Relatórios a partir dos Áudios</h2><div class="etapa-sub">De palestra a documento institucional</div></div></div>
+      <div class="etapa-body">
+        <p>Agora vamos usar um prompt estruturado (RCTS+E) para transformar as transcrições em relatórios profissionais. Selecione <strong>apenas um áudio por vez</strong> no painel de fontes antes de enviar o prompt.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">📌</div><div><div class="tool-name">Selecione apenas a fonte "CPSI na Prática"</div><div class="tool-hint">No painel de fontes, desmarque as demais e deixe apenas esta selecionada</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Relatório de evento (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um redator institucional especializado em relatórios de eventos realizados no âmbito do poder público, com experiência em registros para tribunais do Poder Judiciário.
+
+[CONTEXT] Os áudios fornecidos são gravações de palestras, mesas redondas e apresentações realizadas em um congresso. O relatório será utilizado como registro de participação institucional do TRE-RN.
+
+[TASK] Gere um relatório completo e estruturado com a seguinte organização:
+a) Título principal, nome do evento, local e período, com parágrafo introdutório sobre contexto e relevância.
+b) Contexto e objetivos do evento e temas centrais abordados.
+c) Síntese das palestras: título, nome(s) do(s) palestrante(s), principais ideias, exemplos ou citações relevantes, consensos e tendências.
+d) Conclusões e tendências: síntese das ideias predominantes, conceitos-chave e recomendações.
+e) Propostas de aplicação no TRE-RN: sugestões de como os conceitos apresentados podem ser aplicados no contexto do Tribunal, incluindo possíveis iniciativas e benefícios esperados.
+f) Considerações finais: resumo reforçando importância dos temas e impactos institucionais.
+
+[STYLE] Redigido em terceira pessoa, linguagem objetiva e clara, adequada a público técnico e jurídico. Estrutura hierárquica (H1, H2, H3). Parágrafos curtos e conectados. Evitar redundâncias, adjetivos excessivos e travessões. Equilibrar síntese e explicação contextual.
+
+[EXAMPLE] A síntese de cada palestra deve incluir: o que foi dito, por quem, os exemplos concretos citados, e qual a relevância para o setor público.</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📄 Gerou o relatório da primeira palestra?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="Você acabou de transformar uma gravação de celular em relatório institucional estruturado — com título, síntese, conclusões e propostas para o TRE-RN. Isso normalmente levaria um dia inteiro: degravação manual, organização, redação, revisão. A IA fez em minutos. Agora salve este relatório nas Observações (clique em 'Salvar nas observações') antes de prosseguir. Ele será usado nas próximas etapas.">Relatório ficou ótimo!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="neutral" data-msg="Relatórios de áudio dependem muito da qualidade da transcrição. Se há ruído, sotaques fortes ou falas simultâneas, a IA pode perder informações. Tente enriquecer o prompt: adicione o nome real do palestrante, o título exato da palestra, ou detalhes que você lembra. Isso ajuda a IA a preencher lacunas. O relatório é um rascunho inteligente — sua revisão é o que o transforma em documento final. Salve nas Observações mesmo assim: nas etapas seguintes, vamos refiná-lo.">Precisa de ajustes</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+
+        <h3>Agora, repita para a segunda palestra</h3>
+        <div class="tool-instruction"><div class="tool-icon">📌</div><div><div class="tool-name">Selecione apenas "Jornada para Nuvem"</div><div class="tool-hint">Desmarque a primeira e selecione esta. Execute o mesmo prompt.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📄 Gerou o relatório da segunda palestra?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Dois relatórios de palestras em menos tempo do que levaria para transcrever 10 minutos de áudio manualmente. A eficiência é brutal. Agora salve este segundo relatório nas Observações também. Com ambos salvos, você terá uma base completa para as próximas atividades. Percebeu diferença de qualidade entre os dois? Isso geralmente reflete a qualidade do áudio original.">Dois relatórios prontos!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="encouraging" data-msg="Use o mesmo prompt e observe se a qualidade muda. Se uma palestra gerou relatório melhor, provavelmente o áudio era mais limpo. Dica: adicione ao prompt 'Foque nos conceitos principais e ignore trechos de perguntas da plateia' para filtrar conteúdo. Mesmo que o resultado não seja perfeito, salve nas Observações — vamos refiná-lo na próxima etapa.">Tive dificuldade com esta</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 3 — OBSERVAÇÕES → FONTES + ESTÚDIO -->
+    <div class="etapa" id="etapa3">
+      <div class="etapa-header"><div class="etapa-num">03</div><div><h2>Transformando Relatórios em Novas Fontes</h2><div class="etapa-sub">Aplicando o Estúdio sobre os relatórios gerados</div></div></div>
+      <div class="etapa-body">
+        <p>Técnica poderosa: transformar os relatórios salvos nas Observações em <strong>novas fontes</strong>. Isso permite que o Estúdio gere conteúdos a partir dos relatórios já refinados, em vez dos áudios brutos.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name">Abra o painel de Observações</div><div class="tool-hint">Localize os dois relatórios salvos</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Converta cada observação em fonte</div><div class="tool-hint">Clique nos <strong>⋮</strong> → <strong>"Converter em fonte"</strong>. Agora aparecem no painel de fontes.</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Selecione apenas as novas fontes (relatórios)</div><div class="tool-hint">Desmarque os áudios originais. O Estúdio vai trabalhar sobre os relatórios.</div></div></div>
+
+        <h3>Exercitando o Estúdio com os relatórios</h3>
+        <p>Com as novas fontes selecionadas, explore o Estúdio:</p>
+        <ul>
+          <li><strong>Resumo em Áudio (Debate):</strong> Gere um debate sobre os temas das palestras — perfeito para compartilhar com colegas que não foram ao evento.</li>
+          <li><strong>Resumo em Vídeo (Quadro Branco):</strong> Vídeo resumindo as conclusões do congresso para apresentar em reunião de equipe.</li>
+          <li><strong>Mapa Mental:</strong> Visualize como os temas das duas palestras se conectam entre si.</li>
+          <li><strong>Relatório → Guia de Estudo:</strong> Material didático para capacitação da equipe sobre os temas abordados.</li>
+          <li><strong>Cartões de Estudo (10, nível médio):</strong> Personalize com "Foque nas propostas de aplicação para o TRE-RN".</li>
+          <li><strong>Teste (5 questões):</strong> Personalize com "Questões sobre tendências tecnológicas apresentadas e como aplicá-las no Judiciário".</li>
+          <li><strong>Apresentação de Slides (detalhada):</strong> "Apresentação de 15 minutos para a Diretoria do TRE-RN sobre os aprendizados do congresso".</li>
+          <li><strong>Tabela de Dados:</strong> Tabela comparando: tema, palestrante, ideias principais, propostas para o TRE-RN.</li>
+        </ul>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎨 Explorou o Estúdio com os relatórios?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Agora você domina o ciclo completo: áudio → transcrição → relatório → novas fontes → conteúdo multimídia. Essa cadeia é absurdamente poderosa. Imagine aplicar a cada evento que o TRE-RN participa: em vez de um relatório em PDF que ninguém lê, você gera relatório, slides, vídeo e material de estudo automaticamente. Isso é memória institucional viva — não burocracia juntando poeira.">Testei vários recursos!</button>
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="neutral" data-msg="Não precisa testar todos agora — o importante é entender que o Estúdio funciona sobre qualquer fonte, inclusive sobre relatórios que você mesmo gerou. A técnica 'observação → fonte' é a chave: ela permite gerar conteúdo cada vez mais refinado, camada sobre camada. Quando tiver tempo, experimente gerar slides para uma reunião real — o resultado costuma surpreender quem acha que 'IA é só chatbot'.">Testei alguns, pulei outros</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 4 — DESTAQUE CANVA -->
+    <div class="etapa" id="etapa4">
+      <div class="etapa-header"><div class="etapa-num">04</div><div><h2>Relatórios Visuais com o Canva</h2><div class="etapa-sub">Quando o conteúdo merece um layout profissional</div></div></div>
+      <div class="etapa-body">
+        <p>O relatório gerado pelo NotebookLM é excelente em conteúdo, mas visualmente é texto puro. Para relatórios que serão compartilhados com gestores, publicados na intranet ou apresentados em eventos, vale investir no layout visual.</p>
+        <p>O <a href="https://www.canva.com/" target="_blank"><strong>Canva</strong></a> é uma ferramenta online e gratuita de design que permite transformar relatórios em documentos visuais profissionais — com diagramação, ícones, gráficos e identidade visual do Tribunal.</p>
+
+        <div class="callout callout-success">
+          <div class="callout-title">🎯 Como usar</div>
+          <p>Copie o texto do relatório gerado pelo NotebookLM e cole no Canva usando um template de "Relatório" ou "Documento". Adicione a identidade visual do TRE-RN (logo, cores institucionais) e elementos gráficos para destacar dados e conclusões.</p>
+        </div>
+
+        <div class="destaque-canva">
+          <h4>🎨 Exemplos de relatórios visuais criados pelo instrutor</h4>
+          <p style="font-size:1.08rem;line-height:1.8;margin-bottom:var(--space-md)">Estes relatórios foram produzidos combinando NotebookLM + Canva a partir de eventos reais. Baixe e use como referência de estilo e estrutura:</p>
+          <div class="exemplos-grid">
+            <div class="exemplo-card">
+              <h5>📊 Relatório CONIP 2025</h5>
+              <p style="font-size:.95rem;margin-bottom:var(--space-md)">Congresso Nacional de Inovação e Tecnologia para o Setor Público</p>
+              <a href="../materiais/of-03-relatorio-conip-2025.pdf" download class="btn btn-sm btn-primary">⬇ Baixar PDF</a>
+            </div>
+            <div class="exemplo-card">
+              <h5>📊 Relatório ENASTIC Justiça Eleitoral 2025</h5>
+              <p style="font-size:.95rem;margin-bottom:var(--space-md)">Encontro Nacional de Gestão e TIC da Justiça Eleitoral</p>
+              <a href="../materiais/of-03-relatorio-enastic-2025.pdf" download class="btn btn-sm btn-primary">⬇ Baixar PDF</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📐 Viu os exemplos de relatórios visuais?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="positive" data-msg="A diferença entre um relatório em texto puro e um relatório diagramado no Canva é a diferença entre 'ninguém lê' e 'todo mundo quer uma cópia'. No serviço público, onde somos inundados de documentos, a apresentação visual não é vaidade — é estratégia de comunicação. Você pode criar relatórios assim em menos de 30 minutos usando os templates do Canva. O conteúdo, que é a parte mais difícil, já foi resolvido pelo NotebookLM.">Inspirador, quero fazer igual!</button>
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="neutral" data-msg="Tudo bem! O Canva é um complemento opcional. O relatório gerado pelo NotebookLM já é funcional e completo — a diagramação visual é um 'plus' para quando o documento precisa impressionar ou ser amplamente distribuído. Se não tem familiaridade com o Canva, há milhares de tutoriais no YouTube. Mas mesmo sem ele, o trabalho que você fez até aqui (áudio → relatório estruturado) já é infinitamente mais produtivo do que o processo manual.">Prefiro focar no texto por enquanto</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 5 — ATIVIDADE EXTRA: REFINAMENTO COM OUTRA LLM -->
+    <div class="etapa" id="etapa5">
+      <div class="etapa-header"><div class="etapa-num">05</div><div><h2>Atividade Extra: Refinando com outra IA</h2><div class="etapa-sub">Quando uma IA melhora o trabalho da outra</div></div></div>
+      <div class="etapa-body">
+        <p>O relatório do NotebookLM é baseado exclusivamente na transcrição dos áudios — o que garante fidelidade, mas pode resultar em textos com lacunas, repetições ou falta de contexto. Uma técnica avançada é <strong>passar o relatório por outra LLM</strong> (Claude, ChatGPT ou Gemini) pedindo refinamento.</p>
+        <p>Essa abordagem combina o melhor dos dois mundos: a fidelidade documental do NotebookLM + a capacidade de redação e contextualização das LLMs generalistas.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name">Copie o relatório gerado pelo NotebookLM</div><div class="tool-hint">Selecione todo o texto do relatório e copie (Ctrl+C)</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Abra o Claude, ChatGPT ou Gemini</div><div class="tool-hint">Qualquer uma das três funciona. Cole o prompt abaixo + o relatório.</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Refinamento de relatório (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um especialista em redação de relatórios institucionais de eventos realizados no âmbito do poder público, com domínio de linguagem técnico-jurídica e experiência no Poder Judiciário.
+
+[CONTEXT] O texto abaixo foi gerado pelo NotebookLM a partir de áudios gravados em um congresso. Ele é factualmente preciso mas pode conter lacunas de contexto, repetições ou trechos pouco fluidos.
+
+[TASK] Gere uma versão aprimorada do relatório, mantendo a estrutura em seções (H1, H2, H3) e todo o conteúdo factual. Esclareça ou complemente informações onde necessário. Melhore a coesão textual, elimine repetições e garanta fluidez na leitura.
+
+[STYLE] Terceira pessoa, linguagem objetiva e clara, parágrafos curtos e bem conectados. Evitar redundâncias, adjetivos excessivos e travessões. Manter equilíbrio entre síntese e explicação contextual.
+
+[EXAMPLE] Se o original diz "o palestrante falou sobre cloud", a versão refinada deve contextualizar: "O palestrante abordou a migração para computação em nuvem como estratégia de modernização da infraestrutura de TI no setor público".
+
+Texto a ser refinado:
+
+&lt;&lt;COLE O RELATÓRIO DO NOTEBOOKLM AQUI&gt;&gt;</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🔄 Testou o refinamento com outra IA?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="positive" data-msg="Você acaba de descobrir uma das técnicas mais poderosas do uso profissional de IA: combinar ferramentas. O NotebookLM garante fidelidade aos dados (sem alucinação). A LLM generalista garante qualidade de redação e contextualização. Juntas, produzem relatórios que seriam difíceis de distinguir dos escritos por um redator profissional com horas de trabalho. Essa abordagem funciona para qualquer tipo de documento: pareceres, atas de reunião, relatórios de gestão. O segredo é sempre manter a cadeia: fonte confiável → IA 1 (extração) → IA 2 (refinamento) → revisão humana (validação final).">O resultado ficou muito melhor!</button>
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="neutral" data-msg="O refinamento nem sempre produz melhoria dramática — depende da qualidade do original. Se o relatório do NotebookLM já estava bom, as mudanças serão sutis (melhor coesão, contextualização). Se estava com lacunas, a diferença será mais evidente. A técnica é especialmente útil quando o áudio original tem qualidade baixa e a transcrição deixa trechos confusos. Mesmo que o ganho pareça pequeno agora, essa cadeia de refinamento se torna indispensável em relatórios que serão publicados oficialmente.">Diferença foi sutil</button>
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="encouraging" data-msg="Sem problema! Essa é uma atividade extra para quando você quiser elevar o nível do relatório. A técnica é simples: copiar o resultado de uma IA, colar em outra e pedir aprimoramentos. Funciona melhor quando o original tem problemas visíveis (repetições, falta de contexto, trechos confusos). Quando tiver um caso real, experimente — o investimento de tempo é mínimo e o ganho de qualidade costuma valer a pena.">Pulo por agora</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <h3>O que você aprendeu nesta oficina:</h3>
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Habilidade</th><th>O que fez</th><th>Aplicação no TRE-RN</th></tr></thead><tbody>
+          <tr><td><strong>Importar áudios</strong></td><td>Carregou gravações como fontes no NotebookLM</td><td>Qualquer evento, reunião ou palestra gravada</td></tr>
+          <tr><td><strong>Gerar relatórios</strong></td><td>Prompt RCTS+E para relatórios institucionais</td><td>Relatórios de participação em congressos</td></tr>
+          <tr><td><strong>Observações → Fontes</strong></td><td>Converteu resultados em novas fontes</td><td>Cadeia de refinamento progressivo</td></tr>
+          <tr><td><strong>Estúdio sobre relatórios</strong></td><td>Gerou slides, vídeo, mapa mental</td><td>Material de divulgação e capacitação</td></tr>
+          <tr><td><strong>Layout visual (Canva)</strong></td><td>Diagramação profissional do relatório</td><td>Documentos para gestores e publicação</td></tr>
+          <tr><td><strong>Refinamento cruzado</strong></td><td>Passou relatório por outra IA</td><td>Elevar qualidade de qualquer documento</td></tr>
+        </tbody></table></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia o fluxo áudio → relatório que aprendeu?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="positive" data-msg="Você domina agora uma das aplicações mais práticas e imediatas de IA no serviço público: transformar gravações de eventos em documentação institucional completa. Isso resolve um problema real que quase todo órgão público enfrenta: servidores vão a eventos, aprendem coisas valiosas, mas o conhecimento morre porque ninguém tem tempo de produzir relatórios detalhados. Com o que aprendeu aqui, um relatório que levaria 8 horas agora leva 30 minutos. Multiplique isso por todos os eventos do ano e o impacto é transformador.">Vou usar isso nos próximos eventos!</button>
+            <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="neutral" data-msg="A técnica funciona melhor com áudios de boa qualidade e palestras bem estruturadas. Para reuniões internas mais informais (com muitas falas simultâneas, pausas, digressões), o resultado pode ser menos consistente. A dica é: comece aplicando em eventos e congressos, onde os áudios tendem a ser mais limpos e as falas mais organizadas. À medida que ganhar confiança, expanda para reuniões e outros contextos. Cada tentativa é aprendizado — e o custo de experimentar é zero.">Útil, mas depende do contexto</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-6"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 04</strong>, vamos explorar novos cenários de uso da IA aplicada ao trabalho do TRE-RN.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-02-notebooklm-fundamentos.html" class="btn btn-secondary btn-sm">← Oficina 02</a>
+      <a href="./oficina-04-notebooklm-videos.html" class="btn btn-primary btn-sm">Oficina 04 →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=7,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>
