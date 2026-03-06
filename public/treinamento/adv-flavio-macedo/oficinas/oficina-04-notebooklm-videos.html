@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Oficina 04 — Vídeos como Fontes | Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .progress-bar{position:sticky;top:var(--navbar-height);z-index:50;background:var(--bg-lighter);border-bottom:1px solid var(--border-light);padding:10px var(--space-xl);display:flex;align-items:center;gap:var(--space-lg)}.progress-label{font-size:.88rem;font-weight:600;color:var(--text-muted);white-space:nowrap}.progress-track{flex:1;height:6px;background:rgba(200,164,92,.1);border-radius:3px;overflow:hidden}.progress-fill{height:100%;background:linear-gradient(90deg,var(--dourado),var(--verde));border-radius:3px;transition:width .6s ease;width:0}.progress-pct{font-size:.88rem;font-weight:700;color:var(--verde);min-width:40px;text-align:right}
+    .oficina-hero{padding:var(--space-3xl) 0 var(--space-2xl);border-bottom:1px solid var(--border-light)}.oficina-badge{display:inline-flex;align-items:center;gap:var(--space-sm);font-size:.9rem;font-weight:700;color:var(--dourado);background:var(--dourado-dim);padding:8px 18px;border-radius:var(--radius-full);border:1px solid rgba(200,164,92,.2);margin-bottom:var(--space-lg)}.oficina-hero h1{font-size:2.8rem;margin-bottom:var(--space-md)}.oficina-hero .oficina-desc{font-size:1.18rem;line-height:1.95;max-width:850px}.oficina-meta{display:flex;flex-wrap:wrap;gap:var(--space-lg);margin-top:var(--space-xl)}.oficina-meta-item{display:flex;align-items:center;gap:var(--space-sm);font-size:.98rem;color:var(--text-muted)}.oficina-meta-item strong{color:var(--text)}
+    .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
+    .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
+    .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);backdrop-filter:blur(12px);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
+  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+
+    <div class="oficina-hero">
+      <div class="oficina-badge">🎬 Oficina 04 de 12</div>
+      <h1>Vídeos como Fontes</h1>
+      <p class="oficina-desc">Descubra como o NotebookLM transforma vídeos do YouTube em fontes analisáveis. Nesta oficina, você vai usar as Sessões Plenárias do TRE-RN para gerar relatórios de deliberações, identificar votos, mapear decisões e produzir sínteses institucionais a partir do que antes era apenas uma transmissão ao vivo.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 60–90 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> NotebookLM (Oficinas 02 e 03 concluídas)</div>
+      </div>
+    </div>
+
+    <!-- OBJETIVOS + MATERIAL -->
+    <div class="etapa" id="objetivos">
+      <div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Objetivos e Material de Apoio</h2></div></div>
+      <div class="etapa-body">
+        <ul>
+          <li>Compreender o fluxo de importação de vídeos do YouTube como fontes no NotebookLM</li>
+          <li>Transformar transcrições das Sessões Plenárias em textos estruturados e precisos</li>
+          <li>Desenvolver prompts para identificação de falas, temas, votos e decisões</li>
+          <li>Elaborar relatórios institucionais que destaquem votações, deliberações e encaminhamentos</li>
+          <li>Reconhecer o potencial da IA como apoio à transparência e à memória institucional</li>
+          <li>Explorar outros tipos de vídeos públicos como fontes de análise</li>
+        </ul>
+
+        <h3>📦 Material de Apoio</h3>
+        <div class="material-grid">
+          <div class="material-card"><div class="mat-icon">📺</div><div><h4>Canal do TRE-RN no YouTube</h4><p>Sessões Plenárias, eventos, campanhas e transmissões institucionais</p><a href="https://www.youtube.com/@justicaeleitoralrn" target="_blank" class="mat-link">🔗 Abrir canal ↗</a></div></div>
+        </div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💡 Como funciona a importação de vídeos</div>
+          <p>O NotebookLM aceita URLs do YouTube como fonte. Ao adicionar um vídeo, ele extrai automaticamente a transcrição (legendas) e indexa o conteúdo para análise. O vídeo precisa estar público e ter legendas disponíveis (geradas automaticamente pelo YouTube ou adicionadas manualmente).</p>
+          <p style="margin-top:var(--space-sm)"><strong>Limitação:</strong> Vídeos muito longos (acima de ~4 horas) podem ser processados parcialmente. Se a Sessão Plenária for extensa, considere usar sessões mais curtas para melhores resultados.</p>
+        </div>
+
+        <div class="callout callout-success">
+          <div class="callout-title">🎯 Escolhendo uma Sessão Plenária</div>
+          <p>Acesse o <a href="https://www.youtube.com/@justicaeleitoralrn" target="_blank">canal do TRE-RN</a> e escolha o vídeo de uma Sessão Plenária recente. Copie a URL completa do vídeo (ex: <code>https://www.youtube.com/watch?v=XXXXX</code>). Prefira sessões com duração entre 30 minutos e 2 horas para melhores resultados na primeira tentativa.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 1 — CADERNO COM VÍDEO -->
+    <div class="etapa" id="etapa1">
+      <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Criar o Caderno e Importar o Vídeo</h2><div class="etapa-sub">Do YouTube direto para o NotebookLM</div></div></div>
+      <div class="etapa-body">
+        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></div><div class="tool-hint">Crie um novo caderno chamado <strong>"Sessão Plenária TRE-RN"</strong></div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Adicione o vídeo como fonte</div><div class="tool-hint">Clique em <strong>"Adicionar fonte" → "YouTube"</strong> e cole a URL do vídeo da Sessão Plenária que você escolheu</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Verifique a transcrição</div><div class="tool-hint">Clique na fonte adicionada e confira se a transcrição foi extraída corretamente. Observe os timestamps.</div></div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📺 Vídeo importado e transcrição disponível?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="positive" data-msg="Parabéns! Você acabou de transformar uma transmissão de Sessão Plenária em dados analisáveis por IA. Pense na magnitude disso: horas de deliberações jurídicas que antes só existiam em formato audiovisual agora são texto indexado, pesquisável e pronto para análise automatizada. Clique na fonte e observe os timestamps — eles permitem localizar exatamente em que minuto do vídeo cada trecho foi dito. Isso é poderoso para verificação e referência.">Transcrição perfeita!</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="neutral" data-msg="Transcrições automáticas do YouTube raramente são perfeitas. Nomes próprios de magistrados, termos jurídicos específicos e números de processos costumam ter erros. Isso é normal e não invalida a análise — a IA do NotebookLM é surpreendentemente boa em extrair sentido mesmo de transcrições imperfeitas. Nos próximos passos, vamos usar prompts que ajudam a compensar essas imperfeições.">Veio com alguns erros</button>
+            <button class="checkpoint-opt" onclick="ck(this,0)" data-tone="encouraging" data-msg="Isso pode acontecer por dois motivos: (1) o vídeo não tem legendas automáticas habilitadas no YouTube — alguns vídeos mais antigos podem estar sem essa opção; (2) a URL está incorreta ou o vídeo é privado/restrito. Tente outro vídeo de Sessão Plenária mais recente, preferencialmente dos últimos 12 meses. Se persistir, confira se o vídeo tem o ícone 'CC' (legendas) visível na barra do YouTube player. Sem legendas, o NotebookLM não consegue extrair o texto.">Não gerou transcrição</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-0"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 2 — RELATÓRIO DE SESSÃO PLENÁRIA -->
+    <div class="etapa" id="etapa2">
+      <div class="etapa-header"><div class="etapa-num">02</div><div><h2>Relatório da Sessão Plenária</h2><div class="etapa-sub">Extraindo deliberações, votos e decisões</div></div></div>
+      <div class="etapa-body">
+        <p>Agora vamos usar prompts estratégicos para extrair informações específicas da Sessão Plenária. O primeiro prompt gera um <strong>relatório analítico completo</strong> da sessão.</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 1 — Relatório geral da sessão (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um assessor jurídico experiente, especializado no acompanhamento e relato de sessões da corte de Tribunais do Poder Judiciário.
+
+[CONTEXT] A fonte fornecida é o vídeo de uma Sessão do Pleno do TRE-RN, disponibilizada no YouTube. O público-alvo do relatório são servidores e gestores do Tribunal que não puderam acompanhar a sessão ao vivo.
+
+[TASK] Gere um relatório estruturado da Sessão Plenária contendo:
+a) Identificação da sessão: data, tipo (ordinária/extraordinária) e composição da mesa (se identificável).
+b) Pauta: lista dos processos e temas deliberados, na ordem em que foram tratados.
+c) Síntese das deliberações: para cada processo ou tema, inclua número do processo, relator(a), resumo do caso, argumentos principais, resultado da votação e eventuais destaques.
+d) Decisões administrativas: comunicações, informes ou providências administrativas tratadas na sessão.
+e) Destaques e observações: debates relevantes, divergências significativas ou temas que mereçam acompanhamento.
+
+[STYLE] Linguagem técnico-jurídica acessível, terceira pessoa, parágrafos objetivos. Usar numeração para os processos e estrutura hierárquica (H1, H2, H3). Evitar redundâncias e travessões.
+
+[EXAMPLE] Para cada processo: "O Processo nº XXXX, relatado pelo(a) Desembargador(a) [Nome], tratou de [tema]. O relator apresentou voto no sentido de [decisão]. O Pleno, por unanimidade/maioria, decidiu [resultado]."</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📋 O relatório identificou processos e decisões?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="positive" data-msg="A IA conseguiu extrair a essência jurídica de uma sessão que pode durar horas, organizando por processo, relator e resultado. Isso é extraordinário para a memória institucional. Salve este relatório nas Observações — ele será a base para os próximos exercícios. Uma dica: compare com a ata oficial da sessão (quando disponível) para avaliar a acurácia. Você provavelmente vai se surpreender com o nível de detalhamento que a IA consegue extrair de legendas automáticas.">Sim, bastante detalhado!</button>
+            <button class="checkpoint-opt" onclick="ck(this,1)" data-tone="neutral" data-msg="A qualidade do relatório depende diretamente da qualidade das legendas. Sessões com vários magistrados falando, debates sobrepostos ou leitura rápida de números de processos geram transcrições menos precisas. Tente complementar o prompt com informações que você conhece: 'Os membros do Pleno incluem [nomes dos desembargadores]' ou 'A sessão tratou principalmente de [tema geral]'. Esse contexto adicional ajuda a IA a interpretar melhor os trechos confusos. Salve nas Observações mesmo assim — um rascunho imperfeito é melhor que nenhum registro.">Parcialmente, faltaram detalhes</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-1"></div>
+        </div>
+
+        <h3>Extraindo votações em formato tabular</h3>
+        <p>Agora um prompt focado especificamente nas votações, em formato de tabela:</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 2 — Tabela de votações (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um especialista jurídico com experiência em acompanhar sessões plenárias de Tribunais Eleitorais.
+
+[CONTEXT] A fonte é o vídeo de uma Sessão do Pleno do TRE-RN disponibilizada no YouTube.
+
+[TASK] Extraia todas as votações realizadas na sessão e apresente em formato de tabela com as colunas: Número do processo, Relator(a), Assunto/Tema, Resultado (unânime/maioria), Votos favoráveis, Votos contrários, Observações relevantes.
+
+[STYLE] Tabela objetiva e concisa. Na coluna "Observações", inclua apenas informações realmente relevantes como pedidos de vista, declarações de impedimento ou votos com ressalvas. Se não for possível identificar algum campo, indique "Não identificado".
+
+[EXAMPLE]
+| Processo | Relator(a) | Assunto | Resultado | Favoráveis | Contrários | Obs. |
+| 0001234-XX | Des. Fulano | Registro de candidatura | Unânime | Todos | - | - |</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📊 A tabela de votações ficou completa?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Uma tabela de votações extraída automaticamente de um vídeo do YouTube. Isso é automação real de trabalho repetitivo. Nas secretarias e coordenadorias do TRE-RN, a consolidação de votações é uma tarefa manual que consome tempo. Com esse fluxo, você pode gerar a base tabular em segundos e investir o tempo na verificação e complementação dos dados. Salve nas Observações e, se quiser, copie para uma planilha Excel para trabalhar os dados.">Tabela completa e útil!</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="Números de processo são um dos dados mais difíceis para a IA extrair de transcrições — eles são lidos rapidamente, contêm muitos dígitos e as legendas frequentemente os transcrevem com erros. Isso é esperado. A tabela serve como ponto de partida: ela identifica os processos tratados, a ordem das deliberações e os resultados gerais. Os números exatos devem ser conferidos com a pauta oficial. Pense na tabela como um mapa da sessão, não como a ata final.">Números de processo imprecisos</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="encouraging" data-msg="Sessões com poucos processos, votações por aclamação rápida ou leituras protocolares podem gerar tabelas pobres. Tente com outra sessão que tenha debates mais substantivos — sessões com julgamentos polêmicos ou com maior número de processos tendem a gerar resultados mais ricos. Outra opção: pergunte primeiro 'Quantos processos foram tratados nesta sessão?' para verificar se a IA conseguiu segmentar os itens da pauta.">Não conseguiu extrair</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-2"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 3 — ANÁLISE TEMÁTICA E COMPARATIVA -->
+    <div class="etapa" id="etapa3">
+      <div class="etapa-header"><div class="etapa-num">03</div><div><h2>Análise Temática e Consultas Avançadas</h2><div class="etapa-sub">Indo além do relatório básico</div></div></div>
+      <div class="etapa-body">
+        <p>O relatório geral é o ponto de partida. Agora vamos usar prompts mais direcionados para extrair análises que um relatório convencional não traria.</p>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 3 — Mapeamento de temas (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um analista institucional do TRE-RN responsável por mapear tendências nas deliberações do Pleno.
+
+[CONTEXT] A fonte é o vídeo de uma Sessão Plenária do TRE-RN. O objetivo é identificar padrões temáticos para subsidiar relatórios de gestão.
+
+[TASK] Analise a sessão e classifique os temas tratados nas seguintes categorias: (1) Matéria eleitoral, (2) Matéria administrativa, (3) Gestão de pessoas, (4) Tecnologia e inovação, (5) Outros. Para cada categoria, liste os assuntos abordados e indique se houve consenso ou divergência.
+
+[STYLE] Formato de lista organizada por categoria, com breve descrição de cada tema. Ao final, inclua um parágrafo de síntese indicando qual categoria predominou e quais tendências emergiram.
+
+[EXAMPLE] "Matéria eleitoral: (a) Registro de candidatura do processo X — aprovado por unanimidade; (b) Propaganda eleitoral irregular no processo Y — houve divergência entre os membros."</div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 4 — Identificação de falas relevantes (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um assessor de comunicação do TRE-RN preparando material para divulgação interna.
+
+[CONTEXT] A fonte é uma Sessão Plenária do TRE-RN. O objetivo é identificar declarações e posicionamentos que possam ser destacados em informativos ou boletins internos.
+
+[TASK] Identifique até 5 declarações ou posicionamentos relevantes feitos pelos magistrados durante a sessão. Para cada um, informe: quem falou, sobre qual tema, o posicionamento adotado e a relevância para o Tribunal.
+
+[STYLE] Formato narrativo, com citações indiretas (não transcrever literalmente). Cada item deve ter 3-4 linhas. Priorize declarações com impacto institucional ou que sinalizem direcionamentos futuros.</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🔍 Testou os prompts de análise temática?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Você está indo além da mera transcrição — está fazendo análise institucional automatizada. O mapeamento temático permite identificar padrões ao longo do tempo: se você aplicar esse mesmo prompt a 10 sessões plenárias, começa a enxergar tendências (mais matérias eleitorais em ano de eleição, crescimento de temas de TI, etc.). É inteligência institucional que nenhum tribunal no Brasil está fazendo de forma sistemática. Salve os resultados nas Observações para os próximos exercícios.">Insights interessantes!</button>
+            <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="neutral" data-msg="A qualidade da análise temática depende do conteúdo da sessão. Sessões protocolares com poucos debates geram análises mais superficiais — é a realidade do dado, não uma limitação da IA. Tente com sessões de julgamento que tenham debates substantivos. Outra dica: adicione contexto ao prompt sobre quem são os membros do Pleno. Exemplo: 'O Pleno é composto por [nomes]. O presidente é [nome].' Esse contexto ajuda a IA a atribuir falas corretamente.">Resultado superficial</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 4 — ESTÚDIO -->
+    <div class="etapa" id="etapa4">
+      <div class="etapa-header"><div class="etapa-num">04</div><div><h2>Estúdio sobre a Sessão Plenária</h2><div class="etapa-sub">Transformando deliberações em múltiplos formatos</div></div></div>
+      <div class="etapa-body">
+        <p>Antes de explorar o Estúdio, converta os melhores resultados das conversas em fontes: salve nas <strong>Observações</strong> e depois converta para <strong>fontes</strong>. Isso garante que o Estúdio trabalhe com dados já refinados.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">💾</div><div><div class="tool-name">Salve e converta os relatórios em fontes</div><div class="tool-hint">Observações → ⋮ → "Converter em fonte". Desmarque o vídeo original e selecione apenas as novas fontes.</div></div></div>
+
+        <h3>Sugestões contextualizadas para o Estúdio</h3>
+        <ul>
+          <li><strong>Resumo em Áudio (formato Resumo, 5 min):</strong> Gere um podcast com os destaques da sessão. Perfeito para gestores que precisam se atualizar rapidamente sobre as deliberações sem assistir ao vídeo inteiro.</li>
+          <li><strong>Resumo em Vídeo (estilo Clássico):</strong> Crie um vídeo resumo visual da sessão para publicação na intranet ou redes sociais do TRE-RN.</li>
+          <li><strong>Mapa Mental:</strong> Visualize as conexões entre os processos tratados, identificando temas recorrentes e relações entre deliberações.</li>
+          <li><strong>Relatório → Documento de Resumo:</strong> Uma síntese executiva de 1 página da sessão, ideal para encaminhar à presidência ou publicar em boletim informativo.</li>
+          <li><strong>Cartões de Estudo (8 cards, nível médio):</strong> Personalize com "Foque nas decisões tomadas e seus fundamentos jurídicos". Útil para capacitação de servidores recém-empossados sobre jurisprudência do tribunal.</li>
+          <li><strong>Teste (5 questões):</strong> Personalize com "Questões sobre as deliberações, os votos dos magistrados e os fundamentos apresentados". Material de estudo para assessores.</li>
+          <li><strong>Apresentação de Slides (detalhada):</strong> "Apresentação de 10 minutos para reunião de coordenadoria sobre as principais decisões da última Sessão Plenária".</li>
+          <li><strong>Tabela de Dados:</strong> "Tabela consolidando: processo, relator, tema, resultado, fundamento principal".</li>
+        </ul>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🎨 Explorou o Estúdio com a Sessão Plenária?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="positive" data-msg="Você transformou uma transmissão de Sessão Plenária em podcast, slides, cartões de estudo e relatório executivo. Pense no impacto: servidores das 67 zonas eleitorais do RN poderiam receber um podcast semanal de 5 minutos com os destaques do Pleno, gerado automaticamente. Isso é democratização da informação institucional — algo que nenhum tribunal brasileiro implementou de forma sistemática com IA. Você está literalmente experimentando o futuro da comunicação judiciária.">Vários formatos gerados!</button>
+            <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="neutral" data-msg="Tudo bem! O Estúdio funciona melhor quando as fontes são textos refinados (observações convertidas) em vez do vídeo bruto. Se pulou a etapa de converter observações em fontes, tente agora: o resultado do Estúdio melhora significativamente quando trabalha com dados já organizados. Concentre-se nos formatos mais úteis para o seu trabalho: slides para reuniões e documento de resumo para comunicação costumam ser os mais imediatamente aplicáveis.">Testei só alguns</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-4"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 5 — OUTROS VÍDEOS -->
+    <div class="etapa" id="etapa5">
+      <div class="etapa-header"><div class="etapa-num">05</div><div><h2>Expandindo: Outros Vídeos como Fontes</h2><div class="etapa-sub">O YouTube inteiro é sua base de conhecimento</div></div></div>
+      <div class="etapa-body">
+        <p>O poder de importar vídeos do YouTube vai muito além das Sessões Plenárias. Qualquer vídeo público com legendas pode ser transformado em fonte analisável. Aqui vão cenários concretos para o TRE-RN:</p>
+
+        <h3>💡 Cenários de uso avançado</h3>
+        <ul>
+          <li><strong>Eventos e palestras do CNJ:</strong> Importe vídeos de seminários, encontros nacionais e lives do CNJ para gerar relatórios de acompanhamento institucional. O canal <a href="https://www.youtube.com/@cnaborto" target="_blank">CNJ no YouTube</a> tem centenas de horas de conteúdo sobre inovação, gestão e tecnologia no Judiciário.</li>
+          <li><strong>Capacitações e treinamentos:</strong> Transforme webinars técnicos em guias de estudo e cartões de revisão para sua equipe. Selecione o vídeo, gere "Guia de estudo" no Estúdio, e distribua.</li>
+          <li><strong>Entrevistas e debates públicos:</strong> Analise entrevistas de especialistas sobre temas que impactam o Judiciário (IA no direito, LGPD, governo digital) e extraia os pontos-chave em relatórios executivos.</li>
+          <li><strong>Sessões de outros tribunais:</strong> Compare deliberações e posicionamentos de outros TREs sobre temas similares. Crie cadernos separados por tribunal e use prompts comparativos.</li>
+          <li><strong>Audiências públicas e consultas:</strong> Gere sínteses estruturadas de audiências públicas transmitidas ao vivo, identificando participantes, posicionamentos e propostas apresentadas.</li>
+        </ul>
+
+        <div class="callout callout-info">
+          <div class="callout-title">🎯 Atividade prática</div>
+          <p>Crie um <strong>novo caderno</strong> no NotebookLM com um vídeo de outra natureza: uma palestra do CNJ sobre inovação, um webinar técnico sobre LGPD, ou uma sessão de outro TRE. Use o prompt de relatório que você já domina (Etapa 2) e observe como a IA se adapta a conteúdos diferentes.</p>
+        </div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 5 — Análise de palestra externa (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um servidor público do TRE-RN que acompanha eventos e produz relatórios de benchmarking institucional.
+
+[CONTEXT] A fonte é um vídeo de palestra, seminário ou webinar disponível no YouTube, de interesse para o Poder Judiciário.
+
+[TASK] Gere um relatório de acompanhamento contendo:
+a) Identificação: nome do evento, palestrante(s), data e instituição promotora.
+b) Síntese do conteúdo: temas abordados, argumentos principais e exemplos citados.
+c) Relevância para o TRE-RN: quais ideias, práticas ou conceitos podem ser adaptados ao contexto do Tribunal.
+d) Recomendações: ações concretas que o TRE-RN poderia adotar com base no conteúdo apresentado.
+
+[STYLE] Terceira pessoa, linguagem técnica acessível, parágrafos curtos. Formato executivo (2-3 páginas no máximo).
+
+[EXAMPLE] "O palestrante apresentou o conceito de [X], exemplificando com o caso do [tribunal/órgão Y], que implementou [Z] com resultado de [W]. Essa experiência pode ser adaptada ao TRE-RN por meio de [sugestão concreta]."</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🌐 Experimentou com outro tipo de vídeo?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="positive" data-msg="Excelente! Agora você percebeu que o NotebookLM transforma o YouTube inteiro em uma base de conhecimento pesquisável. Cada vídeo público com legendas é uma fonte potencial de inteligência institucional. O conceito de 'benchmarking automatizado' que você acabou de praticar — assistir (via IA) o que outros tribunais fazem e gerar relatórios de aplicabilidade — é algo que pouquíssimos órgãos no Brasil estão fazendo. Você está na vanguarda.">Sim, funcionou muito bem!</button>
+            <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="neutral" data-msg="Sem problema. A ideia desta etapa é plantar a semente: sempre que você assistir a algo interessante no YouTube que tenha relevância institucional, lembre-se de que pode importar no NotebookLM e gerar um relatório em minutos. O custo de experimentar é zero. Quando surgir uma necessidade real (por exemplo, produzir um relatório sobre um seminário do CNJ), você já sabe exatamente como fazer.">Pulei, fico para depois</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-5"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ETAPA 6 — MÚLTIPLOS VÍDEOS NO MESMO CADERNO -->
+    <div class="etapa" id="etapa6">
+      <div class="etapa-header"><div class="etapa-num">06</div><div><h2>Técnica Avançada: Múltiplos Vídeos no Mesmo Caderno</h2><div class="etapa-sub">Análise cruzada entre sessões e eventos</div></div></div>
+      <div class="etapa-body">
+        <p>Uma técnica poderosa é adicionar <strong>vários vídeos de sessões plenárias</strong> ao mesmo caderno e usar a IA para fazer análises cruzadas. Isso permite identificar padrões, recorrências e tendências ao longo do tempo.</p>
+
+        <div class="tool-instruction"><div class="tool-icon">📌</div><div><div class="tool-name">Adicione 2 ou 3 Sessões Plenárias ao mesmo caderno</div><div class="tool-hint">Selecione sessões de meses diferentes para comparação temporal</div></div></div>
+
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 6 — Análise cruzada de sessões (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um analista de gestão judiciária do TRE-RN, responsável por identificar padrões e tendências nas deliberações do Pleno.
+
+[CONTEXT] As fontes são vídeos de múltiplas Sessões Plenárias do TRE-RN disponíveis no YouTube, realizadas em datas diferentes.
+
+[TASK] Compare as sessões e identifique:
+a) Temas recorrentes: assuntos que apareceram em mais de uma sessão.
+b) Evolução de processos: casos que foram tratados em múltiplas sessões (pedidos de vista, adiamentos, retornos à pauta).
+c) Padrões de votação: se houve tendência a unanimidade ou divergências frequentes.
+d) Volume e complexidade: comparar a quantidade de processos e o tempo dedicado a cada sessão.
+
+[STYLE] Relatório analítico comparativo, com tabela de síntese ao final. Parágrafos curtos e conectados, linguagem técnica acessível.</div></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">📈 Experimentou análise cruzada de sessões?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="positive" data-msg="Análise longitudinal de sessões plenárias via IA — isso é inteligência institucional de alto nível. Tribunais no Brasil geralmente não fazem esse tipo de cruzamento porque o esforço manual seria proibitivo. Com o NotebookLM, você pode carregar um semestre inteiro de sessões e pedir comparações em segundos. Imagine produzir um 'Panorama Semestral do Pleno' com tendências, padrões de votação e temas emergentes. Relatório de gestão com substância real, não apenas números.">Padrões interessantes identificados!</button>
+            <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="neutral" data-msg="Essa técnica funciona melhor com sessões que tenham temas em comum ou processos que transitaram entre sessões. Se as sessões escolhidas foram muito diferentes entre si, a análise cruzada pode ficar superficial. Para melhores resultados, escolha sessões de um mesmo período (ex: todas do mês de março) ou de um mesmo tipo (ex: só sessões extraordinárias). A técnica de múltiplos vídeos é especialmente potente para análise de jurisprudência: 'como o Pleno tem decidido sobre propaganda eleitoral nos últimos 6 meses?'.">Não achei muita conexão</button>
+            <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="encouraging" data-msg="Essa etapa é a mais avançada da oficina, faz sentido deixar para quando tiver um caso real de uso. A ideia central é: o NotebookLM não se limita a um vídeo por caderno. Você pode construir cadernos temáticos (ex: 'Jurisprudência sobre propaganda eleitoral') com dezenas de vídeos e tratar cada caderno como um repositório especializado. Quando a necessidade surgir, a ferramenta estará pronta.">Pulo essa, é avançada demais</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-6"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSÃO -->
+    <div class="etapa" id="conclusao">
+      <div class="etapa-header"><div class="etapa-num">✅</div><div><h2>Resumo e Próximos Passos</h2></div></div>
+      <div class="etapa-body">
+        <div class="table-wrapper"><table class="table"><thead><tr><th>Habilidade</th><th>O que fez</th><th>Aplicação no TRE-RN</th></tr></thead><tbody>
+          <tr><td><strong>Importar vídeos</strong></td><td>YouTube como fonte no NotebookLM</td><td>Sessões Plenárias, eventos, palestras</td></tr>
+          <tr><td><strong>Relatório de sessão</strong></td><td>Prompt RCTS+E para deliberações</td><td>Atas e relatórios de sessões</td></tr>
+          <tr><td><strong>Tabela de votações</strong></td><td>Extração tabular de votos</td><td>Controle de deliberações</td></tr>
+          <tr><td><strong>Análise temática</strong></td><td>Classificação por categorias</td><td>Relatórios de gestão</td></tr>
+          <tr><td><strong>Estúdio multiformato</strong></td><td>Slides, áudio, mapa mental</td><td>Comunicação e capacitação</td></tr>
+          <tr><td><strong>Análise cruzada</strong></td><td>Múltiplos vídeos comparados</td><td>Tendências e jurisprudência</td></tr>
+        </tbody></table></div>
+
+        <div class="checkpoint">
+          <div class="checkpoint-title">🏆 Como avalia o uso de vídeos como fontes no NotebookLM?</div>
+          <div class="checkpoint-options">
+            <button class="checkpoint-opt" onclick="ck(this,7)" data-tone="positive" data-msg="Nas Oficinas 02, 03 e 04, você dominou o NotebookLM em três modalidades de fonte: PDFs (documentos), áudios (gravações) e vídeos (YouTube). Isso cobre praticamente toda a produção de conteúdo institucional de um tribunal. A próxima fronteira é integrar essas fontes: imagine um caderno com o vídeo da sessão, o PDF da pauta oficial e o áudio de uma entrevista do relator. O NotebookLM cruza tudo automaticamente. Você tem agora um arsenal completo para produzir inteligência institucional.">Transformador para o TRE-RN!</button>
+            <button class="checkpoint-opt" onclick="ck(this,7)" data-tone="neutral" data-msg="A qualidade dos resultados com vídeo é diretamente proporcional à qualidade das legendas. Sessões com boa captação de áudio e legendas precisas geram resultados excelentes. Sessões com áudio ruim, legendas automáticas precárias ou múltiplas falas simultâneas geram resultados mais limitados. Mas mesmo resultados parciais economizam tempo — ter um rascunho de relatório com 70% de acurácia é infinitamente melhor que começar do zero. A chave é sempre revisar e complementar com seu conhecimento pessoal.">Útil, mas com limitações</button>
+          </div>
+          <div class="checkpoint-response" id="ckr-7"></div>
+        </div>
+
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 05</strong>, vamos explorar a integração do Gemini com o Google Workspace para automações no ambiente de trabalho.</p></div>
+      </div>
+    </div>
+
+    <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+      <a href="./oficina-03-relatorio-eventos.html" class="btn btn-secondary btn-sm">← Oficina 03</a>
+      <a href="./oficina-05-gemini-ferramentas.html" class="btn btn-primary btn-sm">Oficina 05 →</a>
+    </div>
+
+  </div></main>
+
+  <div id="footer-placeholder"></div>
+  <script src="../../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    const TOTAL=8,done=new Set();
+    function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
+    function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
+  </script>
+</body>
+</html>
