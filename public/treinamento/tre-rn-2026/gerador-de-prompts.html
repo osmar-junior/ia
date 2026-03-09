@@ -13,14 +13,14 @@
     .content-section:last-child { border-bottom: none; }
     .content-section h2 { margin-bottom: var(--space-lg); display: flex; align-items: center; gap: var(--space-md); }
     .content-section h2 .section-icon { width: 40px; height: 40px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
-    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--dourado); font-size: 1.4rem; }
+    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--azul-medio); font-size: 1.4rem; }
     .content-body p { margin-bottom: var(--space-md); font-size: 1.08rem; line-height: 1.9; }
     .content-body li { color: var(--text-secondary); margin-bottom: var(--space-sm); font-size: 1.05rem; line-height: 1.85; }
     .content-body li strong { color: var(--text); }
 
     .builder-container {
       background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-xl);
-      padding: var(--space-xl); backdrop-filter: blur(12px); margin: var(--space-xl) 0;
+      padding: var(--space-xl);  margin: var(--space-xl) 0;
     }
     .builder-field { margin-bottom: var(--space-lg); }
     .builder-field label {
@@ -76,7 +76,7 @@
       font-weight: 800; display: inline;
     }
     .builder-output .tag-r { color: #E85C5C; }
-    .builder-output .tag-c { color: #6BA3E8; }
+    .builder-output .tag-c { color: var(--azul-medio); }
     .builder-output .tag-t { color: var(--verde); }
     .builder-output .tag-s { color: var(--roxo); }
     .builder-output .tag-e { color: var(--dourado); }
@@ -92,7 +92,7 @@
     .tip-card {
       background: var(--bg-elevated); border: 1px solid var(--border);
       border-radius: var(--radius-lg); padding: var(--space-lg);
-      backdrop-filter: blur(12px);
+      
     }
     .tip-card .tip-icon { font-size: 1.4rem; margin-bottom: var(--space-sm); }
     .tip-card h4 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
@@ -138,6 +138,11 @@
           linear-gradient(to top, var(--bg) 0%, transparent 20%);
       }
     }
+  
+    /* === TEMA CLARO — overrides === */
+    .page-nav a { background: var(--bg-card); box-shadow: var(--shadow-sm); }
+    .page-nav a:hover { color: var(--azul-medio); border-color: rgba(46,92,154,0.3); }
+    .section-icon { background: var(--azul-light) !important; }
   </style>
 </head>
 <body>
