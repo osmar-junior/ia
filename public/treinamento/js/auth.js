@@ -21,12 +21,14 @@ const Auth = (() => {
     const path = window.location.pathname;
     if (path.match(/\/treinamento\/[^/]*\.html$/) || path.match(/\/treinamento\/?$/)) return './';
     if (path.includes('/oficinas/')) return '../../';
+    if (path.includes('/modulos/')) return '../../';
     return '../';
   }
 
   function getCourseBasePath() {
     const path = window.location.pathname;
     if (path.includes('/oficinas/')) return '../';
+    if (path.includes('/modulos/')) return '../';
     return './';
   }
 
