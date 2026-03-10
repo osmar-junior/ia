@@ -8,20 +8,147 @@
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
-  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: 260px; flex-shrink: 0;
+      background: var(--bg-card); border-right: 1px solid var(--border-light);
+      position: sticky; top: var(--navbar-height);
+      height: calc(100vh - var(--navbar-height));
+      overflow-y: auto; display: flex; flex-direction: column; z-index: 10;
+    }
+    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
+    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
+    .sb-label:first-child { margin-top: 0; }
+    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
+    .sb-module { display: flex; align-items: center; gap: 8px; padding: 9px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-module.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-topics { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
+    .sb-topics.open { max-height: 500px; }
+    .sb-topic { display: flex; align-items: flex-start; gap: 5px; padding: 7px var(--space-md) 7px calc(var(--space-md) + 16px); font-size: 0.9rem; color: var(--text-muted); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-topic::before { content: '↳'; font-size: 0.75rem; margin-top: 2px; flex-shrink: 0; opacity: 0.55; }
+    .sb-topic:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.35); }
+    .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-oficina { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
+    .sb-oficina:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
+    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
+    .sb-footer a { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
+    .sb-footer a:hover { color: var(--azul-medio); }
+
+    /* ─── Conteúdo ─── */
+    .main-content { flex: 1; min-width: 0; background: var(--bg); }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; min-height: 320px;
+      display: flex; align-items: flex-end;
+      padding: var(--space-3xl) var(--space-2xl) var(--space-xl); overflow: hidden;
+    }
+    .page-hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+    .page-hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(rgba(20,40,80,0.45), rgba(20,40,80,0.45)),
+        linear-gradient(to right, rgba(20,40,80,0.98) 0%, rgba(20,40,80,0.92) 30%, rgba(20,40,80,0.65) 60%, rgba(20,40,80,0.15) 100%);
+    }
+    .hero-text { position: relative; z-index: 2; max-width: 640px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dourado-light); background: rgba(184,137,26,0.2); border: 1px solid rgba(184,137,26,0.3); border-radius: 99px; padding: 5px 14px; margin-bottom: var(--space-md); }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dourado-light); }
+    .page-hero h1 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.15; }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.6; }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: var(--border-hover); }
+    .breadcrumb .current { color: var(--text); font-weight: 500; }
+
+    /* ─── Corpo ─── */
+    .page-body { padding: var(--space-2xl); }
+
+    /* ─── Metadados ─── */
+    .module-meta { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-2xl); padding: var(--space-md) var(--space-lg); background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 0.87rem; color: var(--text-secondary); }
+    .meta-item strong { color: var(--text); font-weight: 600; }
+
+    /* ─── Resumo ─── */
+    .module-summary { margin-bottom: var(--space-3xl); }
+    .module-summary h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-md); }
+    .module-summary p { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--space-md); }
+    .module-summary p:last-child { margin-bottom: 0; }
+
+    /* ─── Cards de tópicos ─── */
+    .topics-section h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg); }
+    .topics-list { display: flex; flex-direction: column; gap: var(--space-md); }
+    .topic-card {
+      display: flex; align-items: flex-start; gap: var(--space-lg);
+      padding: var(--space-lg) var(--space-xl);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-left: 4px solid var(--azul-medio);
+      border-radius: var(--radius-lg); text-decoration: none;
+      transition: all 0.18s ease;
+    }
+    .topic-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); border-color: var(--azul-medio); }
+    .topic-num { font-size: 1.5rem; font-weight: 800; color: var(--border-hover); min-width: 32px; padding-top: 2px; line-height: 1; }
+    .topic-body { flex: 1; }
+    .topic-title { font-size: 1.12rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 5px; }
+    .topic-card:hover .topic-title { color: var(--azul-medio); }
+    .topic-desc { font-size: 0.97rem; color: var(--text-muted); line-height: 1.55; }
+    .topic-meta { display: flex; gap: var(--space-md); margin-top: var(--space-sm); }
+    .topic-tag { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); background: var(--bg-elevated); border: 1px solid var(--border-light); border-radius: 99px; padding: 2px 10px; }
+    .topic-arrow { color: var(--azul-medio); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; align-self: center; }
+
+    /* ─── Separador ─── */
+    .divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-3xl) 0; }
+
+    /* ─── O que você vai aprender ─── */
+    .outcomes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+    .outcome-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: var(--space-lg); }
+    .outcome-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+    .outcome-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ─── Mobile ─── */
+    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
+
+    @media (max-width: 960px) {
+      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
+      .sidebar.open { left: 0; }
+      .sidebar-overlay.open { display: block; }
+      .sidebar-toggle { display: flex; }
+      .page-hero { padding: var(--space-2xl) var(--space-md) var(--space-lg); min-height: 240px; }
+      .page-hero h1 { font-size: 1.8rem; }
+      .breadcrumb { padding: 8px var(--space-md); }
+      .page-body { padding: var(--space-lg) var(--space-md); }
+      .topic-card { padding: var(--space-md) var(--space-lg); gap: var(--space-md); }
+    }
+  </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
+
   <div class="layout">
+
+    <!-- ══ SIDEBAR ══ -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
+
         <div class="sb-label">📚 Módulos</div>
+
         <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
         <div class="sb-topics"></div>
+
         <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
         <div class="sb-topics"></div>
+
         <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
         <div class="sb-topics"></div>
+
         <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
         <div class="sb-topics open">
           <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
@@ -30,91 +157,182 @@
           <a href="./tecnicas-avancadas.html" class="sb-topic" data-topico="ep-04">Técnicas Avançadas</a>
           <a href="./gerador.html" class="sb-topic" data-topico="ep-05">Gerador RCTS+E</a>
         </div>
+
         <hr class="sb-divider">
         <div class="sb-label">🛠️ Oficinas</div>
         <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+
       </div>
-      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+      <div class="sb-footer">
+        <a href="../../index.html">↩ Início do curso</a>
+      </div>
     </aside>
+
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
+    <!-- ══ CONTEÚDO ══ -->
     <main class="main-content">
+
       <section class="page-hero">
         <div class="page-hero-bg">
           <img src="../../assets/heroes/hero-eng-prompts.jpg" alt="" loading="eager">
         </div>
-        <div class="section-header">
+        <div class="hero-text">
           <div class="eyebrow"><span class="dot"></span> Módulo 04</div>
           <h1>Engenharia de Prompts</h1>
           <p>Aprenda a "conversar" com a IA de forma eficaz e obtenha resultados profissionais para o seu trabalho no TRE-RN.</p>
         </div>
       </section>
 
-      <nav class="breadcrumb">
-        <a href="../../index.html">Início</a><span class="sep">›</span>
-        <a href="../../index.html#modulos-section">Módulos</a><span class="sep">›</span>
+      <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="../../index.html">Início</a>
+        <span class="sep">›</span>
+        <a href="../../index.html#modulos-section">Módulos</a>
+        <span class="sep">›</span>
         <span class="current">Engenharia de Prompts</span>
       </nav>
 
       <div class="page-body">
-        <p style="font-size:1.12rem;color:var(--text-secondary);line-height:1.85;margin-bottom:var(--space-xl);">A qualidade da resposta de uma IA depende diretamente da qualidade da instrução que você fornece. Este módulo apresenta a metodologia RCTS+E, técnicas avançadas e um gerador interativo de prompts — tudo contextualizado para o dia a dia do TRE-RN.</p>
 
-        <div class="config-grid">
-          <a href="./o-que-e.html" style="text-decoration:none;">
-            <div class="config-card">
-              <div class="config-icon">💬</div>
-              <h4>01 — O que é Engenharia de Prompts?</h4>
-              <p>Conceito, importância da qualidade da instrução e comparação entre prompts genéricos e estruturados.</p>
-            </div>
-          </a>
-          <a href="./metodologia-rcts.html" style="text-decoration:none;">
-            <div class="config-card">
-              <div class="config-icon">🧩</div>
-              <h4>02 — Metodologia RCTS+E</h4>
-              <p>Framework Role, Context, Task, Style e Examples — com especificações detalhadas de estilo e exemplos práticos.</p>
-            </div>
-          </a>
-          <a href="./exemplos-por-area.html" style="text-decoration:none;">
-            <div class="config-card">
-              <div class="config-icon">🏢</div>
-              <h4>03 — Exemplos por Área</h4>
-              <p>Prompts RCTS+E completos adaptados às áreas do TRE-RN: TI, Gestão de Pessoas, Orçamento, Judiciária e Governança.</p>
-            </div>
-          </a>
-          <a href="./tecnicas-avancadas.html" style="text-decoration:none;">
-            <div class="config-card">
-              <div class="config-icon">🚀</div>
-              <h4>04 — Técnicas Avançadas</h4>
-              <p>Chain-of-Thought, prompting iterativo, few-shot e personas institucionais para resultados de alto nível.</p>
-            </div>
-          </a>
-          <a href="./gerador.html" style="text-decoration:none;">
-            <div class="config-card">
-              <div class="config-icon">⚡</div>
-              <h4>05 — Gerador RCTS+E</h4>
-              <p>Monte seu prompt de forma interativa — preencha os campos e obtenha o texto pronto para copiar.</p>
-            </div>
-          </a>
+        <div class="module-meta">
+          <div class="meta-item">⏱️ <span><strong>~45 min</strong> no total</span></div>
+          <div class="meta-item">📄 <span><strong>5 tópicos</strong></span></div>
+          <div class="meta-item">🏷️ <span>Teoria + Prática</span></div>
+          <div class="meta-item">📶 <span>Aplicado ao TRE-RN</span></div>
         </div>
 
-        <div class="topic-nav">
-          <a href="../../regulamentacao.html" class="btn btn-secondary">← Módulo 03 — Regulamentação</a>
-          <a href="./o-que-e.html" class="btn btn-primary">Começar pelo tópico 01 →</a>
+        <!-- Resumo -->
+        <div class="module-summary">
+          <h2>Sobre este módulo</h2>
+          <p>
+            A qualidade da resposta de uma IA depende diretamente da qualidade da instrução que você fornece. Saber formular bem um prompt é a diferença entre obter um rascunho inútil e um documento quase pronto — e essa habilidade não exige conhecimento técnico, apenas método.
+          </p>
+          <p>
+            Este módulo apresenta a metodologia <strong>RCTS+E</strong> — um framework de cinco elementos que transforma qualquer pedido vago em uma instrução precisa. Inclui uma referência completa de especificações de estilo, exemplos reais por área de atuação no TRE-RN, técnicas avançadas como Chain-of-Thought e few-shot, e um gerador interativo que monta o prompt automaticamente.
+          </p>
         </div>
+
+        <hr class="divider">
+
+        <!-- O que você vai aprender -->
+        <div style="margin-bottom: var(--space-3xl);">
+          <h2 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg);">O que você vai aprender</h2>
+          <div class="outcomes-grid">
+            <div class="outcome-card">
+              <div class="outcome-icon">💬</div>
+              <p>O que é engenharia de prompts e por que a qualidade da instrução determina a qualidade da resposta.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">🧩</div>
+              <p>A metodologia RCTS+E e como especificar estilo, tom, tamanho e estrutura com precisão.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">🏢</div>
+              <p>Prompts prontos adaptados para TI, Gestão de Pessoas, Orçamento, Judiciária e Governança do TRE-RN.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">🚀</div>
+              <p>Técnicas avançadas de refinamento progressivo, raciocínio passo a passo e uso de exemplos de referência.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Tópicos -->
+        <div class="topics-section">
+          <h2>Tópicos do módulo</h2>
+          <div class="topics-list">
+
+            <a href="./o-que-e.html" class="topic-card">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <span class="topic-title">O que é Engenharia de Prompts?</span>
+                <span class="topic-desc">Conceito, importância da qualidade da instrução e comparação prática entre prompts genéricos e prompts estruturados.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~5 min</span>
+                  <span class="topic-tag">Conceito</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./metodologia-rcts.html" class="topic-card">
+              <span class="topic-num">02</span>
+              <div class="topic-body">
+                <span class="topic-title">Metodologia RCTS+E</span>
+                <span class="topic-desc">Framework Role, Context, Task, Style e Examples — com tabela completa de especificações de estilo e exemplo prático de memorando do TRE-RN.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~15 min</span>
+                  <span class="topic-tag">Teoria</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./exemplos-por-area.html" class="topic-card">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <span class="topic-title">Exemplos por Área do TRE-RN</span>
+                <span class="topic-desc">Prompts RCTS+E completos para TI, Gestão de Pessoas, Administração e Orçamento, Judiciária e Governança.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~10 min</span>
+                  <span class="topic-tag">Exemplos</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./tecnicas-avancadas.html" class="topic-card">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <span class="topic-title">Técnicas Avançadas</span>
+                <span class="topic-desc">Chain-of-Thought, prompting iterativo, few-shot e definição de personas institucionais para resultados de alto nível.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~10 min</span>
+                  <span class="topic-tag">Avançado</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./gerador.html" class="topic-card">
+              <span class="topic-num">05</span>
+              <div class="topic-body">
+                <span class="topic-title">Gerador RCTS+E</span>
+                <span class="topic-desc">Preencha os campos, clique em gerar e obtenha um prompt profissional pronto para copiar — com variação automática de linguagem.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~5 min</span>
+                  <span class="topic-tag">Ferramenta</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+          </div>
+        </div>
+
       </div>
     </main>
   </div>
 
   <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
   <script src="../../../js/auth.js"></script>
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
   <script src="../../js/topicos.js"></script>
   <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+    }
     function closeSidebar() {
       document.getElementById('sidebar').classList.remove('open');
       document.getElementById('sidebarOverlay').classList.remove('open');
     }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
   </script>
 </body>
 </html>
