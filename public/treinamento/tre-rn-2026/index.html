@@ -208,6 +208,21 @@
       .of-details { align-items:stretch; }
       .of-grid { grid-template-columns:1fr; }
     }
+
+    /* Módulo concluído */
+    .module-card.modulo-done { opacity:.75; }
+    .module-card.modulo-done .module-num { color:var(--verde); }
+    .module-card.modulo-done .module-arrow { color:var(--verde); }
+    .btn-modulo-concluir {
+      display:block; width:100%; margin-top:var(--space-md);
+      padding:7px 12px; font-size:0.82rem; font-weight:700;
+      border-radius:var(--radius-md); border:1px solid var(--border);
+      background:var(--bg); color:var(--text-muted);
+      cursor:pointer; transition:all .2s ease; text-align:center;
+    }
+    .btn-modulo-concluir:hover { border-color:rgba(26,138,90,.4); color:var(--verde); background:var(--verde-bg); }
+    .btn-modulo-concluir.done { border-color:rgba(26,138,90,.4); background:var(--verde-bg); color:var(--verde); }
+    .btn-modulo-concluir.done:hover { border-color:rgba(192,57,43,.3); background:#FEF2F2; color:#B91C1C; }
   </style>
 </head>
 <body>
@@ -241,29 +256,33 @@
       </div>
 
       <div class="modules-grid">
-        <a href="./modulos/conceitos/" class="module-card animate-on-scroll">
+        <a href="./modulos/conceitos/" class="module-card animate-on-scroll" data-modulo="1">
           <div class="module-num">Módulo 01</div>
           <div class="module-title">Conceitos Essenciais</div>
           <div class="module-desc">O que é IA generativa, como surgiram os LLMs, panorama das principais ferramentas disponíveis em 2026 e o impacto na rotina profissional.</div>
           <div class="module-footer"><span class="module-tag tag-teoria">Teoria</span><span class="module-arrow">→</span></div>
+          <button class="btn-modulo-concluir" onclick="event.preventDefault();toggleModulo(1)">◯ Marcar como concluído</button>
         </a>
-        <a href="./modulos/como-funciona/" class="module-card animate-on-scroll">
+        <a href="./modulos/como-funciona/" class="module-card animate-on-scroll" data-modulo="2">
           <div class="module-num">Módulo 02</div>
           <div class="module-title">Como a IA Funciona</div>
           <div class="module-desc">Tokens, janela de contexto, alucinações, vieses, confidencialidade de dados e como configurar as ferramentas para uso profissional.</div>
           <div class="module-footer"><span class="module-tag tag-teoria">Teoria</span><span class="module-arrow">→</span></div>
+          <button class="btn-modulo-concluir" onclick="event.preventDefault()">◯ Concluir todos os tópicos</button>
         </a>
-        <a href="./regulamentacao.html" class="module-card animate-on-scroll">
+        <a href="./regulamentacao.html" class="module-card animate-on-scroll" data-modulo="3">
           <div class="module-num">Módulo 03</div>
           <div class="module-title">Regulamentação</div>
           <div class="module-desc">Resolução CNJ nº 615/2025, classificação de riscos, responsabilidade ética e os marcos normativos para uso de IA no Judiciário.</div>
           <div class="module-footer"><span class="module-tag tag-legal">Legal</span><span class="module-arrow">→</span></div>
+          <button class="btn-modulo-concluir" onclick="event.preventDefault();toggleModulo(3)">◯ Marcar como concluído</button>
         </a>
-        <a href="./modulos/engenharia-de-prompts/" class="module-card animate-on-scroll">
+        <a href="./modulos/engenharia-de-prompts/" class="module-card animate-on-scroll" data-modulo="4">
           <div class="module-num">Módulo 04</div>
           <div class="module-title">Engenharia de Prompts</div>
           <div class="module-desc">Metodologia RCTS+E, especificações de estilo, técnicas avançadas, exemplos por área do TRE-RN e gerador interativo de prompts.</div>
           <div class="module-footer"><span class="module-tag tag-tecnica">Técnica</span><span class="module-arrow">→</span></div>
+          <button class="btn-modulo-concluir" onclick="event.preventDefault()">◯ Concluir todos os tópicos</button>
         </a>
       </div>
 
@@ -345,6 +364,7 @@
 
   <div id="footer-placeholder"></div>
   <script src="../js/auth.js"></script>
+  <script src="./js/topicos.js"></script>
   <script src="./js/utils.js"></script>
   <script src="./js/main.js">
     // ═══ OFICINAS — progresso ══════════════════════════════════════════

@@ -10,152 +10,153 @@
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/topic.css">
   <style>
-    .area-tabs { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin: var(--space-lg) 0; }
-    .area-tab { padding: 10px 20px; border-radius: var(--radius-sm); font-size: 0.95rem; font-weight: 600; background: var(--bg-elevated); color: var(--text-secondary); border: 1px solid var(--border); cursor: pointer; transition: all var(--transition-base); }
-    .area-tab:hover { color: var(--dourado); border-color: var(--border-hover); }
-    .area-tab.active { background: var(--dourado-dim); color: var(--dourado); border-color: rgba(200,164,92,0.3); }
-    .area-content { display: none; }
-    .area-content.active { display: block; }
-    .prompt-example { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-lg) 0; font-size: 1.02rem; line-height: 1.85; position: relative; }
-    .prompt-example .prompt-label { position: absolute; top: -12px; left: 20px; background: var(--bg); padding: 2px 12px; font-size: 0.85rem; font-weight: 700; color: var(--dourado); text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid var(--border); border-radius: 6px; }
-    .tag-r { color: #E85C5C; } .tag-c { color: var(--azul-medio); } .tag-t { color: var(--verde); } .tag-s { color: var(--roxo); } .tag-e { color: var(--dourado); }
+    .area-tabs { display:flex; flex-wrap:wrap; gap:var(--space-sm); margin:var(--space-lg) 0; }
+    .area-tab { padding:9px 18px; border-radius:var(--radius-sm); font-size:0.92rem; font-weight:600; background:var(--bg-elevated); color:var(--text-secondary); border:1px solid var(--border); cursor:pointer; transition:all var(--transition-base); }
+    .area-tab:hover { color:var(--dourado); border-color:var(--border-hover); }
+    .area-tab.active { background:var(--dourado-dim); color:var(--dourado); border-color:rgba(200,164,92,0.3); }
+    .area-content { display:none; }
+    .area-content.active { display:block; }
+    .prompt-box { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:var(--space-xl); margin:var(--space-lg) 0; font-size:1rem; line-height:1.85; position:relative; }
+    .prompt-box-title { position:absolute; top:-12px; left:20px; background:var(--bg); padding:2px 12px; font-size:0.82rem; font-weight:700; color:var(--dourado); text-transform:uppercase; letter-spacing:0.06em; border:1px solid var(--border); border-radius:6px; }
+    .tag-r{color:#E85C5C} .tag-c{color:var(--azul-medio)} .tag-t{color:var(--verde)} .tag-s{color:var(--roxo)} .tag-e{color:var(--dourado)}
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="page-content">
-    <div class="topic-hero">
-      <div class="topic-hero-inner container">
-        <div class="topic-eyebrow">Módulo 04 · Tópico 3</div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
+          <a href="./metodologia-rcts.html" class="sb-topic" data-topico="ep-02">Metodologia RCTS+E</a>
+          <a href="./exemplos-por-area.html" class="sb-topic active" data-topico="ep-03">Exemplos por Área</a>
+          <a href="./tecnicas-avancadas.html" class="sb-topic" data-topico="ep-04">Técnicas Avançadas</a>
+          <a href="./gerador.html" class="sb-topic" data-topico="ep-05">Gerador RCTS+E</a>
+        </div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">✍️ Engenharia de Prompts · Tópico 03 de 05</div>
         <h1>Exemplos por Área do TRE-RN</h1>
-      </div>
-    </div>
+      </section>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="./">Engenharia de Prompts</a><span class="sep">›</span>
+        <span class="current">Exemplos por Área</span>
+      </nav>
 
-    <div class="container">
-      <div class="topic-layout">
-        <aside class="topic-sidebar">
-          <div class="sidebar-section">
-            <div class="sidebar-title">Tópicos do Módulo 04</div>
-            <nav class="sidebar-nav">
-              <a href="./o-que-e.html" class="sb-item" data-topico="ep-01">💬 O que é Eng. de Prompts?</a>
-              <a href="./metodologia-rcts.html" class="sb-item" data-topico="ep-02">🧩 Metodologia RCTS+E</a>
-              <a href="./exemplos-por-area.html" class="sb-item sb-active" data-topico="ep-03">🏢 Exemplos por Área</a>
-              <a href="./tecnicas-avancadas.html" class="sb-item" data-topico="ep-04">🚀 Técnicas Avançadas</a>
-              <a href="./gerador.html" class="sb-item" data-topico="ep-05">⚡ Gerador RCTS+E</a>
-            </nav>
+      <div class="page-body">
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">1</span><h2>Prompts RCTS+E por área de atuação</h2></div>
+          <p>Selecione a área para ver exemplos de prompts RCTS+E completos, adaptados ao contexto do TRE-RN:</p>
+
+          <div class="area-tabs">
+            <button class="area-tab active" onclick="showArea('ti',event)">💻 TI</button>
+            <button class="area-tab" onclick="showArea('gp',event)">👥 Gestão de Pessoas</button>
+            <button class="area-tab" onclick="showArea('admin',event)">📊 Admin / Orçamento</button>
+            <button class="area-tab" onclick="showArea('jud',event)">⚖️ Judiciária</button>
+            <button class="area-tab" onclick="showArea('gov',event)">🎯 Governança</button>
           </div>
-          <div class="sidebar-section">
-            <div class="sidebar-title">Outros Módulos</div>
-            <nav class="sidebar-nav">
-              <a href="../conceitos/" class="sb-item">01 — Conceitos Essenciais</a>
-              <a href="../como-funciona/" class="sb-item">02 — Como a IA Funciona</a>
-              <a href="../../regulamentacao.html" class="sb-item">03 — Regulamentação</a>
-              <a href="./" class="sb-item">04 — Engenharia de Prompts</a>
-            </nav>
-          </div>
-          <div class="sidebar-section">
-            <a href="../../index.html#oficinas-section" class="sb-item sb-oficina">🛠️ Oficinas Práticas</a>
-          </div>
-        </aside>
 
-        <article class="topic-content">
-          <section class="content-section">
-            <div class="content-body">
-              <p>Selecione a área para ver exemplos de prompts RCTS+E adaptados ao contexto do TRE-RN:</p>
-
-              <div class="area-tabs">
-                <button class="area-tab active" onclick="showArea('ti', event)">💻 TI</button>
-                <button class="area-tab" onclick="showArea('gp', event)">👥 Gestão de Pessoas</button>
-                <button class="area-tab" onclick="showArea('admin', event)">📊 Admin / Orçamento</button>
-                <button class="area-tab" onclick="showArea('jud', event)">⚖️ Judiciária</button>
-                <button class="area-tab" onclick="showArea('gov', event)">🎯 Governança</button>
-              </div>
-
-              <div class="area-content active" id="area-ti">
-                <div class="prompt-example">
-                  <div class="prompt-label">TI — Documentação técnica</div>
-                  <p>
-                    <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista de sistemas sênior do TRE-RN, especializado em documentação técnica de sistemas judiciais.<br><br>
-                    <span class="tag-c"><strong>[CONTEXT]</strong></span> O sistema PJe (Processo Judicial Eletrônico) passa por uma atualização de versão. A equipe de desenvolvimento precisa documentar as mudanças para as áreas de suporte e para os magistrados usuários.<br><br>
-                    <span class="tag-t"><strong>[TASK]</strong></span> Elabore um release notes da nova versão, listando as principais mudanças, correções de bugs e novas funcionalidades. Inclua impactos para o usuário final e instruções de migração.<br><br>
-                    <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem técnica mas acessível. Estruture com: resumo executivo, lista de mudanças por categoria (funcionalidades, correções, melhorias de performance), impactos e instruções.<br><br>
-                    <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga este padrão de abertura: "Release Notes — PJe v[X.X.X] | Data: [DD/MM/AAAA] | Resumo: Esta versão corrige [N] bugs críticos e introduz [N] novas funcionalidades..." Em seguida, organize as mudanças em seções: ✅ Novas funcionalidades | 🔧 Correções | ⚡ Melhorias de performance | ⚠️ Impactos para o usuário.
-                  </p>
-                </div>
-              </div>
-
-              <div class="area-content" id="area-gp">
-                <div class="prompt-example">
-                  <div class="prompt-label">Gestão de Pessoas — Capacitação</div>
-                  <p>
-                    <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um especialista em gestão de pessoas e desenvolvimento organizacional do TRE-RN.<br><br>
-                    <span class="tag-c"><strong>[CONTEXT]</strong></span> A Secretaria de Gestão de Pessoas está planejando o Plano Anual de Capacitação 2026. É necessário identificar as competências prioritárias considerando as metas do Planejamento Estratégico do Tribunal e as demandas das eleições municipais.<br><br>
-                    <span class="tag-t"><strong>[TASK]</strong></span> Sugira 10 ações de capacitação prioritárias, organizadas por eixo temático (técnico, comportamental, gerencial), com justificativa, público-alvo e carga horária estimada.<br><br>
-                    <span class="tag-s"><strong>[STYLE]</strong></span> Formato de tabela. Tom institucional e estratégico, com foco na conexão entre cada capacitação e os objetivos do Planejamento Estratégico.<br><br>
-                    <span class="tag-e"><strong>[EXAMPLE]</strong></span> Exemplo de linha da tabela esperada: "| Governança de Dados | Técnico | Analistas de TI e Estatística | 16h | Alinhamento com a Resolução CNJ nº 396/2021 e meta estratégica de inovação digital |". Use numeração sequencial e mantenha as justificativas objetivas e mensuráveis.
-                  </p>
-                </div>
-              </div>
-
-              <div class="area-content" id="area-admin">
-                <div class="prompt-example">
-                  <div class="prompt-label">Administração / Orçamento — Análise</div>
-                  <p>
-                    <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista de planejamento orçamentário do TRE-RN, com conhecimento em Lei de Responsabilidade Fiscal e execução orçamentária do Judiciário.<br><br>
-                    <span class="tag-c"><strong>[CONTEXT]</strong></span> Estamos elaborando a proposta orçamentária para 2026. O TRE-RN precisa justificar o aumento de dotação para a ação orçamentária de modernização tecnológica, considerando a necessidade de renovação do parque de equipamentos para as eleições.<br><br>
-                    <span class="tag-t"><strong>[TASK]</strong></span> Redija a justificativa técnica para inclusão na proposta orçamentária, fundamentando a necessidade de investimento e seu alinhamento com o Planejamento Estratégico e com as metas do CNJ.<br><br>
-                    <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem formal e técnica, com dados quantitativos quando possível. Estruture com: contextualização, justificativa, estimativa de impacto e alinhamento estratégico. Máximo 2 páginas.<br><br>
-                    <span class="tag-e"><strong>[EXAMPLE]</strong></span> A justificativa deve iniciar com uma contextualização factual, como: "O parque tecnológico atual do TRE-RN conta com [N] equipamentos com mais de [X] anos de uso, representando [Y]% do total, em desacordo com o prazo de vida útil previsto na IN SLTI/MP nº 1/2010...". Evite linguagem vaga — substitua expressões como "é necessário" por dados concretos de obsolescência ou risco operacional.
-                  </p>
-                </div>
-              </div>
-
-              <div class="area-content" id="area-jud">
-                <div class="prompt-example">
-                  <div class="prompt-label">Judiciária — Certidão e Despacho</div>
-                  <p>
-                    <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um técnico judiciário do TRE-RN, lotado em zona eleitoral, com experiência na elaboração de certidões e despachos ordinatórios.<br><br>
-                    <span class="tag-c"><strong>[CONTEXT]</strong></span> Um requerente solicita certidão de quitação eleitoral para fins de posse em cargo público federal. O eleitor está em situação regular, com todas as eleições justificadas ou votadas desde 2018.<br><br>
-                    <span class="tag-t"><strong>[TASK]</strong></span> Elabore um modelo de certidão de quitação eleitoral e o despacho ordinatório de deferimento do pedido.<br><br>
-                    <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem jurídica formal, padrão cartorário. Inclua os campos de identificação do eleitor (use dados fictícios), fundamentação legal e assinatura do chefe de cartório.<br><br>
-                    <span class="tag-e"><strong>[EXAMPLE]</strong></span> O despacho deve seguir este padrão de abertura: "Trata-se de requerimento formulado pelo(a) eleitor(a) [NOME], inscrito(a) sob o nº [NÚMERO DE INSCRIÇÃO], seção [Nº], município de [MUNICÍPIO/RN], solicitando certidão de quitação eleitoral para fins de [FINALIDADE]. Verificada a regularidade da situação eleitoral do(a) requerente, DEFIRO o pedido. Expeça-se a certidão." A certidão deve citar o art. 7º da Lei nº 9.504/1997 como fundamento legal.
-                  </p>
-                </div>
-              </div>
-
-              <div class="area-content" id="area-gov">
-                <div class="prompt-example">
-                  <div class="prompt-label">Governança — Indicadores</div>
-                  <p>
-                    <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um assessor de planejamento estratégico do TRE-RN, com experiência em gestão de indicadores e metas do CNJ.<br><br>
-                    <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN precisa apresentar ao CNJ o relatório de acompanhamento dos indicadores do Planejamento Estratégico, referente ao 1º semestre de 2025. Alguns indicadores não atingiram a meta prevista, especialmente o índice de produtividade de sentenças.<br><br>
-                    <span class="tag-t"><strong>[TASK]</strong></span> Elabore uma análise dos indicadores abaixo da meta, identificando possíveis causas e sugerindo planos de ação corretiva para o 2º semestre, com responsáveis e prazos.<br><br>
-                    <span class="tag-s"><strong>[STYLE]</strong></span> Formato executivo, com tabela de indicadores (indicador, meta, realizado, gap, causa provável, ação corretiva). Tom analítico e propositivo.<br><br>
-                    <span class="tag-e"><strong>[EXAMPLE]</strong></span> Exemplo de linha da tabela: "| Índice de Produtividade de Sentenças | 85% | 71% | -14 p.p. | Aumento do volume de processos em fase de instrução e afastamentos por capacitação no período | Redistribuição temporária de demanda entre zonas eleitorais e intensificação de mutirões de julgamento no 2º semestre | SGP / Corregedoria | 30/09/2025 |". O relatório deve abrir com um parágrafo de contexto e encerrar com um quadro-resumo dos indicadores que atingiram a meta.
-                  </p>
-                </div>
-              </div>
+          <div class="area-content active" id="area-ti">
+            <div class="prompt-box">
+              <div class="prompt-box-title">TI — Documentação técnica</div>
+              <p>
+                <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista de sistemas sênior do TRE-RN, especializado em documentação técnica de sistemas judiciais.<br><br>
+                <span class="tag-c"><strong>[CONTEXT]</strong></span> O sistema PJe (Processo Judicial Eletrônico) passa por uma atualização de versão. A equipe de desenvolvimento precisa documentar as mudanças para as áreas de suporte e para os magistrados usuários.<br><br>
+                <span class="tag-t"><strong>[TASK]</strong></span> Elabore um release notes da nova versão, listando as principais mudanças, correções de bugs e novas funcionalidades. Inclua impactos para o usuário final e instruções de migração.<br><br>
+                <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem técnica mas acessível. Estruture com: resumo executivo, lista de mudanças por categoria (funcionalidades, correções, melhorias de performance), impactos e instruções.<br><br>
+                <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga este padrão: "Release Notes — PJe v[X.X.X] | Data: [DD/MM/AAAA] | Resumo: Esta versão corrige [N] bugs críticos e introduz [N] novas funcionalidades..." Organize as mudanças em seções: ✅ Novas funcionalidades | 🔧 Correções | ⚡ Melhorias de performance | ⚠️ Impactos para o usuário.
+              </p>
             </div>
-          </section>
-
-          <div class="topic-nav-bar">
-            <a href="./metodologia-rcts.html" class="btn btn-secondary btn-sm">← Tópico anterior</a>
-            <button class="btn btn-success btn-sm" onclick="marcarConcluido('ep-03', './tecnicas-avancadas.html')">Marcar como concluído e avançar →</button>
           </div>
-        </article>
+
+          <div class="area-content" id="area-gp">
+            <div class="prompt-box">
+              <div class="prompt-box-title">Gestão de Pessoas — Capacitação</div>
+              <p>
+                <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um especialista em gestão de pessoas e desenvolvimento organizacional do TRE-RN.<br><br>
+                <span class="tag-c"><strong>[CONTEXT]</strong></span> A Secretaria de Gestão de Pessoas está planejando o Plano Anual de Capacitação 2026. É necessário identificar as competências prioritárias considerando as metas do Planejamento Estratégico do Tribunal e as demandas das eleições municipais.<br><br>
+                <span class="tag-t"><strong>[TASK]</strong></span> Sugira 10 ações de capacitação prioritárias, organizadas por eixo temático (técnico, comportamental, gerencial), com justificativa, público-alvo e carga horária estimada.<br><br>
+                <span class="tag-s"><strong>[STYLE]</strong></span> Formato de tabela. Tom institucional e estratégico, com foco na conexão entre cada capacitação e os objetivos do Planejamento Estratégico.<br><br>
+                <span class="tag-e"><strong>[EXAMPLE]</strong></span> Exemplo de linha: "| Governança de Dados | Técnico | Analistas de TI e Estatística | 16h | Alinhamento com a Resolução CNJ nº 396/2021 e meta estratégica de inovação digital |". Use numeração sequencial e justificativas objetivas e mensuráveis.
+              </p>
+            </div>
+          </div>
+
+          <div class="area-content" id="area-admin">
+            <div class="prompt-box">
+              <div class="prompt-box-title">Administração / Orçamento — Análise</div>
+              <p>
+                <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista de planejamento orçamentário do TRE-RN, com conhecimento em Lei de Responsabilidade Fiscal e execução orçamentária do Judiciário.<br><br>
+                <span class="tag-c"><strong>[CONTEXT]</strong></span> Estamos elaborando a proposta orçamentária para 2026. O TRE-RN precisa justificar o aumento de dotação para a ação orçamentária de modernização tecnológica, considerando a necessidade de renovação do parque de equipamentos para as eleições.<br><br>
+                <span class="tag-t"><strong>[TASK]</strong></span> Redija a justificativa técnica para inclusão na proposta orçamentária, fundamentando a necessidade de investimento e seu alinhamento com o Planejamento Estratégico e com as metas do CNJ.<br><br>
+                <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem formal e técnica, com dados quantitativos quando possível. Estruture com: contextualização, justificativa, estimativa de impacto e alinhamento estratégico. Máximo 2 páginas.<br><br>
+                <span class="tag-e"><strong>[EXAMPLE]</strong></span> Inicie com contextualização factual: "O parque tecnológico atual do TRE-RN conta com [N] equipamentos com mais de [X] anos de uso, representando [Y]% do total, em desacordo com o prazo de vida útil previsto na IN SLTI/MP nº 1/2010...". Substitua expressões vagas como "é necessário" por dados concretos.
+              </p>
+            </div>
+          </div>
+
+          <div class="area-content" id="area-jud">
+            <div class="prompt-box">
+              <div class="prompt-box-title">Judiciária — Certidão e Despacho</div>
+              <p>
+                <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um técnico judiciário do TRE-RN, lotado em zona eleitoral, com experiência na elaboração de certidões e despachos ordinatórios.<br><br>
+                <span class="tag-c"><strong>[CONTEXT]</strong></span> Um requerente solicita certidão de quitação eleitoral para fins de posse em cargo público federal. O eleitor está em situação regular, com todas as eleições justificadas ou votadas desde 2018.<br><br>
+                <span class="tag-t"><strong>[TASK]</strong></span> Elabore um modelo de certidão de quitação eleitoral e o despacho ordinatório de deferimento do pedido.<br><br>
+                <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem jurídica formal, padrão cartorário. Inclua os campos de identificação do eleitor (use dados fictícios), fundamentação legal e assinatura do chefe de cartório.<br><br>
+                <span class="tag-e"><strong>[EXAMPLE]</strong></span> O despacho deve seguir este padrão: "Trata-se de requerimento formulado pelo(a) eleitor(a) [NOME], inscrito(a) sob o nº [NÚMERO DE INSCRIÇÃO], seção [Nº], município de [MUNICÍPIO/RN], solicitando certidão de quitação eleitoral para fins de [FINALIDADE]. Verificada a regularidade da situação eleitoral do(a) requerente, DEFIRO o pedido. Expeça-se a certidão." Citar o art. 7º da Lei nº 9.504/1997 como fundamento legal.
+              </p>
+            </div>
+          </div>
+
+          <div class="area-content" id="area-gov">
+            <div class="prompt-box">
+              <div class="prompt-box-title">Governança — Indicadores</div>
+              <p>
+                <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um assessor de planejamento estratégico do TRE-RN, com experiência em gestão de indicadores e metas do CNJ.<br><br>
+                <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN precisa apresentar ao CNJ o relatório de acompanhamento dos indicadores do Planejamento Estratégico, referente ao 1º semestre de 2025. Alguns indicadores não atingiram a meta prevista, especialmente o índice de produtividade de sentenças.<br><br>
+                <span class="tag-t"><strong>[TASK]</strong></span> Elabore uma análise dos indicadores abaixo da meta, identificando possíveis causas e sugerindo planos de ação corretiva para o 2º semestre, com responsáveis e prazos.<br><br>
+                <span class="tag-s"><strong>[STYLE]</strong></span> Formato executivo, com tabela de indicadores (indicador, meta, realizado, gap, causa provável, ação corretiva). Tom analítico e propositivo.<br><br>
+                <span class="tag-e"><strong>[EXAMPLE]</strong></span> Exemplo de linha: "| Índice de Produtividade de Sentenças | 85% | 71% | -14 p.p. | Aumento do volume de processos em fase de instrução e afastamentos por capacitação | Redistribuição temporária de demanda entre zonas eleitorais e mutirões de julgamento | SGP / Corregedoria | 30/09/2025 |". Abrir com parágrafo de contexto e encerrar com quadro-resumo dos indicadores que atingiram a meta.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./metodologia-rcts.html" class="btn btn-secondary">← Anterior: Metodologia RCTS+E</a>
+          <button class="btn btn-primary" onclick="marcarTopicoConcluido('ep-03','./tecnicas-avancadas.html')">Concluído — Próximo: Técnicas Avançadas →</button>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
   <div id="footer-placeholder"></div>
   <script src="../../../js/auth.js"></script>
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
   <script src="../../js/topicos.js"></script>
   <script>
-    function showArea(id, e) {
-      document.querySelectorAll('.area-content').forEach(el => el.classList.remove('active'));
-      document.querySelectorAll('.area-tab').forEach(el => el.classList.remove('active'));
-      document.getElementById('area-' + id).classList.add('active');
+    function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}
+    function showArea(id,e){
+      document.querySelectorAll('.area-content').forEach(el=>el.classList.remove('active'));
+      document.querySelectorAll('.area-tab').forEach(el=>el.classList.remove('active'));
+      document.getElementById('area-'+id).classList.add('active');
       e.target.classList.add('active');
     }
   </script>

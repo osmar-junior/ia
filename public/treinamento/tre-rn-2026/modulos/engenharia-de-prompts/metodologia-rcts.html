@@ -10,174 +10,135 @@
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/topic.css">
   <style>
-    .rcts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-md); margin: var(--space-xl) 0; }
-    .rcts-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); text-align: center; transition: all var(--transition-base); }
-    .rcts-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); }
-    .rcts-card .rcts-letter { font-family: var(--font-display); font-size: 2.5rem; font-weight: 800; color: var(--dourado); line-height: 1; margin-bottom: var(--space-sm); }
-    .rcts-card h4 { font-family: var(--font-body); font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-xs); }
-    .rcts-card p { font-size: 0.95rem; text-align: center; }
-    .prompt-example { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-lg) 0; font-size: 1.02rem; line-height: 1.85; position: relative; }
-    .prompt-example .prompt-label { position: absolute; top: -12px; left: 20px; background: var(--bg); padding: 2px 12px; font-size: 0.85rem; font-weight: 700; color: var(--dourado); text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid var(--border); border-radius: 6px; }
-    .prompt-example .tag-r { color: #E85C5C; }
-    .prompt-example .tag-c { color: var(--azul-medio); }
-    .prompt-example .tag-t { color: var(--verde); }
-    .prompt-example .tag-s { color: var(--roxo); }
-    .prompt-example .tag-e { color: var(--dourado); }
-    @media (max-width: 768px) { .rcts-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 480px) { .rcts-grid { grid-template-columns: 1fr; } }
+    .rcts-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:var(--space-md); margin:var(--space-xl) 0; }
+    .rcts-card { background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-lg); padding:var(--space-lg); text-align:center; transition:all var(--transition-base); }
+    .rcts-card:hover { border-color:var(--border-hover); box-shadow:var(--shadow-glow); }
+    .rcts-letter { font-family:var(--font-display); font-size:2.4rem; font-weight:800; color:var(--dourado); line-height:1; margin-bottom:var(--space-sm); }
+    .rcts-card h4 { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:var(--space-xs); }
+    .rcts-card p { font-size:0.9rem; text-align:center; color:var(--text-muted); }
+    .prompt-box { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:var(--space-xl); margin:var(--space-lg) 0; font-size:1rem; line-height:1.85; position:relative; }
+    .prompt-box-title { position:absolute; top:-12px; left:20px; background:var(--bg); padding:2px 12px; font-size:0.82rem; font-weight:700; color:var(--dourado); text-transform:uppercase; letter-spacing:0.06em; border:1px solid var(--border); border-radius:6px; }
+    .tag-r{color:#E85C5C} .tag-c{color:var(--azul-medio)} .tag-t{color:var(--verde)} .tag-s{color:var(--roxo)} .tag-e{color:var(--dourado)}
+    @media(max-width:600px){.rcts-grid{grid-template-columns:repeat(2,1fr);}}
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="page-content">
-    <div class="topic-hero">
-      <div class="topic-hero-inner container">
-        <div class="topic-eyebrow">Módulo 04 · Tópico 2</div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
+          <a href="./metodologia-rcts.html" class="sb-topic active" data-topico="ep-02">Metodologia RCTS+E</a>
+          <a href="./exemplos-por-area.html" class="sb-topic" data-topico="ep-03">Exemplos por Área</a>
+          <a href="./tecnicas-avancadas.html" class="sb-topic" data-topico="ep-04">Técnicas Avançadas</a>
+          <a href="./gerador.html" class="sb-topic" data-topico="ep-05">Gerador RCTS+E</a>
+        </div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">✍️ Engenharia de Prompts · Tópico 02 de 05</div>
         <h1>Metodologia RCTS+E</h1>
-      </div>
-    </div>
+      </section>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="./">Engenharia de Prompts</a><span class="sep">›</span>
+        <span class="current">Metodologia RCTS+E</span>
+      </nav>
 
-    <div class="container">
-      <div class="topic-layout">
-        <aside class="topic-sidebar">
-          <div class="sidebar-section">
-            <div class="sidebar-title">Tópicos do Módulo 04</div>
-            <nav class="sidebar-nav">
-              <a href="./o-que-e.html" class="sb-item" data-topico="ep-01">💬 O que é Eng. de Prompts?</a>
-              <a href="./metodologia-rcts.html" class="sb-item sb-active" data-topico="ep-02">🧩 Metodologia RCTS+E</a>
-              <a href="./exemplos-por-area.html" class="sb-item" data-topico="ep-03">🏢 Exemplos por Área</a>
-              <a href="./tecnicas-avancadas.html" class="sb-item" data-topico="ep-04">🚀 Técnicas Avançadas</a>
-              <a href="./gerador.html" class="sb-item" data-topico="ep-05">⚡ Gerador RCTS+E</a>
-            </nav>
+      <div class="page-body">
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">1</span><h2>O framework</h2></div>
+          <p>Para facilitar a construção de prompts eficazes, adotamos a metodologia <strong>RCTS+E</strong> — um framework simples que garante que suas instruções contenham todos os elementos necessários para uma resposta de qualidade.</p>
+          <div class="rcts-grid">
+            <div class="rcts-card"><div class="rcts-letter">R</div><h4>Role (Papel)</h4><p>Quem a IA deve "ser"</p></div>
+            <div class="rcts-card"><div class="rcts-letter">C</div><h4>Context (Contexto)</h4><p>Informações de fundo</p></div>
+            <div class="rcts-card"><div class="rcts-letter">T</div><h4>Task (Tarefa)</h4><p>O que deve ser feito</p></div>
+            <div class="rcts-card"><div class="rcts-letter">S</div><h4>Style (Estilo)</h4><p>Formato e tom desejado</p></div>
+            <div class="rcts-card"><div class="rcts-letter">+E</div><h4>Examples</h4><p>Exemplos de referência</p></div>
           </div>
-          <div class="sidebar-section">
-            <div class="sidebar-title">Outros Módulos</div>
-            <nav class="sidebar-nav">
-              <a href="../conceitos/" class="sb-item">01 — Conceitos Essenciais</a>
-              <a href="../como-funciona/" class="sb-item">02 — Como a IA Funciona</a>
-              <a href="../../regulamentacao.html" class="sb-item">03 — Regulamentação</a>
-              <a href="./" class="sb-item">04 — Engenharia de Prompts</a>
-            </nav>
+          <div class="prompt-box">
+            <div class="prompt-box-title">Exemplo Completo RCTS+E</div>
+            <p>
+              <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista judiciário especializado em gestão de pessoas do TRE-RN, com experiência em redação de documentos administrativos.<br><br>
+              <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN está implementando um novo programa de avaliação de desempenho para os servidores, conforme Resolução CNJ nº 240/2016. Preciso comunicar as unidades sobre o cronograma e as etapas do processo.<br><br>
+              <span class="tag-t"><strong>[TASK]</strong></span> Elabore um memorando circular dirigido a todos os coordenadores de seção, informando sobre o programa, as datas-chave e as responsabilidades de cada gestor no processo de avaliação.<br><br>
+              <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem formal e institucional, tom motivacional mas objetivo. Estruture com: cabeçalho institucional, introdução breve, lista de datas e responsabilidades, e fechamento. Máximo de 1 página.<br><br>
+              <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga o padrão de memorandos do TRE-RN, como: "MEMORANDO-CIRCULAR Nº XX/2025-SGP. Ao(À) Senhor(a) Coordenador(a)..."
+            </p>
           </div>
-          <div class="sidebar-section">
-            <a href="../../index.html#oficinas-section" class="sb-item sb-oficina">🛠️ Oficinas Práticas</a>
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Nem todo prompt precisa de todos os elementos</div>
+            <p>Para perguntas simples do dia a dia, <strong>ROLE + TASK</strong> já são suficientes. Use o RCTS+E completo quando precisar de resultados mais sofisticados — documentos formais, análises complexas ou textos que exigem tom e formato específicos.</p>
           </div>
-        </aside>
+        </div>
 
-        <article class="topic-content">
-          <section class="content-section">
-            <div class="content-body">
-              <p>Para facilitar a construção de prompts eficazes, adotamos a metodologia <strong>RCTS+E</strong> — um framework simples que garante que suas instruções contenham todos os elementos necessários para uma resposta de qualidade.</p>
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">2</span><h2>Especificações Adicionais de Estilo</h2></div>
+          <p>A seção <strong>[STYLE]</strong> é onde muitos prompts ganham (ou perdem) qualidade. Quanto mais precisa for sua especificação de estilo, mais próximo do resultado ideal será a resposta da IA. Abaixo, uma referência completa de dimensões que você pode combinar livremente:</p>
 
-              <div class="rcts-grid">
-                <div class="rcts-card"><div class="rcts-letter">R</div><h4>Role (Papel)</h4><p>Quem a IA deve "ser"</p></div>
-                <div class="rcts-card"><div class="rcts-letter">C</div><h4>Context (Contexto)</h4><p>Informações de fundo</p></div>
-                <div class="rcts-card"><div class="rcts-letter">T</div><h4>Task (Tarefa)</h4><p>O que deve ser feito</p></div>
-                <div class="rcts-card"><div class="rcts-letter">S</div><h4>Style (Estilo)</h4><p>Formato e tom desejado</p></div>
-                <div class="rcts-card"><div class="rcts-letter">+E</div><h4>Examples</h4><p>Exemplos de referência</p></div>
-              </div>
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Dimensão</th><th>Opções</th><th>Quando usar</th></tr></thead>
+              <tbody>
+                <tr><td><strong>🎙️ Tom</strong></td><td>Formal, técnico, didático, persuasivo, analítico, objetivo, motivacional, diplomático</td><td>Defina sempre. Um ofício exige tom formal; um material de capacitação pede tom didático; um parecer técnico requer tom analítico.</td></tr>
+                <tr><td><strong>📏 Tamanho</strong></td><td>"Máximo de 500 palavras", "3 parágrafos", "5 tópicos", "1 página", "em 2 linhas", "resposta curta"</td><td>Sempre que possível. Sem limites, a IA tende a ser prolixa. Limitar o tamanho gera respostas mais focadas e utilizáveis.</td></tr>
+                <tr><td><strong>👥 Público-alvo</strong></td><td>"Para servidores não técnicos", "para a chefia imediata", "para leigos", "para magistrados", "para estagiários"</td><td>Quando o destinatário não é óbvio. Isso ajusta vocabulário, profundidade e nível de explicação automaticamente.</td></tr>
+                <tr><td><strong>📝 Linguagem</strong></td><td>Simples e acessível, técnico-administrativa, jurídica formal, coloquial, institucional</td><td>Distingue o vocabulário. "Linguagem simples" para comunicações ao cidadão; "jurídica formal" para peças processuais.</td></tr>
+                <tr><td><strong>📐 Estrutura</strong></td><td>"Em formato de tabela", "com tópicos numerados", "com cabeçalho e rodapé", "dividido em seções", "formato de e-mail", "formato de memorando"</td><td>Quando você precisa de um formato específico. Definir a estrutura evita ter que reformatar depois.</td></tr>
+                <tr><td><strong>📚 Elementos obrigatórios</strong></td><td>"Incluir citações legais", "fundamentar com jurisprudência", "referenciar doutrina", "citar normas internas do TRE-RN", "incluir dados quantitativos", "adicionar conclusão com recomendação"</td><td>Em documentos técnicos, pareceres e análises. Garante que a IA não omita componentes essenciais.</td></tr>
+                <tr><td><strong>🚫 Restrições</strong></td><td>"Sem opiniões pessoais", "sem jargão técnico", "não usar listas", "evitar termos em inglês", "sem repetições"</td><td>Para evitar padrões indesejados que a IA tende a repetir (como excesso de listas ou anglicismos).</td></tr>
+                <tr><td><strong>🌍 Idioma e localização</strong></td><td>"Em português brasileiro formal", "usando terminologia do Judiciário brasileiro", "conforme padrão ABNT"</td><td>Importante para evitar que a IA use português de Portugal ou terminologia estrangeira inadvertidamente.</td></tr>
+              </tbody>
+            </table>
+          </div>
 
-              <h3>Detalhando cada elemento</h3>
-              <div class="prompt-example">
-                <div class="prompt-label">Exemplo Completo RCTS+E</div>
-                <p>
-                  <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista judiciário especializado em gestão de pessoas do TRE-RN, com experiência em redação de documentos administrativos.<br><br>
-                  <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN está implementando um novo programa de avaliação de desempenho para os servidores, conforme Resolução CNJ nº 240/2016. Preciso comunicar as unidades sobre o cronograma e as etapas do processo.<br><br>
-                  <span class="tag-t"><strong>[TASK]</strong></span> Elabore um memorando circular dirigido a todos os coordenadores de seção, informando sobre o programa, as datas-chave e as responsabilidades de cada gestor no processo de avaliação.<br><br>
-                  <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem formal e institucional, tom motivacional mas objetivo. Estruture com: cabeçalho institucional, introdução breve, lista de datas e responsabilidades, e fechamento. Máximo de 1 página.<br><br>
-                  <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga o padrão de memorandos do TRE-RN, como: "MEMORANDO-CIRCULAR Nº XX/2025-SGP. Ao(À) Senhor(a) Coordenador(a)..."
-                </p>
-              </div>
-
-              <div class="callout callout-info">
-                <div class="callout-title">💡 Nem todo prompt precisa de todos os elementos</div>
-                <p>Para perguntas simples do dia a dia, <strong>ROLE + TASK</strong> já são suficientes. Use o RCTS+E completo quando precisar de resultados mais sofisticados — documentos formais, análises complexas ou textos que exigem tom e formato específicos.</p>
-              </div>
-
-              <h3>Especificações Adicionais de Estilo</h3>
-              <p>A seção <strong>[STYLE]</strong> é onde muitos prompts ganham (ou perdem) qualidade. Quanto mais precisa for sua especificação de estilo, mais próximo do resultado ideal será a resposta da IA. Abaixo, uma referência completa de dimensões que você pode combinar livremente:</p>
-
-              <div class="table-wrapper">
-                <table class="table">
-                  <thead><tr><th>Dimensão</th><th>Opções</th><th>Quando usar</th></tr></thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>🎙️ Tom</strong></td>
-                      <td>Formal, técnico, didático, persuasivo, analítico, objetivo, motivacional, diplomático</td>
-                      <td>Defina sempre. Um ofício exige tom formal; um material de capacitação pede tom didático; um parecer técnico requer tom analítico.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>📏 Tamanho</strong></td>
-                      <td>"Máximo de 500 palavras", "3 parágrafos", "5 tópicos", "1 página", "em 2 linhas", "resposta curta"</td>
-                      <td>Sempre que possível. Sem limites, a IA tende a ser prolixa. Limitar o tamanho gera respostas mais focadas e utilizáveis.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>👥 Público-alvo</strong></td>
-                      <td>"Para servidores não técnicos", "para a chefia imediata", "para leigos", "para magistrados", "para estagiários"</td>
-                      <td>Quando o destinatário não é óbvio. Isso ajusta vocabulário, profundidade e nível de explicação automaticamente.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>📝 Linguagem</strong></td>
-                      <td>Simples e acessível, técnico-administrativa, jurídica formal, coloquial, institucional</td>
-                      <td>Distingue o vocabulário. "Linguagem simples" para comunicações ao cidadão; "jurídica formal" para peças processuais.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>📐 Estrutura</strong></td>
-                      <td>"Em formato de tabela", "com tópicos numerados", "com cabeçalho e rodapé", "dividido em seções", "formato de e-mail", "formato de memorando"</td>
-                      <td>Quando você precisa de um formato específico. Definir a estrutura evita ter que reformatar depois.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>📚 Elementos obrigatórios</strong></td>
-                      <td>"Incluir citações legais", "fundamentar com jurisprudência", "referenciar doutrina", "citar normas internas do TRE-RN", "incluir dados quantitativos", "adicionar conclusão com recomendação"</td>
-                      <td>Em documentos técnicos, pareceres e análises. Garante que a IA não omita componentes essenciais.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>🚫 Restrições</strong></td>
-                      <td>"Sem opiniões pessoais", "sem jargão técnico", "não usar listas", "evitar termos em inglês", "sem repetições"</td>
-                      <td>Para evitar padrões indesejados que a IA tende a repetir (como excesso de listas ou anglicismos).</td>
-                    </tr>
-                    <tr>
-                      <td><strong>🌍 Idioma e localização</strong></td>
-                      <td>"Em português brasileiro formal", "usando terminologia do Judiciário brasileiro", "conforme padrão ABNT"</td>
-                      <td>Importante para evitar que a IA use português de Portugal ou terminologia estrangeira inadvertidamente.</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <h3>Combinando especificações</h3>
-              <p>Na prática, você combina 3 ou 4 dessas dimensões em uma única instrução de estilo. Veja como uma especificação completa fica muito mais precisa:</p>
-
-              <div class="comparison">
-                <div class="comparison-box comparison-bad">
-                  <div class="comparison-label">❌ Estilo vago</div>
-                  <div class="comparison-text">[STYLE] "Escreva bem."</div>
-                </div>
-                <div class="comparison-box comparison-good">
-                  <div class="comparison-label">✅ Estilo preciso</div>
-                  <div class="comparison-text">[STYLE] "Tom formal e analítico, máximo 2 páginas, público: coordenadores de seção do TRE-RN. Linguagem técnico-administrativa, estruturado em seções com cabeçalhos. Incluir fundamentação legal e concluir com recomendação objetiva. Evitar jargões de TI."</div>
-                </div>
-              </div>
-
-              <div class="callout callout-success">
-                <div class="callout-title">💡 Regra prática</div>
-                <p>Sempre que montar um [STYLE], pergunte-se: <strong>"Se eu entregasse essa instrução a um colega, ele saberia exatamente como escrever?"</strong> Se a resposta for não, adicione mais especificações. A IA precisa do mesmo nível de clareza que uma pessoa.</p>
-              </div>
+          <h3>Combinando especificações</h3>
+          <p>Na prática, você combina 3 ou 4 dessas dimensões em uma única instrução de estilo. Veja como uma especificação completa fica muito mais precisa:</p>
+          <div class="comparison">
+            <div class="comparison-box comparison-bad">
+              <div class="comparison-label">❌ Estilo vago</div>
+              <div class="comparison-text">[STYLE] "Escreva bem."</div>
             </div>
-          </section>
-
-          <div class="topic-nav-bar">
-            <a href="./o-que-e.html" class="btn btn-secondary btn-sm">← Tópico anterior</a>
-            <button class="btn btn-success btn-sm" onclick="marcarConcluido('ep-02', './exemplos-por-area.html')">Marcar como concluído e avançar →</button>
+            <div class="comparison-box comparison-good">
+              <div class="comparison-label">✅ Estilo preciso</div>
+              <div class="comparison-text">[STYLE] "Tom formal e analítico, máximo 2 páginas, público: coordenadores de seção do TRE-RN. Linguagem técnico-administrativa, estruturado em seções com cabeçalhos. Incluir fundamentação legal e concluir com recomendação objetiva. Evitar jargões de TI."</div>
+            </div>
           </div>
-        </article>
+          <div class="callout callout-success">
+            <div class="callout-title">💡 Regra prática</div>
+            <p>Sempre que montar um [STYLE], pergunte-se: <strong>"Se eu entregasse essa instrução a um colega, ele saberia exatamente como escrever?"</strong> Se a resposta for não, adicione mais especificações.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./o-que-e.html" class="btn btn-secondary">← Anterior: O que é?</a>
+          <button class="btn btn-primary" onclick="marcarTopicoConcluido('ep-02','./exemplos-por-area.html')">Concluído — Próximo: Exemplos por Área →</button>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
   <div id="footer-placeholder"></div>
   <script src="../../../js/auth.js"></script>
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
   <script src="../../js/topicos.js"></script>
+  <script>function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}</script>
 </body>
 </html>

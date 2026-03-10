@@ -9,137 +9,112 @@
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/topic.css">
-  <style>
-    /* badges de tópico concluído */
-    .topic-done-badge { display:none; font-size:0.78rem; font-weight:700; color:var(--verde); background:var(--verde-bg); border:1px solid rgba(26,138,90,.25); border-radius:var(--radius-full); padding:2px 10px; }
-    .topic-card.done .topic-done-badge { display:inline-flex; align-items:center; gap:4px; }
-    .topic-card.done { opacity:.8; }
-    .topic-card.done .topic-arrow { color:var(--verde); }
-  </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="page-content">
-
-    <!-- Hero -->
-    <section class="page-hero">
-      <div class="page-hero-bg">
-        <img src="../../assets/heroes/hero-eng-prompts.jpg" alt="" loading="eager">
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
+          <a href="./metodologia-rcts.html" class="sb-topic" data-topico="ep-02">Metodologia RCTS+E</a>
+          <a href="./exemplos-por-area.html" class="sb-topic" data-topico="ep-03">Exemplos por Área</a>
+          <a href="./tecnicas-avancadas.html" class="sb-topic" data-topico="ep-04">Técnicas Avançadas</a>
+          <a href="./gerador.html" class="sb-topic" data-topico="ep-05">Gerador RCTS+E</a>
+        </div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
       </div>
-      <div class="section-header">
-        <div class="eyebrow"><span class="dot"></span> Módulo 04</div>
-        <h1>Engenharia de Prompts</h1>
-        <p>Aprenda a "conversar" com a IA de forma eficaz e obtenha resultados profissionais para o seu trabalho no TRE-RN.</p>
-      </div>
-    </section>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-    <div class="container">
-      <div class="module-index-layout">
+    <main class="main-content">
+      <section class="page-hero">
+        <div class="page-hero-bg">
+          <img src="../../assets/heroes/hero-eng-prompts.jpg" alt="" loading="eager">
+        </div>
+        <div class="section-header">
+          <div class="eyebrow"><span class="dot"></span> Módulo 04</div>
+          <h1>Engenharia de Prompts</h1>
+          <p>Aprenda a "conversar" com a IA de forma eficaz e obtenha resultados profissionais para o seu trabalho no TRE-RN.</p>
+        </div>
+      </section>
 
-        <!-- Sidebar -->
-        <aside class="module-sidebar">
-          <div class="sidebar-section">
-            <div class="sidebar-title">Tópicos</div>
-            <nav class="sidebar-nav">
-              <a href="./o-que-e.html" class="sb-item" data-topico="ep-01">💬 O que é Engenharia de Prompts?</a>
-              <a href="./metodologia-rcts.html" class="sb-item" data-topico="ep-02">🧩 Metodologia RCTS+E</a>
-              <a href="./exemplos-por-area.html" class="sb-item" data-topico="ep-03">🏢 Exemplos por Área</a>
-              <a href="./tecnicas-avancadas.html" class="sb-item" data-topico="ep-04">🚀 Técnicas Avançadas</a>
-              <a href="./gerador.html" class="sb-item" data-topico="ep-05">⚡ Gerador RCTS+E</a>
-            </nav>
-          </div>
-          <div class="sidebar-section">
-            <div class="sidebar-title">Módulos</div>
-            <nav class="sidebar-nav">
-              <a href="../conceitos/" class="sb-item">Módulo 01 — Conceitos Essenciais</a>
-              <a href="../como-funciona/" class="sb-item">Módulo 02 — Como a IA Funciona</a>
-              <a href="../../regulamentacao.html" class="sb-item">Módulo 03 — Regulamentação</a>
-              <a href="./" class="sb-item sb-active">Módulo 04 — Engenharia de Prompts</a>
-            </nav>
-          </div>
-          <div class="sidebar-section">
-            <a href="../../index.html#oficinas-section" class="sb-item sb-oficina">🛠️ Oficinas Práticas</a>
-          </div>
-        </aside>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../../index.html#modulos-section">Módulos</a><span class="sep">›</span>
+        <span class="current">Engenharia de Prompts</span>
+      </nav>
 
-        <!-- Conteúdo principal -->
-        <div class="module-main">
-          <div class="module-intro">
-            <h2>Sobre este módulo</h2>
-            <p>A qualidade da resposta de uma IA depende diretamente da qualidade da instrução que você fornece. Este módulo apresenta a metodologia RCTS+E, técnicas avançadas e um gerador interativo de prompts — tudo contextualizado para o dia a dia do TRE-RN.</p>
-          </div>
+      <div class="page-body">
+        <p style="font-size:1.12rem;color:var(--text-secondary);line-height:1.85;margin-bottom:var(--space-xl);">A qualidade da resposta de uma IA depende diretamente da qualidade da instrução que você fornece. Este módulo apresenta a metodologia RCTS+E, técnicas avançadas e um gerador interativo de prompts — tudo contextualizado para o dia a dia do TRE-RN.</p>
 
-          <div class="topics-list">
-            <a href="./o-que-e.html" class="topic-card" data-topico="ep-01">
-              <div class="topic-num">01</div>
-              <div class="topic-body">
-                <div class="topic-title">O que é Engenharia de Prompts?</div>
-                <div class="topic-desc">Conceito, importância da qualidade da instrução e comparação entre prompts genéricos e estruturados.</div>
-              </div>
-              <span class="topic-done-badge">✓ Concluído</span>
-              <span class="topic-arrow">→</span>
-            </a>
-            <a href="./metodologia-rcts.html" class="topic-card" data-topico="ep-02">
-              <div class="topic-num">02</div>
-              <div class="topic-body">
-                <div class="topic-title">Metodologia RCTS+E</div>
-                <div class="topic-desc">Framework Role, Context, Task, Style e Examples — com especificações detalhadas de estilo e exemplos práticos.</div>
-              </div>
-              <span class="topic-done-badge">✓ Concluído</span>
-              <span class="topic-arrow">→</span>
-            </a>
-            <a href="./exemplos-por-area.html" class="topic-card" data-topico="ep-03">
-              <div class="topic-num">03</div>
-              <div class="topic-body">
-                <div class="topic-title">Exemplos por Área</div>
-                <div class="topic-desc">Prompts RCTS+E completos adaptados às áreas do TRE-RN: TI, Gestão de Pessoas, Orçamento, Judiciária e Governança.</div>
-              </div>
-              <span class="topic-done-badge">✓ Concluído</span>
-              <span class="topic-arrow">→</span>
-            </a>
-            <a href="./tecnicas-avancadas.html" class="topic-card" data-topico="ep-04">
-              <div class="topic-num">04</div>
-              <div class="topic-body">
-                <div class="topic-title">Técnicas Avançadas</div>
-                <div class="topic-desc">Chain-of-Thought, prompting iterativo, few-shot e personas institucionais para resultados de alto nível.</div>
-              </div>
-              <span class="topic-done-badge">✓ Concluído</span>
-              <span class="topic-arrow">→</span>
-            </a>
-            <a href="./gerador.html" class="topic-card" data-topico="ep-05">
-              <div class="topic-num">05</div>
-              <div class="topic-body">
-                <div class="topic-title">Gerador RCTS+E</div>
-                <div class="topic-desc">Monte seu prompt de forma interativa — preencha os campos e obtenha o texto pronto para copiar.</div>
-              </div>
-              <span class="topic-done-badge">✓ Concluído</span>
-              <span class="topic-arrow">→</span>
-            </a>
-          </div>
-
-          <div style="padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); display:flex; justify-content:space-between;">
-            <a href="../../regulamentacao.html" class="btn btn-secondary btn-sm">← Módulo 03 — Regulamentação</a>
-            <a href="./o-que-e.html" class="btn btn-primary btn-sm">Começar →</a>
-          </div>
+        <div class="config-grid">
+          <a href="./o-que-e.html" style="text-decoration:none;">
+            <div class="config-card">
+              <div class="config-icon">💬</div>
+              <h4>01 — O que é Engenharia de Prompts?</h4>
+              <p>Conceito, importância da qualidade da instrução e comparação entre prompts genéricos e estruturados.</p>
+            </div>
+          </a>
+          <a href="./metodologia-rcts.html" style="text-decoration:none;">
+            <div class="config-card">
+              <div class="config-icon">🧩</div>
+              <h4>02 — Metodologia RCTS+E</h4>
+              <p>Framework Role, Context, Task, Style e Examples — com especificações detalhadas de estilo e exemplos práticos.</p>
+            </div>
+          </a>
+          <a href="./exemplos-por-area.html" style="text-decoration:none;">
+            <div class="config-card">
+              <div class="config-icon">🏢</div>
+              <h4>03 — Exemplos por Área</h4>
+              <p>Prompts RCTS+E completos adaptados às áreas do TRE-RN: TI, Gestão de Pessoas, Orçamento, Judiciária e Governança.</p>
+            </div>
+          </a>
+          <a href="./tecnicas-avancadas.html" style="text-decoration:none;">
+            <div class="config-card">
+              <div class="config-icon">🚀</div>
+              <h4>04 — Técnicas Avançadas</h4>
+              <p>Chain-of-Thought, prompting iterativo, few-shot e personas institucionais para resultados de alto nível.</p>
+            </div>
+          </a>
+          <a href="./gerador.html" style="text-decoration:none;">
+            <div class="config-card">
+              <div class="config-icon">⚡</div>
+              <h4>05 — Gerador RCTS+E</h4>
+              <p>Monte seu prompt de forma interativa — preencha os campos e obtenha o texto pronto para copiar.</p>
+            </div>
+          </a>
         </div>
 
+        <div class="topic-nav">
+          <a href="../../regulamentacao.html" class="btn btn-secondary">← Módulo 03 — Regulamentação</a>
+          <a href="./o-que-e.html" class="btn btn-primary">Começar pelo tópico 01 →</a>
+        </div>
       </div>
-    </div>
-  </main>
+    </main>
+  </div>
+
   <div id="footer-placeholder"></div>
   <script src="../../../js/auth.js"></script>
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
+  <script src="../../js/topicos.js"></script>
   <script>
-    // Marcar tópicos concluídos nos cards da index
-    (function(){
-      const TOPICOS_KEY = 'trern-topicos-concluidos';
-      function getState(){ try{ return JSON.parse(localStorage.getItem(TOPICOS_KEY))||[]; }catch{return[];} }
-      const done = getState();
-      document.querySelectorAll('.topic-card[data-topico]').forEach(card => {
-        if(done.includes(card.dataset.topico)) card.classList.add('done');
-      });
-    })();
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    }
   </script>
 </body>
 </html>

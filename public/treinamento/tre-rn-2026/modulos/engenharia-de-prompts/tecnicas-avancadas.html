@@ -10,102 +10,104 @@
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/topic.css">
   <style>
-    .prompt-example { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-xl); margin: var(--space-lg) 0; font-size: 1.02rem; line-height: 1.85; position: relative; }
-    .prompt-example .prompt-label { position: absolute; top: -12px; left: 20px; background: var(--bg); padding: 2px 12px; font-size: 0.85rem; font-weight: 700; color: var(--dourado); text-transform: uppercase; letter-spacing: 0.06em; border: 1px solid var(--border); border-radius: 6px; }
+    .prompt-box {background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-xl);margin:var(--space-lg) 0;font-size:1rem;line-height:1.85;position:relative;}
+    .prompt-box-title {position:absolute;top:-12px;left:20px;background:var(--bg);padding:2px 12px;font-size:0.82rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:0.06em;border:1px solid var(--border);border-radius:6px;}
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  <main class="page-content">
-    <div class="topic-hero">
-      <div class="topic-hero-inner container">
-        <div class="topic-eyebrow">Módulo 04 · Tópico 4</div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
+          <a href="./metodologia-rcts.html" class="sb-topic" data-topico="ep-02">Metodologia RCTS+E</a>
+          <a href="./exemplos-por-area.html" class="sb-topic" data-topico="ep-03">Exemplos por Área</a>
+          <a href="./tecnicas-avancadas.html" class="sb-topic active" data-topico="ep-04">Técnicas Avançadas</a>
+          <a href="./gerador.html" class="sb-topic " data-topico="ep-05">Gerador RCTS+E</a>
+        </div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <main class="main-content">
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">✍️ Engenharia de Prompts · Tópico 04 de 05</div>
         <h1>Técnicas Avançadas</h1>
+      </section>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="./">Engenharia de Prompts</a><span class="sep">›</span>
+        <span class="current">Técnicas Avançadas</span>
+      </nav>
+
+      <div class="page-body">
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">1</span><h2>Chain-of-Thought (Raciocínio passo a passo)</h2></div>
+          <p>Peça à IA que <strong>"pense passo a passo"</strong> antes de dar a resposta final. Isso força o modelo a seguir um raciocínio lógico e reduz erros em tarefas analíticas.</p>
+          <div class="prompt-box">
+            <div class="prompt-box-title">Exemplo</div>
+            <p>"Analise, passo a passo, se o requerente cumpre todos os requisitos para a candidatura, considerando: idade mínima, domicílio eleitoral, filiação partidária e quitação eleitoral. Para cada requisito, indique se foi atendido e qual a base legal."</p>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">2</span><h2>Prompting Iterativo (Refinamento progressivo)</h2></div>
+          <p>Em vez de tentar obter a resposta perfeita de uma vez, <strong>refine em etapas</strong>. Comece com um pedido geral e vá ajustando na mesma conversa.</p>
+          <div class="stepper">
+            <div class="step"><div class="step-indicator"><div class="step-number">1</div><div class="step-line"></div></div><div class="step-content"><h4>Primeira instrução</h4><p>"Redija um parecer sobre a viabilidade de uso de IA generativa nas zonas eleitorais do TRE-RN."</p></div></div>
+            <div class="step"><div class="step-indicator"><div class="step-number">2</div><div class="step-line"></div></div><div class="step-content"><h4>Refinamento</h4><p>"Inclua uma seção sobre os riscos conforme a Resolução CNJ 615/2025 e sugira mitigações."</p></div></div>
+            <div class="step"><div class="step-indicator"><div class="step-number">3</div></div><div class="step-content"><h4>Ajuste final</h4><p>"Reduza para 2 páginas, torne a linguagem mais acessível e adicione uma conclusão com recomendação objetiva."</p></div></div>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">3</span><h2>Few-shot (Exemplos de referência)</h2></div>
+          <p>Forneça à IA <strong>2 ou 3 exemplos</strong> do resultado que você espera antes de pedir a tarefa real. Isso é especialmente útil para padronizar formatação de documentos do TRE-RN.</p>
+          <div class="callout callout-success">
+            <div class="callout-title">💡 Dica prática</div>
+            <p>Copie e cole um exemplo de despacho, ofício ou certidão que já existe no TRE-RN, e peça à IA para gerar um novo seguindo o mesmo padrão. Isso é <strong>muito</strong> mais eficaz do que descrever o formato desejado por extenso.</p>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">4</span><h2>Personas e tom institucional</h2></div>
+          <p>Defina explicitamente o tom que a IA deve adotar:</p>
+          <ul>
+            <li><strong>"Adote um tom formal e institucional"</strong> — para ofícios e comunicações oficiais</li>
+            <li><strong>"Explique de forma acessível, como se estivesse falando com um servidor não técnico"</strong> — para materiais de capacitação</li>
+            <li><strong>"Seja analítico e apresente prós e contras"</strong> — para pareceres e notas técnicas</li>
+            <li><strong>"Resuma de forma executiva em no máximo 5 tópicos"</strong> — para briefings e resumos gerenciais</li>
+          </ul>
+          <div class="callout callout-info">
+            <div class="callout-title">⚡ Pronto para praticar?</div>
+            <p>Use o <a href="./gerador.html"><strong>Gerador de Prompts RCTS+E</strong></a> no próximo tópico para montar seus prompts de forma interativa e obter textos prontos para copiar.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./exemplos-por-area.html" class="btn btn-secondary">← Anterior: Exemplos por Área</a>
+          <button class="btn btn-primary" onclick="marcarTopicoConcluido('ep-04','./gerador.html')">Concluído — Próximo: Gerador RCTS+E →</button>
+        </div>
       </div>
-    </div>
-
-    <div class="container">
-      <div class="topic-layout">
-        <aside class="topic-sidebar">
-          <div class="sidebar-section">
-            <div class="sidebar-title">Tópicos do Módulo 04</div>
-            <nav class="sidebar-nav">
-              <a href="./o-que-e.html" class="sb-item" data-topico="ep-01">💬 O que é Eng. de Prompts?</a>
-              <a href="./metodologia-rcts.html" class="sb-item" data-topico="ep-02">🧩 Metodologia RCTS+E</a>
-              <a href="./exemplos-por-area.html" class="sb-item" data-topico="ep-03">🏢 Exemplos por Área</a>
-              <a href="./tecnicas-avancadas.html" class="sb-item sb-active" data-topico="ep-04">🚀 Técnicas Avançadas</a>
-              <a href="./gerador.html" class="sb-item" data-topico="ep-05">⚡ Gerador RCTS+E</a>
-            </nav>
-          </div>
-          <div class="sidebar-section">
-            <div class="sidebar-title">Outros Módulos</div>
-            <nav class="sidebar-nav">
-              <a href="../conceitos/" class="sb-item">01 — Conceitos Essenciais</a>
-              <a href="../como-funciona/" class="sb-item">02 — Como a IA Funciona</a>
-              <a href="../../regulamentacao.html" class="sb-item">03 — Regulamentação</a>
-              <a href="./" class="sb-item">04 — Engenharia de Prompts</a>
-            </nav>
-          </div>
-          <div class="sidebar-section">
-            <a href="../../index.html#oficinas-section" class="sb-item sb-oficina">🛠️ Oficinas Práticas</a>
-          </div>
-        </aside>
-
-        <article class="topic-content">
-          <section class="content-section">
-            <div class="content-body">
-              <p>Além do RCTS+E, existem técnicas que podem elevar ainda mais a qualidade das respostas:</p>
-
-              <h3>Chain-of-Thought (Raciocínio passo a passo)</h3>
-              <p>Peça à IA que <strong>"pense passo a passo"</strong> antes de dar a resposta final. Isso força o modelo a seguir um raciocínio lógico e reduz erros em tarefas analíticas.</p>
-              <div class="prompt-example">
-                <div class="prompt-label">Exemplo</div>
-                <p>"Analise, passo a passo, se o requerente cumpre todos os requisitos para a candidatura, considerando: idade mínima, domicílio eleitoral, filiação partidária e quitação eleitoral. Para cada requisito, indique se foi atendido e qual a base legal."</p>
-              </div>
-
-              <h3>Prompting Iterativo (Refinamento progressivo)</h3>
-              <p>Em vez de tentar obter a resposta perfeita de uma vez, <strong>refine em etapas</strong>. Comece com um pedido geral e vá ajustando na mesma conversa.</p>
-              <div class="stepper">
-                <div class="step"><div class="step-indicator"><div class="step-number">1</div><div class="step-line"></div></div><div class="step-content"><h4>Primeira instrução</h4><p>"Redija um parecer sobre a viabilidade de uso de IA generativa nas zonas eleitorais do TRE-RN."</p></div></div>
-                <div class="step"><div class="step-indicator"><div class="step-number">2</div><div class="step-line"></div></div><div class="step-content"><h4>Refinamento</h4><p>"Inclua uma seção sobre os riscos conforme a Resolução CNJ 615/2025 e sugira mitigações."</p></div></div>
-                <div class="step"><div class="step-indicator"><div class="step-number">3</div></div><div class="step-content"><h4>Ajuste final</h4><p>"Reduza para 2 páginas, torne a linguagem mais acessível e adicione uma conclusão com recomendação objetiva."</p></div></div>
-              </div>
-
-              <h3>Few-shot (Exemplos de referência)</h3>
-              <p>Forneça à IA <strong>2 ou 3 exemplos</strong> do resultado que você espera antes de pedir a tarefa real. Isso é especialmente útil para padronizar formatação de documentos do TRE-RN.</p>
-              <div class="callout callout-success">
-                <div class="callout-title">💡 Dica prática</div>
-                <p>Copie e cole um exemplo de despacho, ofício ou certidão que já existe no TRE-RN, e peça à IA para gerar um novo seguindo o mesmo padrão. Isso é <strong>muito</strong> mais eficaz do que descrever o formato desejado por extenso.</p>
-              </div>
-
-              <h3>Personas e tom institucional</h3>
-              <p>Defina explicitamente o tom que a IA deve adotar:</p>
-              <ul>
-                <li><strong>"Adote um tom formal e institucional"</strong> — para ofícios e comunicações oficiais</li>
-                <li><strong>"Explique de forma acessível, como se estivesse falando com um servidor não técnico"</strong> — para materiais de capacitação</li>
-                <li><strong>"Seja analítico e apresente prós e contras"</strong> — para pareceres e notas técnicas</li>
-                <li><strong>"Resuma de forma executiva em no máximo 5 tópicos"</strong> — para briefings e resumos gerenciais</li>
-              </ul>
-
-              <div class="callout callout-info">
-                <div class="callout-title">⚡ Pronto para praticar?</div>
-                <p>Use o <a href="./gerador.html"><strong>Gerador de Prompts RCTS+E</strong></a> para montar seus prompts de forma interativa e obter textos prontos para copiar.</p>
-              </div>
-            </div>
-          </section>
-
-          <div class="topic-nav-bar">
-            <a href="./exemplos-por-area.html" class="btn btn-secondary btn-sm">← Tópico anterior</a>
-            <button class="btn btn-success btn-sm" onclick="marcarConcluido('ep-04', './gerador.html')">Marcar como concluído e avançar →</button>
-          </div>
-        </article>
-      </div>
-    </div>
-  </main>
+    </main>
+  </div>
   <div id="footer-placeholder"></div>
   <script src="../../../js/auth.js"></script>
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
   <script src="../../js/topicos.js"></script>
+  <script>function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}</script>
 </body>
 </html>
