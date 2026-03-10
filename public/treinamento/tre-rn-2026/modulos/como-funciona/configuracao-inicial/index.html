@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Configuração Inicial das Ferramentas — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../../css/styles.css">
+  <link rel="stylesheet" href="../../../css/components.css">
+  <link rel="stylesheet" href="../../../css/responsive.css">
+  <style>
+
+    /* ── Layout principal com sidebar ── */
+    .layout {
+      display: flex;
+      min-height: 100vh;
+      padding-top: var(--navbar-height);
+    }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: 280px;
+      flex-shrink: 0;
+      background: var(--bg-card);
+      border-right: 1px solid var(--border-light);
+      position: sticky;
+      top: var(--navbar-height);
+      height: calc(100vh - var(--navbar-height));
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      z-index: 10;
+    }
+    .sidebar-inner { padding: var(--space-xl) 0; flex: 1; }
+
+    .sidebar-section-label {
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--text-muted);
+      padding: 0 var(--space-lg) var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+    .sidebar-section-label:first-child { margin-top: 0; }
+
+    .sidebar-divider {
+      border: none; border-top: 1px solid var(--border-light);
+      margin: var(--space-md) var(--space-lg);
+    }
+
+    .sidebar-link {
+      display: flex; align-items: center; gap: var(--space-sm);
+      padding: 9px var(--space-lg);
+      font-size: 0.92rem; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s ease;
+      line-height: 1.35;
+    }
+    .sidebar-link:hover {
+      color: var(--azul-medio);
+      background: var(--azul-light);
+      border-left-color: var(--azul-medio);
+    }
+    .sidebar-link.active {
+      color: var(--azul-medio); font-weight: 600;
+      background: var(--azul-light);
+      border-left-color: var(--azul-medio);
+    }
+    /* Sub-links dentro do módulo ativo */
+    .sidebar-sublink {
+      display: flex; align-items: center; gap: var(--space-sm);
+      padding: 7px var(--space-lg) 7px calc(var(--space-lg) + 20px);
+      font-size: 0.87rem; color: var(--text-muted);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .sidebar-sublink:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.4); }
+    .sidebar-sublink.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+
+    .sidebar-oficinas-link {
+      display: flex; align-items: center; gap: var(--space-sm);
+      padding: 9px var(--space-lg);
+      font-size: 0.92rem; font-weight: 500; color: var(--text-secondary);
+      text-decoration: none;
+      border-left: 3px solid transparent;
+      transition: all 0.15s ease;
+    }
+    .sidebar-oficinas-link:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
+
+    .sidebar-footer {
+      padding: var(--space-md) var(--space-lg);
+      border-top: 1px solid var(--border-light);
+    }
+    .sidebar-footer a {
+      display: flex; align-items: center; gap: var(--space-sm);
+      font-size: 0.88rem; color: var(--text-muted);
+      text-decoration: none; padding: 6px 0;
+      transition: color 0.15s;
+    }
+    .sidebar-footer a:hover { color: var(--vermelho); }
+
+    /* ── Conteúdo principal ── */
+    .main-content { flex: 1; min-width: 0; background: var(--bg); }
+
+    /* ── Breadcrumb ── */
+    .breadcrumb {
+      display: flex; align-items: center; gap: 6px;
+      padding: var(--space-md) var(--space-2xl);
+      font-size: 0.85rem; color: var(--text-muted);
+      border-bottom: 1px solid var(--border-light);
+      background: var(--bg-card);
+      flex-wrap: wrap;
+    }
+    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: var(--border-hover); }
+    .breadcrumb .current { color: var(--text); font-weight: 500; }
+
+    /* ── Hero compacto (sem imagem) ── */
+    .page-hero-compact {
+      background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 100%);
+      padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    }
+    .page-hero-compact .eyebrow {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--dourado-light);
+      background: rgba(184,137,26,0.2); border: 1px solid rgba(184,137,26,0.3);
+      border-radius: 99px; padding: 5px 14px; margin-bottom: var(--space-md);
+    }
+    .page-hero-compact h1 {
+      font-family: var(--font-display); font-size: 2rem; font-weight: 800;
+      color: #fff; margin-bottom: var(--space-sm); line-height: 1.2;
+    }
+    .page-hero-compact p { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 560px; }
+
+    /* ── Conteúdo ── */
+    .content-wrapper { max-width: 800px; margin: 0 auto; padding: var(--space-2xl); }
+
+    .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
+    .content-section:last-of-type { border-bottom: none; }
+    .content-section h2 {
+      font-family: var(--font-display); font-size: 1.6rem; color: var(--azul);
+      margin-bottom: var(--space-lg);
+      scroll-margin-top: calc(var(--navbar-height) + 24px);
+    }
+    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--azul-medio); font-size: 1.2rem; }
+
+    .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-md); margin: var(--space-xl) 0; }
+    .config-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); transition: all var(--transition-base); }
+    .config-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); }
+    .config-card .config-icon { font-size: 1.6rem; margin-bottom: var(--space-sm); }
+    .config-card h4 { font-family: var(--font-body); font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
+    .config-card p { font-size: 0.93rem; }
+    .config-card .config-how { margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--border-light); font-size: 0.88rem; color: var(--text-muted); }
+    .config-card .config-how strong { color: var(--dourado); }
+
+    /* ── Navegação de volta ── */
+    .back-nav {
+      display: flex; align-items: center; gap: var(--space-md);
+      padding: var(--space-xl) 0;
+      border-top: 1px solid var(--border-light);
+      margin-top: var(--space-2xl);
+    }
+
+    /* ── Hamburguer mobile ── */
+    .sidebar-toggle {
+      display: none;
+      position: fixed; bottom: var(--space-lg); right: var(--space-lg);
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--azul-medio); color: #fff; border: none;
+      font-size: 1.3rem; cursor: pointer; z-index: 200;
+      box-shadow: var(--shadow-lg);
+      align-items: center; justify-content: center;
+    }
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(20,40,80,0.4); z-index: 150;
+    }
+
+    /* ── Responsivo ── */
+    @media (max-width: 900px) {
+      .sidebar {
+        position: fixed; top: 0; left: -300px;
+        width: 280px; height: 100vh;
+        z-index: 160; transition: left 0.3s ease;
+        padding-top: var(--navbar-height);
+      }
+      .sidebar.open { left: 0; }
+      .sidebar-overlay.open { display: block; }
+      .sidebar-toggle { display: flex; }
+      .main-content { width: 100%; }
+      .page-hero-compact { padding: var(--space-xl) var(--space-md) var(--space-lg); }
+      .page-hero-compact h1 { font-size: 1.6rem; }
+      .breadcrumb { padding: var(--space-sm) var(--space-md); }
+      .content-wrapper { padding: var(--space-lg) var(--space-md); }
+      .config-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header-placeholder"></div>
+
+  <div class="layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+
+        <div class="sidebar-section-label">📚 Módulos</div>
+        <a href="../../conceitos/" class="sidebar-link"><span class="link-icon">💡</span> Conceitos Essenciais</a>
+
+        <!-- Módulo ativo com sub-links -->
+        <a href="../como-funciona/" class="sidebar-link active"><span class="link-icon">⚙️</span> Como a IA Funciona</a>
+        <a href="../como-funciona/#tokens" class="sidebar-sublink">↳ Tokens e Contexto</a>
+        <a href="../como-funciona/#cuidados" class="sidebar-sublink">↳ Cuidados e Limitações</a>
+        <a href="../como-funciona/configuracao-inicial/" class="sidebar-sublink active">↳ Configuração Inicial</a>
+
+        <a href="../../../regulamentacao.html" class="sidebar-link"><span class="link-icon">⚖️</span> Regulamentação</a>
+        <a href="../../../engenharia-de-prompts.html" class="sidebar-link"><span class="link-icon">✍️</span> Engenharia de Prompts</a>
+        <a href="../../../gerador-de-prompts.html" class="sidebar-link"><span class="link-icon">⚡</span> Gerador de Prompts</a>
+
+        <hr class="sidebar-divider">
+
+        <div class="sidebar-section-label">🛠️ Oficinas</div>
+        <a href="../../../oficinas.html" class="sidebar-oficinas-link"><span class="link-icon">📋</span> Ver todas as oficinas</a>
+
+      </div>
+      <div class="sidebar-footer">
+        <a href="../../../index.html">↩ Voltar ao início</a>
+      </div>
+    </aside>
+
+    <!-- overlay mobile -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- ══ CONTEÚDO PRINCIPAL ══ -->
+    <main class="main-content">
+
+      <!-- Hero compacto -->
+      <section class="page-hero-compact">
+        <div class="eyebrow">⚙️ Módulo 02 · Tópico 03</div>
+        <h1>Configuração Inicial das Ferramentas</h1>
+        <p>Personalize estilo, contexto profissional e instruções permanentes — uma configuração que melhora todas as conversas futuras.</p>
+      </section>
+
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="../../../index.html">Início</a>
+        <span class="sep">›</span>
+        <a href="../../">Módulos</a>
+        <span class="sep">›</span>
+        <a href="../como-funciona/">Como a IA Funciona</a>
+        <span class="sep">›</span>
+        <span class="current">Configuração Inicial</span>
+      </nav>
+
+      <!-- Conteúdo -->
+      <div class="content-wrapper">
+
+        <p style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-2xl);">
+          Antes de começar a usar as ferramentas de IA no trabalho, vale investir alguns minutos para configurá-las. Uma boa configuração inicial melhora significativamente a qualidade das respostas e evita que você precise repetir instruções a cada conversa.
+        </p>
+
+        <section class="content-section">
+          <h2>O que é possível personalizar?</h2>
+          <div class="config-grid">
+            <div class="config-card">
+              <div class="config-icon">🎭</div>
+              <h4>Estilo e Tom de Resposta</h4>
+              <p>Defina como a IA deve se comunicar com você — formal, técnico, direto, didático. Isso afeta todas as conversas futuras.</p>
+              <div class="config-how"><strong>Disponível em:</strong> ChatGPT (Configurações › Personalização), Claude (Preferências de Estilo), Gemini (Preferências)</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">💼</div>
+              <h4>Contexto Profissional</h4>
+              <p>Informe sua ocupação, área de atuação e tipo de demandas. A IA ajustará o nível técnico e o vocabulário automaticamente.</p>
+              <div class="config-how"><strong>Exemplo:</strong> "Sou servidor público federal no TRE-RN, atuo na área de Coordenação de Sistemas na Secretaria de TI."</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">📋</div>
+              <h4>Instruções Permanentes</h4>
+              <p>Estabeleça regras que a IA deve seguir sempre — citar fontes, evitar respostas genéricas, usar linguagem institucional.</p>
+              <div class="config-how"><strong>Exemplo:</strong> "Cite fontes sempre que possível. Se não houver fonte confiável, informe. Priorize clareza e objetividade."</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">🔒</div>
+              <h4>Privacidade e Treinamento</h4>
+              <p>Desative a opção de usar suas conversas para treinar os modelos. Isso é especialmente importante para uso institucional.</p>
+              <div class="config-how"><strong>ChatGPT:</strong> Configurações › Controlar dados › Desativar "Melhorar o modelo para todo mundo"</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section">
+          <h2>Modelos prontos para copiar</h2>
+
+          <h3>Instruções personalizadas</h3>
+          <p>Um modelo que você pode copiar e adaptar para configurar suas ferramentas. Pensado para o contexto de servidor do TRE-RN:</p>
+
+          <div class="callout callout-info" style="position: relative; margin-top: var(--space-lg);">
+            <div class="callout-title">📋 Instruções personalizadas</div>
+            <div class="code-block" id="instrucoes-modelo">- Responda com sinceridade e objetividade, usando, quando couber, um toque de ironia inteligente, como um colega experiente.
+- Gere respostas elaboradas, ricas em detalhes e com exemplos práticos, fazendo conexões criativas entre ideias.
+- Manifeste sua opinião sempre que achar que pode contribuir com a conversa.
+- Seja encorajador, mas sem dizer apenas o que acha que quero ouvir; traga o que preciso ouvir. Critique quando necessário.
+- Responda apenas quando tiver certeza. Se houver incerteza, explique-a.
+- Apresente seu raciocínio de forma clara, citando fontes sempre que possível.
+- Priorize clareza e objetividade.
+- Use um tom encorajador e profissional.</div>
+            <button class="btn btn-sm btn-secondary" style="margin-top: var(--space-md);"
+              onclick="Utils.copyToClipboard(document.getElementById('instrucoes-modelo').textContent).then(()=>Utils.showToast('Copiado!','success'))">
+              Copiar instruções
+            </button>
+          </div>
+
+          <h3>Contexto profissional</h3>
+          <div class="callout callout-info" style="position: relative; margin-top: var(--space-lg);">
+            <div class="callout-title">📋 Ocupação e perfil</div>
+            <div class="code-block" id="ocupacao-modelo">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
+- Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
+- Atuo principalmente com [descreva suas atividades principais].
+- Minhas demandas exigem profundidade, contexto e praticidade.
+- Prefiro conversas construtivas que equilibrem técnica, clareza e criatividade.</div>
+            <button class="btn btn-sm btn-secondary" style="margin-top: var(--space-md);"
+              onclick="Utils.copyToClipboard(document.getElementById('ocupacao-modelo').textContent).then(()=>Utils.showToast('Copiado!','success'))">
+              Copiar perfil
+            </button>
+          </div>
+
+          <div class="callout callout-warning" style="margin-top: var(--space-xl);">
+            <div class="callout-title">⚠️ Atenção ao configurar</div>
+            <p>Não inclua informações sigilosas ou institucionais sensíveis na configuração do perfil. Limite-se a dados sobre sua função, área de atuação e preferências de comunicação — informações que seriam públicas em um crachá funcional.</p>
+          </div>
+        </section>
+
+        <!-- Navegação de volta -->
+        <div class="back-nav">
+          <a href="../como-funciona/" class="btn btn-secondary">← Voltar ao módulo</a>
+        </div>
+
+      </div><!-- /content-wrapper -->
+    </main>
+  </div><!-- /layout -->
+
+  <div id="footer-placeholder"></div>
+
+  <button class="sidebar-toggle" id="sidebarToggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../../js/utils.js"></script>
+  <script src="../../../js/main.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>
