@@ -459,6 +459,7 @@
       if (idx === -1) { state.push(num); } else { state.splice(idx, 1); }
       saveState(state);
       renderAll();
+      if (window.App && App.updateProgressBadge) App.updateProgressBadge();
     }
 
     function renderAll() {

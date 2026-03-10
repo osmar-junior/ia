@@ -125,6 +125,20 @@ const App = (() => {
         Auth.logout();
       });
     });
+
+    // Badge de progresso das oficinas
+    updateProgressBadge();
+  }
+
+  function updateProgressBadge() {
+    const el = document.getElementById('navProgressText');
+    if (!el) return;
+    try {
+      const done = (JSON.parse(localStorage.getItem('trern-oficinas-concluidas')) || []).length;
+      el.textContent = done + '/12';
+      const badge = document.getElementById('navProgress');
+      if (badge) badge.title = done + ' de 12 oficinas concluídas';
+    } catch (e) { /* silencioso */ }
   }
 
   // Scroll suave para âncoras
@@ -245,7 +259,8 @@ const App = (() => {
     init,
     loadLayout,
     getBasePath,
-    initScrollAnimations
+    initScrollAnimations,
+    updateProgressBadge
   };
 })();
 
