@@ -78,6 +78,10 @@ const Auth = (() => {
     return true;
   }
 
+  function revealPage() {
+    document.documentElement.classList.add('page-revealed');
+  }
+
   function updateTurmaDisplay() {
     const nome   = getUserName();
     const turma  = getTurma();
@@ -102,7 +106,9 @@ const Auth = (() => {
   }
 
   function initPageGuard() {
-    if (!guardPage()) return false;
+    if (!guardPage()) return false;  // redireciona → body never shown
+    // Autenticado: revelar o body que estava oculto via CSS inline no <head>
+    revealPage();
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', updateTurmaDisplay);
     } else {
@@ -120,6 +126,7 @@ const Auth = (() => {
     getUserName,
     logout,
     guardPage,
+    revealPage,
     getBasePath,
     getCourseBasePath,
     getTreinamentoRoot,
