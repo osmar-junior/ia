@@ -176,10 +176,35 @@ p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
 .navbar-links a.active::after { width: 100%; }
 
 .navbar-right { display: flex; align-items: center; gap: var(--space-md); }
+
+/* Bloco nome + turma */
+.navbar-user-info {
+  display: flex; align-items: center; gap: 7px;
+  background: var(--azul-light); border: 1px solid rgba(46,92,154,0.2);
+  border-radius: var(--radius-full); padding: 5px 14px;
+}
+.navbar-user-name {
+  font-size: 0.88rem; font-weight: 700; color: var(--azul);
+  max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.navbar-user-sep {
+  font-size: 0.75rem; color: var(--text-muted);
+}
 .navbar-turma {
-  font-size: 0.85rem; font-weight: 600; color: var(--azul-medio);
-  background: var(--azul-light); padding: 5px 14px;
-  border-radius: var(--radius-full); border: 1px solid rgba(46,92,154,0.2);
+  font-size: 0.85rem; font-weight: 500; color: var(--azul-medio);
+}
+
+/* Mobile — bloco de usuário no topo do menu */
+.mobile-user-info {
+  display: flex; flex-direction: column; gap: 2px;
+  padding: 0 0 var(--space-md); margin-bottom: var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+}
+.mobile-user-info span:first-child {
+  font-size: 1rem; font-weight: 700; color: var(--azul);
+}
+.mobile-user-turma {
+  font-size: 0.88rem; color: var(--text-muted);
 }
 .navbar-logout {
   width: 34px; height: 34px; border-radius: 50%;

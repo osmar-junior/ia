@@ -77,10 +77,26 @@ const Auth = (() => {
   }
 
   function updateTurmaDisplay() {
+    const nome   = getUserName();
+    const turma  = getTurma();
+
+    // Desktop — nome
+    const userEl = document.getElementById('userDisplay');
+    if (userEl) userEl.textContent = nome || '';
+
+    // Desktop — separador (oculta se não houver nome ou turma)
+    const sepEl = document.getElementById('userSep');
+    if (sepEl) sepEl.style.display = (nome && turma) ? '' : 'none';
+
+    // Desktop — turma
     const turmaEl = document.getElementById('turmaDisplay');
-    if (turmaEl) {
-      turmaEl.textContent = getUserName() || getTurma();
-    }
+    if (turmaEl) turmaEl.textContent = turma || '';
+
+    // Mobile
+    const mobileNome  = document.getElementById('userDisplayMobile');
+    const mobileTurma = document.getElementById('turmaDisplayMobile');
+    if (mobileNome)  mobileNome.textContent  = nome  || '';
+    if (mobileTurma) mobileTurma.textContent = turma || '';
   }
 
   function initPageGuard() {
