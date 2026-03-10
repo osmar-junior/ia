@@ -85,8 +85,8 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
 body {
   font-family: var(--font-body);
-  font-size: 18px;
-  line-height: 1.75;
+  font-size: 19px;
+  line-height: 1.8;
   color: var(--text);
   background: var(--bg);
   overflow-x: hidden;
@@ -105,7 +105,7 @@ h2 { font-size: 2.4rem; }
 h3 { font-size: 1.75rem; }
 h4 { font-size: 1.4rem; }
 
-p { color: var(--text-secondary); line-height: 1.85; font-size: 1.08rem; }
+p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
 
 .text-gold    { color: var(--dourado); }
 .text-azul    { color: var(--azul-medio); }
@@ -162,7 +162,7 @@ p { color: var(--text-secondary); line-height: 1.85; font-size: 1.08rem; }
 
 .navbar-links { display: flex; gap: var(--space-xl); list-style: none; }
 .navbar-links a {
-  color: var(--text-secondary); font-size: 0.97rem; font-weight: 600;
+  color: var(--text-secondary); font-size: 1rem; font-weight: 600;
   transition: color var(--transition-base); position: relative;
 }
 .navbar-links a::after {

@@ -8,6 +8,7 @@ const App = (() => {
   function getBasePath() {
     const path = window.location.pathname;
     if (path.includes('/oficinas/')) return '../';
+    if (path.includes('/modulos/')) return '../../';
     return './';
   }
 

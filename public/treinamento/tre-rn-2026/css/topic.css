@@ -133,7 +133,7 @@
    TIPOGRAFIA DO CORPO
 ═══════════════════════════════════════════════ */
 .topic-section p {
-  font-size: 1.05rem; color: var(--text-secondary); line-height: 1.85;
+  font-size: 1.08rem; color: var(--text-secondary); line-height: 1.85;
   margin-bottom: var(--space-md);
 }
 .topic-section p:last-child { margin-bottom: 0; }
@@ -141,10 +141,10 @@
 .topic-section ul,
 .topic-section ol {
   margin: var(--space-md) 0;
-  padding-left: 1.5rem;     /* recuo interno — marcador DENTRO do parágrafo */
+  padding-left: 1.5rem;
 }
 .topic-section li {
-  font-size: 1.05rem; color: var(--text-secondary);
+  font-size: 1.08rem; color: var(--text-secondary);
   line-height: 1.8; margin-bottom: var(--space-sm);
 }
 .topic-section li:last-child { margin-bottom: 0; }
@@ -157,13 +157,14 @@
 ═══════════════════════════════════════════════ */
 .code-block {
   font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
-  font-size: 0.95rem; line-height: 1.75;
+  font-size: 0.97rem; line-height: 1.8;
   white-space: pre-wrap; word-break: break-word;
-  background: #1E2D4D;       /* azul escuro neutro — bom contraste */
-  color: #D0E4FF;            /* azul-claro suave */
+  background: #F0F4FA;       /* azul-gelo claro */
+  color: #1E2D4D;            /* azul escuro — texto */
   padding: var(--space-lg);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(255,255,255,0.07);
+  border: 1px solid rgba(46,92,154,0.15);
+  border-left: 4px solid var(--azul-medio);
   margin-top: var(--space-md);
   overflow-x: auto;
 }
