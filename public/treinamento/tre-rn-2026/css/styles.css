@@ -175,15 +175,18 @@ p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
 .navbar-links a.active { color: var(--azul); font-weight: 700; }
 .navbar-links a.active::after { width: 100%; }
 
-/* Badge de progresso das oficinas */
+/* Badge de progresso */
 .navbar-progress {
-  display: flex; align-items: center; gap: 5px;
+  display: inline-flex; align-items: center; gap: 5px;
   background: var(--verde-bg); border: 1px solid rgba(26,138,90,0.2);
-  border-radius: var(--radius-full); padding: 4px 10px;
-  font-size: 0.78rem; font-weight: 700; color: var(--verde);
-  white-space: nowrap; cursor: default;
+  border-radius: var(--radius-full); padding: 3px 9px;
+  font-size: 0.75rem; font-weight: 700; color: var(--verde);
+  white-space: nowrap; cursor: default; vertical-align: middle; margin-left: 6px;
 }
-.navbar-progress .np-icon { font-size: 0.72rem; }
+.navbar-progress .np-icon { font-size: 0.7rem; }
+.navbar-mod-progress {
+  background: var(--azul-light); border-color: rgba(46,92,154,0.2); color: var(--azul-medio);
+}
 
 .navbar-right { display: flex; align-items: center; gap: var(--space-md); }
 
