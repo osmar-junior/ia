@@ -13,13 +13,3 @@
 </footer>
 
 <button class="scroll-top" aria-label="Voltar ao topo">↑</button>
-
-<script>
-(function() {
-  var curso = sessionStorage.getItem('treinamento_curso');
-  if (curso) {
-    var el = document.getElementById('footerCurso');
-    if (el) el.textContent = curso;
-  }
-})();
-</script>

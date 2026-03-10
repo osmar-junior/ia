@@ -28,6 +28,13 @@ const App = (() => {
       html = html.replace(/src="\.\/([^"]+)"/g, `src="${basePath}$1"`);
 
       el.innerHTML = html;
+
+      // Preenche nome do curso no footer dinamicamente
+      const footerCurso = document.getElementById('footerCurso');
+      if (footerCurso) {
+        const curso = sessionStorage.getItem('treinamento_curso');
+        if (curso) footerCurso.textContent = curso;
+      }
     } catch (error) {
       console.error(`Erro ao carregar componente ${elementId}:`, error);
     }

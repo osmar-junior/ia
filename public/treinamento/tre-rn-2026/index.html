@@ -140,6 +140,74 @@
       .page-content-area { padding: var(--space-2xl) var(--space-md) var(--space-3xl); }
       .modules-grid, .oficinas-grid { grid-template-columns: 1fr; }
     }
+    
+
+    /* ═══ SEÇÃO DE OFICINAS com dashboard ═══ */
+    .of-dashboard {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: var(--space-xl); padding: var(--space-xl);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); margin-bottom: var(--space-2xl);
+    }
+    .of-ring-area { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--space-sm); }
+    .of-ring-wrap { position:relative; width:120px; height:120px; }
+    .of-ring-wrap svg { width:100%; height:100%; transform:rotate(-90deg); }
+    .of-ring-bg   { fill:none; stroke:var(--border); stroke-width:9; }
+    .of-ring-fill { fill:none; stroke:var(--azul-medio); stroke-width:9; stroke-linecap:round; transition:stroke-dashoffset .8s ease; }
+    .of-ring-pct  { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.7rem; font-weight:800; color:var(--azul); }
+    .of-ring-label { font-size:.85rem; color:var(--text-muted); font-weight:600; text-align:center; }
+    .of-details { display:flex; flex-direction:column; justify-content:center; gap:12px; }
+    .of-grupo-row { display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary); }
+    .of-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .of-bar-track { flex:1; height:5px; background:var(--border-light); border-radius:3px; overflow:hidden; }
+    .of-bar-fill { height:100%; border-radius:3px; transition:width .6s ease; width:0; }
+    .of-count { font-size:.8rem; font-weight:700; color:var(--text-muted); min-width:28px; text-align:right; }
+
+    .of-tema-label { display:flex; align-items:center; gap:10px; margin:var(--space-xl) 0 var(--space-md); }
+    .of-tema-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+    .of-tema-label span { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-muted); }
+    .of-tema-line { flex:1; height:1px; background:var(--border-light); }
+
+    .of-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:var(--space-md); }
+    .of-card-wrap { text-decoration:none; display:block; }
+    .of-card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:var(--space-lg);
+      transition:box-shadow .18s, transform .18s;
+      height:100%; display:flex; flex-direction:column;
+    }
+    .of-card:hover { box-shadow:var(--shadow-md); transform:translateY(-2px); }
+    .of-card[data-grupo="intro"]    { border-top:3px solid #C8A45C; }
+    .of-card[data-grupo="notebook"] { border-top:3px solid #4A90D9; }
+    .of-card[data-grupo="gemini"]   { border-top:3px solid #34A853; }
+    .of-card[data-grupo="gems"]     { border-top:3px solid #AB47BC; }
+    .of-card[data-grupo="multi"]    { border-top:3px solid #E8710A; }
+    .of-num { font-family:var(--font-display); font-size:1.4rem; font-weight:800; line-height:1; margin-bottom:10px; color:var(--border-hover); }
+    .of-card[data-grupo="intro"]    .of-num { color:#C8A45C; }
+    .of-card[data-grupo="notebook"] .of-num { color:#4A90D9; }
+    .of-card[data-grupo="gemini"]   .of-num { color:#34A853; }
+    .of-card[data-grupo="gems"]     .of-num { color:#AB47BC; }
+    .of-card[data-grupo="multi"]    .of-num { color:#E8710A; }
+    .of-title { font-size:0.97rem; font-weight:700; color:var(--text); line-height:1.35; margin-bottom:6px; }
+    .of-card:hover .of-title { color:var(--azul-medio); }
+    .of-subtitle { font-size:0.83rem; color:var(--text-muted); line-height:1.4; flex:1; margin-bottom:var(--space-md); }
+    .of-btn-concluir {
+      display:inline-flex; align-items:center; justify-content:center; gap:6px;
+      padding:6px 14px; margin-top:auto;
+      font-size:.82rem; font-weight:700;
+      border-radius:var(--radius-md); border:1px solid var(--border);
+      background:var(--bg); color:var(--text-muted);
+      cursor:pointer; transition:all .2s ease; width:100%;
+    }
+    .of-btn-concluir:hover { border-color:rgba(26,138,90,.4); color:var(--verde); background:var(--verde-light); }
+    .of-btn-concluir.done { border-color:rgba(26,138,90,.4); background:var(--verde-bg); color:var(--verde); }
+    .of-btn-concluir.done:hover { border-color:rgba(192,57,43,.3); background:#FEF2F2; color:#B91C1C; }
+    .of-card.concluida { opacity:.72; }
+    @media (max-width:760px) {
+      .of-dashboard { grid-template-columns:1fr; text-align:center; }
+      .of-details { align-items:stretch; }
+      .of-grid { grid-template-columns:1fr; }
+    }
   </style>
 </head>
 <body>
@@ -208,64 +276,75 @@
       <hr class="block-separator">
 
       <!-- Oficinas -->
-      <div class="block-header">
-        <div class="block-icon oficinas">🛠️</div>
-        <div class="block-header-text">
-          <h2>Oficinas práticas</h2>
-          <p>12 atividades mão na massa — do NotebookLM à geração de imagens</p>
+      <div id="oficinas-section">
+        <div class="block-header">
+          <div class="block-icon oficinas">🛠️</div>
+          <div class="block-header-text">
+            <h2>Oficinas práticas</h2>
+            <p>12 atividades mão na massa — marque cada uma conforme for concluindo</p>
+          </div>
         </div>
-      </div>
 
-      <div class="oficinas-grid">
-        <a href="./oficinas/oficina-01-primeiro-contato.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">01</span>
-          <div class="oficina-body"><span class="oficina-name">Primeiro Contato com as Ferramentas</span><span class="oficina-tools-list">ChatGPT · Claude · Gemini · Grok</span></div>
-        </a>
-        <a href="./oficinas/oficina-02-notebooklm-fundamentos.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">02</span>
-          <div class="oficina-body"><span class="oficina-name">NotebookLM — Fundamentos</span><span class="oficina-tools-list">NotebookLM · Google</span></div>
-        </a>
-        <a href="./oficinas/oficina-03-relatorio-eventos.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">03</span>
-          <div class="oficina-body"><span class="oficina-name">Relatório de Eventos com IA</span><span class="oficina-tools-list">NotebookLM · ChatGPT · Canva</span></div>
-        </a>
-        <a href="./oficinas/oficina-04-notebooklm-videos.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">04</span>
-          <div class="oficina-body"><span class="oficina-name">Vídeos como Fontes no NotebookLM</span><span class="oficina-tools-list">NotebookLM · Gemini</span></div>
-        </a>
-        <a href="./oficinas/oficina-05-gemini-ferramentas.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">05</span>
-          <div class="oficina-body"><span class="oficina-name">Gemini com Workspace — Ferramentas</span><span class="oficina-tools-list">Gemini · Google Workspace</span></div>
-        </a>
-        <a href="./oficinas/oficina-06-gemini-canvas.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">06</span>
-          <div class="oficina-body"><span class="oficina-name">Gemini com Workspace — Canvas</span><span class="oficina-tools-list">Gemini · Canvas · NotebookLM</span></div>
-        </a>
-        <a href="./oficinas/oficina-07-gemini-integracoes.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">07</span>
-          <div class="oficina-body"><span class="oficina-name">Gemini com Workspace — Integrações</span><span class="oficina-tools-list">Gemini · Google Workspace</span></div>
-        </a>
-        <a href="./oficinas/oficina-08-gems-lgpd.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">08</span>
-          <div class="oficina-body"><span class="oficina-name">Criação de Gems — Especialista LGPD</span><span class="oficina-tools-list">Gemini · Gems · Imagen</span></div>
-        </a>
-        <a href="./oficinas/oficina-09-gems-agentes.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">09</span>
-          <div class="oficina-body"><span class="oficina-name">Criação de Gems — Agentes Inteligentes</span><span class="oficina-tools-list">Gemini · Grok · Whisk</span></div>
-        </a>
-        <a href="./oficinas/oficina-10-imagens-prompts.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">10</span>
-          <div class="oficina-body"><span class="oficina-name">Criação de Imagens com IA</span><span class="oficina-tools-list">DALL-E · Grok · Gemini · Whisk</span></div>
-        </a>
-        <a href="./oficinas/oficina-11-video-imagens.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">11</span>
-          <div class="oficina-body"><span class="oficina-name">Geração de Vídeos a partir de Imagens</span><span class="oficina-tools-list">Gemini · Kling · Grok</span></div>
-        </a>
-        <a href="./oficinas/oficina-12-restauracao-similares.html" class="oficina-index-card animate-on-scroll">
-          <span class="oficina-n">12</span>
-          <div class="oficina-body"><span class="oficina-name">Restauração e Fotos Similares</span><span class="oficina-tools-list">Gemini · Imagen</span></div>
-        </a>
-      </div>
+        <!-- Dashboard -->
+        <div class="of-dashboard">
+          <div class="of-ring-area">
+            <div class="of-ring-wrap">
+              <svg viewBox="0 0 120 120">
+                <circle class="of-ring-bg"   cx="60" cy="60" r="50"/>
+                <circle class="of-ring-fill"  cx="60" cy="60" r="50"
+                  id="ofRingFill" stroke-dasharray="314" stroke-dashoffset="314"/>
+              </svg>
+              <div class="of-ring-pct" id="ofRingPct">0%</div>
+            </div>
+            <div class="of-ring-label" id="ofRingLabel">0 de 12 concluídas</div>
+          </div>
+          <div class="of-details">
+            <div class="of-grupo-row"><div class="of-dot" style="background:#C8A45C"></div><span>Introdução</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-intro" style="background:#C8A45C"></div></div><span class="of-count" id="ofCnt-intro">0/1</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#4A90D9"></div><span>NotebookLM</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-notebook" style="background:#4A90D9"></div></div><span class="of-count" id="ofCnt-notebook">0/3</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#34A853"></div><span>Gemini Workspace</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-gemini" style="background:#34A853"></div></div><span class="of-count" id="ofCnt-gemini">0/3</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#AB47BC"></div><span>Gems</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-gems" style="background:#AB47BC"></div></div><span class="of-count" id="ofCnt-gems">0/2</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#E8710A"></div><span>Multimídia</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-multi" style="background:#E8710A"></div></div><span class="of-count" id="ofCnt-multi">0/3</span></div>
+          </div>
+        </div>
+
+        <!-- Tema: Introdução -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#C8A45C"></div><span>Introdução</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <a href="./oficinas/oficina-01-primeiro-contato.html" class="of-card-wrap"><div class="of-card" data-oficina="1" data-grupo="intro"><div class="of-num">01</div><div class="of-title">Primeiro Contato</div><div class="of-subtitle">Familiarização com as principais ferramentas de IA disponíveis</div><button class="of-btn-concluir" onclick="ofToggle(event,1)">☐ Marcar como concluída</button></div></a>
+        </div>
+
+        <!-- Tema: NotebookLM -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#4A90D9"></div><span>NotebookLM</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <a href="./oficinas/oficina-02-notebooklm-fundamentos.html" class="of-card-wrap"><div class="of-card" data-oficina="2" data-grupo="notebook"><div class="of-num">02</div><div class="of-title">NotebookLM — Fundamentos</div><div class="of-subtitle">Crie cadernos, carregue documentos e faça perguntas cruzadas entre múltiplas fontes</div><button class="of-btn-concluir" onclick="ofToggle(event,2)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-03-relatorio-eventos.html" class="of-card-wrap"><div class="of-card" data-oficina="3" data-grupo="notebook"><div class="of-num">03</div><div class="of-title">NotebookLM — Relatório de Eventos</div><div class="of-subtitle">De gravação de áudio a relatório institucional com NotebookLM e Estúdio</div><button class="of-btn-concluir" onclick="ofToggle(event,3)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-04-notebooklm-videos.html" class="of-card-wrap"><div class="of-card" data-oficina="4" data-grupo="notebook"><div class="of-num">04</div><div class="of-title">NotebookLM — Vídeos como Fontes</div><div class="of-subtitle">Do YouTube ao relatório de sessões plenárias e eventos institucionais</div><button class="of-btn-concluir" onclick="ofToggle(event,4)">☐ Marcar como concluída</button></div></a>
+        </div>
+
+        <!-- Tema: Gemini com Google Workspace -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#34A853"></div><span>Gemini com Google Workspace</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <a href="./oficinas/oficina-05-gemini-ferramentas.html" class="of-card-wrap"><div class="of-card" data-oficina="5" data-grupo="gemini"><div class="of-num">05</div><div class="of-title">Gemini nas Ferramentas do Google</div><div class="of-subtitle">Use o Gemini dentro do Planilhas, Documentos e Gmail para análise e redação</div><button class="of-btn-concluir" onclick="ofToggle(event,5)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-06-gemini-canvas.html" class="of-card-wrap"><div class="of-card" data-oficina="6" data-grupo="gemini"><div class="of-num">06</div><div class="of-title">Uso do Canvas no Gemini</div><div class="of-subtitle">Gere e transforme textos, crie páginas web e infográficos, exporte para Docs</div><button class="of-btn-concluir" onclick="ofToggle(event,6)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-07-gemini-integracoes.html" class="of-card-wrap"><div class="of-card" data-oficina="7" data-grupo="gemini"><div class="of-num">07</div><div class="of-title">Integrações do Gemini com o Workspace</div><div class="of-subtitle">Conecte Gmail, Agenda e Drive ao chat e configure ações automatizadas recorrentes</div><button class="of-btn-concluir" onclick="ofToggle(event,7)">☐ Marcar como concluída</button></div></a>
+        </div>
+
+        <!-- Tema: Criação de Gems -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#AB47BC"></div><span>Criação de Gems</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <a href="./oficinas/oficina-08-gems-lgpd.html" class="of-card-wrap"><div class="of-card" data-oficina="8" data-grupo="gems"><div class="of-num">08</div><div class="of-title">Especialista em LGPD</div><div class="of-subtitle">Crie um Gem alimentado por documentos oficiais de LGPD para orientar servidores</div><button class="of-btn-concluir" onclick="ofToggle(event,8)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-09-gems-agentes.html" class="of-card-wrap"><div class="of-card" data-oficina="9" data-grupo="gems"><div class="of-num">09</div><div class="of-title">Orquestrador de Agentes</div><div class="of-subtitle">Gem que gerencia agentes cooperativos para resolver problemas complexos</div><button class="of-btn-concluir" onclick="ofToggle(event,9)">☐ Marcar como concluída</button></div></a>
+        </div>
+
+        <!-- Tema: Multimídia com IA -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#E8710A"></div><span>Multimídia com IA</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <a href="./oficinas/oficina-10-imagens-prompts.html" class="of-card-wrap"><div class="of-card" data-oficina="10" data-grupo="multi"><div class="of-num">10</div><div class="of-title">Imagens com IA</div><div class="of-subtitle">Crie imagens profissionais com prompts descritivos no Gemini, Grok e Whisk</div><button class="of-btn-concluir" onclick="ofToggle(event,10)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-11-video-imagens.html" class="of-card-wrap"><div class="of-card" data-oficina="11" data-grupo="multi"><div class="of-num">11</div><div class="of-title">Vídeos a partir de Imagens</div><div class="of-subtitle">Transforme imagens estáticas em vídeos animados explorando técnicas de movimento</div><button class="of-btn-concluir" onclick="ofToggle(event,11)">☐ Marcar como concluída</button></div></a>
+          <a href="./oficinas/oficina-12-restauracao-similares.html" class="of-card-wrap"><div class="of-card" data-oficina="12" data-grupo="multi"><div class="of-num">12</div><div class="of-title">Restauração de Fotos Antigas</div><div class="of-subtitle">Restaure fotografias danificadas e gere variações de fotos existentes com IA visual</div><button class="of-btn-concluir" onclick="ofToggle(event,12)">☐ Marcar como concluída</button></div></a>
+        </div>
+
+      </div><!-- /oficinas-section -->
 
     </div>
   </main>
@@ -273,6 +352,113 @@
   <div id="footer-placeholder"></div>
   <script src="../js/auth.js"></script>
   <script src="./js/utils.js"></script>
-  <script src="./js/main.js"></script>
+  <script src="./js/main.js">
+    // ═══ OFICINAS — progresso ══════════════════════════════════════════
+    (function() {
+      const TOTAL = 12;
+      const STORAGE_KEY = 'trern-oficinas-concluidas'; // mesma chave da oficinas.html
+      const GRUPOS = {
+        intro:    { total: 1,  bar: 'ofBar-intro',    cnt: 'ofCnt-intro' },
+        notebook: { total: 3,  bar: 'ofBar-notebook', cnt: 'ofCnt-notebook' },
+        gemini:   { total: 3,  bar: 'ofBar-gemini',   cnt: 'ofCnt-gemini' },
+        gems:     { total: 2,  bar: 'ofBar-gems',     cnt: 'ofCnt-gems' },
+        multi:    { total: 3,  bar: 'ofBar-multi',    cnt: 'ofCnt-multi' },
+      };
+
+      function getState() {
+        try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+        catch { return []; }
+      }
+      function saveState(arr) { localStorage.setItem(STORAGE_KEY, JSON.stringify(arr)); }
+
+      window.ofToggle = function(e, num) {
+        e.preventDefault(); e.stopPropagation();
+        const state = getState();
+        const idx = state.indexOf(num);
+        if (idx === -1) state.push(num); else state.splice(idx, 1);
+        saveState(state);
+        renderOf();
+        if (window.App && App.updateProgressBadge) App.updateProgressBadge();
+      };
+
+      function renderOf() {
+        const state = getState();
+        const done  = state.length;
+        const pct   = Math.round(done / TOTAL * 100);
+        const circ  = 2 * Math.PI * 50; // r=50 → ~314
+
+        document.getElementById('ofRingFill').style.strokeDashoffset = circ - (circ * pct / 100);
+        document.getElementById('ofRingPct').textContent  = pct + '%';
+        document.getElementById('ofRingLabel').textContent = done + ' de ' + TOTAL + ' concluídas';
+
+        const grupoCounts = {};
+        Object.keys(GRUPOS).forEach(g => grupoCounts[g] = 0);
+
+        document.querySelectorAll('[data-oficina]').forEach(card => {
+          const num   = parseInt(card.dataset.oficina);
+          const grupo = card.dataset.grupo;
+          const isDone = state.includes(num);
+          const btn  = card.querySelector('.of-btn-concluir');
+
+          card.classList.toggle('concluida', isDone);
+          btn.classList.toggle('done', isDone);
+          btn.textContent = isDone ? '✓ Concluída' : '☐ Marcar como concluída';
+          if (isDone && grupo) grupoCounts[grupo]++;
+        });
+
+        Object.keys(GRUPOS).forEach(g => {
+          const { total, bar, cnt } = GRUPOS[g];
+          const c = grupoCounts[g] || 0;
+          document.getElementById(bar).style.width = Math.round(c / total * 100) + '%';
+          document.getElementById(cnt).textContent  = c + '/' + total;
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', renderOf);
+    })();
+  
+    // ═══ Oficinas — progresso ═══════════════════════════════════════════
+    (function() {
+      const TOTAL = 12;
+      const STORAGE_KEY = 'trern-oficinas-concluidas';
+      const GRUPOS = {
+        intro:    { total:1, bar:'ofBar-intro',    cnt:'ofCnt-intro' },
+        notebook: { total:3, bar:'ofBar-notebook', cnt:'ofCnt-notebook' },
+        gemini:   { total:3, bar:'ofBar-gemini',   cnt:'ofCnt-gemini' },
+        gems:     { total:2, bar:'ofBar-gems',     cnt:'ofCnt-gems' },
+        multi:    { total:3, bar:'ofBar-multi',    cnt:'ofCnt-multi' },
+      };
+      function getState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; } catch{return[];} }
+      function saveState(a) { localStorage.setItem(STORAGE_KEY,JSON.stringify(a)); }
+      window.ofToggle = function(e,num) {
+        e.preventDefault(); e.stopPropagation();
+        const s=getState(), i=s.indexOf(num);
+        if(i===-1) s.push(num); else s.splice(i,1);
+        saveState(s); renderOf();
+        if(window.App&&App.updateProgressBadge) App.updateProgressBadge();
+      };
+      function renderOf() {
+        const s=getState(), done=s.length, pct=Math.round(done/TOTAL*100), circ=314;
+        const rf=document.getElementById('ofRingFill');
+        if(rf) rf.style.strokeDashoffset=circ-(circ*pct/100);
+        const rp=document.getElementById('ofRingPct'); if(rp) rp.textContent=pct+'%';
+        const rl=document.getElementById('ofRingLabel'); if(rl) rl.textContent=done+' de '+TOTAL+' concluídas';
+        const gc={};Object.keys(GRUPOS).forEach(g=>gc[g]=0);
+        document.querySelectorAll('[data-oficina]').forEach(card=>{
+          const num=parseInt(card.dataset.oficina),grupo=card.dataset.grupo,isDone=s.includes(num);
+          const btn=card.querySelector('.of-btn-concluir');
+          card.classList.toggle('concluida',isDone);
+          if(btn){btn.classList.toggle('done',isDone);btn.textContent=isDone?'✓ Concluída':'☐ Marcar como concluída';}
+          if(isDone&&grupo) gc[grupo]++;
+        });
+        Object.keys(GRUPOS).forEach(g=>{
+          const{total,bar,cnt}=GRUPOS[g],c=gc[g]||0;
+          const b=document.getElementById(bar); if(b) b.style.width=Math.round(c/total*100)+'%';
+          const n=document.getElementById(cnt); if(n) n.textContent=c+'/'+total;
+        });
+      }
+      document.addEventListener('DOMContentLoaded', renderOf);
+    })();
+  </script>
 </body>
 </html>
