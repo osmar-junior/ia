@@ -7,55 +7,12 @@
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
   <style>
-    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
-
-    /* ─── Sidebar ─── */
-    .sidebar { width: 260px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
-    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
-    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
-    .sb-label:first-child { margin-top: 0; }
-    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
-    .sb-module { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-module.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-topics { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
-    .sb-topics.open { max-height: 500px; }
-    .sb-topic { display: flex; align-items: flex-start; gap: 5px; padding: 6px var(--space-md) 6px calc(var(--space-md) + 16px); font-size: 0.83rem; color: var(--text-muted); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-topic::before { content: '↳'; font-size: 0.72rem; margin-top: 2px; flex-shrink: 0; opacity: 0.55; }
-    .sb-topic:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.35); }
-    .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-oficina { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
-    .sb-oficina:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
-    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
-    .sb-footer a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
-    .sb-footer a:hover { color: var(--azul-medio); }
-
-    .main-content { flex: 1; min-width: 0; background: var(--bg); }
-
-    /* ─── Hero compacto ─── */
-    .page-hero-compact { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 100%); padding: var(--space-2xl) var(--space-2xl) var(--space-xl); }
-    .topic-eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: var(--space-sm); }
-    .page-hero-compact h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.2; }
-    .page-hero-compact p { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 580px; }
-
-    /* ─── Breadcrumb ─── */
-    .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
-    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .breadcrumb .sep { color: var(--border-hover); }
-    .breadcrumb .current { color: var(--text); font-weight: 500; }
-
-    .page-body { padding: var(--space-2xl); }
-    .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
-    .content-section:last-of-type { border-bottom: none; }
-    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--azul-medio); font-size: 1.2rem; }
-
-    /* ─── Animação de tokens ─── */
     .token-anim-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-lg) 0; }
-    .token-anim-frase { font-size: 1.1rem; color: var(--text); font-weight: 600; margin-bottom: var(--space-md); min-height: 1.8em; letter-spacing: 0.01em; }
+    .token-anim-frase { font-size: 1.1rem; color: var(--text); font-weight: 600; margin-bottom: var(--space-md); min-height: 1.8em; }
     .token-anim-chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 38px; margin-bottom: var(--space-md); }
-    .token-chip-anim { padding: 5px 13px; border-radius: 6px; font-size: 0.93rem; font-weight: 600; opacity: 0; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; cursor: default; }
+    .token-chip-anim { padding: 5px 13px; border-radius: 6px; font-size: 0.93rem; font-weight: 600; opacity: 0; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; }
     .token-chip-anim.visible { opacity: 1; transform: translateY(0); }
     .token-chip-anim.color-gold   { background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); }
     .token-chip-anim.color-blue   { background: var(--azul-light); color: var(--azul-medio); border: 1px solid rgba(46,92,154,0.25); }
@@ -65,38 +22,17 @@
     .token-anim-count { font-size: 0.95rem; color: var(--text-muted); opacity: 0; transition: opacity 0.4s ease; }
     .token-anim-count.visible { opacity: 1; }
     .token-anim-count strong { color: var(--dourado); }
-    .token-anim-btn { padding: 7px 18px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); cursor: pointer; transition: all var(--transition-fast); font-family: var(--font-body); letter-spacing: 0.04em; }
+    .token-anim-btn { padding: 7px 18px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); cursor: pointer; transition: all var(--transition-fast); font-family: var(--font-body); }
     .token-anim-btn:hover { background: rgba(200,164,92,0.25); border-color: rgba(200,164,92,0.5); }
     .token-anim-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--border-light); }
     .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
     .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-
-    /* ─── Navegação entre tópicos ─── */
-    .topic-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl); }
-    .topic-nav a { text-decoration: none; }
-
-    /* ─── Mobile ─── */
-    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
-
-    @media (max-width: 960px) {
-      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
-      .sidebar.open { left: 0; }
-      .sidebar-overlay.open { display: block; }
-      .sidebar-toggle { display: flex; }
-      .page-hero-compact { padding: var(--space-xl) var(--space-md) var(--space-lg); }
-      .page-hero-compact h1 { font-size: 1.6rem; }
-      .breadcrumb { padding: 8px var(--space-md); }
-      .page-body { padding: var(--space-lg) var(--space-md); }
-    }
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-
   <div class="layout">
 
-    <!-- ══ SIDEBAR ══ -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
         <div class="sb-label">📚 Módulos</div>
@@ -118,9 +54,7 @@
         <div class="sb-label">🛠️ Oficinas</div>
         <a href="../../oficinas.html" class="sb-oficina">📋 Ver todas as oficinas</a>
       </div>
-      <div class="sb-footer">
-        <a href="../../index.html">↩ Início do curso</a>
-      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
     </aside>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -128,34 +62,47 @@
     <main class="main-content">
 
       <section class="page-hero-compact">
-        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 01</div>
+        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 01 de 03</div>
         <h1>Tokens e Janela de Contexto</h1>
-        <p>Entenda as unidades de processamento dos modelos e como funcionam os limites de memória das conversas.</p>
+        <p>Entenda as unidades de processamento dos modelos e como os limites de memória afetam suas conversas.</p>
       </section>
 
-      <nav class="breadcrumb" aria-label="Navegação estrutural">
-        <a href="../../index.html">Início</a>
-        <span class="sep">›</span>
-        <a href="../">Módulos</a>
-        <span class="sep">›</span>
-        <a href="../como-funciona/">Como a IA Funciona</a>
-        <span class="sep">›</span>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../como-funciona/">Como a IA Funciona</a><span class="sep">›</span>
         <span class="current">Tokens e Janela de Contexto</span>
       </nav>
 
       <div class="page-body">
-        <div class="content-section">
 
+        <!-- 1. Introdução -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>Introdução</h2>
+          </div>
+          <p>Para usar bem as ferramentas de IA, não é necessário entender os detalhes matemáticos por trás dos modelos — mas entender como eles <em>processam e limitam o texto</em> faz uma diferença prática real. Quando você sabe o que é um token e o que é a janela de contexto, passa a entender por que a IA às vezes "esquece" o início de uma conversa longa, por que documentos muito grandes precisam ser fragmentados e como os custos são calculados nas plataformas pagas.</p>
+          <p>Este tópico cobre o conceito de token, ilustra a tokenização com um exemplo interativo em português jurídico, explica a janela de contexto e apresenta uma referência prática de tamanhos para o dia a dia no TRE-RN.</p>
+        </div>
+
+        <!-- 2. O que são tokens -->
+        <div class="topic-section">
+          <div class="section-heading" id="o-que-sao-tokens">
+            <span class="section-num">2</span>
+            <h2>O que são tokens</h2>
+          </div>
           <p><strong>Tokens</strong> são as unidades básicas de processamento dos modelos de IA. Antes de processar qualquer texto, o modelo o "quebra" em pequenas partes — os tokens — que podem ser palavras inteiras, partes de palavras, pontuações ou espaços.</p>
 
           <div class="callout callout-info">
-            <div class="callout-title">💡 Analogia: Tokens são como peças de um quebra-cabeça</div>
-            <p>Imagine que o modelo de IA precisa montar um quebra-cabeça para entender seu texto. Cada token é uma peça desse quebra-cabeça. Textos maiores = mais peças = mais esforço para processar. É por isso que existem limites.</p>
+            <div class="callout-title">💡 Analogia: tokens são como peças de um quebra-cabeça</div>
+            <p>Imagine que o modelo precisa montar um quebra-cabeça para entender seu texto. Cada token é uma peça. Textos maiores = mais peças = mais esforço para processar. É por isso que existem limites.</p>
           </div>
 
           <p><strong>Regra prática:</strong> 1 token ≈ 0,75 palavras em português (aproximadamente 4 caracteres).</p>
 
-          <h3>Exemplo prático de tokenização</h3>
+          <h3>Exemplo interativo de tokenização</h3>
+          <p>Veja como um trecho em português jurídico é fragmentado em tokens pelo modelo:</p>
 
           <div class="token-anim-wrap">
             <div class="token-anim-frase" id="tokenFrase"></div>
@@ -171,15 +118,29 @@
               <span class="legend-item"><span class="legend-dot" style="background:var(--roxo);"></span>Subpalavra interna</span>
             </div>
           </div>
+        </div>
 
-          <h3>Por que isso importa na prática?</h3>
+        <!-- 3. Por que isso importa -->
+        <div class="topic-section">
+          <div class="section-heading" id="por-que-importa">
+            <span class="section-num">3</span>
+            <h2>Por que isso importa na prática</h2>
+          </div>
+          <p>Conhecer o conceito de token tem três implicações diretas no uso profissional:</p>
           <ul>
             <li><strong>Limita o tamanho de documentos</strong> que podem ser analisados de uma vez — se seu documento excede a janela de contexto, a IA não conseguirá processá-lo inteiro.</li>
-            <li><strong>Afeta o custo</strong> em plataformas pagas — a cobrança é feita por token consumido (envio + resposta).</li>
+            <li><strong>Afeta o custo</strong> em plataformas pagas — a cobrança é feita por token consumido, somando envio e resposta.</li>
             <li><strong>Determina a "memória" da IA</strong> — a janela de contexto define o quanto a IA consegue "lembrar" durante a conversa. Em conversas longas, ela começa a "esquecer" o início.</li>
           </ul>
+        </div>
 
-          <h3>Referência de tamanhos</h3>
+        <!-- 4. Referência de tamanhos -->
+        <div class="topic-section">
+          <div class="section-heading" id="referencia">
+            <span class="section-num">4</span>
+            <h2>Referência de tamanhos</h2>
+          </div>
+          <p>A tabela abaixo ajuda a dimensionar documentos reais em relação aos limites dos principais modelos em 2026:</p>
           <div class="table-wrapper">
             <table class="table">
               <thead><tr><th>Tipo de conteúdo</th><th>Tokens (aprox.)</th></tr></thead>
@@ -192,20 +153,19 @@
               </tbody>
             </table>
           </div>
-
           <h3>Ferramentas para contagem de tokens</h3>
           <ul>
             <li><a href="https://platform.openai.com/tokenizer" target="_blank">OpenAI Tokenizer</a> — tokenizador oficial da OpenAI</li>
             <li><a href="https://www.prompttokencounter.com" target="_blank">Prompt Token Counter</a> — contador online simples</li>
             <li><a href="https://vcalazans.dev/tools/token-calculator" target="_blank">Token Calculator</a> — calculadora com estimativas de custo</li>
           </ul>
-
         </div>
 
         <div class="topic-nav">
           <a href="../como-funciona/" class="btn btn-secondary">↩ Voltar ao módulo</a>
           <a href="./cuidados.html" class="btn btn-primary">Próximo: Cuidados e Limitações →</a>
         </div>
+
       </div>
     </main>
   </div>
@@ -221,7 +181,6 @@
     function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
 
-    /* ─── Animação de tokens ─── */
     const FRASE = 'O requerente solicita a expedição de certidão eleitoral';
     const TOKENS = [
       { text: 'O',      color: 'color-gold'   },
@@ -240,11 +199,10 @@
       { text: 'al',     color: 'color-green'  },
     ];
     let animRunning = false;
-    (function initFrase() { document.getElementById('tokenFrase').textContent = '"' + FRASE + '"'; })();
+    document.getElementById('tokenFrase').textContent = '"' + FRASE + '"';
 
     async function tokenAnimStart() {
-      if (animRunning) return;
-      animRunning = true;
+      if (animRunning) return; animRunning = true;
       const btn = document.getElementById('tokenBtn');
       const fraseEl = document.getElementById('tokenFrase');
       const chipsEl = document.getElementById('tokenChips');
@@ -252,10 +210,9 @@
       btn.disabled = true; btn.textContent = '⏳ Tokenizando…';
       chipsEl.innerHTML = ''; countEl.innerHTML = ''; countEl.classList.remove('visible');
       fraseEl.innerHTML = '"';
-      const chars = FRASE.split('');
-      for (let i = 0; i < chars.length; i++) {
+      for (let i = 0; i < FRASE.length; i++) {
         await sleep(28);
-        fraseEl.innerHTML = '"' + FRASE.slice(0, i + 1) + (i < chars.length - 1 ? '<span style="opacity:0.4">|</span>' : '') + '"';
+        fraseEl.innerHTML = '"' + FRASE.slice(0, i+1) + (i < FRASE.length-1 ? '<span style="opacity:0.4">|</span>' : '') + '"';
       }
       fraseEl.innerHTML = '"' + FRASE + '"';
       await sleep(400);

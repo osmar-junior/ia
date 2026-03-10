@@ -7,80 +7,12 @@
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
-  <style>
-    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
-    .sidebar { width: 260px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
-    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
-    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
-    .sb-label:first-child { margin-top: 0; }
-    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
-    .sb-module { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-module.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-topics { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
-    .sb-topics.open { max-height: 500px; }
-    .sb-topic { display: flex; align-items: flex-start; gap: 5px; padding: 6px var(--space-md) 6px calc(var(--space-md) + 16px); font-size: 0.83rem; color: var(--text-muted); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-topic::before { content: '↳'; font-size: 0.72rem; margin-top: 2px; flex-shrink: 0; opacity: 0.55; }
-    .sb-topic:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.35); }
-    .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-oficina { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
-    .sb-oficina:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
-    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
-    .sb-footer a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
-    .sb-footer a:hover { color: var(--azul-medio); }
-
-    .main-content { flex: 1; min-width: 0; background: var(--bg); }
-
-    .page-hero-compact { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 100%); padding: var(--space-2xl) var(--space-2xl) var(--space-xl); }
-    .topic-eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: var(--space-sm); }
-    .page-hero-compact h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.2; }
-    .page-hero-compact p { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 580px; }
-
-    .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
-    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
-    .breadcrumb a:hover { text-decoration: underline; }
-    .breadcrumb .sep { color: var(--border-hover); }
-    .breadcrumb .current { color: var(--text); font-weight: 500; }
-
-    .page-body { padding: var(--space-2xl); }
-    .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
-    .content-section:last-of-type { border-bottom: none; }
-    .content-section h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg); }
-    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--azul-medio); font-size: 1.2rem; }
-
-    .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-md); margin: var(--space-xl) 0; }
-    .config-card { background: var(--bg-elevated); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--space-lg); transition: all var(--transition-base); }
-    .config-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-glow); }
-    .config-icon { font-size: 1.6rem; margin-bottom: var(--space-sm); }
-    .config-card h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
-    .config-card p { font-size: 0.93rem; }
-    .config-how { margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--border-light); font-size: 0.88rem; color: var(--text-muted); }
-    .config-how strong { color: var(--dourado); }
-
-    .topic-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl); }
-
-    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
-
-    @media (max-width: 960px) {
-      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
-      .sidebar.open { left: 0; }
-      .sidebar-overlay.open { display: block; }
-      .sidebar-toggle { display: flex; }
-      .page-hero-compact { padding: var(--space-xl) var(--space-md) var(--space-lg); }
-      .page-hero-compact h1 { font-size: 1.6rem; }
-      .breadcrumb { padding: 8px var(--space-md); }
-      .page-body { padding: var(--space-lg) var(--space-md); }
-      .config-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <link rel="stylesheet" href="../../css/topic.css">
 </head>
 <body>
   <div id="header-placeholder"></div>
-
   <div class="layout">
 
-    <!-- ══ SIDEBAR ══ -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
         <div class="sb-label">📚 Módulos</div>
@@ -102,9 +34,7 @@
         <div class="sb-label">🛠️ Oficinas</div>
         <a href="../../oficinas.html" class="sb-oficina">📋 Ver todas as oficinas</a>
       </div>
-      <div class="sb-footer">
-        <a href="../../index.html">↩ Início do curso</a>
-      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
     </aside>
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
@@ -112,60 +42,75 @@
     <main class="main-content">
 
       <section class="page-hero-compact">
-        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 03</div>
+        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 03 de 03</div>
         <h1>Personalização de Ferramentas</h1>
         <p>Configure estilo, contexto profissional e instruções permanentes para que as ferramentas respondam do jeito certo desde o início.</p>
       </section>
 
-      <nav class="breadcrumb" aria-label="Navegação estrutural">
-        <a href="../../index.html">Início</a>
-        <span class="sep">›</span>
-        <a href="../">Módulos</a>
-        <span class="sep">›</span>
-        <a href="../como-funciona/">Como a IA Funciona</a>
-        <span class="sep">›</span>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../como-funciona/">Como a IA Funciona</a><span class="sep">›</span>
         <span class="current">Personalização de Ferramentas</span>
       </nav>
 
       <div class="page-body">
 
-        <div class="content-section">
+        <!-- 1. Introdução -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>Introdução</h2>
+          </div>
+          <p>Antes de começar a usar as ferramentas de IA no trabalho, vale investir alguns minutos para configurá-las. A maioria das ferramentas populares permite que você defina preferências de estilo, forneça contexto sobre seu perfil profissional e estabeleça instruções que valem para todas as conversas futuras.</p>
+          <p>Essa configuração é feita uma única vez e melhora significativamente a qualidade das respostas — sem precisar repetir as mesmas instruções a cada nova conversa.</p>
+        </div>
 
-          <p>Antes de começar a usar as ferramentas de IA no trabalho, vale investir alguns minutos para configurá-las. Uma boa configuração inicial melhora significativamente a qualidade das respostas e evita que você precise repetir instruções a cada conversa.</p>
-
-          <h2>O que é possível personalizar?</h2>
+        <!-- 2. O que é possível personalizar -->
+        <div class="topic-section">
+          <div class="section-heading" id="o-que-personalizar">
+            <span class="section-num">2</span>
+            <h2>O que é possível personalizar</h2>
+          </div>
+          <p>As principais ferramentas oferecem quatro dimensões de personalização:</p>
           <div class="config-grid">
             <div class="config-card">
               <div class="config-icon">🎭</div>
-              <h4>Estilo e Tom de Resposta</h4>
+              <h4>Estilo e tom de resposta</h4>
               <p>Defina como a IA deve se comunicar com você — formal, técnico, direto, didático. Isso afeta todas as conversas futuras.</p>
               <div class="config-how"><strong>Disponível em:</strong> ChatGPT (Configurações › Personalização), Claude (Preferências de Estilo), Gemini (Preferências)</div>
             </div>
             <div class="config-card">
               <div class="config-icon">💼</div>
-              <h4>Contexto Profissional</h4>
+              <h4>Contexto profissional</h4>
               <p>Informe sua ocupação, área de atuação e tipo de demandas. A IA ajustará o nível técnico e o vocabulário automaticamente.</p>
-              <div class="config-how"><strong>Exemplo:</strong> "Sou servidor público federal no TRE-RN, atuo na área de Coordenação de Sistemas na Secretaria de TI."</div>
+              <div class="config-how"><strong>Exemplo:</strong> "Sou servidor público federal no TRE-RN, atuo na Coordenação de Sistemas da Secretaria de TI."</div>
             </div>
             <div class="config-card">
               <div class="config-icon">📋</div>
-              <h4>Instruções Permanentes</h4>
+              <h4>Instruções permanentes</h4>
               <p>Estabeleça regras que a IA deve seguir sempre — citar fontes, evitar respostas genéricas, usar linguagem institucional.</p>
               <div class="config-how"><strong>Exemplo:</strong> "Cite fontes sempre que possível. Se não houver fonte confiável, informe. Priorize clareza e objetividade."</div>
             </div>
             <div class="config-card">
               <div class="config-icon">🔒</div>
-              <h4>Privacidade e Treinamento</h4>
-              <p>Desative a opção de usar suas conversas para treinar os modelos. Isso é especialmente importante para uso institucional.</p>
+              <h4>Privacidade e treinamento</h4>
+              <p>Desative a opção de usar suas conversas para treinar os modelos. Especialmente importante para uso institucional.</p>
               <div class="config-how"><strong>ChatGPT:</strong> Configurações › Controlar dados › Desativar "Melhorar o modelo para todo mundo"</div>
             </div>
           </div>
+        </div>
 
-          <h3>Modelo de instruções personalizadas</h3>
-          <p>Abaixo, um modelo que você pode copiar e adaptar para configurar suas ferramentas. Ele foi pensado para o contexto de servidor do TRE-RN:</p>
+        <!-- 3. Modelo de instruções -->
+        <div class="topic-section">
+          <div class="section-heading" id="modelo-instrucoes">
+            <span class="section-num">3</span>
+            <h2>Modelo de instruções personalizadas</h2>
+          </div>
+          <p>O bloco abaixo é um modelo de instruções personalizadas pensado para o contexto de servidor do TRE-RN. Copie, adapte ao seu estilo e cole na área de personalização da ferramenta que você usa.</p>
 
-          <div class="callout callout-info" style="position: relative;">
-            <div class="callout-title">📋 Instruções personalizadas (modelo para copiar)</div>
+          <div class="callout callout-info">
+            <div class="callout-title">📋 Instruções personalizadas — modelo para copiar</div>
             <div class="code-block" id="instrucoes-modelo">- Responda com sinceridade e objetividade, usando, quando couber, um toque de ironia inteligente, como um colega experiente.
 - Gere respostas elaboradas, ricas em detalhes e com exemplos práticos, fazendo conexões criativas entre ideias.
 - Manifeste sua opinião sempre que achar que pode contribuir com a conversa.
@@ -174,31 +119,39 @@
 - Apresente seu raciocínio de forma clara, citando fontes sempre que possível.
 - Priorize clareza e objetividade.
 - Use um tom encorajador e profissional.</div>
-            <button class="btn btn-sm btn-secondary" style="margin-top: var(--space-md);" onclick="Utils.copyToClipboard(document.getElementById('instrucoes-modelo').textContent).then(()=>Utils.showToast('Copiado!','success'))">Copiar instruções</button>
+            <button class="btn-copy" onclick="copyBlock('instrucoes-modelo', this)">📋 Copiar instruções</button>
           </div>
+        </div>
 
-          <h3>Modelo de contexto profissional</h3>
-          <div class="callout callout-info" style="position: relative;">
-            <div class="callout-title">📋 Ocupação e perfil (modelo para copiar)</div>
+        <!-- 4. Modelo de contexto profissional -->
+        <div class="topic-section">
+          <div class="section-heading" id="modelo-perfil">
+            <span class="section-num">4</span>
+            <h2>Modelo de contexto profissional</h2>
+          </div>
+          <p>O bloco abaixo é um modelo de perfil profissional para o campo "Sobre você" ou "Ocupação" das ferramentas. Substitua os campos entre colchetes pelas suas informações reais.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">📋 Ocupação e perfil — modelo para copiar</div>
             <div class="code-block" id="ocupacao-modelo">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
 - Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
 - Atuo principalmente com [descreva suas atividades principais].
 - Minhas demandas exigem profundidade, contexto e praticidade.
 - Prefiro conversas construtivas que equilibrem técnica, clareza e criatividade.</div>
-            <button class="btn btn-sm btn-secondary" style="margin-top: var(--space-md);" onclick="Utils.copyToClipboard(document.getElementById('ocupacao-modelo').textContent).then(()=>Utils.showToast('Copiado!','success'))">Copiar perfil</button>
+            <button class="btn-copy" onclick="copyBlock('ocupacao-modelo', this)">📋 Copiar perfil</button>
           </div>
 
           <div class="callout callout-warning" style="margin-top: var(--space-xl);">
             <div class="callout-title">⚠️ Atenção ao configurar</div>
-            <p>Não inclua informações sigilosas ou institucionais sensíveis na configuração do perfil. Limite-se a dados sobre sua função, área de atuação e preferências de comunicação — informações que seriam públicas em um crachá funcional.</p>
+            <p>Não inclua informações sigilosas ou institucionais sensíveis na configuração do perfil. Limite-se a dados sobre sua função, área de atuação e preferências de comunicação — informações equivalentes ao que estaria em um crachá funcional.</p>
           </div>
-
         </div>
 
         <div class="topic-nav">
           <a href="./cuidados.html" class="btn btn-secondary">← Anterior: Cuidados e Limitações</a>
-          <a href="../como-funciona/" class="btn btn-secondary">↩ Voltar ao módulo</a>
+          <a href="../../regulamentacao.html" class="btn btn-primary">Próximo módulo: Regulamentação →</a>
         </div>
+
       </div>
     </main>
   </div>
@@ -213,6 +166,23 @@
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
     function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+    function copyBlock(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = '✅ Copiado!';
+        btn.style.background = 'var(--verde)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--verde)';
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2000);
+      });
+    }
   </script>
 </body>
 </html>
