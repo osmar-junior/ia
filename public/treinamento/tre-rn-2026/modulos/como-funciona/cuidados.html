@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuidados e Limitações — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <style>
+    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
+    .sidebar { width: 260px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
+    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
+    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
+    .sb-label:first-child { margin-top: 0; }
+    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
+    .sb-module { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-module.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-topics { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
+    .sb-topics.open { max-height: 500px; }
+    .sb-topic { display: flex; align-items: flex-start; gap: 5px; padding: 6px var(--space-md) 6px calc(var(--space-md) + 16px); font-size: 0.83rem; color: var(--text-muted); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-topic::before { content: '↳'; font-size: 0.72rem; margin-top: 2px; flex-shrink: 0; opacity: 0.55; }
+    .sb-topic:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.35); }
+    .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-oficina { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
+    .sb-oficina:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
+    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
+    .sb-footer a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
+    .sb-footer a:hover { color: var(--azul-medio); }
+
+    .main-content { flex: 1; min-width: 0; background: var(--bg); }
+
+    .page-hero-compact { background: linear-gradient(135deg, var(--azul) 0%, var(--azul-medio) 100%); padding: var(--space-2xl) var(--space-2xl) var(--space-xl); }
+    .topic-eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: var(--space-sm); }
+    .page-hero-compact h1 { font-family: var(--font-display); font-size: 2rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.2; }
+    .page-hero-compact p { font-size: 1rem; color: rgba(255,255,255,0.8); line-height: 1.6; max-width: 580px; }
+
+    .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: var(--border-hover); }
+    .breadcrumb .current { color: var(--text); font-weight: 500; }
+
+    .page-body { padding: var(--space-2xl); }
+    .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
+    .content-section:last-of-type { border-bottom: none; }
+    .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--azul-medio); font-size: 1.2rem; }
+
+    .topic-nav { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); padding: var(--space-xl) 0; border-top: 1px solid var(--border-light); margin-top: var(--space-xl); }
+
+    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
+
+    @media (max-width: 960px) {
+      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
+      .sidebar.open { left: 0; }
+      .sidebar-overlay.open { display: block; }
+      .sidebar-toggle { display: flex; }
+      .page-hero-compact { padding: var(--space-xl) var(--space-md) var(--space-lg); }
+      .page-hero-compact h1 { font-size: 1.6rem; }
+      .breadcrumb { padding: 8px var(--space-md); }
+      .page-body { padding: var(--space-lg) var(--space-md); }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics open">
+          <a href="./tokens.html" class="sb-topic">Tokens e Janela de Contexto</a>
+          <a href="./cuidados.html" class="sb-topic active">Cuidados e Limitações</a>
+          <a href="./personalizacao.html" class="sb-topic">Personalização de Ferramentas</a>
+        </div>
+        <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../../engenharia-de-prompts.html" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+        <a href="../../gerador-de-prompts.html" class="sb-module">⚡ Gerador de Prompts</a>
+        <div class="sb-topics"></div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../oficinas.html" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer">
+        <a href="../../index.html">↩ Início do curso</a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 02</div>
+        <h1>Cuidados e Limitações da IA Generativa</h1>
+        <p>Alucinações, vieses e riscos à confidencialidade — o que você precisa saber antes de usar IA em contexto institucional.</p>
+      </section>
+
+      <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="../../index.html">Início</a>
+        <span class="sep">›</span>
+        <a href="../">Módulos</a>
+        <span class="sep">›</span>
+        <a href="../como-funciona/">Como a IA Funciona</a>
+        <span class="sep">›</span>
+        <span class="current">Cuidados e Limitações</span>
+      </nav>
+
+      <div class="page-body">
+        <div class="content-section">
+
+          <p>Antes de começar a utilizar IA no seu dia a dia, é fundamental compreender o que ela <strong>não</strong> faz bem e os riscos envolvidos. A IA é uma ferramenta poderosa, mas não é infalível.</p>
+
+          <h3>Alucinações</h3>
+          <p>O termo "alucinação" descreve quando a IA gera informações <strong>falsas ou inventadas com aparência convincente</strong>. Ela pode citar leis que não existem, inventar jurisprudência, ou apresentar dados fabricados — tudo com um tom confiante que dificulta a percepção do erro.</p>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real nos EUA</div>
+            <p>Em 2023, um advogado nos Estados Unidos utilizou o ChatGPT para pesquisar jurisprudência e incluiu em sua petição seis casos judiciais completamente fictícios, com nomes de partes, números de processos e ementas inventadas pela IA. O juiz aplicou multa de US$ 5.000 por má-fé processual.</p>
+          </div>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real no Brasil</div>
+            <p>Em 2024, um juiz do TJMS publicou uma sentença contendo referências a jurisprudência inexistente, geradas por inteligência artificial. O CNJ abriu procedimento administrativo e o caso acendeu o debate sobre responsabilidade de magistrados ao usar IA. Outros tribunais estaduais reportaram episódios semelhantes com súmulas e processos que nunca existiram.</p>
+          </div>
+
+          <h3>Vieses e Discriminação</h3>
+          <p>Os modelos são treinados com dados da internet, que contêm preconceitos históricos. Isso pode fazer com que as respostas reproduzam vieses de gênero, raça, classe social ou região — muitas vezes de forma sutil. No contexto do Judiciário, isso é especialmente grave: uma IA que sugira tratamentos diferenciados com base em perfis demográficos viola princípios fundamentais de justiça.</p>
+
+          <h3>Confidencialidade de dados</h3>
+          <div class="security-alert">
+            <div class="alert-title">🔐 Regra de ouro para servidores do TRE-RN</div>
+            <p><strong>Nunca cole dados sensíveis, sigilosos ou protegidos por segredo de justiça em ferramentas de IA públicas.</strong> Tudo o que você digita pode ser armazenado nos servidores da empresa e, em alguns casos, usado para treinar futuros modelos. Isso vale para nomes de partes, CPFs, números de processos sigilosos e qualquer informação institucional não pública.</p>
+          </div>
+
+          <h3>IA como ferramenta de apoio, não de substituição</h3>
+          <p>A inteligência artificial é uma assistente — não substitui o julgamento humano, a experiência profissional e o conhecimento institucional do servidor. O resultado gerado por IA deve ser sempre tratado como um <strong>rascunho inicial</strong> que precisa de revisão, validação e personalização.</p>
+
+          <div class="callout callout-success">
+            <div class="callout-title">✅ Checklist antes de usar qualquer saída de IA</div>
+            <p>
+              <strong>1.</strong> A informação está correta? Verifiquei as fontes?<br>
+              <strong>2.</strong> Não incluí dados sigilosos no prompt?<br>
+              <strong>3.</strong> O tom e a linguagem estão adequados ao contexto institucional?<br>
+              <strong>4.</strong> Personalizei o conteúdo para a situação específica?<br>
+              <strong>5.</strong> Estou assinando algo que revisei criticamente, e não apenas repassando saída de IA?
+            </p>
+          </div>
+
+        </div>
+
+        <div class="topic-nav">
+          <a href="./tokens.html" class="btn btn-secondary">← Anterior: Tokens e Janela de Contexto</a>
+          <a href="./personalizacao.html" class="btn btn-primary">Próximo: Personalização de Ferramentas →</a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>
