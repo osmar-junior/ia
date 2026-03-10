@@ -53,8 +53,7 @@
     .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
 
     .sb-oficina {
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px var(--space-md);
+      display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md);
       font-size: 0.9rem; font-weight: 500; color: var(--text-secondary);
       text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s;
     }
@@ -103,7 +102,17 @@
     .breadcrumb .sep { color: var(--border-hover); }
     .breadcrumb .current { color: var(--text); font-weight: 500; }
 
-    /* ─── Corpo do módulo — largura total ─── */
+    /* ─── Page nav (âncoras) ─── */
+    .page-nav-wrap { background: var(--bg-card); border-bottom: 1px solid var(--border-light); padding: var(--space-md) var(--space-2xl); }
+    .page-nav { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+    .page-nav a {
+      padding: 6px var(--space-md); border: 1px solid var(--border); border-radius: var(--radius-sm);
+      font-size: 0.87rem; font-weight: 500; color: var(--text-secondary);
+      background: var(--bg-card); text-decoration: none; transition: all 0.15s;
+    }
+    .page-nav a:hover { color: var(--azul-medio); border-color: rgba(46,92,154,0.3); background: var(--azul-light); }
+
+    /* ─── Corpo — largura total ─── */
     .page-body { padding: var(--space-2xl); }
 
     /* ─── Metadados ─── */
@@ -116,32 +125,6 @@
     .meta-item { display: flex; align-items: center; gap: 7px; font-size: 0.87rem; color: var(--text-secondary); }
     .meta-item strong { color: var(--text); font-weight: 600; }
 
-    /* ─── Page nav (âncoras) ─── */
-    .page-nav { display: flex; flex-wrap: wrap; gap: var(--space-sm); margin-bottom: var(--space-xl); }
-    .page-nav a {
-      padding: 7px var(--space-md); border: 1px solid var(--border);
-      border-radius: var(--radius-sm); font-size: 0.88rem; font-weight: 500;
-      color: var(--text-secondary); background: var(--bg-card); text-decoration: none; transition: all 0.15s;
-    }
-    .page-nav a:hover { color: var(--azul-medio); border-color: rgba(46,92,154,0.3); background: var(--azul-light); }
-
-    /* ─── Card de tópico externo ─── */
-    .topics-nav { margin-bottom: var(--space-2xl); }
-    .topics-nav-title { font-family: var(--font-display); font-size: 1.25rem; color: var(--azul); margin-bottom: var(--space-md); }
-    .topic-card {
-      display: flex; align-items: center; gap: var(--space-md);
-      padding: var(--space-md) var(--space-lg);
-      background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--azul-medio);
-      border-radius: var(--radius-md); text-decoration: none; transition: all 0.15s;
-    }
-    .topic-card:hover { box-shadow: var(--shadow-md); transform: translateX(3px); }
-    .topic-num { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); min-width: 20px; }
-    .topic-info { flex: 1; }
-    .topic-title { font-size: 0.97rem; font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; }
-    .topic-card:hover .topic-title { color: var(--azul-medio); }
-    .topic-desc { font-size: 0.84rem; color: var(--text-muted); }
-    .topic-arrow { color: var(--azul-medio); }
-
     /* ─── Seções de conteúdo ─── */
     .content-section { padding: var(--space-3xl) 0; border-bottom: 1px solid var(--border-light); }
     .content-section:last-of-type { border-bottom: none; }
@@ -153,9 +136,25 @@
     .section-icon { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
     .content-section h3 { margin-top: var(--space-xl); margin-bottom: var(--space-md); color: var(--azul-medio); font-size: 1.2rem; }
 
-    /* Estilos tema claro — override */
-    .page-nav a { background: var(--bg-card); }
-    .page-nav a:hover { color: var(--azul-medio); border-color: rgba(46,92,154,0.3); }
+    /* ─── Animação de tokens ─── */
+    .token-anim-wrap { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: var(--space-lg); margin: var(--space-lg) 0; }
+    .token-anim-frase { font-size: 1.1rem; color: var(--text); font-weight: 600; margin-bottom: var(--space-md); min-height: 1.8em; letter-spacing: 0.01em; }
+    .token-anim-chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 38px; margin-bottom: var(--space-md); }
+    .token-chip-anim { padding: 5px 13px; border-radius: 6px; font-size: 0.93rem; font-weight: 600; opacity: 0; transform: translateY(8px); transition: opacity 0.25s ease, transform 0.25s ease; cursor: default; }
+    .token-chip-anim.visible { opacity: 1; transform: translateY(0); }
+    .token-chip-anim.color-gold  { background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); }
+    .token-chip-anim.color-blue  { background: var(--azul-light);   color: var(--azul-medio); border: 1px solid rgba(46,92,154,0.25); }
+    .token-chip-anim.color-green { background: var(--verde-light);  color: var(--verde); border: 1px solid rgba(76,175,130,0.25); }
+    .token-chip-anim.color-purple{ background: var(--roxo-light);   color: var(--roxo); border: 1px solid rgba(155,126,216,0.25); }
+    .token-anim-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-sm); }
+    .token-anim-count { font-size: 0.95rem; color: var(--text-muted); opacity: 0; transition: opacity 0.4s ease; }
+    .token-anim-count.visible { opacity: 1; }
+    .token-anim-count strong { color: var(--dourado); }
+    .token-anim-btn { padding: 7px 18px; border-radius: var(--radius-full); font-size: 0.88rem; font-weight: 700; background: var(--dourado-dim); color: var(--dourado); border: 1px solid rgba(200,164,92,0.25); cursor: pointer; transition: all var(--transition-fast); font-family: var(--font-body); letter-spacing: 0.04em; }
+    .token-anim-btn:hover { background: rgba(200,164,92,0.25); border-color: rgba(200,164,92,0.5); }
+    .token-anim-legend { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-md); padding-top: var(--space-md); border-top: 1px solid var(--border-light); }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
 
     /* ─── Mobile ─── */
     .sidebar-toggle {
@@ -173,7 +172,7 @@
       .sidebar-toggle { display: flex; }
       .page-hero { padding: var(--space-2xl) var(--space-md) var(--space-lg); min-height: 220px; }
       .page-hero h1 { font-size: 1.8rem; }
-      .breadcrumb { padding: 8px var(--space-md); }
+      .breadcrumb, .page-nav-wrap { padding: 8px var(--space-md); }
       .page-body { padding: var(--space-lg) var(--space-md); }
     }
   </style>
@@ -190,21 +189,21 @@
         <div class="sb-label">📚 Módulos</div>
 
         <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
-        <div class="sb-topics"><!-- sem tópicos externos --></div>
+        <div class="sb-topics"></div>
 
         <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
         <div class="sb-topics open">
-          <a href="./configuracao-inicial/" class="sb-topic">Configuração Inicial</a>
+          <a href="./configuracao-inicial.html" class="sb-topic">Configuração Inicial</a>
         </div>
 
         <a href="../../regulamentacao.html" class="sb-module">⚖️ Regulamentação</a>
-        <div class="sb-topics"><!-- sem tópicos externos --></div>
+        <div class="sb-topics"></div>
 
         <a href="../../engenharia-de-prompts.html" class="sb-module">✍️ Engenharia de Prompts</a>
-        <div class="sb-topics"><!-- sem tópicos externos --></div>
+        <div class="sb-topics"></div>
 
         <a href="../../gerador-de-prompts.html" class="sb-module">⚡ Gerador de Prompts</a>
-        <div class="sb-topics"><!-- sem tópicos externos --></div>
+        <div class="sb-topics"></div>
 
         <hr class="sb-divider">
         <div class="sb-label">🛠️ Oficinas</div>
@@ -240,6 +239,13 @@
         <span class="current">Como a IA Funciona</span>
       </nav>
 
+      <div class="page-nav-wrap">
+        <nav class="page-nav">
+          <a href="#tokens">Tokens e Contexto</a>
+          <a href="#cuidados">Cuidados e Limitações</a>
+        </nav>
+      </div>
+
       <div class="page-body">
 
         <div class="module-meta">
@@ -249,61 +255,113 @@
           <div class="meta-item">📶 <span>Nível intermediário</span></div>
         </div>
 
-        <!-- Âncoras das seções desta página -->
-        <nav class="page-nav">
-          <a href="#tokens">Tokens e Contexto</a>
-          <a href="#cuidados">Cuidados e Limitações</a>
-        </nav>
-
-        <!-- Tópico externo -->
-        <div class="topics-nav">
-          <div class="topics-nav-title">Tópico deste módulo</div>
-          <a href="./configuracao-inicial/" class="topic-card">
-            <span class="topic-num">01</span>
-            <div class="topic-info">
-              <span class="topic-title">Configuração Inicial das Ferramentas</span>
-              <span class="topic-desc">Personalize estilo, contexto profissional e instruções permanentes antes de começar a usar.</span>
-            </div>
-            <span class="topic-arrow">→</span>
-          </a>
-        </div>
-
-        <!-- Seção 1: Tokens -->
+        <!-- ══ SEÇÃO 1: TOKENS ══ -->
         <section class="content-section" id="tokens">
-          <h2><span class="section-icon" style="background:var(--roxo-light)">🔤</span> Tokens e Janela de Contexto</h2>
+          <h2><span class="section-icon" style="background: var(--roxo-light);">🔤</span> Tokens e Janela de Contexto</h2>
           <div class="content-body">
             <p><strong>Tokens</strong> são as unidades básicas de processamento dos modelos de IA. Antes de processar qualquer texto, o modelo o "quebra" em pequenas partes — os tokens — que podem ser palavras inteiras, partes de palavras, pontuações ou espaços.</p>
-            <p>Em português, uma palavra como <em>"configuração"</em> pode ser dividida em 2 ou 3 tokens. Já palavras simples como <em>"IA"</em> ou <em>"TRE"</em> costumam ser 1 token cada. Na prática, <strong>1.000 tokens equivalem a cerca de 700–800 palavras</strong> em português.</p>
-            <h3>Por que isso importa?</h3>
-            <p>Cada modelo tem um limite de tokens por conversa — a chamada <strong>janela de contexto</strong>. Quando você ultrapassa esse limite, o modelo começa a "esquecer" as partes mais antigas da conversa. É como uma mesa de trabalho com espaço limitado: quando enche, você precisa retirar algo para colocar algo novo.</p>
-            <div class="callout callout-info" style="margin-top:var(--space-lg)">
-              <div class="callout-title">💡 Janelas de contexto em 2026</div>
-              <p>GPT-4o suporta ~128 mil tokens (~96 mil palavras). Claude 3.5 suporta ~200 mil tokens (~150 mil palavras). Gemini 1.5 Pro chega a 1 milhão de tokens — o equivalente a um livro inteiro. Para uso no dia a dia no TRE-RN, esses limites raramente serão atingidos.</p>
+
+            <div class="callout callout-info">
+              <div class="callout-title">💡 Analogia: Tokens são como peças de um quebra-cabeça</div>
+              <p>Imagine que o modelo de IA precisa montar um quebra-cabeça para entender seu texto. Cada token é uma peça desse quebra-cabeça. Textos maiores = mais peças = mais esforço para processar. É por isso que existem limites.</p>
             </div>
+
+            <p><strong>Regra prática:</strong> 1 token ≈ 0,75 palavras em português (aproximadamente 4 caracteres).</p>
+
+            <h3>Exemplo prático de tokenização</h3>
+
+            <div class="token-anim-wrap">
+              <div class="token-anim-frase" id="tokenFrase"></div>
+              <div class="token-anim-chips" id="tokenChips"></div>
+              <div class="token-anim-footer">
+                <div class="token-anim-count" id="tokenCount"></div>
+                <button class="token-anim-btn" id="tokenBtn" onclick="tokenAnimStart()">▶ Animar tokenização</button>
+              </div>
+              <div class="token-anim-legend">
+                <span class="legend-item"><span class="legend-dot" style="background:var(--dourado);"></span>Artigos / preposições</span>
+                <span class="legend-item"><span class="legend-dot" style="background:var(--azul-medio);"></span>Início de palavra</span>
+                <span class="legend-item"><span class="legend-dot" style="background:var(--verde);"></span>Sufixo / desinência</span>
+                <span class="legend-item"><span class="legend-dot" style="background:var(--roxo);"></span>Subpalavra interna</span>
+              </div>
+            </div>
+
+            <h3>Por que isso importa na prática?</h3>
+            <ul>
+              <li><strong>Limita o tamanho de documentos</strong> que podem ser analisados de uma vez — se seu documento excede a janela de contexto, a IA não conseguirá processá-lo inteiro.</li>
+              <li><strong>Afeta o custo</strong> em plataformas pagas — a cobrança é feita por token consumido (envio + resposta).</li>
+              <li><strong>Determina a "memória" da IA</strong> — a janela de contexto define o quanto a IA consegue "lembrar" durante a conversa. Em conversas longas, ela começa a "esquecer" o início.</li>
+            </ul>
+
+            <h3>Referência de tamanhos</h3>
+            <div class="table-wrapper">
+              <table class="table">
+                <thead><tr><th>Tipo de conteúdo</th><th>Tokens (aprox.)</th></tr></thead>
+                <tbody>
+                  <tr><td>Texto de 10 páginas</td><td>3.000 – 5.000</td></tr>
+                  <tr><td>Relatório de 30 páginas</td><td>10.000 – 15.000</td></tr>
+                  <tr><td>Livro de 300 páginas</td><td>100.000 – 150.000</td></tr>
+                  <tr><td>Janela do Claude (máx.)</td><td>200.000</td></tr>
+                  <tr><td>Janela do Gemini 2.5 Pro (máx.)</td><td>2.000.000</td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Ferramentas para contagem de tokens</h3>
+            <ul>
+              <li><a href="https://platform.openai.com/tokenizer" target="_blank">OpenAI Tokenizer</a> — tokenizador oficial da OpenAI</li>
+              <li><a href="https://www.prompttokencounter.com" target="_blank">Prompt Token Counter</a> — contador online simples</li>
+              <li><a href="https://vcalazans.dev/tools/token-calculator" target="_blank">Token Calculator</a> — calculadora com estimativas de custo</li>
+            </ul>
           </div>
         </section>
 
-        <!-- Seção 2: Cuidados -->
+        <!-- ══ SEÇÃO 2: CUIDADOS ══ -->
         <section class="content-section" id="cuidados">
-          <h2><span class="section-icon" style="background:var(--vermelho-light)">⚠️</span> Cuidados e Limitações da IA Generativa</h2>
+          <h2><span class="section-icon" style="background: var(--vermelho-light);">⚠️</span> Cuidados e Limitações da IA Generativa</h2>
           <div class="content-body">
-            <p>A IA generativa é poderosa, mas tem limitações reais que todo servidor precisa conhecer antes de incorporá-la ao trabalho institucional.</p>
+            <p>Antes de começar a utilizar IA no seu dia a dia, é fundamental compreender o que ela <strong>não</strong> faz bem e os riscos envolvidos. A IA é uma ferramenta poderosa, mas não é infalível.</p>
+
             <h3>Alucinações</h3>
-            <p>Modelos de linguagem podem gerar informações incorretas com total aparência de veracidade — datas, nomes, números de processos, citações legais. Isso acontece porque o modelo "prevê" texto plausível, não consulta fontes externas em tempo real (salvo quando há busca integrada).</p>
-            <h3>Dados desatualizados</h3>
-            <p>Todo modelo tem uma data de corte de treinamento. Legislação recente, resoluções do CNJ publicadas depois dessa data e eventos recentes podem não estar no conhecimento do modelo. Sempre verifique datas críticas.</p>
-            <h3>Vieses e assimetrias</h3>
-            <p>Os modelos foram treinados em grandes volumes de texto da internet, que refletem vieses culturais, políticos e linguísticos — com predomínio do inglês e de perspectivas ocidentais. Use senso crítico.</p>
-            <div class="callout callout-warning" style="margin-top:var(--space-lg)">
-              <div class="callout-title">⚠️ Regra prática para o TRE-RN</div>
-              <p>Nunca use uma saída de IA em documento institucional sem revisão humana. Trate o resultado como rascunho inteligente, não como produto final.</p>
+            <p>O termo "alucinação" descreve quando a IA gera informações <strong>falsas ou inventadas com aparência convincente</strong>. Ela pode citar leis que não existem, inventar jurisprudência, ou apresentar dados fabricados — tudo com um tom confiante que dificulta a percepção do erro.</p>
+
+            <div class="callout callout-danger">
+              <div class="callout-title">🚨 Caso real nos EUA</div>
+              <p>Em 2023, um advogado nos Estados Unidos utilizou o ChatGPT para pesquisar jurisprudência e incluiu em sua petição seis casos judiciais completamente fictícios, com nomes de partes, números de processos e ementas inventadas pela IA. O juiz aplicou multa de US$ 5.000 por má-fé processual.</p>
+            </div>
+
+            <div class="callout callout-danger">
+              <div class="callout-title">🚨 Caso real no Brasil</div>
+              <p>Em 2024, um juiz do TJMS publicou uma sentença contendo referências a jurisprudência inexistente, geradas por inteligência artificial. O CNJ abriu procedimento administrativo e o caso acendeu o debate sobre responsabilidade de magistrados ao usar IA. Outros tribunais estaduais reportaram episódios semelhantes com súmulas e processos que nunca existiram.</p>
+            </div>
+
+            <h3>Vieses e Discriminação</h3>
+            <p>Os modelos são treinados com dados da internet, que contêm preconceitos históricos. Isso pode fazer com que as respostas reproduzam vieses de gênero, raça, classe social ou região — muitas vezes de forma sutil. No contexto do Judiciário, isso é especialmente grave: uma IA que sugira tratamentos diferenciados com base em perfis demográficos viola princípios fundamentais de justiça.</p>
+
+            <h3>Confidencialidade de dados</h3>
+            <div class="security-alert">
+              <div class="alert-title">🔐 Regra de ouro para servidores do TRE-RN</div>
+              <p><strong>Nunca cole dados sensíveis, sigilosos ou protegidos por segredo de justiça em ferramentas de IA públicas.</strong> Tudo o que você digita pode ser armazenado nos servidores da empresa e, em alguns casos, usado para treinar futuros modelos. Isso vale para nomes de partes, CPFs, números de processos sigilosos e qualquer informação institucional não pública.</p>
+            </div>
+
+            <h3>IA como ferramenta de apoio, não de substituição</h3>
+            <p>A inteligência artificial é uma assistente — não substitui o julgamento humano, a experiência profissional e o conhecimento institucional do servidor. O resultado gerado por IA deve ser sempre tratado como um <strong>rascunho inicial</strong> que precisa de revisão, validação e personalização.</p>
+
+            <div class="callout callout-success">
+              <div class="callout-title">✅ Checklist antes de usar qualquer saída de IA</div>
+              <p>
+                <strong>1.</strong> A informação está correta? Verifiquei as fontes?<br>
+                <strong>2.</strong> Não incluí dados sigilosos no prompt?<br>
+                <strong>3.</strong> O tom e a linguagem estão adequados ao contexto institucional?<br>
+                <strong>4.</strong> Personalizei o conteúdo para a situação específica?<br>
+                <strong>5.</strong> Estou assinando algo que revisei criticamente, e não apenas repassando saída de IA?
+              </p>
             </div>
           </div>
         </section>
 
-      </div>
+      </div><!-- /page-body -->
     </main>
-  </div>
+  </div><!-- /layout -->
 
   <div id="footer-placeholder"></div>
   <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
@@ -312,6 +370,7 @@
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
   <script>
+    /* ─── Sidebar mobile ─── */
     function toggleSidebar() {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('sidebarOverlay').classList.toggle('open');
@@ -321,6 +380,73 @@
       document.getElementById('sidebarOverlay').classList.remove('open');
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+    /* ─── Animação de tokens ─── */
+    const FRASE = 'O requerente solicita a expedição de certidão eleitoral';
+    const TOKENS = [
+      { text: 'O',      color: 'color-gold'   },
+      { text: 'requer', color: 'color-blue'   },
+      { text: 'ente',   color: 'color-green'  },
+      { text: 'solic',  color: 'color-blue'   },
+      { text: 'ita',    color: 'color-green'  },
+      { text: 'a',      color: 'color-gold'   },
+      { text: 'exped',  color: 'color-blue'   },
+      { text: 'ição',   color: 'color-green'  },
+      { text: 'de',     color: 'color-gold'   },
+      { text: 'cert',   color: 'color-blue'   },
+      { text: 'idão',   color: 'color-purple' },
+      { text: 'ele',    color: 'color-blue'   },
+      { text: 'itor',   color: 'color-purple' },
+      { text: 'al',     color: 'color-green'  },
+    ];
+
+    let animRunning = false;
+
+    (function initFrase() {
+      document.getElementById('tokenFrase').textContent = '"' + FRASE + '"';
+    })();
+
+    async function tokenAnimStart() {
+      if (animRunning) return;
+      animRunning = true;
+      const btn = document.getElementById('tokenBtn');
+      const fraseEl = document.getElementById('tokenFrase');
+      const chipsEl = document.getElementById('tokenChips');
+      const countEl = document.getElementById('tokenCount');
+
+      btn.disabled = true;
+      btn.textContent = '⏳ Tokenizando…';
+      chipsEl.innerHTML = '';
+      countEl.innerHTML = '';
+      countEl.classList.remove('visible');
+
+      fraseEl.innerHTML = '"';
+      const chars = FRASE.split('');
+      for (let i = 0; i < chars.length; i++) {
+        await sleep(28);
+        fraseEl.innerHTML = '"' + FRASE.slice(0, i + 1) + (i < chars.length - 1 ? '<span style="opacity:0.4">|</span>' : '') + '"';
+      }
+      fraseEl.innerHTML = '"' + FRASE + '"';
+      await sleep(400);
+
+      TOKENS.forEach((t, i) => {
+        const chip = document.createElement('span');
+        chip.className = 'token-chip-anim ' + t.color;
+        chip.textContent = t.text;
+        chipsEl.appendChild(chip);
+        setTimeout(() => chip.classList.add('visible'), i * 80);
+      });
+
+      await sleep(TOKENS.length * 80 + 300);
+      countEl.innerHTML = '= <strong>' + TOKENS.length + ' tokens</strong> para ' + FRASE.split(' ').length + ' palavras';
+      countEl.classList.add('visible');
+      await sleep(400);
+      btn.disabled = false;
+      btn.textContent = '↺ Repetir animação';
+      animRunning = false;
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   </script>
 </body>
 </html>
