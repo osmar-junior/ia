@@ -337,14 +337,39 @@
     }
 
     /* ─── Responsivo ──────────────────────────────────────────── */
+    /* ─── Logo mobile (só aparece quando o painel esquerdo some) ─── */
+    .login-mobile-brand {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 6px;
+      margin-bottom: 36px;
+    }
+    .login-mobile-brand-name {
+      font-family: var(--font-display);
+      font-size: 2rem; font-weight: 800;
+      color: var(--azul);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .login-mobile-brand-name span { color: var(--dourado); }
+    .login-mobile-brand-sub {
+      font-size: 0.92rem; font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.01em;
+    }
+
     @media (max-width: 900px) {
       .login-page { grid-template-columns: 1fr; }
       .login-left { display: none; }
       .login-right { padding: 48px 24px; }
+      .login-mobile-brand { display: flex; }
     }
     @media (max-width: 480px) {
       .login-card { padding: 28px 22px; }
       .login-heading h1 { font-size: 1.5rem; }
+      .login-right { padding: 40px 20px; }
     }
   </style>
 </head>
@@ -372,8 +397,14 @@
     <div class="login-right">
       <div class="login-right-inner">
 
+        <!-- Identidade visual mobile (painel esquerdo oculto) -->
+        <div class="login-mobile-brand">
+          <div class="login-mobile-brand-name">IA <span>Master</span></div>
+          <div class="login-mobile-brand-sub">Plataforma de Treinamento em IA</div>
+        </div>
+
         <div class="login-heading">
-          <h1>Plataforma de Treinamento - IA Master</h1>
+          <h1>Plataforma de Treinamento em IA</h1>
           <p id="loginSubtitle">Informe seu CPF e senha para entrar</p>
         </div>
 
