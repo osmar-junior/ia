@@ -8,13 +8,9 @@ const App = (() => {
   function getBasePath() {
     const path = window.location.pathname;
     if (path.includes('/oficinas/')) return '../';
-    if (path.includes('/modulos/')) {
-      const afterModulos = path.split('/modulos/')[1] || '';
-      // Remover "index.html" do final antes de contar a profundidade
-      const clean = afterModulos.replace(/index\.html$/, '');
-      const depth = clean.split('/').filter(s => s.length > 0).length;
-      return depth >= 2 ? '../../' : '../';
-    }
+    // Dentro de /modulos/ o arquivo está sempre em /modulos/<submodulo>/
+    // então o basePath para tre-rn-2026/ é sempre ../../
+    if (path.includes('/modulos/')) return '../../';
     return './';
   }
 
