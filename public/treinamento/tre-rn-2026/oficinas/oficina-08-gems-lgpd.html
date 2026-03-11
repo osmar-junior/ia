@@ -53,13 +53,74 @@
     .material-apoio { background: var(--bg-card); box-shadow: var(--shadow-sm); }
     .thumb-gallery .thumb-item { background: var(--bg-card); }
     .thumb-gallery .thumb-item a { color: var(--azul-medio); }
+  
+    /* ─── Layout duas colunas ─── */
+    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
+    .sidebar {
+      width: 260px; flex-shrink: 0;
+      background: var(--bg-card); border-right: 1px solid var(--border-light);
+      position: sticky; top: var(--navbar-height);
+      height: calc(100vh - var(--navbar-height));
+      overflow-y: auto; display: flex; flex-direction: column; z-index: 10;
+    }
+    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
+    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
+    .sb-label:first-child { margin-top: 0; }
+    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
+    .sb-module { display: flex; align-items: center; gap: 8px; padding: 9px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-oficina-item { display: flex; align-items: center; gap: 7px; padding: 7px var(--space-md); font-size: 0.88rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-oficina-item:hover { color: var(--verde); background: var(--verde-light, rgba(26,138,90,0.07)); border-left-color: var(--verde); }
+    .sb-oficina-item.active { color: var(--verde); font-weight: 600; background: var(--verde-light, rgba(26,138,90,0.07)); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 18px; }
+    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
+    .sb-footer a { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
+    .sb-footer a:hover { color: var(--azul-medio); }
+    .main-content { flex: 1; min-width: 0; background: var(--bg); }
+    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--verde); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
+    @media (max-width: 960px) {
+      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
+      .sidebar.open { left: 0; }
+      .sidebar-overlay.open { display: block; }
+      .sidebar-toggle { display: flex; }
+    }
   </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
   <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
 
-  <main class="page-content" style="padding-top:calc(var(--navbar-height) + 42px);"><div class="container">
+  
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../modulos/conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <a href="../modulos/como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <a href="../modulos/regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <a href="../modulos/engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="./oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="./oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="./oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="./oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="./oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="./oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="./oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="./oficina-08-gems-lgpd.html" class="sb-oficina-item active"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="./oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="./oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="./oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../index.html">↩ Início do curso</a></div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+<div class="container">
 
     <div class="oficina-hero">
       <div class="oficina-badge">💎 Oficina 08 de 12</div>
@@ -247,5 +308,19 @@
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
     function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
   </script>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+
 </body>
 </html>

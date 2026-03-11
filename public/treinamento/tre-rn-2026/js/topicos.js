@@ -83,15 +83,31 @@
     updateModuloBadge();
     renderModuloCards();
 
-    // Marcar tópicos concluídos na sidebar com ✓
+    // Marcar tópicos concluídos na sidebar com ✓ clicável para desmarcar
     const state = getState();
     document.querySelectorAll('.sb-topic[data-topico], .sb-item[data-topico]').forEach(el => {
       if (state.includes(el.dataset.topico)) {
         if (!el.querySelector('.sb-done')) {
           const tick = document.createElement('span');
           tick.className = 'sb-done';
-          tick.style.cssText = 'margin-left:auto;font-size:.75rem;font-weight:700;color:var(--verde)';
+          tick.style.cssText = 'margin-left:auto;font-size:.75rem;font-weight:700;color:var(--verde);cursor:pointer;padding:2px 4px;border-radius:4px;transition:all .15s;';
+          tick.title = 'Clique para desmarcar leitura';
           tick.textContent = '✓';
+          tick.addEventListener('mouseenter', () => { tick.style.color = 'var(--vermelho)'; tick.style.background = '#FEF2F2'; tick.textContent = '✕'; });
+          tick.addEventListener('mouseleave', () => { tick.style.color = 'var(--verde)'; tick.style.background = 'transparent'; tick.textContent = '✓'; });
+          tick.addEventListener('click', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            const topicoId = el.dataset.topico;
+            if (confirm('Deseja desmarcar a leitura deste tópico?')) {
+              const s = getState();
+              const idx = s.indexOf(topicoId);
+              if (idx !== -1) { s.splice(idx, 1); saveState(s); }
+              tick.remove();
+              updateModuloBadge();
+            } else {
+              tick.style.color = 'var(--verde)'; tick.style.background = 'transparent'; tick.textContent = '✓';
+            }
+          });
           el.appendChild(tick);
         }
       }
