@@ -3,8 +3,11 @@
   const TOPICOS_KEY = 'trern-topicos-concluidos';
   const MODULOS_TOTAL = 4;
 
-  // Tópicos que compõem cada módulo com tópicos
+  // Tópicos que compõem cada módulo
   const MODULO_TOPICOS = {
+    1: ['ce-01','ce-02','ce-03'],
+    2: ['cf-01','cf-02','cf-03'],
+    3: ['reg-01','reg-02','reg-03','reg-04'],
     4: ['ep-01','ep-02','ep-03','ep-04','ep-05'],
   };
 
@@ -13,17 +16,13 @@
   }
   function saveState(a) { localStorage.setItem(TOPICOS_KEY, JSON.stringify(a)); }
 
-  // Conta módulos concluídos (módulos 1 e 3 marcados via 'modulo-X'; 2 e 4 por tópicos)
+  // Conta módulos concluídos — todos por tópicos
   function modulosConcluidos(state) {
     let count = 0;
-    [1, 3].forEach(m => { if (state.includes('modulo-' + m)) count++; });
-    [4].forEach(m => {
+    [1, 2, 3, 4].forEach(m => {
       const topicos = MODULO_TOPICOS[m] || [];
       if (topicos.length > 0 && topicos.every(t => state.includes(t))) count++;
     });
-    // Módulo 2: verificar se tem tópicos marcados
-    const cf = ['cf-01','cf-02','cf-03'];
-    if (cf.every(t => state.includes(t))) count++;
     return count;
   }
 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelos de LLM — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Comparação proprietário vs open-source */
+    .modelo-comparison {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg); margin: var(--space-xl) 0;
+    }
+    .modelo-box {
+      border-radius: var(--radius-lg); padding: var(--space-xl);
+      border: 1px solid;
+    }
+    .modelo-box.proprietario {
+      background: rgba(46,92,154,0.05); border-color: rgba(46,92,154,0.2);
+    }
+    .modelo-box.opensource {
+      background: rgba(26,138,90,0.05); border-color: rgba(26,138,90,0.2);
+    }
+    .modelo-box-label {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; margin-bottom: 8px;
+    }
+    .modelo-box.proprietario .modelo-box-label { color: var(--azul-medio); }
+    .modelo-box.opensource .modelo-box-label { color: var(--verde); }
+    .modelo-box h4 {
+      font-family: var(--font-display); font-size: 1.2rem; color: var(--text);
+      margin-bottom: var(--space-md);
+    }
+    .modelo-box p { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-sm); }
+
+    /* Grid de capacidades multimodais */
+    .modal-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: var(--space-md); margin: var(--space-lg) 0;
+    }
+    .modal-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+      text-align: center;
+    }
+    .modal-icon { font-size: 2rem; margin-bottom: var(--space-sm); }
+    .modal-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .modal-card p { font-size: 0.82rem; color: var(--text-muted); line-height: 1.5; margin: 0; }
+
+    @media (max-width: 768px) {
+      .modelo-comparison { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module active">💡 Conceitos Essenciais</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic">O que é Inteligência Artificial?</a>
+          <a href="./ferramentas.html" class="sb-topic">Ferramentas de LLM</a>
+          <a href="./modelos.html" class="sb-topic active">Modelos de LLM</a>
+        </div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">💡 Conceitos Essenciais · Tópico 03 de 03</div>
+        <h1>Modelos de LLM</h1>
+        <p>O que são modelos, a diferença entre proprietários e open-source, multimodalidade e guia de referência dos principais modelos em 2026.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../conceitos/">Conceitos Essenciais</a><span class="sep">›</span>
+        <span class="current">Modelos de LLM</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. Ferramenta vs Modelo -->
+        <div class="topic-section">
+          <div class="section-heading" id="definicao">
+            <span class="section-num">1</span>
+            <h2>Ferramenta vs. Modelo: qual a diferença?</h2>
+          </div>
+          <p>O modelo é o <strong>núcleo da ferramenta</strong> — o sistema matemático que realmente processa a linguagem, reconhece padrões e gera respostas. Ele é treinado com grandes volumes de dados e ajustado continuamente para aprimorar sua precisão.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Analogia</div>
+            <p><strong>A ferramenta</strong> (ChatGPT, Gemini) é o aplicativo que você usa — a interface, os botões, a organização das conversas. <strong>O modelo</strong> (GPT-5, Gemini 2.5 Pro) é o "cérebro" por trás das respostas. Uma mesma ferramenta pode oferecer múltiplos modelos com capacidades e custos distintos.</p>
+          </div>
+
+          <p>Na prática: quando você usa o ChatGPT e precisa escolher entre "GPT-5.1" e "GPT-5.3 Codex" no menu suspenso, você está escolhendo o modelo. A ferramenta (ChatGPT) continua sendo a mesma — o que muda é o sistema de processamento por baixo.</p>
+        </div>
+
+        <!-- 2. Proprietários vs Open-source -->
+        <div class="topic-section">
+          <div class="section-heading" id="tipos">
+            <span class="section-num">2</span>
+            <h2>Proprietários vs. Open-source</h2>
+          </div>
+
+          <div class="modelo-comparison">
+            <div class="modelo-box proprietario">
+              <div class="modelo-box-label">Código Fechado</div>
+              <h4>Modelos Proprietários</h4>
+              <p>O código do modelo não é público. Apenas a empresa desenvolvedora sabe como ele funciona internamente.</p>
+              <p><strong>Exemplos:</strong> GPT-5 (OpenAI), Claude 4 (Anthropic), Gemini 3 (Google)</p>
+              <p><strong>Vantagem:</strong> Geralmente mais refinados, com melhor suporte e atualizações frequentes.</p>
+              <p><strong>Desvantagem:</strong> Menor transparência sobre funcionamento e uso dos dados.</p>
+            </div>
+            <div class="modelo-box opensource">
+              <div class="modelo-box-label">Código Aberto</div>
+              <h4>Open-source / Open-weight</h4>
+              <p>O código ou os pesos do modelo são públicos, permitindo que qualquer pessoa inspecione, adapte ou implante o modelo localmente.</p>
+              <p><strong>Exemplos:</strong> DeepSeek V4, LLaMA 4 (Meta)</p>
+              <p><strong>Vantagem:</strong> Transparência, custo zero, possibilidade de uso local (sem enviar dados para a nuvem).</p>
+              <p><strong>Desvantagem:</strong> Podem ser menos refinados; suporte depende da comunidade.</p>
+            </div>
+          </div>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ Open-source não significa seguro</div>
+            <p>O DeepSeek é open-source, mas seus servidores estão na China e sujeitos à legislação local, que permite acesso governamental aos dados. Transparência técnica do código não garante privacidade dos dados que você envia. Para dados institucionais do TRE-RN, prefira sempre modelos proprietários de empresas com conformidade LGPD.</p>
+          </div>
+        </div>
+
+        <!-- 3. Multimodalidade -->
+        <div class="topic-section">
+          <div class="section-heading" id="multimodalidade">
+            <span class="section-num">3</span>
+            <h2>Multimodalidade</h2>
+          </div>
+          <p>Modelos modernos são cada vez mais <strong>multimodais</strong> — ou seja, não trabalham apenas com texto, mas também entendem e geram imagens, áudio e vídeo. Isso é fundamental para várias oficinas deste workshop.</p>
+
+          <div class="modal-grid">
+            <div class="modal-card">
+              <div class="modal-icon">📝</div>
+              <h4>Texto</h4>
+              <p>Gerar, revisar e analisar documentos — todos os modelos</p>
+            </div>
+            <div class="modal-card">
+              <div class="modal-icon">🖼️</div>
+              <h4>Imagens</h4>
+              <p>Gerar e analisar imagens — ChatGPT, Grok, Gemini</p>
+            </div>
+            <div class="modal-card">
+              <div class="modal-icon">🎙️</div>
+              <h4>Áudio</h4>
+              <p>Transcrever e gerar voz — ChatGPT (modo voz), NotebookLM</p>
+            </div>
+            <div class="modal-card">
+              <div class="modal-icon">🎬</div>
+              <h4>Vídeo</h4>
+              <p>Analisar e gerar vídeos — Grok (Aurora), Gemini (Veo 3)</p>
+            </div>
+            <div class="modal-card">
+              <div class="modal-icon">📄</div>
+              <h4>Documentos</h4>
+              <p>Processar PDFs e planilhas — Claude, ChatGPT Plus, NotebookLM</p>
+            </div>
+          </div>
+
+          <p>Nas oficinas deste workshop, você usará multimodalidade em tarefas como: analisar vídeos de sessões plenárias, gerar imagens de comunicação institucional e transcrever áudios de reuniões.</p>
+        </div>
+
+        <!-- 4. Tabela de modelos -->
+        <div class="topic-section">
+          <div class="section-heading" id="tabela">
+            <span class="section-num">4</span>
+            <h2>Principais modelos por ferramenta (2026)</h2>
+          </div>
+          <p>Esta tabela apresenta os principais modelos disponíveis em fevereiro de 2026. Use como referência ao escolher qual modelo selecionar dentro de cada ferramenta:</p>
+
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr><th>Ferramenta</th><th>Modelo</th><th>Foco</th><th>Quando usar</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="3"><strong>ChatGPT</strong></td>
+                  <td>GPT-5.3 Codex</td>
+                  <td>Código e Engenharia</td>
+                  <td>Refatoração profunda e arquitetura de sistemas</td>
+                </tr>
+                <tr>
+                  <td>GPT-5.1 Thinking</td>
+                  <td>Raciocínio lógico puro</td>
+                  <td>Problemas matemáticos e lógica complexa</td>
+                </tr>
+                <tr>
+                  <td>GPT-5.1 Instant</td>
+                  <td>Rapidez e Voz</td>
+                  <td>Conversas fluidas (Modo Voz Avançado) e tarefas rápidas</td>
+                </tr>
+                <tr>
+                  <td rowspan="3"><strong>Claude</strong></td>
+                  <td>Claude 4.6 Opus</td>
+                  <td>Premium / Criatividade</td>
+                  <td>Escrita sofisticada e análises de altíssima precisão</td>
+                </tr>
+                <tr>
+                  <td>Claude 4.6 Sonnet</td>
+                  <td>Agentes e Automação</td>
+                  <td>Fluxos de trabalho autônomos e "Computer Use"</td>
+                </tr>
+                <tr>
+                  <td>Claude 4.5 Haiku</td>
+                  <td>Eficiência</td>
+                  <td>Processamento de grandes volumes com baixo custo via API</td>
+                </tr>
+                <tr>
+                  <td rowspan="2"><strong>Gemini</strong></td>
+                  <td>Gemini 3.1 Pro</td>
+                  <td>Multimodalidade Total</td>
+                  <td>Vídeos longos, documentos imensos (2M+ tokens)</td>
+                </tr>
+                <tr>
+                  <td>Gemini 2.5 Flash</td>
+                  <td>Velocidade e API</td>
+                  <td>Integração em apps que exigem resposta imediata</td>
+                </tr>
+                <tr>
+                  <td><strong>Grok</strong></td>
+                  <td>Grok 4.20</td>
+                  <td>Tempo Real e Agentes</td>
+                  <td>Análise de tendências no X e múltiplos agentes paralelos</td>
+                </tr>
+                <tr>
+                  <td><strong>DeepSeek</strong></td>
+                  <td>DeepSeek V4 (Beta)</td>
+                  <td>Matemática e STEM</td>
+                  <td>Pesquisa científica e custo-benefício extremo (atenção à privacidade)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ Modelos evoluem muito rápido</div>
+            <p>Esta tabela reflete o cenário de fevereiro de 2026. Novos modelos são lançados a cada poucos meses — às vezes semanas. O importante é entender a lógica: cada ferramenta oferece modelos com diferentes equilíbrios entre velocidade, capacidade e custo. A escolha certa depende da tarefa, não do nome mais novo.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./ferramentas.html" class="btn btn-secondary">← Anterior: Ferramentas de LLM</a>
+          <a href="../como-funciona/" class="btn btn-primary" onclick="marcarTopicoConcluido('ce-03', '../como-funciona/'); return false;">Próximo módulo: Como a IA Funciona →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/topicos.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

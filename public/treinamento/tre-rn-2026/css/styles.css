@@ -251,14 +251,14 @@ p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
 
 /* --- Footer --- */
 .footer { padding: var(--space-2xl); border-top: 1px solid var(--border); text-align: center; background: var(--azul); }
-.footer-brand { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: rgba(255,255,255,0.95); margin-bottom: 6px; }
-.footer-brand a { color: var(--dourado-light); text-decoration: none; transition: opacity 0.2s; }
-.footer-brand a:hover { opacity: 0.8; }
+.footer-brand { font-family: var(--font-display); font-size: 1.15rem; font-weight: 700; color: var(--dourado-light); margin-bottom: 6px; }
 .footer-main { font-family: var(--font-display); font-size: 1.1rem; color: rgba(255,255,255,0.9); margin-bottom: var(--space-md); }
 .footer-copyright { font-size: 0.9rem; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
 .footer-copyright a { color: var(--dourado-light); transition: opacity var(--transition-fast); }
 .footer-copyright a:hover { opacity: 0.8; }
 .footer-org { font-size: 0.83rem; color: rgba(255,255,255,0.4); }
+.footer-org a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color var(--transition-fast); }
+.footer-org a:hover { color: rgba(255,255,255,0.7); }
 
 /* --- Animations --- */
 @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }

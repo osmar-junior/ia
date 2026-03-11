@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferramentas de LLM — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Card de ferramenta */
+    .ferramenta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+      scroll-margin-top: calc(var(--navbar-height) + 16px);
+    }
+    .ferramenta-header {
+      display: flex; align-items: flex-start; gap: var(--space-md);
+      margin-bottom: var(--space-lg); flex-wrap: wrap;
+    }
+    .ferramenta-header-text { flex: 1; min-width: 200px; }
+    .ferramenta-header h3 {
+      font-family: var(--font-display); font-size: 1.45rem; font-weight: 700;
+      color: var(--text); margin: 0 0 4px;
+    }
+    .ferramenta-empresa {
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;
+    }
+    .ferramenta-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-sm); }
+
+    /* Colunas internas */
+    .ferramenta-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);
+    }
+    .ferramenta-cols h4 {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+      color: var(--azul-medio); text-transform: uppercase; letter-spacing: 0.07em;
+      margin-bottom: var(--space-sm);
+    }
+    .ferramenta-cols ul { margin: 0; padding-left: var(--space-lg); }
+    .ferramenta-cols li {
+      font-size: 0.95rem; color: var(--text-secondary);
+      line-height: 1.65; margin-bottom: 4px;
+    }
+    .ferramenta-cols li strong { color: var(--text); }
+
+    /* Link de acesso */
+    .ferramenta-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: var(--space-lg);
+      font-weight: 700; font-size: 0.93rem; color: var(--azul-medio);
+      text-decoration: none; border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .ferramenta-link:hover { border-bottom-color: var(--azul-medio); }
+    .ferramenta-link::after { content: ' ↗'; font-size: 0.8em; }
+
+    /* Tabela de preços compacta */
+    .table-compact td, .table-compact th { padding: 9px 12px; font-size: 0.88rem; }
+
+    /* Alerta de segurança */
+    .security-alert {
+      background: rgba(192,57,43,0.06);
+      border: 1px solid rgba(192,57,43,0.22);
+      border-left: 4px solid var(--vermelho);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+    .security-alert .alert-title {
+      font-weight: 700; color: var(--vermelho); font-size: 0.97rem; margin-bottom: 6px;
+    }
+    .security-alert p { font-size: 0.95rem; color: var(--text-secondary); margin: 0; }
+
+    /* Separador de ferramenta */
+    .ferramenta-divider {
+      border: none; border-top: 2px dashed var(--border-light);
+      margin: var(--space-lg) 0;
+    }
+
+    /* Quick nav por ferramenta */
+    .ferramenta-quick-nav {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: var(--space-xl);
+    }
+    .ferramenta-quick-nav a {
+      padding: 6px 14px; border-radius: var(--radius-sm);
+      font-size: 0.85rem; font-weight: 600;
+      background: var(--bg-card); color: var(--text-secondary);
+      border: 1px solid var(--border);
+      text-decoration: none; transition: all 0.15s;
+    }
+    .ferramenta-quick-nav a:hover {
+      color: var(--azul-medio); border-color: rgba(46,92,154,0.3);
+      background: var(--azul-light);
+    }
+
+    @media (max-width: 768px) {
+      .ferramenta-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module active">💡 Conceitos Essenciais</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic">O que é Inteligência Artificial?</a>
+          <a href="./ferramentas.html" class="sb-topic active">Ferramentas de LLM</a>
+          <a href="./modelos.html" class="sb-topic">Modelos de LLM</a>
+        </div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">💡 Conceitos Essenciais · Tópico 02 de 03</div>
+        <h1>Ferramentas de LLM</h1>
+        <p>Análise comparativa das principais plataformas de IA generativa: características, preços, pontos fortes, limitações e alertas de segurança.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../conceitos/">Conceitos Essenciais</a><span class="sep">›</span>
+        <span class="current">Ferramentas de LLM</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. O que são ferramentas de LLM -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>O que são ferramentas de LLM</h2>
+          </div>
+          <p>Ferramentas de LLM são ambientes que possibilitam a interação do usuário com a IA de forma simples e funcional. Pense nelas como "interfaces" que permitem conversar com os modelos de inteligência artificial sem nenhum conhecimento técnico.</p>
+          <p>A distinção importante: a <strong>ferramenta</strong> é o aplicativo que você usa (ChatGPT, Gemini, Claude); o <strong>modelo</strong> é o sistema matemático que processa e gera as respostas. Uma mesma ferramenta pode oferecer múltiplos modelos com capacidades diferentes. Isso será detalhado no próximo tópico.</p>
+
+          <div class="ferramenta-quick-nav">
+            <a href="#chatgpt">ChatGPT</a>
+            <a href="#claude">Claude</a>
+            <a href="#gemini">Gemini</a>
+            <a href="#perplexity">Perplexity</a>
+            <a href="#notebooklm">NotebookLM</a>
+            <a href="#copilot">Copilot</a>
+            <a href="#deepseek">DeepSeek</a>
+            <a href="#grok">Grok</a>
+          </div>
+        </div>
+
+        <!-- 2. Ferramentas em detalhe -->
+        <div class="topic-section">
+          <div class="section-heading" id="ferramentas">
+            <span class="section-num">2</span>
+            <h2>As principais ferramentas</h2>
+          </div>
+          <p>Dados de fevereiro de 2026. Preços e planos mudam com frequência — verifique os sites oficiais antes de contratar.</p>
+
+          <!-- ChatGPT -->
+          <div class="ferramenta-card" id="chatgpt">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>ChatGPT</h3>
+                <div class="ferramenta-empresa">OpenAI — Modelo de linguagem mais popular do mundo</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-gold">Popular</span>
+                  <span class="badge badge-blue">Gratuito / Pago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Interface intuitiva e amigável</li>
+                  <li>Conversas longas e contextuais</li>
+                  <li>Upload de documentos (PDFs, Word) na versão paga</li>
+                  <li>Memória de conversas anteriores</li>
+                  <li>Integração com plugins e ferramentas externas</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>GPT-5.1 Instant com limites diários</td></tr>
+                      <tr><td><strong>Go</strong></td><td>R$ 39,90/mês</td><td>Mais mensagens, uploads e imagens</td></tr>
+                      <tr><td><strong>Plus</strong></td><td>US$ 20/mês</td><td>GPT-5.1 e GPT-5.3 Codex, imagens, memória avançada</td></tr>
+                      <tr><td><strong>Pro</strong></td><td>US$ 200/mês</td><td>Uso ilimitado, agentes Codex, vídeo</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <hr class="ferramenta-divider">
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✅ Pontos Fortes</h4>
+                <ul>
+                  <li>Excelente para rascunhos de documentos</li>
+                  <li>Boa compreensão do contexto administrativo brasileiro</li>
+                  <li>Adapta tom formal e técnico com facilidade</li>
+                  <li>Útil para brainstorming de soluções</li>
+                </ul>
+              </div>
+              <div>
+                <h4>⚠️ Limitações</h4>
+                <ul>
+                  <li>Pode "alucinar" (inventar legislação ou normas)</li>
+                  <li>Não acessa bases de dados especializadas</li>
+                  <li>Versão gratuita limitada em recursos</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://chatgpt.com/" target="_blank" class="ferramenta-link">Acessar ChatGPT</a>
+          </div>
+
+          <!-- Claude -->
+          <div class="ferramenta-card" id="claude">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>Claude</h3>
+                <div class="ferramenta-empresa">Anthropic — Foco em segurança, ética e respostas mais confiáveis</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-green">Recomendado</span>
+                  <span class="badge badge-blue">Gratuito / Pago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Janela de contexto de até 200.000 tokens (documentos muito longos)</li>
+                  <li>Excelente capacidade de análise e síntese</li>
+                  <li>Mais cuidadoso ao admitir limitações (menos alucinações)</li>
+                  <li>Interface limpa e funcional</li>
+                  <li>Melhor performance em tarefas analíticas complexas</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>Claude Sonnet 4.6 com limites diários</td></tr>
+                      <tr><td><strong>Pro</strong></td><td>US$ 20/mês</td><td>5x mais capacidade, Opus 4.6, projetos</td></tr>
+                      <tr><td><strong>Max</strong></td><td>US$ 100–200/mês</td><td>Até 20x capacidade, acesso prioritário</td></tr>
+                      <tr><td><strong>Team</strong></td><td>US$ 30/usuário/mês</td><td>Colaboração entre equipes</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <hr class="ferramenta-divider">
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✅ Pontos Fortes</h4>
+                <ul>
+                  <li>Excepcional para análise de processos longos (centenas de páginas)</li>
+                  <li>Respostas mais estruturadas e fundamentadas</li>
+                  <li>Menor tendência a inventar informações</li>
+                  <li>Excelente para comparação e revisão de documentos</li>
+                </ul>
+              </div>
+              <div>
+                <h4>⚠️ Limitações</h4>
+                <ul>
+                  <li>Menos "criativo" para textos persuasivos</li>
+                  <li>Interface sem tantos recursos extras</li>
+                  <li>Menor base de usuários (menos tutoriais disponíveis)</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://claude.ai/" target="_blank" class="ferramenta-link">Acessar Claude</a>
+          </div>
+
+          <!-- Gemini -->
+          <div class="ferramenta-card" id="gemini">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>Gemini</h3>
+                <div class="ferramenta-empresa">Google — Integração nativa com Google Workspace</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-purple">Google</span>
+                  <span class="badge badge-blue">Gratuito / Pago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Acesso direto à busca do Google (informações atualizadas)</li>
+                  <li>Janela de contexto de até 2 milhões de tokens</li>
+                  <li>Integração com Google Workspace (Gmail, Docs, Drive)</li>
+                  <li>Capacidade multimodal (texto, imagem, vídeo)</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>Gemini 2.5 Flash com limites diários</td></tr>
+                      <tr><td><strong>Advanced</strong></td><td>R$ 96,99/mês</td><td>Gemini 3.1 Pro, Deep Research, Veo 3, 2 TB armazenamento</td></tr>
+                      <tr><td><strong>AI Ultra</strong></td><td>US$ 249,99/mês</td><td>Todos os modelos, 30 TB, agentes avançados</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <hr class="ferramenta-divider">
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✅ Pontos Fortes</h4>
+                <ul>
+                  <li>Informações atualizadas via busca Google</li>
+                  <li>Processa documentos extremamente longos</li>
+                  <li>Integração com Gmail e e-mails institucionais</li>
+                  <li>Útil para pesquisa de legislação recente</li>
+                </ul>
+              </div>
+              <div>
+                <h4>⚠️ Limitações</h4>
+                <ul>
+                  <li>Menos preciso em análises complexas (vs. Claude e GPT)</li>
+                  <li>Interface menos intuitiva</li>
+                  <li>Respostas às vezes genéricas demais</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://gemini.google.com/" target="_blank" class="ferramenta-link">Acessar Gemini</a>
+          </div>
+
+          <!-- Perplexity -->
+          <div class="ferramenta-card" id="perplexity">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>Perplexity AI</h3>
+                <div class="ferramenta-empresa">Perplexity AI — Busca inteligente com citação de fontes</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-gold">Pesquisa</span>
+                  <span class="badge badge-blue">Gratuito / Pago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Fornece fontes e citações para cada resposta</li>
+                  <li>Acesso a informações em tempo real</li>
+                  <li>Interface focada em pesquisa</li>
+                  <li>Modo Pro com busca acadêmica e análise de documentos</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>Buscas ilimitadas, Pro limitado a 5/dia</td></tr>
+                      <tr><td><strong>Pro</strong></td><td>US$ 20/mês</td><td>Buscas Pro ilimitadas, uploads, busca acadêmica, acesso a GPT-5 e Claude</td></tr>
+                      <tr><td><strong>Enterprise</strong></td><td>Sob consulta</td><td>SSO, privacidade, dados não usados para treino</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <hr class="ferramenta-divider">
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✅ Pontos Fortes</h4>
+                <ul>
+                  <li>Excelente para pesquisa jurídica e administrativa</li>
+                  <li>Fornece fontes verificáveis (reduz alucinações)</li>
+                  <li>Modo acadêmico acessa bases científicas</li>
+                </ul>
+              </div>
+              <div>
+                <h4>⚠️ Limitações</h4>
+                <ul>
+                  <li>Não é ideal para redação de documentos</li>
+                  <li>Foco em pesquisa, não em geração de conteúdo</li>
+                  <li>Buscas Pro limitadas na versão gratuita</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://www.perplexity.ai/" target="_blank" class="ferramenta-link">Acessar Perplexity</a>
+          </div>
+
+          <!-- NotebookLM -->
+          <div class="ferramenta-card" id="notebooklm">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>NotebookLM</h3>
+                <div class="ferramenta-empresa">Google — Análise inteligente de múltiplos documentos</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-green">Gratuito</span>
+                  <span class="badge badge-purple">Google</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Upload de até 50 documentos por "caderno"</li>
+                  <li>Análise profunda de PDFs, documentos e sites</li>
+                  <li>Geração de resumos, FAQs e guias de estudo</li>
+                  <li>Recurso exclusivo: gera podcasts em áudio sobre seus documentos</li>
+                  <li>Totalmente gratuito na versão base</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>50 fontes por caderno, podcasts em áudio, resumos e FAQs</td></tr>
+                      <tr><td><strong>Plus</strong></td><td>Incluso no Google One AI (R$ 96,99/mês)</td><td>5x mais cadernos e fontes, personalização do áudio</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h4 style="margin-top: var(--space-md);">⚠️ Limitações</h4>
+                <ul>
+                  <li>Não gera documentos (apenas analisa)</li>
+                  <li>Dependente de upload de documentos próprios</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://notebooklm.google.com/" target="_blank" class="ferramenta-link">Acessar NotebookLM</a>
+          </div>
+
+          <!-- Copilot -->
+          <div class="ferramenta-card" id="copilot">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>Copilot</h3>
+                <div class="ferramenta-empresa">Microsoft — IA integrada ao ecossistema Office 365</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-purple">Microsoft</span>
+                  <span class="badge badge-blue">Gratuito / Pago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Integração nativa com Word, Excel, PowerPoint, Outlook e Teams</li>
+                  <li>Acesso à busca do Bing para informações atualizadas</li>
+                  <li>Geração de conteúdo diretamente dentro dos aplicativos Office</li>
+                  <li>Interface conversacional familiar</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>Chat Copilot.microsoft.com com limites de uso</td></tr>
+                      <tr><td><strong>Pro</strong></td><td>US$ 20/usuário/mês</td><td>Integração dentro do Word, Excel, PowerPoint e Outlook</td></tr>
+                      <tr><td><strong>M365 Copilot</strong></td><td>US$ 30/usuário/mês</td><td>Copilot completo em todo o ecossistema M365 e Teams</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h4 style="margin-top: var(--space-md);">⚠️ Limitações</h4>
+                <ul>
+                  <li>Recursos avançados requerem licença Microsoft 365</li>
+                  <li>Menos flexível para tarefas fora do ecossistema Microsoft</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://copilot.microsoft.com/" target="_blank" class="ferramenta-link">Acessar Copilot</a>
+          </div>
+
+          <!-- DeepSeek -->
+          <div class="ferramenta-card" id="deepseek">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>DeepSeek</h3>
+                <div class="ferramenta-empresa">DeepSeek AI (China) — Modelo open-source de alta performance</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-red">Atenção</span>
+                  <span class="badge badge-green">Gratuito</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Totalmente gratuito</li>
+                  <li>Código aberto (transparência técnica)</li>
+                  <li>Performance surpreendente para um modelo gratuito</li>
+                  <li>Forte em raciocínio matemático e lógico</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>DeepSeek V4 (Beta) e modo de raciocínio (Thinking) sem custo</td></tr>
+                      <tr><td><strong>API</strong></td><td>Por token</td><td>Custo-benefício extremo frente a concorrentes</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+                <h4 style="margin-top: var(--space-md);">⚠️ Limitações</h4>
+                <ul>
+                  <li>Menos refinado para contexto administrativo brasileiro</li>
+                  <li>Conhecimento jurídico brasileiro limitado</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="security-alert">
+              <div class="alert-title">🔐 Aviso de Segurança</div>
+              <p>A legislação chinesa permite acesso governamental a dados armazenados em seus servidores. <strong>EVITE enviar dados sensíveis ou sigilosos</strong> para esta ferramenta. Use apenas para conteúdo público ou genérico — e com consciência dos riscos.</p>
+            </div>
+            <a href="https://chat.deepseek.com/" target="_blank" class="ferramenta-link">Acessar DeepSeek</a>
+          </div>
+
+          <!-- Grok -->
+          <div class="ferramenta-card" id="grok">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>Grok</h3>
+                <div class="ferramenta-empresa">xAI (Elon Musk) — Respostas em tempo real com dados da plataforma X</div>
+                <div class="ferramenta-badges">
+                  <span class="badge badge-gold">xAI</span>
+                  <span class="badge badge-blue">Gratuito / Pago</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                <ul>
+                  <li>Acesso a informações em tempo real via plataforma X (Twitter)</li>
+                  <li>Geração de imagens e vídeos via Grok Imagine (modelo Aurora)</li>
+                  <li>Modelo Grok 4.20 com suporte a múltiplos agentes paralelos</li>
+                  <li>Tom mais direto e menos filtros de conteúdo</li>
+                </ul>
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                <div class="table-wrapper">
+                  <table class="table table-compact">
+                    <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+                    <tbody>
+                      <tr><td><strong>Gratuita</strong></td><td>US$ 0</td><td>Grok com limites diários de mensagens e imagens</td></tr>
+                      <tr><td><strong>X Premium+</strong></td><td>US$ 16/mês</td><td>Acesso ampliado, mais imagens e vídeos por dia</td></tr>
+                      <tr><td><strong>SuperGrok</strong></td><td>US$ 30/mês</td><td>~200 gerações de vídeo/dia, sem marca d'água, Grok 4.20</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <hr class="ferramenta-divider">
+
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✅ Pontos Fortes</h4>
+                <ul>
+                  <li>Respostas atualizadas em tempo real via plataforma X</li>
+                  <li>Melhor ferramenta gratuita para geração de imagens e vídeos</li>
+                  <li>Limites generosos de uso na conta gratuita</li>
+                </ul>
+              </div>
+              <div>
+                <h4>⚠️ Limitações</h4>
+                <ul>
+                  <li>Tom às vezes pouco formal para uso institucional</li>
+                  <li>Menor precisão em análises jurídicas complexas</li>
+                  <li>Recursos avançados dependem da assinatura X Premium+</li>
+                </ul>
+              </div>
+            </div>
+            <a href="https://grok.com/" target="_blank" class="ferramenta-link">Acessar Grok</a>
+          </div>
+        </div>
+
+        <!-- 3. Guia rápido -->
+        <div class="topic-section">
+          <div class="section-heading" id="guia-rapido">
+            <span class="section-num">3</span>
+            <h2>Guia rápido: qual ferramenta usar?</h2>
+          </div>
+          <p>Na dúvida, use esta tabela como ponto de partida:</p>
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr><th>Situação</th><th>Ferramenta Recomendada</th><th>Por quê?</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Redigir ofícios, minutas e despachos</td><td><strong>ChatGPT</strong> ou <strong>Claude</strong></td><td>Melhor geração de texto em português formal</td></tr>
+                <tr><td>Analisar documentos longos e complexos</td><td><strong>Claude</strong></td><td>Janela de 200k tokens, respostas estruturadas</td></tr>
+                <tr><td>Pesquisar legislação e jurisprudência</td><td><strong>Perplexity</strong></td><td>Cita fontes verificáveis, acesso em tempo real</td></tr>
+                <tr><td>Estudar múltiplos documentos do TRE-RN</td><td><strong>NotebookLM</strong></td><td>Análise cruzada de até 50 docs, gratuito</td></tr>
+                <tr><td>Integrar IA ao Gmail, Docs e Drive</td><td><strong>Gemini</strong></td><td>Integração nativa com Google Workspace</td></tr>
+                <tr><td>Produtividade no Office (Word, Excel)</td><td><strong>Copilot</strong></td><td>IA dentro do ecossistema Microsoft</td></tr>
+                <tr><td>Experimentação sem custo</td><td><strong>DeepSeek</strong></td><td>Gratuito (atenção à privacidade dos dados)</td></tr>
+                <tr><td>Informações em tempo real</td><td><strong>Grok</strong> ou <strong>Perplexity</strong></td><td>Acesso a dados atualizados da web</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Plataformas agregadoras</div>
+            <p>Existem plataformas que reúnem múltiplos modelos de empresas diferentes em um mesmo ambiente, permitindo compará-los facilmente: <a href="https://lmarena.ai/" target="_blank">LMArena</a> e <a href="https://adapta.org/" target="_blank">Adapta</a>.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./o-que-e.html" class="btn btn-secondary">← Anterior: O que é IA?</a>
+          <a href="./modelos.html" class="btn btn-primary" onclick="marcarTopicoConcluido('ce-02', './modelos.html'); return false;">Próximo: Modelos de LLM →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/topicos.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

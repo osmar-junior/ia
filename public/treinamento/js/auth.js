@@ -87,8 +87,11 @@ const Auth = (() => {
     const turma  = getTurma();
 
     // Desktop — nome
+    // Exibe apenas os 2 primeiros nomes
+    const primeirosDois = nome ? nome.trim().split(/\s+/).slice(0, 2).join(' ') : '';
+
     const userEl = document.getElementById('userDisplay');
-    if (userEl) userEl.textContent = nome || '';
+    if (userEl) userEl.textContent = primeirosDois;
 
     // Desktop — separador (oculta se não houver nome ou turma)
     const sepEl = document.getElementById('userSep');
@@ -101,7 +104,7 @@ const Auth = (() => {
     // Mobile
     const mobileNome  = document.getElementById('userDisplayMobile');
     const mobileTurma = document.getElementById('turmaDisplayMobile');
-    if (mobileNome)  mobileNome.textContent  = nome  || '';
+    if (mobileNome)  mobileNome.textContent  = primeirosDois || '';
     if (mobileTurma) mobileTurma.textContent = turma || '';
   }
 

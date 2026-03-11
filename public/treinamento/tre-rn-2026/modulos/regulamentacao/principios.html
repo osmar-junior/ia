@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Princípios Fundamentais — Regulamentação IA</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Cards de princípios */
+    .principios-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-md); margin: var(--space-xl) 0;
+    }
+    .principio-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+      transition: all var(--transition-base);
+    }
+    .principio-card:hover { border-color: var(--border-hover); box-shadow: var(--shadow-md); }
+    .principio-icon { font-size: 1.8rem; margin-bottom: var(--space-md); }
+    .principio-card h4 { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); }
+    .principio-card p { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0; }
+    .principio-exemplo {
+      margin-top: var(--space-md); padding-top: var(--space-md);
+      border-top: 1px solid var(--border-light);
+      font-size: 0.9rem; color: var(--text-muted);
+    }
+    .principio-exemplo strong { color: var(--dourado); }
+
+    /* Risco header */
+    .risco-header {
+      display: flex; align-items: center; gap: var(--space-md);
+      margin: var(--space-xl) 0 var(--space-lg);
+      padding: var(--space-lg); border-radius: var(--radius-lg);
+    }
+    .risco-header.risco-excessivo { background: rgba(192,57,43,0.07); border: 1px solid rgba(192,57,43,0.2); }
+    .risco-header.risco-alto { background: rgba(184,137,26,0.07); border: 1px solid rgba(184,137,26,0.2); }
+    .risco-header.risco-baixo { background: rgba(26,138,90,0.07); border: 1px solid rgba(26,138,90,0.2); }
+    .risco-header .risco-icon { font-size: 2.2rem; flex-shrink: 0; }
+    .risco-header h3 { margin: 0 0 3px; color: var(--text); font-size: 1.25rem; }
+    .risco-header .risco-sub { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* Vedações */
+    .vedacao-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: var(--space-md); margin: var(--space-lg) 0;
+    }
+    .vedacao-card {
+      background: rgba(192,57,43,0.04); border: 1px solid rgba(192,57,43,0.15);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+    }
+    .vedacao-card h4 { font-size: 1rem; font-weight: 700; color: var(--vermelho); margin-bottom: var(--space-sm); }
+    .vedacao-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.65; margin-bottom: 0; }
+    .vedacao-exemplo { margin-top: var(--space-sm); font-size: 0.88rem; color: var(--text-muted); font-style: italic; }
+
+    @media (max-width: 768px) {
+      .principios-grid { grid-template-columns: 1fr; }
+      .vedacao-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module active">⚖️ Regulamentação</a>
+        <div class="sb-topics open">
+          <a href="./principios.html" class="sb-topic active">Princípios Fundamentais</a>
+          <a href="./uso-ia-generativa.html" class="sb-topic">Uso de IA Generativa</a>
+          <a href="./responsabilidade.html" class="sb-topic">Responsabilidade Profissional</a>
+          <a href="./comite.html" class="sb-topic">Comitê Nacional de IA</a>
+        </div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚖️ Regulamentação · Tópico 01 de 04</div>
+        <h1>Princípios Fundamentais e Classificação de Riscos</h1>
+        <p>Os quatro pilares da Resolução CNJ 615/2025 e o que você pode — e não pode — fazer com IA no Judiciário.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../regulamentacao/">Regulamentação</a><span class="sep">›</span>
+        <span class="current">Princípios Fundamentais</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. Contexto -->
+        <div class="topic-section">
+          <div class="section-heading" id="contexto">
+            <span class="section-num">1</span>
+            <h2>A Resolução CNJ nº 615/2025</h2>
+          </div>
+          <p>Em <strong>11 de março de 2025</strong>, o Conselho Nacional de Justiça publicou a Resolução nº 615, que estabelece diretrizes obrigatórias para o desenvolvimento, uso e governança de Inteligência Artificial no Poder Judiciário brasileiro.</p>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚖️ Por que isso importa para você, servidor?</div>
+            <p>Esta Resolução define seus direitos, deveres e limitações ao usar IA em sua prática profissional. Desconhecê-la não isenta de responsabilidade — todo servidor que utiliza IA no trabalho está sujeito às suas regras.</p>
+          </div>
+        </div>
+
+        <!-- 2. Princípios fundamentais -->
+        <div class="topic-section">
+          <div class="section-heading" id="principios">
+            <span class="section-num">2</span>
+            <h2>Princípios Fundamentais</h2>
+          </div>
+          <p>A Resolução se fundamenta em quatro princípios que orientam todo o uso de IA no Judiciário. Não são abstrações — cada um tem implicações práticas diretas no seu trabalho:</p>
+
+          <div class="principios-grid">
+            <div class="principio-card">
+              <div class="principio-icon">👤</div>
+              <h4>Centralidade Humana</h4>
+              <p>A IA é ferramenta auxiliar. Decisões finais são sempre humanas — a palavra final é do servidor ou do magistrado, nunca da máquina.</p>
+              <div class="principio-exemplo"><strong>Na prática:</strong> Você pode usar IA para rascunhar um ofício, mas a revisão, assinatura e responsabilidade são suas — intransferíveis.</div>
+            </div>
+
+            <div class="principio-card">
+              <div class="principio-icon">⚖️</div>
+              <h4>Justiça e Equidade</h4>
+              <p>Proibição de vieses discriminatórios e garantia de igualdade no tratamento de todas as partes, independente de perfil ou origem.</p>
+              <div class="principio-exemplo"><strong>Na prática:</strong> Se a IA sugerir tratamento diferenciado com base em perfil demográfico, você deve rejeitar a sugestão e reportar.</div>
+            </div>
+
+            <div class="principio-card">
+              <div class="principio-icon">🔍</div>
+              <h4>Transparência</h4>
+              <p>Obrigação de informar quando IA for utilizada em processos e decisões judiciais, sem ocultar a participação das ferramentas.</p>
+              <div class="principio-exemplo"><strong>Na prática:</strong> Se usar IA para redigir ou analisar um documento processual, informe sua chefia quando aplicável e quando a norma exigir.</div>
+            </div>
+
+            <div class="principio-card">
+              <div class="principio-icon">🔐</div>
+              <h4>Proteção de Dados</h4>
+              <p>Conformidade obrigatória com a LGPD e com as políticas de segurança da informação do Judiciário em todas as interações com IA.</p>
+              <div class="principio-exemplo"><strong>Na prática:</strong> Nunca insira dados pessoais sensíveis (CPFs, nomes de partes, dados sigilosos) em ferramentas de IA externas sem anonimização.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Classificação de riscos -->
+        <div class="topic-section">
+          <div class="section-heading" id="riscos">
+            <span class="section-num">3</span>
+            <h2>Classificação de Riscos das Aplicações de IA</h2>
+          </div>
+          <p>A Resolução categoriza as soluções de IA em <strong>três níveis de risco</strong>, cada um com regras específicas de governança e auditoria. Entender essa classificação é fundamental para saber o que você pode e não pode fazer:</p>
+
+          <!-- RISCO EXCESSIVO -->
+          <div class="risco-header risco-excessivo">
+            <div class="risco-icon">🚫</div>
+            <div>
+              <h3>Risco Excessivo — PROIBIDO</h3>
+              <div class="risco-sub">Art. 10 — Aplicações vedadas ao Poder Judiciário</div>
+            </div>
+          </div>
+
+          <div class="vedacao-grid">
+            <div class="vedacao-card">
+              <h4>❌ Sistemas sem Revisão Humana</h4>
+              <p>IA que não permita revisão ou alteração pelo usuário, ou que gere dependência absoluta sem possibilidade de ajuste humano.</p>
+              <div class="vedacao-exemplo">Viola a supervisão humana obrigatória prevista na Resolução.</div>
+            </div>
+            <div class="vedacao-card">
+              <h4>❌ Perfis Preditivos de Criminalidade</h4>
+              <p>Avaliar probabilidade de cometer crimes, prever reincidência ou criar perfis preditivos em matéria trabalhista.</p>
+              <div class="vedacao-exemplo">Ex. proibido: "Este réu tem 80% de chance de reincidir com base em perfil demográfico."</div>
+            </div>
+            <div class="vedacao-card">
+              <h4>❌ Classificação/Ranqueamento de Pessoas</h4>
+              <p>Classificar credibilidade de testemunhas por IA, avaliar "plausibilidade de direitos" por perfil pessoal ou ranquear méritos.</p>
+              <div class="vedacao-exemplo">Viola a dignidade, a presunção de inocência e o princípio da equidade.</div>
+            </div>
+            <div class="vedacao-card">
+              <h4>❌ Reconhecimento de Emoções</h4>
+              <p>Identificar emoções por biometria — expressões faciais, voz, linguagem corporal — em qualquer etapa do processo.</p>
+              <div class="vedacao-exemplo">Ex. proibido: detectar se uma testemunha está mentindo por análise facial em tempo real.</div>
+            </div>
+          </div>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">⚠️ Consequência imediata</div>
+            <p>Soluções que se enquadrem nessas vedações devem ser <strong>imediatamente descontinuadas</strong>. Não há margem para exceções ou adaptações nesta categoria.</p>
+          </div>
+
+          <!-- ALTO RISCO -->
+          <div class="risco-header risco-alto">
+            <div class="risco-icon">⚠️</div>
+            <div>
+              <h3>Alto Risco — Uso Controlado</h3>
+              <div class="risco-sub">Art. 11 — Permitido com rigorosa governança e auditoria</div>
+            </div>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr><th>Categoria</th><th>Descrição</th><th>Exigências</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>AR1</strong><br>Perfis Comportamentais</td>
+                  <td>Identificação de padrões de comportamento de pessoas ou grupos</td>
+                  <td>Avaliação de impacto, auditoria obrigatória, monitoramento contínuo</td>
+                </tr>
+                <tr>
+                  <td><strong>AR2</strong><br>Valoração de Provas</td>
+                  <td>Aferição e valoração de provas documentais, testemunhais e periciais</td>
+                  <td>Supervisão humana, transparência total, revisão por servidor competente</td>
+                </tr>
+                <tr>
+                  <td><strong>AR3</strong><br>Tipificação de Crimes</td>
+                  <td>Interpretação de fatos como crimes, contravenções ou atos infracionais</td>
+                  <td>Vedado uso autônomo, apenas suporte, documentação completa</td>
+                </tr>
+                <tr>
+                  <td><strong>AR4</strong><br>Aplicação de Normas</td>
+                  <td>Juízos sobre aplicação de lei a fatos, quantificação/qualificação de danos</td>
+                  <td>Análise de vieses, registro de uso, decisão final sempre humana</td>
+                </tr>
+                <tr>
+                  <td><strong>AR5</strong><br>Biometria Facial</td>
+                  <td>Identificação facial para monitoramento comportamental</td>
+                  <td>Autorização prévia CNJ, plano anti-viés racial, auditoria rigorosa</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Obrigações para aplicações de Alto Risco (Arts. 13 e 14)</h3>
+          <ul>
+            <li><strong>Avaliação de Impacto Algorítmico:</strong> Análise contínua de impactos em direitos fundamentais</li>
+            <li><strong>Dados Representativos:</strong> Treinamento com dados equilibrados e auditáveis para evitar vieses</li>
+            <li><strong>Registro Automatizado (Log):</strong> Rastreamento de todas as operações realizadas</li>
+            <li><strong>Transparência:</strong> Documentação em linguagem simples do funcionamento do sistema</li>
+            <li><strong>Mitigação de Vieses:</strong> Políticas ativas contra discriminação por qualquer critério</li>
+            <li><strong>Explicabilidade:</strong> Capacidade de explicar como decisões são tomadas (quando tecnicamente possível)</li>
+          </ul>
+
+          <!-- BAIXO RISCO -->
+          <div class="risco-header risco-baixo">
+            <div class="risco-icon">✅</div>
+            <div>
+              <h3>Baixo Risco — Uso Livre com Monitoramento</h3>
+              <div class="risco-sub">Anexo da Resolução — Governança simplificada</div>
+            </div>
+          </div>
+
+          <p>Estas são as aplicações mais comuns no dia a dia do TRE-RN e representam o tipo de uso que faremos nas oficinas deste workshop:</p>
+
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr><th>Código</th><th>Categoria</th><th>Exemplo no TRE-RN</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><strong>BR1</strong></td><td>Atos Ordinatórios</td><td>IA que organiza processos por assunto, classifica petições ou certifica atos automaticamente</td></tr>
+                <tr><td><strong>BR2</strong></td><td>Detecção de Padrões</td><td>Busca de decisões similares em casos análogos, análise jurisprudencial comparativa</td></tr>
+                <tr><td><strong>BR3</strong></td><td>Relatórios Gerenciais</td><td>Painel de produtividade de unidade judicial, estatísticas processuais periódicas</td></tr>
+                <tr><td><strong>BR4</strong></td><td>Apoio à Redação</td><td>IA que gera minuta de despacho ordinatório — sempre com supervisão e revisão do servidor</td></tr>
+                <tr><td><strong>BR5</strong></td><td>Formatação</td><td>Correção ortográfica e formatação de documentos, sem alterar o conteúdo substantivo</td></tr>
+                <tr><td><strong>BR6</strong></td><td>Estatísticas</td><td>Tempo médio de duração de processos por tipo, análises jurimétricas de produtividade</td></tr>
+                <tr><td><strong>BR7</strong></td><td>Transcrição</td><td>Transcrição automática de audiências e sessões plenárias (sempre com revisão humana)</td></tr>
+                <tr><td><strong>BR8</strong></td><td>Anonimização</td><td>Remoção automática de CPFs e nomes em documentos públicos (conformidade LGPD)</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 O que isso significa para as oficinas</div>
+            <p>Praticamente tudo o que faremos nas 12 oficinas deste workshop se enquadra nas categorias BR1 a BR8 — uso de baixo risco com governança simplificada. Você pode e deve usar IA generativa para rascunhar documentos, pesquisar legislação e organizar informações, desde que com supervisão humana adequada.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="../regulamentacao/" class="btn btn-secondary">↩ Voltar ao módulo</a>
+          <a href="./uso-ia-generativa.html" class="btn btn-primary" onclick="marcarTopicoConcluido('reg-01', './uso-ia-generativa.html'); return false;">Próximo: Uso de IA Generativa →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/topicos.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

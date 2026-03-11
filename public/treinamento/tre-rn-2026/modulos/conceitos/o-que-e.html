@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>O que é Inteligência Artificial? — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Timeline */
+    .timeline {
+      position: relative;
+      margin: var(--space-xl) 0;
+      padding-left: 40px;
+    }
+    .timeline::before {
+      content: ''; position: absolute; left: 14px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--azul-medio), var(--dourado));
+      border-radius: 2px;
+    }
+    .timeline-item {
+      position: relative; margin-bottom: var(--space-xl);
+    }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -32px; top: 5px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--azul-medio); border: 3px solid var(--bg); box-shadow: 0 0 0 2px var(--azul-medio);
+    }
+    .timeline-item:last-child::before { background: var(--dourado); box-shadow: 0 0 0 2px var(--dourado); }
+    .timeline-year {
+      font-family: var(--font-display); font-size: 1.05rem;
+      color: var(--azul-medio); margin-bottom: 4px; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .timeline-item:last-child .timeline-year { color: var(--dourado); }
+    .timeline-text {
+      font-size: 1rem; color: var(--text-secondary); line-height: 1.7;
+    }
+
+    /* Comparação IA Tradicional vs Generativa */
+    .comparison-ia {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg); margin: var(--space-xl) 0;
+    }
+    .comp-box {
+      border-radius: var(--radius-lg); padding: var(--space-xl);
+      border: 1px solid;
+    }
+    .comp-box.tradicional {
+      background: rgba(46,92,154,0.06); border-color: rgba(46,92,154,0.2);
+    }
+    .comp-box.generativa {
+      background: rgba(184,137,26,0.06); border-color: rgba(184,137,26,0.2);
+    }
+    .comp-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: var(--space-sm);
+    }
+    .comp-box.tradicional .comp-label { color: var(--azul-medio); }
+    .comp-box.generativa .comp-label { color: var(--dourado); }
+    .comp-box h4 {
+      font-family: var(--font-display); font-size: 1.2rem; color: var(--text);
+      margin-bottom: var(--space-md); line-height: 1.3;
+    }
+    .comp-box p { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-md); }
+    .comp-example {
+      font-size: 0.9rem; color: var(--text-muted); background: var(--bg);
+      padding: var(--space-md); border-radius: var(--radius-md);
+      border-left: 3px solid;
+    }
+    .comp-box.tradicional .comp-example { border-color: var(--azul-medio); }
+    .comp-box.generativa .comp-example { border-color: var(--dourado); }
+    .comp-example strong { color: var(--text-secondary); }
+
+    @media (max-width: 768px) {
+      .comparison-ia { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module active">💡 Conceitos Essenciais</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic active">O que é Inteligência Artificial?</a>
+          <a href="./ferramentas.html" class="sb-topic">Ferramentas de LLM</a>
+          <a href="./modelos.html" class="sb-topic">Modelos de LLM</a>
+        </div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">💡 Conceitos Essenciais · Tópico 01 de 03</div>
+        <h1>O que é Inteligência Artificial?</h1>
+        <p>Definição, evolução histórica e a distinção fundamental entre IA Preditiva e IA Generativa.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../conceitos/">Conceitos Essenciais</a><span class="sep">›</span>
+        <span class="current">O que é Inteligência Artificial?</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. Definição -->
+        <div class="topic-section">
+          <div class="section-heading" id="definicao">
+            <span class="section-num">1</span>
+            <h2>Definição</h2>
+          </div>
+          <p>Inteligência Artificial é o campo da tecnologia que busca criar sistemas capazes de realizar tarefas que normalmente exigiriam raciocínio humano, como interpretar informações, aprender com dados, tomar decisões e adaptar-se a novas situações.</p>
+          <p>Na prática, a IA não é "inteligente" no sentido humano: ela identifica padrões, cruza informações e gera respostas com base em enormes volumes de dados e modelos matemáticos.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Uma analogia útil</div>
+            <p>Pense na IA como um bibliotecário incrivelmente veloz que leu bilhões de documentos e consegue encontrar padrões em segundos — mas que não "compreende" o que leu do jeito que você compreende. Ele é eficiente, mas precisa de supervisão.</p>
+          </div>
+        </div>
+
+        <!-- 2. Linha do tempo -->
+        <div class="topic-section">
+          <div class="section-heading" id="linha-do-tempo">
+            <span class="section-num">2</span>
+            <h2>Uma breve linha do tempo</h2>
+          </div>
+          <p>A IA não surgiu do nada em 2022. É o resultado de décadas de pesquisa acadêmica, avanços computacionais e disponibilidade massiva de dados:</p>
+
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">1950</div>
+              <div class="timeline-text">Alan Turing publica "Computing Machinery and Intelligence" e propõe o Teste de Turing — marco fundador da IA como campo de estudo. A pergunta central: "Pode uma máquina pensar?"</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1956</div>
+              <div class="timeline-text">Conferência de Dartmouth, onde o termo "Inteligência Artificial" é oficialmente cunhado. Início das pesquisas acadêmicas formais. Os pesquisadores acreditavam que a IA humana estava a décadas de distância — e estavam certos.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">1997</div>
+              <div class="timeline-text">Deep Blue (IBM) vence o campeão mundial de xadrez Garry Kasparov — a IA demonstra capacidade sobre-humana em tarefas específicas pela primeira vez em nível mundial.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2011</div>
+              <div class="timeline-text">Watson (IBM) vence o programa de TV Jeopardy!, mostrando avanços significativos em compreensão de linguagem natural e raciocínio contextual.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2017</div>
+              <div class="timeline-text">Google publica o artigo "Attention Is All You Need", apresentando a arquitetura Transformer — a base técnica que possibilita todos os LLMs atuais. Um marco discreto com consequências revolucionárias.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-text">Lançamento do ChatGPT pela OpenAI. A IA generativa se torna acessível ao público em geral, atingindo 100 milhões de usuários em dois meses — o produto de maior crescimento da história da internet até então.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2025</div>
+              <div class="timeline-text">IA multimodal (texto, imagem, áudio, vídeo) se consolida. O CNJ publica a <strong>Resolução nº 615/2025</strong> regulamentando o uso de IA no Judiciário brasileiro — o marco legal que define suas obrigações como servidor.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. IA Tradicional vs Generativa -->
+        <div class="topic-section">
+          <div class="section-heading" id="tipos">
+            <span class="section-num">3</span>
+            <h2>IA Preditiva vs. IA Generativa</h2>
+          </div>
+          <p>Existem dois grandes "tipos" de IA, com propósitos e funcionamentos fundamentalmente diferentes. Saber distingui-los é essencial para entender o que as ferramentas do workshop fazem — e o que elas não fazem:</p>
+
+          <div class="comparison-ia">
+            <div class="comp-box tradicional">
+              <div class="comp-label">Tipo 1</div>
+              <h4>IA Preditiva (Tradicional)</h4>
+              <p>Analisa dados históricos para <strong>prever</strong> eventos futuros, identificar padrões e classificar informações. Os modelos geralmente são treinados e implantados pela própria organização.</p>
+              <p><strong>Verbo central:</strong> <em>Prever</em></p>
+              <div class="comp-example">
+                <strong>Exemplos no Judiciário:</strong> Sistema que prevê o tempo médio de duração de processos por tipo e comarca. Algoritmo que detecta padrões estatísticos de fraude eleitoral com base em histórico de urnas.
+              </div>
+            </div>
+            <div class="comp-box generativa">
+              <div class="comp-label">Tipo 2</div>
+              <h4>IA Generativa</h4>
+              <p>Cria <strong>conteúdo novo</strong> — texto, imagem, áudio, vídeo — com base em padrões aprendidos de enormes volumes de dados. Utiliza LLMs (Modelos de Linguagem de Grande Escala).</p>
+              <p><strong>Verbo central:</strong> <em>Criar</em></p>
+              <div class="comp-example">
+                <strong>Exemplos no Judiciário:</strong> ChatGPT gerando um rascunho de ofício a partir de suas instruções. Gemini criando um resumo de uma sessão plenária a partir de vídeo. Claude analisando um processo e identificando pontos críticos.
+              </div>
+            </div>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">🎯 Foco deste Workshop</div>
+            <p>Neste treinamento, trabalharemos exclusivamente com <strong>IA Generativa</strong> — as ferramentas que permitem criar textos, analisar documentos, gerar imagens e automatizar tarefas do dia a dia no TRE-RN. A IA Preditiva é relevante, mas seu desenvolvimento e uso são de responsabilidade de equipes técnicas especializadas.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="../conceitos/" class="btn btn-secondary">↩ Voltar ao módulo</a>
+          <a href="./ferramentas.html" class="btn btn-primary" onclick="marcarTopicoConcluido('ce-01', './ferramentas.html'); return false;">Próximo: Ferramentas de LLM →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/topicos.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

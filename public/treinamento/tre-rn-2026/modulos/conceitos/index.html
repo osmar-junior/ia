@@ -4,7 +4,7 @@
   <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Como a IA Funciona — IA no Judiciário</title>
+  <title>Conceitos Essenciais — IA no Judiciário</title>
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
@@ -80,7 +80,6 @@
     .module-summary { margin-bottom: var(--space-3xl); }
     .module-summary h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-md); }
     .module-summary p { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--space-md); }
-    .module-summary p:last-child { margin-bottom: 0; }
 
     /* ─── Cards de tópicos ─── */
     .topics-section h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg); }
@@ -116,31 +115,6 @@
     .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
     .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
 
-
-    /* ═══════════════════════════════════════════════════════
-       SEÇÃO DE OFICINAS — integrada à página de módulo
-    ═══════════════════════════════════════════════════════ */
-
-    /* ─── Cabeçalho da seção ─── */
-
-    /* ─── Dashboard ─── */
-
-    /* ─── Rótulos de tema ─── */
-
-    /* ─── Grid de cards ─── */
-
-    /* ─── Card individual ─── */
-
-    /* Faixa colorida por tema (top border) */
-
-
-
-
-    /* Botão concluir */
-
-    @media (max-width: 760px) {
-    }
-
     @media (max-width: 960px) {
       .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
       .sidebar.open { left: 0; }
@@ -165,20 +139,20 @@
 
         <div class="sb-label">📚 Módulos</div>
 
-        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
-        <div class="sb-topics"></div>
-
-        <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
+        <a href="../conceitos/" class="sb-module active">💡 Conceitos Essenciais</a>
         <div class="sb-topics open">
-          <a href="./tokens.html" class="sb-topic">Tokens e Janela de Contexto</a>
-          <a href="./cuidados.html" class="sb-topic">Cuidados e Limitações</a>
-          <a href="./personalizacao.html" class="sb-topic">Personalização de Ferramentas</a>
+          <a href="./o-que-e.html" class="sb-topic">O que é Inteligência Artificial?</a>
+          <a href="./ferramentas.html" class="sb-topic">Ferramentas de LLM</a>
+          <a href="./modelos.html" class="sb-topic">Modelos de LLM</a>
         </div>
+
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
 
         <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
         <div class="sb-topics"></div>
 
-        <a href="../../modulos/engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
         <div class="sb-topics"></div>
 
         <hr class="sb-divider">
@@ -198,12 +172,12 @@
 
       <section class="page-hero">
         <div class="page-hero-bg">
-          <img src="../../assets/heroes/hero-como-funciona.jpg" alt="" loading="eager">
+          <img src="../../assets/heroes/hero-conceitos.jpg" alt="" loading="eager">
         </div>
         <div class="hero-text">
-          <div class="eyebrow"><span class="dot"></span> Módulo 02</div>
-          <h1>Como a IA Funciona</h1>
-          <p>A mecânica por trás das respostas, os limites que você precisa conhecer e como preparar as ferramentas para o uso profissional.</p>
+          <div class="eyebrow"><span class="dot"></span> Módulo 01</div>
+          <h1>Conceitos Essenciais de IA</h1>
+          <p>Fundamentos para compreender a revolução da Inteligência Artificial generativa e suas aplicações no Judiciário.</p>
         </div>
       </section>
 
@@ -212,29 +186,29 @@
         <span class="sep">›</span>
         <a href="../">Módulos</a>
         <span class="sep">›</span>
-        <span class="current">Como a IA Funciona</span>
+        <span class="current">Conceitos Essenciais</span>
       </nav>
 
       <div class="page-body">
 
         <div class="module-meta">
-          <div class="meta-item">⏱️ <span><strong>~35 min</strong> no total</span></div>
+          <div class="meta-item">⏱️ <span><strong>~40 min</strong> no total</span></div>
           <div class="meta-item">📄 <span><strong>3 tópicos</strong></span></div>
-          <div class="meta-item">🏷️ <span>Teoria + Prática</span></div>
-          <div class="meta-item">📶 <span>Nível intermediário</span></div>
+          <div class="meta-item">🏷️ <span>Teoria + Referência</span></div>
+          <div class="meta-item">📶 <span>Nível introdutório</span></div>
         </div>
 
         <!-- Resumo -->
         <div class="module-summary">
           <h2>Sobre este módulo</h2>
           <p>
-            Para usar bem qualquer ferramenta, é preciso entender como ela funciona por dentro — não nos detalhes técnicos do código, mas nos seus princípios de operação. Com a IA generativa não é diferente. Saber o que são tokens, o que é a janela de contexto e como os modelos "lembram" (ou esquecem) o que foi dito muda a forma como você formula perguntas, estrutura documentos e interpreta respostas.
+            Antes de usar qualquer ferramenta de IA com competência, é preciso entender o terreno. Este módulo apresenta os fundamentos conceituais que sustentam todo o restante do workshop: o que é IA, como ela evoluiu, qual a diferença entre a IA tradicional e a IA generativa, e quais ferramentas e modelos estão disponíveis hoje.
           </p>
           <p>
-            Mais do que isso: a IA tem limitações sérias que precisam ser compreendidas antes de qualquer uso profissional. Alucinações, vieses e riscos à confidencialidade de dados não são curiosidades acadêmicas — são riscos reais que já geraram consequências institucionais em tribunais brasileiros e no exterior.
+            Não se trata de teoria pela teoria. Saber distinguir uma ferramenta de um modelo, entender por que o ChatGPT e o Claude funcionam de formas diferentes, ou reconhecer o que o DeepSeek representa em termos de segurança da informação — tudo isso tem impacto direto no seu trabalho como servidor do TRE-RN.
           </p>
           <p>
-            O módulo termina com orientações práticas de configuração: como personalizar as ferramentas para que respondam do jeito certo, sem precisar repetir as mesmas instruções a cada conversa.
+            O módulo encerra com um guia prático de quando usar cada ferramenta e um mapa atualizado dos principais modelos disponíveis em 2026, com orientações claras sobre seus pontos fortes, limitações e riscos.
           </p>
         </div>
 
@@ -245,20 +219,20 @@
           <h2 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg);">O que você vai aprender</h2>
           <div class="outcomes-grid">
             <div class="outcome-card">
-              <div class="outcome-icon">🔤</div>
-              <p>O que são tokens, como afetam o custo e a memória das conversas, e qual o limite prático de cada modelo.</p>
+              <div class="outcome-icon">💡</div>
+              <p>O que é Inteligência Artificial, como ela surgiu e qual a diferença fundamental entre IA tradicional e IA generativa.</p>
             </div>
             <div class="outcome-card">
-              <div class="outcome-icon">⚠️</div>
-              <p>Quais são as principais limitações da IA generativa e como evitar erros com consequências institucionais.</p>
-            </div>
-            <div class="outcome-card">
-              <div class="outcome-icon">🔒</div>
-              <p>Como proteger dados sigilosos e quais informações jamais devem ser inseridas em ferramentas públicas de IA.</p>
+              <div class="outcome-icon">🛠️</div>
+              <p>Quais são as principais ferramentas de LLM disponíveis, suas diferenças práticas e como escolher a certa para cada tarefa.</p>
             </div>
             <div class="outcome-card">
               <div class="outcome-icon">⚙️</div>
-              <p>Como configurar estilo, contexto profissional e instruções permanentes para melhorar todas as conversas futuras.</p>
+              <p>O que são modelos de LLM, a diferença entre proprietários e open-source, e quais modelos usar em cada situação.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">🔐</div>
+              <p>Riscos de segurança específicos de certas ferramentas e como proteger dados institucionais na escolha da plataforma.</p>
             </div>
           </div>
         </div>
@@ -270,11 +244,11 @@
           <h2>Tópicos do módulo</h2>
           <div class="topics-list">
 
-            <a href="./tokens.html" class="topic-card">
+            <a href="./o-que-e.html" class="topic-card">
               <span class="topic-num">01</span>
               <div class="topic-body">
-                <span class="topic-title">Tokens e Janela de Contexto</span>
-                <span class="topic-desc">Entenda as unidades de processamento dos modelos, como funcionam os limites de memória das conversas e quanto texto cada ferramenta consegue processar de uma vez.</span>
+                <span class="topic-title">O que é Inteligência Artificial?</span>
+                <span class="topic-desc">Definição, breve linha do tempo desde Alan Turing até a Resolução CNJ 615/2025, e a distinção fundamental entre IA Preditiva e IA Generativa — com exemplos do contexto eleitoral e judicial.</span>
                 <div class="topic-meta">
                   <span class="topic-tag">⏱ ~10 min</span>
                   <span class="topic-tag">Teoria</span>
@@ -283,27 +257,27 @@
               <span class="topic-arrow">→</span>
             </a>
 
-            <a href="./cuidados.html" class="topic-card">
+            <a href="./ferramentas.html" class="topic-card">
               <span class="topic-num">02</span>
               <div class="topic-body">
-                <span class="topic-title">Cuidados e Limitações da IA Generativa</span>
-                <span class="topic-desc">Alucinações, vieses, confidencialidade de dados e o papel da revisão humana. Inclui casos reais de consequências institucionais no uso inadequado de IA por profissionais do Direito.</span>
+                <span class="topic-title">Ferramentas de LLM</span>
+                <span class="topic-desc">Análise detalhada de ChatGPT, Claude, Gemini, Perplexity, NotebookLM, Copilot, DeepSeek e Grok — com características, planos, preços (fev/2026), pontos fortes, limitações e alertas de segurança. Inclui guia rápido de qual usar em cada situação.</span>
                 <div class="topic-meta">
-                  <span class="topic-tag">⏱ ~15 min</span>
-                  <span class="topic-tag">Teoria</span>
+                  <span class="topic-tag">⏱ ~20 min</span>
+                  <span class="topic-tag">Referência</span>
                 </div>
               </div>
               <span class="topic-arrow">→</span>
             </a>
 
-            <a href="./personalizacao.html" class="topic-card">
+            <a href="./modelos.html" class="topic-card">
               <span class="topic-num">03</span>
               <div class="topic-body">
-                <span class="topic-title">Personalização de Ferramentas</span>
-                <span class="topic-desc">Configure estilo de resposta, contexto profissional e instruções permanentes. Inclui modelos prontos para copiar adaptados ao contexto de servidor do TRE-RN.</span>
+                <span class="topic-title">Modelos de LLM</span>
+                <span class="topic-desc">A diferença entre ferramenta e modelo, proprietários vs. open-source, multimodalidade e uma tabela de referência dos principais modelos por ferramenta em 2026 — com foco e indicação de uso prático.</span>
                 <div class="topic-meta">
                   <span class="topic-tag">⏱ ~10 min</span>
-                  <span class="topic-tag">Prático</span>
+                  <span class="topic-tag">Referência</span>
                 </div>
               </div>
               <span class="topic-arrow">→</span>
@@ -311,9 +285,6 @@
 
           </div>
         </div>
-
-
-        
 
       </div>
     </main>
@@ -335,8 +306,6 @@
       document.getElementById('sidebarOverlay').classList.remove('open');
     }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
-
-
   </script>
 </body>
 </html>

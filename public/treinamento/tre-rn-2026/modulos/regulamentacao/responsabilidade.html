@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Responsabilidade Profissional — Regulamentação IA</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Tabela de perigos */
+    .table-danger thead { background: rgba(192,57,43,0.1); }
+    .table-danger th { color: var(--vermelho) !important; }
+
+    /* Stepper de boas práticas */
+    .stepper { display: flex; flex-direction: column; gap: 0; margin: var(--space-xl) 0; }
+    .step { display: flex; gap: var(--space-lg); }
+    .step-indicator { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .step-number {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--azul-medio); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 1.05rem; flex-shrink: 0; z-index: 1;
+    }
+    .step-line { width: 2px; flex: 1; background: var(--border); margin: 6px 0; min-height: 24px; }
+    .step:last-child .step-line { display: none; }
+    .step-content { padding-bottom: var(--space-xl); flex: 1; }
+    .step-content h4 {
+      font-family: var(--font-body); font-size: 1.08rem; font-weight: 700;
+      color: var(--azul); margin-bottom: var(--space-sm); margin-top: 8px;
+    }
+    .step-content p { font-size: 1rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module active">⚖️ Regulamentação</a>
+        <div class="sb-topics open">
+          <a href="./principios.html" class="sb-topic">Princípios Fundamentais</a>
+          <a href="./uso-ia-generativa.html" class="sb-topic">Uso de IA Generativa</a>
+          <a href="./responsabilidade.html" class="sb-topic active">Responsabilidade Profissional</a>
+          <a href="./comite.html" class="sb-topic">Comitê Nacional de IA</a>
+        </div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas</div>
+        <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚖️ Regulamentação · Tópico 03 de 04</div>
+        <h1>Responsabilidade Profissional e Ética</h1>
+        <p>A regra de ouro: você é sempre responsável pelo resultado final. Deveres, consequências e boas práticas para uso ético da IA.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../regulamentacao/">Regulamentação</a><span class="sep">›</span>
+        <span class="current">Responsabilidade Profissional</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. Regra de ouro -->
+        <div class="topic-section">
+          <div class="section-heading" id="regra-ouro">
+            <span class="section-num">1</span>
+            <h2>A regra de ouro</h2>
+          </div>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Princípio inegociável</div>
+            <p>O servidor é <strong>SEMPRE</strong> responsável pelo resultado final. A IA é ferramenta de assistência, não de substituição. Se um documento com erros gerados por IA for assinado por você, a responsabilidade é sua — integralmente, sem compartilhamento com o sistema.</p>
+          </div>
+
+          <p>Isso não é uma restrição burocrática. É o reflexo de um princípio jurídico básico: o ato administrativo pertence ao servidor que o assina, independente de quais ferramentas foram usadas em sua elaboração. A IA não tem CNPJ, CPF, matrícula funcional ou capacidade de responder por seus erros perante a administração pública.</p>
+        </div>
+
+        <!-- 2. Deveres ao usar IA -->
+        <div class="topic-section">
+          <div class="section-heading" id="deveres">
+            <span class="section-num">2</span>
+            <h2>Deveres ao usar IA</h2>
+          </div>
+
+          <ul>
+            <li><strong>Sempre revise e valide</strong> o conteúdo gerado pela IA antes de qualquer uso oficial</li>
+            <li><strong>Verifique legislação e normas citadas</strong> — IAs podem inventar leis, súmulas, artigos e jurisprudência com aparência totalmente plausível</li>
+            <li>Nunca entregue documentos gerados por IA sem <strong>revisão criteriosa e personalização</strong> para o caso concreto</li>
+            <li>Mantenha seu <strong>julgamento profissional</strong> como filtro final — você conhece o contexto; a IA não</li>
+            <li><strong>Adapte o conteúdo</strong> para o perfil da unidade, da chefia e das partes envolvidas</li>
+            <li>Seja crítico com <strong>respostas muito completas e confiantes</strong> — quanto mais elaborada e fluente a resposta, maior a tentação de aceitá-la sem revisão</li>
+          </ul>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ O risco das alucinações</div>
+            <p>IA generativa pode citar leis que não existem, artigos que nunca foram publicados, súmulas que nunca foram editadas e jurisprudências de processos fictícios — tudo com aparência técnica impecável. Sempre confira números de leis, artigos e decisões em fontes oficiais: Planalto.gov.br, sites dos tribunais, DOU.</p>
+          </div>
+        </div>
+
+        <!-- 3. Dever de confidencialidade -->
+        <div class="topic-section">
+          <div class="section-heading" id="confidencialidade">
+            <span class="section-num">3</span>
+            <h2>Dever de Confidencialidade</h2>
+          </div>
+
+          <p>A <strong>Lei 8.112/90</strong> (Regime Jurídico dos Servidores Públicos Federais) estabelece em seu Art. 116, VIII, o dever de guardar sigilo sobre informações obtidas em razão do cargo. O uso inadequado de IA pode configurar <strong>quebra de sigilo</strong>, com consequências graves:</p>
+
+          <ul>
+            <li>Processos administrativos disciplinares (PAD)</li>
+            <li>Responsabilização por negligência na revisão de conteúdo gerado por IA</li>
+            <li>Indenizações por violação de dados pessoais (LGPD)</li>
+            <li>Em casos extremos: responsabilização penal por divulgação de informação sigilosa</li>
+          </ul>
+        </div>
+
+        <!-- 4. NUNCA faça isso -->
+        <div class="topic-section">
+          <div class="section-heading" id="nunca">
+            <span class="section-num">4</span>
+            <h2>NUNCA faça isso</h2>
+          </div>
+
+          <div class="table-wrapper">
+            <table class="table table-danger">
+              <thead>
+                <tr><th>Ação Proibida</th><th>Por que é grave</th><th>Consequência</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Copiar e colar documento gerado por IA sem revisar</td>
+                  <td>Pode conter legislação falsa, erros técnicos, inadequação ao caso concreto</td>
+                  <td>Processo administrativo, responsabilização pessoal, dano à credibilidade institucional</td>
+                </tr>
+                <tr>
+                  <td>Inserir dados sigilosos em IA pública sem anonimização</td>
+                  <td>Violação da LGPD e quebra de sigilo profissional previsto na Lei 8.112/90</td>
+                  <td>PAD, indenização, possível responsabilização criminal</td>
+                </tr>
+                <tr>
+                  <td>Confiar cegamente em citações legais da IA</td>
+                  <td>IA inventa leis, súmulas e processos inexistentes com aparência totalmente convincente</td>
+                  <td>Perda de credibilidade, multa, responsabilização por erro processual</td>
+                </tr>
+                <tr>
+                  <td>Usar IA para valorar provas ou aplicar normas sem supervisão adequada</td>
+                  <td>Vedado pela Resolução 615/2025 (categoria de alto risco AR2 e AR4)</td>
+                  <td>Nulidade processual, responsabilização funcional, dano à parte</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 5. Boas práticas -->
+        <div class="topic-section">
+          <div class="section-heading" id="boas-praticas">
+            <span class="section-num">5</span>
+            <h2>Boas Práticas para Uso Ético</h2>
+          </div>
+          <p>Quatro etapas para garantir que o uso de IA no seu trabalho seja responsável, ético e conforme a Resolução 615/2025:</p>
+
+          <div class="stepper">
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">1</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4>Transparência</h4>
+                <p>Informe à chefia sobre uso de IA quando relevante para o trabalho ou quando a norma interna exigir. Deixe claro que você supervisiona todo o conteúdo gerado. Não use IA como forma de ocultar o processo de trabalho — use-a como ferramenta declarada e responsável.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">2</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4>Verificação Rigorosa</h4>
+                <p>Sempre confira: números de leis, artigos, súmulas e jurisprudência. Consulte fontes oficiais (Planalto.gov.br, sites dos tribunais, DOU). Confirme a vigência das normas citadas. Valide a redação exata de dispositivos legais — uma vírgula ou palavra errada pode mudar completamente o sentido jurídico.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">3</div>
+                <div class="step-line"></div>
+              </div>
+              <div class="step-content">
+                <h4>Personalização e Expertise</h4>
+                <p>Use IA como rascunho inicial, nunca como produto final. Adicione seu raciocínio técnico, adapte à realidade do caso concreto, considere a jurisprudência local e o contexto da sua unidade. A IA não conhece a política interna do TRE-RN, o perfil do seu diretor ou os precedentes específicos da sua seção — você conhece.</p>
+              </div>
+            </div>
+
+            <div class="step">
+              <div class="step-indicator">
+                <div class="step-number">4</div>
+              </div>
+              <div class="step-content">
+                <h4>Capacitação Contínua</h4>
+                <p>Mantenha-se atualizado sobre novas tecnologias, participe de treinamentos como este e acompanhe as atualizações da Resolução CNJ 615/2025. O Comitê Nacional de IA atualiza a classificação de riscos anualmente — o que é permitido hoje pode mudar.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./uso-ia-generativa.html" class="btn btn-secondary">← Anterior: Uso de IA Generativa</a>
+          <a href="./comite.html" class="btn btn-primary" onclick="marcarTopicoConcluido('reg-03', './comite.html'); return false;">Próximo: Comitê Nacional de IA →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script src="../../js/topicos.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

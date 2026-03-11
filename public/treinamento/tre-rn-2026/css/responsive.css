@@ -32,6 +32,8 @@
   .navbar-links { display: none; }
   .navbar-hamburger { display: flex; }
   .navbar-turma { font-size: 0.75rem; padding: 5px 12px; }
+  .navbar-user-info { display: none; }
+  .navbar-user-sep { display: none; }
 
   .container, .container-narrow { padding: 0 var(--space-md); }
   .section { padding: var(--space-3xl) 0; }

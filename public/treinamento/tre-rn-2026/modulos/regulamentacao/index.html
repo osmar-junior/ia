@@ -4,21 +4,13 @@
   <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Como a IA Funciona — IA no Judiciário</title>
+  <title>Regulamentação — IA no Judiciário</title>
   <link rel="stylesheet" href="../../css/styles.css">
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <style>
     .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
-
-    /* ─── Sidebar ─── */
-    .sidebar {
-      width: 260px; flex-shrink: 0;
-      background: var(--bg-card); border-right: 1px solid var(--border-light);
-      position: sticky; top: var(--navbar-height);
-      height: calc(100vh - var(--navbar-height));
-      overflow-y: auto; display: flex; flex-direction: column; z-index: 10;
-    }
+    .sidebar { width: 260px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
     .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
     .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
     .sb-label:first-child { margin-top: 0; }
@@ -37,62 +29,31 @@
     .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
     .sb-footer a { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
     .sb-footer a:hover { color: var(--azul-medio); }
-
-    /* ─── Conteúdo ─── */
     .main-content { flex: 1; min-width: 0; background: var(--bg); }
-
-    /* ─── Hero ─── */
-    .page-hero {
-      position: relative; min-height: 320px;
-      display: flex; align-items: flex-end;
-      padding: var(--space-3xl) var(--space-2xl) var(--space-xl); overflow: hidden;
-    }
+    .page-hero { position: relative; min-height: 320px; display: flex; align-items: flex-end; padding: var(--space-3xl) var(--space-2xl) var(--space-xl); overflow: hidden; }
     .page-hero-bg { position: absolute; inset: 0; z-index: 0; }
     .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
-    .page-hero-bg::after {
-      content: ''; position: absolute; inset: 0;
-      background:
-        linear-gradient(rgba(20,40,80,0.45), rgba(20,40,80,0.45)),
-        linear-gradient(to right, rgba(20,40,80,0.98) 0%, rgba(20,40,80,0.92) 30%, rgba(20,40,80,0.65) 60%, rgba(20,40,80,0.15) 100%);
-    }
+    .page-hero-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(rgba(20,40,80,0.45), rgba(20,40,80,0.45)), linear-gradient(to right, rgba(20,40,80,0.98) 0%, rgba(20,40,80,0.92) 30%, rgba(20,40,80,0.65) 60%, rgba(20,40,80,0.15) 100%); }
     .hero-text { position: relative; z-index: 2; max-width: 640px; }
     .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dourado-light); background: rgba(184,137,26,0.2); border: 1px solid rgba(184,137,26,0.3); border-radius: 99px; padding: 5px 14px; margin-bottom: var(--space-md); }
     .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dourado-light); }
     .page-hero h1 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.15; }
     .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.6; }
-
-    /* ─── Breadcrumb ─── */
     .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
     .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
     .breadcrumb a:hover { text-decoration: underline; }
     .breadcrumb .sep { color: var(--border-hover); }
     .breadcrumb .current { color: var(--text); font-weight: 500; }
-
-    /* ─── Corpo ─── */
     .page-body { padding: var(--space-2xl); }
-
-    /* ─── Metadados ─── */
     .module-meta { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-2xl); padding: var(--space-md) var(--space-lg); background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); }
     .meta-item { display: flex; align-items: center; gap: 7px; font-size: 0.87rem; color: var(--text-secondary); }
     .meta-item strong { color: var(--text); font-weight: 600; }
-
-    /* ─── Resumo ─── */
     .module-summary { margin-bottom: var(--space-3xl); }
     .module-summary h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-md); }
     .module-summary p { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--space-md); }
-    .module-summary p:last-child { margin-bottom: 0; }
-
-    /* ─── Cards de tópicos ─── */
     .topics-section h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg); }
     .topics-list { display: flex; flex-direction: column; gap: var(--space-md); }
-    .topic-card {
-      display: flex; align-items: flex-start; gap: var(--space-lg);
-      padding: var(--space-lg) var(--space-xl);
-      background: var(--bg-card); border: 1px solid var(--border);
-      border-left: 4px solid var(--azul-medio);
-      border-radius: var(--radius-lg); text-decoration: none;
-      transition: all 0.18s ease;
-    }
+    .topic-card { display: flex; align-items: flex-start; gap: var(--space-lg); padding: var(--space-lg) var(--space-xl); background: var(--bg-card); border: 1px solid var(--border); border-left: 4px solid var(--azul-medio); border-radius: var(--radius-lg); text-decoration: none; transition: all 0.18s ease; }
     .topic-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); border-color: var(--azul-medio); }
     .topic-num { font-size: 1.5rem; font-weight: 800; color: var(--azul-light-text, var(--border-hover)); min-width: 32px; padding-top: 2px; line-height: 1; }
     .topic-body { flex: 1; }
@@ -102,45 +63,23 @@
     .topic-meta { display: flex; gap: var(--space-md); margin-top: var(--space-sm); }
     .topic-tag { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); background: var(--bg-elevated); border: 1px solid var(--border-light); border-radius: 99px; padding: 2px 10px; }
     .topic-arrow { color: var(--azul-medio); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; align-self: center; }
-
-    /* ─── Separador ─── */
     .divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-3xl) 0; }
-
-    /* ─── O que você vai aprender ─── */
     .outcomes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
     .outcome-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: var(--space-lg); }
     .outcome-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
     .outcome-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.55; }
-
-    /* ─── Mobile ─── */
     .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
     .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
-
-
-    /* ═══════════════════════════════════════════════════════
-       SEÇÃO DE OFICINAS — integrada à página de módulo
-    ═══════════════════════════════════════════════════════ */
-
-    /* ─── Cabeçalho da seção ─── */
-
-    /* ─── Dashboard ─── */
-
-    /* ─── Rótulos de tema ─── */
-
-    /* ─── Grid de cards ─── */
-
-    /* ─── Card individual ─── */
-
-    /* Faixa colorida por tema (top border) */
-
-
-
-
-    /* Botão concluir */
-
-    @media (max-width: 760px) {
+    /* Destaque resolução */
+    .resolucao-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(184,137,26,0.08); border: 1px solid rgba(184,137,26,0.25);
+      border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg);
+      margin-bottom: var(--space-xl);
     }
-
+    .resolucao-badge .badge-icon { font-size: 1.5rem; }
+    .resolucao-badge-text strong { display: block; font-size: 1rem; color: var(--dourado); font-weight: 700; }
+    .resolucao-badge-text span { font-size: 0.9rem; color: var(--text-muted); }
     @media (max-width: 960px) {
       .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
       .sidebar.open { left: 0; }
@@ -159,32 +98,25 @@
 
   <div class="layout">
 
-    <!-- ══ SIDEBAR ══ -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-
         <div class="sb-label">📚 Módulos</div>
-
         <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
         <div class="sb-topics"></div>
-
-        <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module active">⚖️ Regulamentação</a>
         <div class="sb-topics open">
-          <a href="./tokens.html" class="sb-topic">Tokens e Janela de Contexto</a>
-          <a href="./cuidados.html" class="sb-topic">Cuidados e Limitações</a>
-          <a href="./personalizacao.html" class="sb-topic">Personalização de Ferramentas</a>
+          <a href="./principios.html" class="sb-topic">Princípios Fundamentais</a>
+          <a href="./uso-ia-generativa.html" class="sb-topic">Uso de IA Generativa</a>
+          <a href="./responsabilidade.html" class="sb-topic">Responsabilidade Profissional</a>
+          <a href="./comite.html" class="sb-topic">Comitê Nacional de IA</a>
         </div>
-
-        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
         <div class="sb-topics"></div>
-
-        <a href="../../modulos/engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
-        <div class="sb-topics"></div>
-
         <hr class="sb-divider">
         <div class="sb-label">🛠️ Oficinas</div>
         <a href="../../index.html#oficinas-section" class="sb-oficina">📋 Ver todas as oficinas</a>
-
       </div>
       <div class="sb-footer">
         <a href="../../index.html">↩ Início do curso</a>
@@ -193,17 +125,16 @@
 
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
-    <!-- ══ CONTEÚDO ══ -->
     <main class="main-content">
 
       <section class="page-hero">
         <div class="page-hero-bg">
-          <img src="../../assets/heroes/hero-como-funciona.jpg" alt="" loading="eager">
+          <img src="../../assets/heroes/hero-regulamentacao.jpg" alt="" loading="eager">
         </div>
         <div class="hero-text">
-          <div class="eyebrow"><span class="dot"></span> Módulo 02</div>
-          <h1>Como a IA Funciona</h1>
-          <p>A mecânica por trás das respostas, os limites que você precisa conhecer e como preparar as ferramentas para o uso profissional.</p>
+          <div class="eyebrow"><span class="dot"></span> Módulo 03</div>
+          <h1>Regulamentação de IA no Judiciário</h1>
+          <p>Resolução CNJ nº 615/2025 — o que você, servidor do TRE-RN, precisa saber sobre o uso de IA no Poder Judiciário.</p>
         </div>
       </section>
 
@@ -212,29 +143,37 @@
         <span class="sep">›</span>
         <a href="../">Módulos</a>
         <span class="sep">›</span>
-        <span class="current">Como a IA Funciona</span>
+        <span class="current">Regulamentação</span>
       </nav>
 
       <div class="page-body">
 
         <div class="module-meta">
-          <div class="meta-item">⏱️ <span><strong>~35 min</strong> no total</span></div>
-          <div class="meta-item">📄 <span><strong>3 tópicos</strong></span></div>
-          <div class="meta-item">🏷️ <span>Teoria + Prática</span></div>
-          <div class="meta-item">📶 <span>Nível intermediário</span></div>
+          <div class="meta-item">⏱️ <span><strong>~45 min</strong> no total</span></div>
+          <div class="meta-item">📄 <span><strong>4 tópicos</strong></span></div>
+          <div class="meta-item">🏷️ <span>Normativo + Prático</span></div>
+          <div class="meta-item">📶 <span>Nível aplicado</span></div>
+        </div>
+
+        <div class="resolucao-badge">
+          <div class="badge-icon">⚖️</div>
+          <div class="resolucao-badge-text">
+            <strong>Resolução CNJ nº 615/2025</strong>
+            <span>Publicada em 11 de março de 2025 · Vigência imediata para todos os servidores do Poder Judiciário</span>
+          </div>
         </div>
 
         <!-- Resumo -->
         <div class="module-summary">
           <h2>Sobre este módulo</h2>
           <p>
-            Para usar bem qualquer ferramenta, é preciso entender como ela funciona por dentro — não nos detalhes técnicos do código, mas nos seus princípios de operação. Com a IA generativa não é diferente. Saber o que são tokens, o que é a janela de contexto e como os modelos "lembram" (ou esquecem) o que foi dito muda a forma como você formula perguntas, estrutura documentos e interpreta respostas.
+            Em março de 2025, o CNJ publicou a Resolução nº 615, que estabelece diretrizes obrigatórias para o uso de IA no Poder Judiciário. Esta não é uma norma para especialistas técnicos — é uma norma que define seus direitos, deveres e limitações como servidor que usa (ou pode usar) IA no trabalho.
           </p>
           <p>
-            Mais do que isso: a IA tem limitações sérias que precisam ser compreendidas antes de qualquer uso profissional. Alucinações, vieses e riscos à confidencialidade de dados não são curiosidades acadêmicas — são riscos reais que já geraram consequências institucionais em tribunais brasileiros e no exterior.
+            Este módulo apresenta a Resolução do ponto de vista prático: o que você pode e não pode fazer, quais riscos existem, quais são suas responsabilidades e como o Comitê Nacional de IA funciona. O objetivo não é decorar artigos — é que você termine sabendo exatamente como agir.
           </p>
           <p>
-            O módulo termina com orientações práticas de configuração: como personalizar as ferramentas para que respondam do jeito certo, sem precisar repetir as mesmas instruções a cada conversa.
+            Desconhecimento da norma não isenta de responsabilidade. Ignorar a Resolução 615/2025 pode gerar consequências administrativas reais.
           </p>
         </div>
 
@@ -245,20 +184,20 @@
           <h2 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg);">O que você vai aprender</h2>
           <div class="outcomes-grid">
             <div class="outcome-card">
-              <div class="outcome-icon">🔤</div>
-              <p>O que são tokens, como afetam o custo e a memória das conversas, e qual o limite prático de cada modelo.</p>
+              <div class="outcome-icon">📜</div>
+              <p>Os quatro princípios fundamentais da Resolução 615/2025 e como eles se aplicam ao seu trabalho diário.</p>
             </div>
             <div class="outcome-card">
-              <div class="outcome-icon">⚠️</div>
-              <p>Quais são as principais limitações da IA generativa e como evitar erros com consequências institucionais.</p>
+              <div class="outcome-icon">🎯</div>
+              <p>A classificação de riscos das aplicações de IA: o que é proibido, o que é controlado e o que é de uso livre.</p>
             </div>
             <div class="outcome-card">
-              <div class="outcome-icon">🔒</div>
-              <p>Como proteger dados sigilosos e quais informações jamais devem ser inseridas em ferramentas públicas de IA.</p>
+              <div class="outcome-icon">💻</div>
+              <p>O que o Art. 19 diz especificamente sobre o uso de ChatGPT, Claude e Gemini por servidores do Judiciário.</p>
             </div>
             <div class="outcome-card">
-              <div class="outcome-icon">⚙️</div>
-              <p>Como configurar estilo, contexto profissional e instruções permanentes para melhorar todas as conversas futuras.</p>
+              <div class="outcome-icon">⚡</div>
+              <p>Suas responsabilidades profissionais ao usar IA — e as consequências concretas do uso inadequado.</p>
             </div>
           </div>
         </div>
@@ -270,37 +209,24 @@
           <h2>Tópicos do módulo</h2>
           <div class="topics-list">
 
-            <a href="./tokens.html" class="topic-card">
+            <a href="./principios.html" class="topic-card">
               <span class="topic-num">01</span>
               <div class="topic-body">
-                <span class="topic-title">Tokens e Janela de Contexto</span>
-                <span class="topic-desc">Entenda as unidades de processamento dos modelos, como funcionam os limites de memória das conversas e quanto texto cada ferramenta consegue processar de uma vez.</span>
-                <div class="topic-meta">
-                  <span class="topic-tag">⏱ ~10 min</span>
-                  <span class="topic-tag">Teoria</span>
-                </div>
-              </div>
-              <span class="topic-arrow">→</span>
-            </a>
-
-            <a href="./cuidados.html" class="topic-card">
-              <span class="topic-num">02</span>
-              <div class="topic-body">
-                <span class="topic-title">Cuidados e Limitações da IA Generativa</span>
-                <span class="topic-desc">Alucinações, vieses, confidencialidade de dados e o papel da revisão humana. Inclui casos reais de consequências institucionais no uso inadequado de IA por profissionais do Direito.</span>
+                <span class="topic-title">Princípios Fundamentais e Classificação de Riscos</span>
+                <span class="topic-desc">Os quatro pilares da Resolução (Centralidade Humana, Justiça, Transparência, Proteção de Dados) e a classificação completa de riscos: aplicações proibidas (Risco Excessivo), uso controlado (Alto Risco) e uso livre (Baixo Risco) com exemplos do TRE-RN.</span>
                 <div class="topic-meta">
                   <span class="topic-tag">⏱ ~15 min</span>
-                  <span class="topic-tag">Teoria</span>
+                  <span class="topic-tag">Normativo</span>
                 </div>
               </div>
               <span class="topic-arrow">→</span>
             </a>
 
-            <a href="./personalizacao.html" class="topic-card">
-              <span class="topic-num">03</span>
+            <a href="./uso-ia-generativa.html" class="topic-card">
+              <span class="topic-num">02</span>
               <div class="topic-body">
-                <span class="topic-title">Personalização de Ferramentas</span>
-                <span class="topic-desc">Configure estilo de resposta, contexto profissional e instruções permanentes. Inclui modelos prontos para copiar adaptados ao contexto de servidor do TRE-RN.</span>
+                <span class="topic-title">Uso de IA Generativa (Art. 19)</span>
+                <span class="topic-desc">O artigo mais relevante para o seu dia a dia: o que é permitido e o que é vedado ao usar ChatGPT, Claude, Gemini e similares. Inclui exemplos concretos de uso adequado e a regra da anonimização para dados sensíveis.</span>
                 <div class="topic-meta">
                   <span class="topic-tag">⏱ ~10 min</span>
                   <span class="topic-tag">Prático</span>
@@ -309,11 +235,34 @@
               <span class="topic-arrow">→</span>
             </a>
 
+            <a href="./responsabilidade.html" class="topic-card">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <span class="topic-title">Responsabilidade Profissional e Ética</span>
+                <span class="topic-desc">A regra de ouro: você é SEMPRE responsável pelo resultado final. Deveres de revisão, confidencialidade (Lei 8.112/90), consequências do uso inadequado e um guia de boas práticas com 4 etapas para uso ético da IA no serviço público.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~12 min</span>
+                  <span class="topic-tag">Normativo + Prático</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./comite.html" class="topic-card">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <span class="topic-title">Comitê Nacional de IA do Judiciário</span>
+                <span class="topic-desc">Composição, competências e papel do Comitê criado pela Resolução. Inclui o resumo final completo do que você pode e não pode fazer — síntese prática para consulta rápida no dia a dia.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~8 min</span>
+                  <span class="topic-tag">Referência</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
           </div>
         </div>
-
-
-        
 
       </div>
     </main>
@@ -326,17 +275,9 @@
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sidebarOverlay').classList.toggle('open');
-    }
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').classList.remove('open');
-    }
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
-
-
   </script>
 </body>
 </html>
