@@ -169,7 +169,7 @@
     .of-tema-line { flex:1; height:1px; background:var(--border-light); }
 
     .of-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:var(--space-md); }
-    .of-card-wrap { text-decoration:none; display:block; }
+    .of-card-wrap { display:block; cursor:pointer; }
     .of-card {
       background:var(--bg-card); border:1px solid var(--border);
       border-radius:var(--radius-lg); padding:var(--space-lg);
@@ -261,28 +261,28 @@
           <div class="module-title">Conceitos Essenciais</div>
           <div class="module-desc">O que é IA generativa, como surgiram os LLMs, panorama das principais ferramentas disponíveis em 2026 e o impacto na rotina profissional.</div>
           <div class="module-footer"><span class="module-tag tag-teoria">Teoria</span><span class="module-arrow">→</span></div>
-          <button class="btn-modulo-concluir" onclick="event.preventDefault();toggleModulo(1)">◯ Marcar como concluído</button>
+          <button class="btn-modulo-concluir" type="button" onclick="event.preventDefault();event.stopPropagation();toggleModulo(1)">◯ Marcar como concluído</button>
         </a>
         <a href="./modulos/como-funciona/" class="module-card animate-on-scroll" data-modulo="2">
           <div class="module-num">Módulo 02</div>
           <div class="module-title">Como a IA Funciona</div>
           <div class="module-desc">Tokens, janela de contexto, alucinações, vieses, confidencialidade de dados e como configurar as ferramentas para uso profissional.</div>
           <div class="module-footer"><span class="module-tag tag-teoria">Teoria</span><span class="module-arrow">→</span></div>
-          <button class="btn-modulo-concluir" onclick="event.preventDefault()">◯ Concluir todos os tópicos</button>
+          <button class="btn-modulo-concluir" type="button" onclick="event.preventDefault();event.stopPropagation();toggleModulo(2)">◯ Marcar como concluído</button>
         </a>
         <a href="./modulos/regulamentacao/" class="module-card animate-on-scroll" data-modulo="3">
           <div class="module-num">Módulo 03</div>
           <div class="module-title">Regulamentação</div>
           <div class="module-desc">Resolução CNJ nº 615/2025, classificação de riscos, responsabilidade ética e os marcos normativos para uso de IA no Judiciário.</div>
           <div class="module-footer"><span class="module-tag tag-legal">Legal</span><span class="module-arrow">→</span></div>
-          <button class="btn-modulo-concluir" onclick="event.preventDefault();toggleModulo(3)">◯ Marcar como concluído</button>
+          <button class="btn-modulo-concluir" type="button" onclick="event.preventDefault();event.stopPropagation();toggleModulo(3)">◯ Marcar como concluído</button>
         </a>
         <a href="./modulos/engenharia-de-prompts/" class="module-card animate-on-scroll" data-modulo="4">
           <div class="module-num">Módulo 04</div>
           <div class="module-title">Engenharia de Prompts</div>
           <div class="module-desc">Metodologia RCTS+E, especificações de estilo, técnicas avançadas, exemplos por área do TRE-RN e gerador interativo de prompts.</div>
           <div class="module-footer"><span class="module-tag tag-tecnica">Técnica</span><span class="module-arrow">→</span></div>
-          <button class="btn-modulo-concluir" onclick="event.preventDefault()">◯ Concluir todos os tópicos</button>
+          <button class="btn-modulo-concluir" type="button" onclick="event.preventDefault();event.stopPropagation();toggleModulo(4)">◯ Marcar como concluído</button>
         </a>
       </div>
 
@@ -323,38 +323,38 @@
         <!-- Tema: Introdução -->
         <div class="of-tema-label"><div class="of-tema-dot" style="background:#C8A45C"></div><span>Introdução</span><div class="of-tema-line"></div></div>
         <div class="of-grid">
-          <a href="./oficinas/oficina-01-primeiro-contato.html" class="of-card-wrap"><div class="of-card" data-oficina="1" data-grupo="intro"><div class="of-num">01</div><div class="of-title">Primeiro Contato</div><div class="of-subtitle">Familiarização com as principais ferramentas de IA disponíveis</div><button class="of-btn-concluir" onclick="ofToggle(event,1)" type="button">◯ Marcar como concluída</button></div></a>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-01-primeiro-contato.html')"><div class="of-card" data-oficina="1" data-grupo="intro"><div class="of-num">01</div><div class="of-title">Primeiro Contato</div><div class="of-subtitle">Familiarização com as principais ferramentas de IA disponíveis</div><button class="of-btn-concluir" onclick="ofToggle(event,1)" type="button">◯ Marcar como concluída</button></div></div>
         </div>
 
         <!-- Tema: NotebookLM -->
         <div class="of-tema-label"><div class="of-tema-dot" style="background:#4A90D9"></div><span>NotebookLM</span><div class="of-tema-line"></div></div>
         <div class="of-grid">
-          <a href="./oficinas/oficina-02-notebooklm-fundamentos.html" class="of-card-wrap"><div class="of-card" data-oficina="2" data-grupo="notebook"><div class="of-num">02</div><div class="of-title">NotebookLM — Fundamentos</div><div class="of-subtitle">Crie cadernos, carregue documentos e faça perguntas cruzadas entre múltiplas fontes</div><button class="of-btn-concluir" onclick="ofToggle(event,2)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-03-relatorio-eventos.html" class="of-card-wrap"><div class="of-card" data-oficina="3" data-grupo="notebook"><div class="of-num">03</div><div class="of-title">NotebookLM — Relatório de Eventos</div><div class="of-subtitle">De gravação de áudio a relatório institucional com NotebookLM e Estúdio</div><button class="of-btn-concluir" onclick="ofToggle(event,3)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-04-notebooklm-videos.html" class="of-card-wrap"><div class="of-card" data-oficina="4" data-grupo="notebook"><div class="of-num">04</div><div class="of-title">NotebookLM — Vídeos como Fontes</div><div class="of-subtitle">Do YouTube ao relatório de sessões plenárias e eventos institucionais</div><button class="of-btn-concluir" onclick="ofToggle(event,4)" type="button">◯ Marcar como concluída</button></div></a>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-02-notebooklm-fundamentos.html')"><div class="of-card" data-oficina="2" data-grupo="notebook"><div class="of-num">02</div><div class="of-title">NotebookLM — Fundamentos</div><div class="of-subtitle">Crie cadernos, carregue documentos e faça perguntas cruzadas entre múltiplas fontes</div><button class="of-btn-concluir" onclick="ofToggle(event,2)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-03-relatorio-eventos.html')"><div class="of-card" data-oficina="3" data-grupo="notebook"><div class="of-num">03</div><div class="of-title">NotebookLM — Relatório de Eventos</div><div class="of-subtitle">De gravação de áudio a relatório institucional com NotebookLM e Estúdio</div><button class="of-btn-concluir" onclick="ofToggle(event,3)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-04-notebooklm-videos.html')"><div class="of-card" data-oficina="4" data-grupo="notebook"><div class="of-num">04</div><div class="of-title">NotebookLM — Vídeos como Fontes</div><div class="of-subtitle">Do YouTube ao relatório de sessões plenárias e eventos institucionais</div><button class="of-btn-concluir" onclick="ofToggle(event,4)" type="button">◯ Marcar como concluída</button></div></div>
         </div>
 
         <!-- Tema: Gemini com Google Workspace -->
         <div class="of-tema-label"><div class="of-tema-dot" style="background:#34A853"></div><span>Gemini com Google Workspace</span><div class="of-tema-line"></div></div>
         <div class="of-grid">
-          <a href="./oficinas/oficina-05-gemini-ferramentas.html" class="of-card-wrap"><div class="of-card" data-oficina="5" data-grupo="gemini"><div class="of-num">05</div><div class="of-title">Gemini nas Ferramentas do Google</div><div class="of-subtitle">Use o Gemini dentro do Planilhas, Documentos e Gmail para análise e redação</div><button class="of-btn-concluir" onclick="ofToggle(event,5)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-06-gemini-canvas.html" class="of-card-wrap"><div class="of-card" data-oficina="6" data-grupo="gemini"><div class="of-num">06</div><div class="of-title">Uso do Canvas no Gemini</div><div class="of-subtitle">Gere e transforme textos, crie páginas web e infográficos, exporte para Docs</div><button class="of-btn-concluir" onclick="ofToggle(event,6)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-07-gemini-integracoes.html" class="of-card-wrap"><div class="of-card" data-oficina="7" data-grupo="gemini"><div class="of-num">07</div><div class="of-title">Integrações do Gemini com o Workspace</div><div class="of-subtitle">Conecte Gmail, Agenda e Drive ao chat e configure ações automatizadas recorrentes</div><button class="of-btn-concluir" onclick="ofToggle(event,7)" type="button">◯ Marcar como concluída</button></div></a>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-05-gemini-ferramentas.html')"><div class="of-card" data-oficina="5" data-grupo="gemini"><div class="of-num">05</div><div class="of-title">Gemini nas Ferramentas do Google</div><div class="of-subtitle">Use o Gemini dentro do Planilhas, Documentos e Gmail para análise e redação</div><button class="of-btn-concluir" onclick="ofToggle(event,5)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-06-gemini-canvas.html')"><div class="of-card" data-oficina="6" data-grupo="gemini"><div class="of-num">06</div><div class="of-title">Uso do Canvas no Gemini</div><div class="of-subtitle">Gere e transforme textos, crie páginas web e infográficos, exporte para Docs</div><button class="of-btn-concluir" onclick="ofToggle(event,6)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-07-gemini-integracoes.html')"><div class="of-card" data-oficina="7" data-grupo="gemini"><div class="of-num">07</div><div class="of-title">Integrações do Gemini com o Workspace</div><div class="of-subtitle">Conecte Gmail, Agenda e Drive ao chat e configure ações automatizadas recorrentes</div><button class="of-btn-concluir" onclick="ofToggle(event,7)" type="button">◯ Marcar como concluída</button></div></div>
         </div>
 
         <!-- Tema: Criação de Gems -->
         <div class="of-tema-label"><div class="of-tema-dot" style="background:#AB47BC"></div><span>Criação de Gems</span><div class="of-tema-line"></div></div>
         <div class="of-grid">
-          <a href="./oficinas/oficina-08-gems-lgpd.html" class="of-card-wrap"><div class="of-card" data-oficina="8" data-grupo="gems"><div class="of-num">08</div><div class="of-title">Especialista em LGPD</div><div class="of-subtitle">Crie um Gem alimentado por documentos oficiais de LGPD para orientar servidores</div><button class="of-btn-concluir" onclick="ofToggle(event,8)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-09-gems-agentes.html" class="of-card-wrap"><div class="of-card" data-oficina="9" data-grupo="gems"><div class="of-num">09</div><div class="of-title">Orquestrador de Agentes</div><div class="of-subtitle">Gem que gerencia agentes cooperativos para resolver problemas complexos</div><button class="of-btn-concluir" onclick="ofToggle(event,9)" type="button">◯ Marcar como concluída</button></div></a>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-08-gems-lgpd.html')"><div class="of-card" data-oficina="8" data-grupo="gems"><div class="of-num">08</div><div class="of-title">Especialista em LGPD</div><div class="of-subtitle">Crie um Gem alimentado por documentos oficiais de LGPD para orientar servidores</div><button class="of-btn-concluir" onclick="ofToggle(event,8)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-09-gems-agentes.html')"><div class="of-card" data-oficina="9" data-grupo="gems"><div class="of-num">09</div><div class="of-title">Orquestrador de Agentes</div><div class="of-subtitle">Gem que gerencia agentes cooperativos para resolver problemas complexos</div><button class="of-btn-concluir" onclick="ofToggle(event,9)" type="button">◯ Marcar como concluída</button></div></div>
         </div>
 
         <!-- Tema: Multimídia com IA -->
         <div class="of-tema-label"><div class="of-tema-dot" style="background:#E8710A"></div><span>Multimídia com IA</span><div class="of-tema-line"></div></div>
         <div class="of-grid">
-          <a href="./oficinas/oficina-10-imagens-prompts.html" class="of-card-wrap"><div class="of-card" data-oficina="10" data-grupo="multi"><div class="of-num">10</div><div class="of-title">Imagens com IA</div><div class="of-subtitle">Crie imagens profissionais com prompts descritivos no Gemini, Grok e Whisk</div><button class="of-btn-concluir" onclick="ofToggle(event,10)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-11-video-imagens.html" class="of-card-wrap"><div class="of-card" data-oficina="11" data-grupo="multi"><div class="of-num">11</div><div class="of-title">Vídeos a partir de Imagens</div><div class="of-subtitle">Transforme imagens estáticas em vídeos animados explorando técnicas de movimento</div><button class="of-btn-concluir" onclick="ofToggle(event,11)" type="button">◯ Marcar como concluída</button></div></a>
-          <a href="./oficinas/oficina-12-restauracao-similares.html" class="of-card-wrap"><div class="of-card" data-oficina="12" data-grupo="multi"><div class="of-num">12</div><div class="of-title">Restauração de Fotos Antigas</div><div class="of-subtitle">Restaure fotografias danificadas e gere variações de fotos existentes com IA visual</div><button class="of-btn-concluir" onclick="ofToggle(event,12)" type="button">◯ Marcar como concluída</button></div></a>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-10-imagens-prompts.html')"><div class="of-card" data-oficina="10" data-grupo="multi"><div class="of-num">10</div><div class="of-title">Imagens com IA</div><div class="of-subtitle">Crie imagens profissionais com prompts descritivos no Gemini, Grok e Whisk</div><button class="of-btn-concluir" onclick="ofToggle(event,10)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-11-video-imagens.html')"><div class="of-card" data-oficina="11" data-grupo="multi"><div class="of-num">11</div><div class="of-title">Vídeos a partir de Imagens</div><div class="of-subtitle">Transforme imagens estáticas em vídeos animados explorando técnicas de movimento</div><button class="of-btn-concluir" onclick="ofToggle(event,11)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-12-restauracao-similares.html')"><div class="of-card" data-oficina="12" data-grupo="multi"><div class="of-num">12</div><div class="of-title">Restauração de Fotos Antigas</div><div class="of-subtitle">Restaure fotografias danificadas e gere variações de fotos existentes com IA visual</div><button class="of-btn-concluir" onclick="ofToggle(event,12)" type="button">◯ Marcar como concluída</button></div></div>
         </div>
 
       </div><!-- /oficinas-section -->
@@ -407,6 +407,10 @@
           const n=document.getElementById(cnt); if(n) n.textContent=c+'/'+total;
         });
       }
+            window.navegarOficina = function(e, url) {
+        if (e.target.closest('.of-btn-concluir')) return;
+        window.location.href = url;
+      };
       document.addEventListener('DOMContentLoaded', renderOf);
     })();
   </script>

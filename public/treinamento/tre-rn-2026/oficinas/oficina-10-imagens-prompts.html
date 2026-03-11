@@ -87,6 +87,31 @@
       .sidebar-overlay.open { display: block; }
       .sidebar-toggle { display: flex; }
     }
+  
+    /* ─── Hero azul degradê ─── */
+    .oficina-hero-header {
+      background: linear-gradient(135deg, var(--azul) 0%, #0F2347 100%);
+      position: relative; overflow: hidden;
+      padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    }
+    .oficina-hero-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 85% 40%, rgba(46,92,154,0.45) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 75%, rgba(184,137,26,0.10) 0%, transparent 50%);
+    }
+    .oficina-hero-header > * { position: relative; z-index: 1; }
+    .oficina-badge { color: rgba(255,255,255,0.9) !important; background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.25) !important; }
+    .oficina-hero-header h1 { color: #fff !important; font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; margin-bottom: var(--space-sm); line-height: 1.15; }
+    .oficina-hero-header .oficina-desc { color: rgba(255,255,255,0.85) !important; }
+    .oficina-hero-header .oficina-meta { margin-top: var(--space-lg); }
+    .oficina-hero-header .oficina-meta-item { color: rgba(255,255,255,0.75) !important; }
+    .oficina-hero-header .oficina-meta-item strong { color: rgba(255,255,255,0.95) !important; }
+    /* Breadcrumb abaixo do hero */
+    .oficina-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+    .oficina-breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .oficina-breadcrumb a:hover { text-decoration: underline; }
+    .oficina-breadcrumb .sep { color: var(--border); }
+    .oficina-breadcrumb .current { color: var(--text); font-weight: 500; }
   </style>
 </head>
 <body>
@@ -415,6 +440,7 @@
   <script src="../../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/topicos.js"></script>
   <script>
     const TOTAL=6,done=new Set();
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}

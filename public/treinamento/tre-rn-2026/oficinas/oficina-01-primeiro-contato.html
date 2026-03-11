@@ -80,6 +80,31 @@
       .sidebar-overlay.open { display: block; }
       .sidebar-toggle { display: flex; }
     }
+  
+    /* ─── Hero azul degradê ─── */
+    .oficina-hero-header {
+      background: linear-gradient(135deg, var(--azul) 0%, #0F2347 100%);
+      position: relative; overflow: hidden;
+      padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
+    }
+    .oficina-hero-header::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 85% 40%, rgba(46,92,154,0.45) 0%, transparent 55%),
+                  radial-gradient(ellipse at 15% 75%, rgba(184,137,26,0.10) 0%, transparent 50%);
+    }
+    .oficina-hero-header > * { position: relative; z-index: 1; }
+    .oficina-badge { color: rgba(255,255,255,0.9) !important; background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.25) !important; }
+    .oficina-hero-header h1 { color: #fff !important; font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; margin-bottom: var(--space-sm); line-height: 1.15; }
+    .oficina-hero-header .oficina-desc { color: rgba(255,255,255,0.85) !important; }
+    .oficina-hero-header .oficina-meta { margin-top: var(--space-lg); }
+    .oficina-hero-header .oficina-meta-item { color: rgba(255,255,255,0.75) !important; }
+    .oficina-hero-header .oficina-meta-item strong { color: rgba(255,255,255,0.95) !important; }
+    /* Breadcrumb abaixo do hero */
+    .oficina-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+    .oficina-breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .oficina-breadcrumb a:hover { text-decoration: underline; }
+    .oficina-breadcrumb .sep { color: var(--border); }
+    .oficina-breadcrumb .current { color: var(--text); font-weight: 500; }
   </style>
 </head>
 <body>
@@ -115,7 +140,14 @@
 
     <main class="main-content">
 <div class="container">
+    <div class="oficina-hero-header">
     <div class="oficina-hero"><div class="oficina-badge">🔬 Oficina 01 de 12</div><h1>Primeiro Contato</h1><p class="oficina-desc">Nesta oficina, você vai navegar pelas principais ferramentas de IA, disparar os mesmos prompts em ferramentas diferentes, comparar resultados e descobrir qual combina melhor com cada tipo de tarefa.</p><div class="oficina-meta"><div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 45–60 min</div><div class="oficina-meta-item">🎯 <strong>Nível:</strong> Iniciante</div><div class="oficina-meta-item">💻 <strong>Requisito:</strong> Contas criadas</div></div></div>
+    </div>
+    <div class="oficina-breadcrumb">
+      <a href="../../index.html">Início</a><span class="sep">›</span>
+      <a href="../../index.html#oficinas-section">Oficinas</a><span class="sep">›</span>
+      <span class="current">Oficina 01 — Primeiro Contato</span>
+    </div>
 
     <div class="etapa" id="objetivos"><div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Objetivos e Preparação</h2></div></div><div class="etapa-body"><ul><li>Navegar e interagir com as 6 principais ferramentas de IA generativa</li><li>Identificar diferenças práticas entre respostas de cada ferramenta</li><li>Reconhecer pontos fortes e fracos para tarefas do TRE-RN</li><li>Usar o Perplexity como ferramenta de pesquisa com citação de fontes</li></ul><div class="material-apoio"><div class="material-icon">📋</div><div><h4>Checklist de Criação de Contas</h4><p>Certifique-se de que suas contas estão criadas em todas as ferramentas antes de começar.</p><a href="./checklist-contas.html" target="_blank" class="btn btn-sm btn-primary">Abrir Checklist ↗</a></div></div></div></div>
 
@@ -220,6 +252,7 @@ Cite todas as fontes consultadas.</div></div>
   <script src="../../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
+  <script src="../js/topicos.js"></script>
   <script>
     const TOTAL=5,done=new Set();
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
