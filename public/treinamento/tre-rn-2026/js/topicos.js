@@ -16,14 +16,9 @@
   }
   function saveState(a) { localStorage.setItem(TOPICOS_KEY, JSON.stringify(a)); }
 
-  // Conta módulos concluídos — todos por tópicos
+  // Conta módulos concluídos — pela chave modulo-N (mesma usada pelo toggleModulo)
   function modulosConcluidos(state) {
-    let count = 0;
-    [1, 2, 3, 4].forEach(m => {
-      const topicos = MODULO_TOPICOS[m] || [];
-      if (topicos.length > 0 && topicos.every(t => state.includes(t))) count++;
-    });
-    return count;
+    return [1, 2, 3, 4].filter(m => state.includes('modulo-' + m)).length;
   }
 
   function updateModuloBadge() {
@@ -59,13 +54,7 @@
     document.querySelectorAll('.module-card[data-modulo]').forEach(card => {
       const mid = card.dataset.modulo;
       let done = false;
-      if (mid === '1' || mid === '3') {
-        done = state.includes('modulo-' + mid);
-      } else if (mid === '2') {
-        done = ['cf-01','cf-02','cf-03'].every(t => state.includes(t));
-      } else if (mid === '4') {
-        done = MODULO_TOPICOS[4].every(t => state.includes(t));
-      }
+      done = state.includes('modulo-' + mid);
       card.classList.toggle('modulo-done', done);
       const btn = card.querySelector('.btn-modulo-concluir');
       if (btn) {
