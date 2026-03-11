@@ -1,17 +1,48 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficina 12 — Restauração e Fotos Similares | Workshop IA TRE/RN</title>
+  <title>Oficina 12 — Restauração de Fotos Antigas · IA Master</title>
   <link rel="stylesheet" href="../css/styles.css">
-  <link rel="stylesheet" href="../css/components.css">
-  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+
+    /* ─── Layout 2 colunas ─── */
+    .layout{display:flex;min-height:100vh;padding-top:var(--navbar-height)}
+    .sidebar{width:240px;flex-shrink:0;background:var(--bg-card);border-right:1px solid var(--border-light);position:sticky;top:var(--navbar-height);height:calc(100vh - var(--navbar-height));overflow-y:auto;display:flex;flex-direction:column;z-index:10}
+    .sidebar-inner{padding:var(--space-lg) 0;flex:1}
+    .sb-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:var(--space-md) var(--space-md) var(--space-xs);margin-top:var(--space-sm)}
+    .sb-divider{border:none;border-top:1px solid var(--border-light);margin:var(--space-sm) var(--space-md)}
+    .sb-module{display:flex;align-items:center;gap:8px;padding:8px var(--space-md);font-size:.88rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.35}
+    .sb-module:hover{color:var(--azul-medio);background:var(--azul-light);border-left-color:var(--azul-medio)}
+    .sb-oficina-item{display:flex;align-items:center;gap:8px;padding:7px var(--space-md);font-size:.85rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.3}
+    .sb-oficina-item:hover{color:var(--verde);background:rgba(26,138,90,.07);border-left-color:var(--verde)}
+    .sb-oficina-item.active{color:var(--verde);font-weight:600;background:rgba(26,138,90,.07);border-left-color:var(--verde)}
+    .sb-num{font-size:.72rem;font-weight:700;color:var(--text-muted);min-width:20px;flex-shrink:0}
+    .sb-oficina-item.active .sb-num{color:var(--verde)}
+    .sb-footer{padding:var(--space-sm) var(--space-md);border-top:1px solid var(--border-light)}
+    .sb-footer a{font-size:.88rem;color:var(--text-muted);text-decoration:none;padding:6px 0;display:block;transition:color .15s}
+    .sb-footer a:hover{color:var(--azul-medio)}
+    .main-content{flex:1;min-width:0;background:var(--bg)}
+    .sidebar-toggle{display:none;position:fixed;bottom:var(--space-lg);right:var(--space-lg);width:52px;height:52px;border-radius:50%;background:var(--verde);color:#fff;border:none;font-size:1.3rem;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(20,40,80,.4);z-index:150}
+    @media(max-width:960px){.sidebar{position:fixed;top:0;left:-260px;width:240px;height:100vh;z-index:160;transition:left .3s ease;padding-top:var(--navbar-height)}.sidebar.open{left:0}.sidebar-overlay.open{display:block}.sidebar-toggle{display:flex}}
+    .oficina-hero-header{background:linear-gradient(135deg,var(--azul) 0%,#0F2347 100%);position:relative;overflow:hidden;padding:var(--space-2xl) var(--space-2xl) var(--space-xl)}
+    .oficina-hero-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 40%,rgba(46,92,154,.45) 0%,transparent 55%)}
+    .oficina-hero-header>*{position:relative;z-index:1}
+    .oficina-hero-header h1{color:#fff;font-family:var(--font-display);font-size:2.2rem;font-weight:800;margin:var(--space-md) 0 var(--space-sm);line-height:1.15}
+    .oficina-hero-header p{color:rgba(255,255,255,.85);font-size:1.05rem;max-width:760px}
+    .oficina-breadcrumb{display:flex;align-items:center;gap:6px;padding:10px var(--space-2xl);font-size:.83rem;color:var(--text-muted);background:var(--bg-card);border-bottom:1px solid var(--border-light)}
+    .oficina-breadcrumb a{color:var(--azul-medio);text-decoration:none}
+    .oficina-breadcrumb .sep{color:var(--border)}
+    .oficina-breadcrumb .current{color:var(--text);font-weight:500}
+    .oficina-body{padding:var(--space-2xl)}
+  </style>
 </head>
 <body>
   <div id="header-placeholder"></div>
-  
+  <div class="progress-bar"><span class="progress-label">Progresso</span><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><span class="progress-pct" id="progressPct">0%</span></div>
+
   <div class="layout">
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
@@ -33,44 +64,55 @@
         <a href="./oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
         <a href="./oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
         <a href="./oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
-        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item active"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item  active"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
       </div>
       <div class="sb-footer"><a href="../index.html">↩ Início do curso</a></div>
     </aside>
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <main class="main-content">
-<div class="container"><section class="section">
-    <div class="section-header">
-      <div class="eyebrow"><span class="line"></span> Oficina 12</div>
-      <h1>Restauração de Imagens e Fotos Similares</h1>
+    <div class="oficina-hero-header">
+      <div class="oficina-badge">🎨 Oficina 12 de 12</div>
+      <h1>Restauração de Fotos Antigas</h1>
       <p>Restaure fotografias antigas e gere variações de fotos existentes com IA.</p>
+      <div class="oficina-meta">
+        <div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 60–90 min</div>
+        <div class="oficina-meta-item">🎯 <strong>Nível:</strong> Intermediário</div>
+        <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Oficina 10 concluída</div>
+      </div>
     </div>
-    <p style="color: var(--text-muted); font-style: italic;">Conteúdo em construção...</p>
-  </section>
-    <div style="display:flex;justify-content:flex-start;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
-      <a href="./oficina-11-video-imagens.html" class="btn btn-secondary btn-sm">← Oficina 11</a>
-    </div>
-  </div></main>
-  </div><!-- /.layout -->
+    <nav class="oficina-breadcrumb">
+      <a href="../../index.html">Início</a><span class="sep">›</span>
+      <a href="../../index.html#oficinas-section">Oficinas</a><span class="sep">›</span>
+      <span class="current">Oficina 12 — Restauração de Fotos Antigas</span>
+    </nav>
+    <div class="oficina-body">
+      <div class="etapa" id="conteudo">
+        <div class="etapa-header">
+          <div class="etapa-num">🚧</div>
+          <div><h2>Conteúdo em construção</h2></div>
+        </div>
+        <div class="etapa-body">
+          <p style="color:var(--text-muted);font-style:italic;">Esta oficina será disponibilizada em breve.</p>
+          <div style="display:flex;justify-content:flex-start;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
+            <a href="./oficina-11-video-imagens.html" class="btn btn-secondary btn-sm">← Oficina 11</a>
+          </div>
+        </div>
+      </div>
+    </div><!-- oficina-body -->
+    </main>
+  </div><!-- layout -->
+
   <div id="footer-placeholder"></div>
   <script src="../../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script src="../js/topicos.js"></script>
   <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
-
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sidebarOverlay').classList.toggle('open');
-    }
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').classList.remove('open');
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+    function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open')}
+    function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open')}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar()})
   </script>
-
 </body>
 </html>

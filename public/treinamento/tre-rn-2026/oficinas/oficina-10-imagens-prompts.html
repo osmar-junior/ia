@@ -56,62 +56,42 @@
     .thumb-gallery .thumb-item { background: var(--bg-card); }
     .thumb-gallery .thumb-item a { color: var(--azul-medio); }
   
-    /* ─── Layout duas colunas ─── */
-    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
-    .sidebar {
-      width: 260px; flex-shrink: 0;
-      background: var(--bg-card); border-right: 1px solid var(--border-light);
-      position: sticky; top: var(--navbar-height);
-      height: calc(100vh - var(--navbar-height));
-      overflow-y: auto; display: flex; flex-direction: column; z-index: 10;
-    }
-    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
-    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
-    .sb-label:first-child { margin-top: 0; }
-    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
-    .sb-module { display: flex; align-items: center; gap: 8px; padding: 9px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-oficina-item { display: flex; align-items: center; gap: 7px; padding: 7px var(--space-md); font-size: 0.88rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-oficina-item:hover { color: var(--verde); background: var(--verde-light, rgba(26,138,90,0.07)); border-left-color: var(--verde); }
-    .sb-oficina-item.active { color: var(--verde); font-weight: 600; background: var(--verde-light, rgba(26,138,90,0.07)); border-left-color: var(--verde); }
-    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 18px; }
-    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
-    .sb-footer a { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
-    .sb-footer a:hover { color: var(--azul-medio); }
-    .main-content { flex: 1; min-width: 0; background: var(--bg); }
-    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--verde); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
-    @media (max-width: 960px) {
-      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
-      .sidebar.open { left: 0; }
-      .sidebar-overlay.open { display: block; }
-      .sidebar-toggle { display: flex; }
-    }
-  
-    /* ─── Hero azul degradê ─── */
-    .oficina-hero-header {
-      background: linear-gradient(135deg, var(--azul) 0%, #0F2347 100%);
-      position: relative; overflow: hidden;
-      padding: var(--space-2xl) var(--space-2xl) var(--space-xl);
-    }
-    .oficina-hero-header::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse at 85% 40%, rgba(46,92,154,0.45) 0%, transparent 55%),
-                  radial-gradient(ellipse at 15% 75%, rgba(184,137,26,0.10) 0%, transparent 50%);
-    }
-    .oficina-hero-header > * { position: relative; z-index: 1; }
-    .oficina-badge { color: rgba(255,255,255,0.9) !important; background: rgba(255,255,255,0.12) !important; border-color: rgba(255,255,255,0.25) !important; }
-    .oficina-hero-header h1 { color: #fff !important; font-family: var(--font-display); font-size: 2.2rem; font-weight: 800; margin-bottom: var(--space-sm); line-height: 1.15; }
-    .oficina-hero-header .oficina-desc { color: rgba(255,255,255,0.85) !important; }
-    .oficina-hero-header .oficina-meta { margin-top: var(--space-lg); }
-    .oficina-hero-header .oficina-meta-item { color: rgba(255,255,255,0.75) !important; }
-    .oficina-hero-header .oficina-meta-item strong { color: rgba(255,255,255,0.95) !important; }
-    /* Breadcrumb abaixo do hero */
-    .oficina-breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
-    .oficina-breadcrumb a { color: var(--azul-medio); text-decoration: none; }
-    .oficina-breadcrumb a:hover { text-decoration: underline; }
-    .oficina-breadcrumb .sep { color: var(--border); }
-    .oficina-breadcrumb .current { color: var(--text); font-weight: 500; }
+    .layout{display:flex;min-height:100vh;padding-top:var(--navbar-height)}
+    .sidebar{width:240px;flex-shrink:0;background:var(--bg-card);border-right:1px solid var(--border-light);position:sticky;top:var(--navbar-height);height:calc(100vh - var(--navbar-height));overflow-y:auto;display:flex;flex-direction:column;z-index:10}
+    .sidebar-inner{padding:var(--space-lg) 0;flex:1}
+    .sb-label{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);padding:var(--space-md) var(--space-md) var(--space-xs);margin-top:var(--space-sm)}
+    .sb-label:first-child{margin-top:0}
+    .sb-divider{border:none;border-top:1px solid var(--border-light);margin:var(--space-sm) var(--space-md)}
+    .sb-module{display:flex;align-items:center;gap:8px;padding:8px var(--space-md);font-size:.88rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.35}
+    .sb-module:hover{color:var(--azul-medio);background:var(--azul-light);border-left-color:var(--azul-medio)}
+    .sb-oficina-item{display:flex;align-items:center;gap:8px;padding:7px var(--space-md);font-size:.85rem;font-weight:500;color:var(--text-secondary);text-decoration:none;border-left:3px solid transparent;transition:all .15s;line-height:1.3}
+    .sb-oficina-item:hover{color:var(--verde);background:rgba(26,138,90,.07);border-left-color:var(--verde)}
+    .sb-oficina-item.active{color:var(--verde);font-weight:600;background:rgba(26,138,90,.07);border-left-color:var(--verde)}
+    .sb-num{font-size:.72rem;font-weight:700;color:var(--text-muted);min-width:20px;flex-shrink:0}
+    .sb-oficina-item.active .sb-num{color:var(--verde)}
+    .sb-footer{padding:var(--space-sm) var(--space-md);border-top:1px solid var(--border-light)}
+    .sb-footer a{font-size:.88rem;color:var(--text-muted);text-decoration:none;padding:6px 0;display:block;transition:color .15s}
+    .sb-footer a:hover{color:var(--azul-medio)}
+    .main-content{flex:1;min-width:0;background:var(--bg)}
+    .sidebar-toggle{display:none;position:fixed;bottom:var(--space-lg);right:var(--space-lg);width:52px;height:52px;border-radius:50%;background:var(--verde);color:#fff;border:none;font-size:1.3rem;cursor:pointer;z-index:200;box-shadow:var(--shadow-lg);align-items:center;justify-content:center}
+    .sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(20,40,80,.4);z-index:150}
+    @media(max-width:960px){.sidebar{position:fixed;top:0;left:-260px;width:240px;height:100vh;z-index:160;transition:left .3s ease;padding-top:var(--navbar-height)}.sidebar.open{left:0}.sidebar-overlay.open{display:block}.sidebar-toggle{display:flex}}
+    .oficina-hero-header{background:linear-gradient(135deg,var(--azul) 0%,#0F2347 100%);position:relative;overflow:hidden;padding:var(--space-2xl) var(--space-2xl) var(--space-xl)}
+    .oficina-hero-header::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 85% 40%,rgba(46,92,154,.45) 0%,transparent 55%),radial-gradient(ellipse at 15% 75%,rgba(184,137,26,.10) 0%,transparent 50%)}
+    .oficina-hero-header>*{position:relative;z-index:1}
+    .oficina-hero-header .oficina-badge{color:rgba(255,255,255,.9)!important;background:rgba(255,255,255,.12)!important;border-color:rgba(255,255,255,.25)!important}
+    .oficina-hero-header h1{color:#fff!important;font-family:var(--font-display);font-size:2.2rem;font-weight:800;margin:var(--space-md) 0 var(--space-sm);line-height:1.15}
+    .oficina-hero-header .oficina-desc{color:rgba(255,255,255,.85)!important;font-size:1.05rem;line-height:1.65;max-width:760px}
+    .oficina-hero-header .oficina-meta{margin-top:var(--space-lg)}
+    .oficina-hero-header .oficina-meta-item{color:rgba(255,255,255,.75)!important}
+    .oficina-hero-header .oficina-meta-item strong{color:rgba(255,255,255,.95)!important}
+    .oficina-breadcrumb{display:flex;align-items:center;flex-wrap:wrap;gap:6px;padding:10px var(--space-2xl);font-size:.83rem;color:var(--text-muted);background:var(--bg-card);border-bottom:1px solid var(--border-light)}
+    .oficina-breadcrumb a{color:var(--azul-medio);text-decoration:none}
+    .oficina-breadcrumb a:hover{text-decoration:underline}
+    .oficina-breadcrumb .sep{color:var(--border)}
+    .oficina-breadcrumb .current{color:var(--text);font-weight:500}
+    .oficina-body{padding:0 var(--space-2xl)}
+    @media(max-width:768px){.oficina-hero-header{padding:var(--space-xl) var(--space-md) var(--space-lg)}.oficina-hero-header h1{font-size:1.7rem}.oficina-breadcrumb{padding:8px var(--space-md)}.oficina-body{padding:0 var(--space-md)}}
   </style>
 </head>
 <body>
@@ -147,8 +127,7 @@
     <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <main class="main-content">
-<div class="container">
-
+        <div class="oficina-hero-header">
     <div class="oficina-hero">
       <div class="oficina-badge">🎨 Oficina 10 de 12</div>
       <h1>Criação de Imagens com IA</h1>
@@ -159,6 +138,13 @@
         <div class="oficina-meta-item">💻 <strong>Requisito:</strong> Conta Google (Gemini), conta X/Twitter (Grok)</div>
       </div>
     </div>
+    </div>
+    <nav class="oficina-breadcrumb">
+      <a href="../../index.html">Início</a><span class="sep">›</span>
+      <a href="../../index.html#oficinas-section">Oficinas</a><span class="sep">›</span>
+      <span class="current">Oficina 10 — Imagens com IA</span>
+    </nav>
+    <div class="oficina-body">
 
     <!-- ==================== FUNDAMENTOS ==================== -->
     <div class="etapa" id="fundamentos">
@@ -434,7 +420,9 @@
       <a href="./oficina-11-video-imagens.html" class="btn btn-primary btn-sm">Oficina 11 →</a>
     </div>
 
-  </div></main>
+    </div><!-- oficina-body -->
+    </main>
+  </div><!-- layout -->
 
   <div id="footer-placeholder"></div>
   <script src="../../js/auth.js"></script>
@@ -447,18 +435,10 @@
     function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
   </script>
   <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
-
   <script>
-    function toggleSidebar() {
-      document.getElementById('sidebar').classList.toggle('open');
-      document.getElementById('sidebarOverlay').classList.toggle('open');
-    }
-    function closeSidebar() {
-      document.getElementById('sidebar').classList.remove('open');
-      document.getElementById('sidebarOverlay').classList.remove('open');
-    }
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+    function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('sidebarOverlay').classList.toggle('open')}
+    function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open')}
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSidebar()})
   </script>
-
 </body>
 </html>
