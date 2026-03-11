@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
-    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
-    .sb-num { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); min-width: 22px; flex-shrink: 0; }
-  </style>
   <meta charset="UTF-8">
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Regulamentação — IA no Judiciário</title>
   <link rel="stylesheet" href="../../css/styles.css">
@@ -14,10 +11,9 @@
   <link rel="stylesheet" href="../../css/responsive.css">
   <style>
     .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
-    .sidebar { width: 260px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
+    .sidebar { width: 300px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
     .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
-    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
-    .sb-label:first-child { margin-top: 0; }
+    
     .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
     .sb-module { display: flex; align-items: center; gap: 8px; padding: 9px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
     .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
@@ -85,7 +81,7 @@
     .resolucao-badge-text strong { display: block; font-size: 1rem; color: var(--dourado); font-weight: 700; }
     .resolucao-badge-text span { font-size: 0.9rem; color: var(--text-muted); }
     @media (max-width: 960px) {
-      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
+      .sidebar { position: fixed; top: 0; left: -320px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
       .sidebar.open { left: 0; }
       .sidebar-overlay.open { display: block; }
       .sidebar-toggle { display: flex; }

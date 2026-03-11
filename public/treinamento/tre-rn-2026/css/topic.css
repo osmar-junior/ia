@@ -22,12 +22,10 @@
 .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
 
 .sb-label {
-  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;
-  color: var(--dourado); padding: var(--space-md) var(--space-md) 6px;
-  margin-top: var(--space-lg); display: flex; align-items: center; gap: 8px;
-}
-.sb-label::after {
-  content: ''; flex: 1; height: 1px; background: rgba(200,164,92,0.25);
+  font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--dourado); padding: 5px 10px 5px var(--space-md); margin: var(--space-lg) var(--space-sm) 4px;
+  background: rgba(200,164,92,0.10); border-radius: 4px;
+  display: inline-flex; align-items: center; gap: 6px;
 }
 .sb-label:first-child { margin-top: var(--space-sm); }
 .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
