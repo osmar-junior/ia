@@ -9,9 +9,10 @@ const App = (() => {
     const path = window.location.pathname;
     if (path.includes('/oficinas/')) return '../';
     if (path.includes('/modulos/')) {
-      // modulos/index.html tem profundidade 1; modulos/conceitos/tokens.html tem profundidade 2
       const afterModulos = path.split('/modulos/')[1] || '';
-      const depth = afterModulos.split('/').filter(s => s.length > 0).length;
+      // Remover "index.html" do final antes de contar a profundidade
+      const clean = afterModulos.replace(/index\.html$/, '');
+      const depth = clean.split('/').filter(s => s.length > 0).length;
       return depth >= 2 ? '../../' : '../';
     }
     return './';
