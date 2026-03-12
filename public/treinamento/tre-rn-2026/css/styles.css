@@ -184,9 +184,6 @@ p { color: var(--text-secondary); line-height: 1.85; font-size: 1.1rem; }
   white-space: nowrap; cursor: default; vertical-align: middle; margin-left: 6px;
 }
 .navbar-progress .np-icon { font-size: 0.7rem; }
-.navbar-mod-progress {
-  background: var(--azul-light); border-color: rgba(46,92,154,0.2); color: var(--azul-medio);
-}
 
 .navbar-right { display: flex; align-items: center; gap: var(--space-md); }
 

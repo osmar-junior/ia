@@ -137,9 +137,6 @@ const App = (() => {
 
     // Badge de progresso das oficinas
     updateProgressBadge();
-
-    // Badge de progresso dos módulos (delegado ao topicos.js se carregado)
-    if (window.App && window.App.updateModuloBadge) window.App.updateModuloBadge();
   }
 
   function updateProgressBadge() {
