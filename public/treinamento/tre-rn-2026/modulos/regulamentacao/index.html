@@ -14,21 +14,6 @@
     .sidebar { width: 300px; flex-shrink: 0; background: var(--bg-card); border-right: 1px solid var(--border-light); position: sticky; top: var(--navbar-height); height: calc(100vh - var(--navbar-height)); overflow-y: auto; display: flex; flex-direction: column; z-index: 10; }
     .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
     
-    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
-    .sb-module { display: flex; align-items: center; gap: 8px; padding: 9px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-module.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-topics { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
-    .sb-topics.open { max-height: 500px; }
-    .sb-topic { display: flex; align-items: flex-start; gap: 5px; padding: 7px var(--space-md) 7px calc(var(--space-md) + 16px); font-size: 0.9rem; color: var(--text-muted); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
-    .sb-topic::before { content: '↳'; font-size: 0.75rem; margin-top: 2px; flex-shrink: 0; opacity: 0.55; }
-    .sb-topic:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.35); }
-    .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
-    .sb-oficina { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
-    .sb-oficina:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
-    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
-    .sb-footer a { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
-    .sb-footer a:hover { color: var(--azul-medio); }
     .main-content { flex: 1; min-width: 0; background: var(--bg); }
     .page-hero { position: relative; min-height: 320px; display: flex; align-items: flex-end; padding: var(--space-3xl) var(--space-2xl) var(--space-xl); overflow: hidden; }
     .page-hero-bg { position: absolute; inset: 0; z-index: 0; }
@@ -68,8 +53,6 @@
     .outcome-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: var(--space-lg); }
     .outcome-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
     .outcome-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.55; }
-    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
-    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
     /* Destaque resolução */
     .resolucao-badge {
       display: inline-flex; align-items: center; gap: 8px;
@@ -81,10 +64,6 @@
     .resolucao-badge-text strong { display: block; font-size: 1rem; color: var(--dourado); font-weight: 700; }
     .resolucao-badge-text span { font-size: 0.9rem; color: var(--text-muted); }
     @media (max-width: 960px) {
-      .sidebar { position: fixed; top: 0; left: -320px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
-      .sidebar.open { left: 0; }
-      .sidebar-overlay.open { display: block; }
-      .sidebar-toggle { display: flex; }
       .page-hero { padding: var(--space-2xl) var(--space-md) var(--space-lg); min-height: 240px; }
       .page-hero h1 { font-size: 1.8rem; }
       .breadcrumb { padding: 8px var(--space-md); }
@@ -100,22 +79,22 @@
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-        <div class="sb-label">📚 Módulos</div>
-        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-label">Módulos</div>
+        <a href="../conceitos/" class="sb-module">Conceitos Essenciais</a>
         <div class="sb-topics"></div>
-        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <a href="../como-funciona/" class="sb-module">Como a IA Funciona</a>
         <div class="sb-topics"></div>
-        <a href="../regulamentacao/" class="sb-module active">⚖️ Regulamentação</a>
+        <a href="../regulamentacao/" class="sb-module active">Regulamentação</a>
         <div class="sb-topics open">
           <a href="./principios.html" class="sb-topic">Princípios Fundamentais</a>
           <a href="./uso-ia-generativa.html" class="sb-topic">Uso de IA Generativa</a>
           <a href="./responsabilidade.html" class="sb-topic">Responsabilidade Profissional</a>
           <a href="./comite.html" class="sb-topic">Comitê Nacional de IA</a>
         </div>
-        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <a href="../engenharia-de-prompts/" class="sb-module">Engenharia de Prompts</a>
         <div class="sb-topics"></div>
                 <hr class="sb-divider">
-        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <div class="sb-label">Oficinas Práticas</div>
         <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
         <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
         <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
