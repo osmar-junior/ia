@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
-    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
-    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
-  </style>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}  </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Modelos de LLM — IA no Judiciário</title>
@@ -12,6 +9,7 @@
   <link rel="stylesheet" href="../../css/components.css">
   <link rel="stylesheet" href="../../css/responsive.css">
   <link rel="stylesheet" href="../../css/topic.css">
+  <script src="modelos-data.js"></script>
   <style>
     /* Comparação proprietário vs open-source */
     .modelo-comparison {
@@ -65,21 +63,21 @@
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-        <div class="sb-label">📚 Módulos</div>
-        <a href="../conceitos/" class="sb-module active">💡 Conceitos Essenciais</a>
+        <div class="sb-label">Módulos</div>
+        <a href="../conceitos/" class="sb-module active">Conceitos Essenciais</a>
         <div class="sb-topics open">
           <a href="./o-que-e.html" class="sb-topic">O que é Inteligência Artificial?</a>
           <a href="./ferramentas.html" class="sb-topic">Ferramentas de LLM</a>
           <a href="./modelos.html" class="sb-topic active">Modelos de LLM</a>
         </div>
-        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <a href="../como-funciona/" class="sb-module">Como a IA Funciona</a>
         <div class="sb-topics"></div>
-        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <a href="../regulamentacao/" class="sb-module">Regulamentação</a>
         <div class="sb-topics"></div>
-        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <a href="../engenharia-de-prompts/" class="sb-module">Engenharia de Prompts</a>
         <div class="sb-topics"></div>
                 <hr class="sb-divider">
-        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <div class="sb-label">Oficinas Práticas</div>
         <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
         <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
         <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
@@ -101,7 +99,7 @@
     <main class="main-content">
 
       <section class="page-hero-compact">
-        <div class="topic-eyebrow">💡 Conceitos Essenciais · Tópico 03 de 03</div>
+        <div class="topic-eyebrow">Conceitos Essenciais · Tópico 03 de 03</div>
         <h1>Modelos de LLM</h1>
         <p>O que são modelos, a diferença entre proprietários e open-source, multimodalidade e guia de referência dos principais modelos em 2026.</p>
       </section>
@@ -180,7 +178,7 @@
             <div class="modal-card">
               <div class="modal-icon">🖼️</div>
               <h4>Imagens</h4>
-              <p>Gerar e analisar imagens — ChatGPT, Grok, Gemini</p>
+              <p>Gerar e analisar imagens — ChatGPT, Gemini</p>
             </div>
             <div class="modal-card">
               <div class="modal-icon">🎙️</div>
@@ -190,7 +188,7 @@
             <div class="modal-card">
               <div class="modal-icon">🎬</div>
               <h4>Vídeo</h4>
-              <p>Analisar e gerar vídeos — Grok (Aurora), Gemini (Veo 3)</p>
+              <p>Analisar e gerar vídeos — Gemini (Veo 3), Sora (OpenAI)</p>
             </div>
             <div class="modal-card">
               <div class="modal-icon">📄</div>
@@ -208,76 +206,20 @@
             <span class="section-num">4</span>
             <h2>Principais modelos por ferramenta (2026)</h2>
           </div>
-          <p>Esta tabela apresenta os principais modelos disponíveis em fevereiro de 2026. Use como referência ao escolher qual modelo selecionar dentro de cada ferramenta:</p>
+          <p id="modelos-intro">Esta tabela apresenta os principais modelos disponíveis. Use como referência ao escolher qual modelo selecionar dentro de cada ferramenta:</p>
 
           <div class="table-wrapper">
-            <table class="table">
+            <table id="modelos-table" class="table">
               <thead>
                 <tr><th>Ferramenta</th><th>Modelo</th><th>Foco</th><th>Quando usar</th></tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td rowspan="3"><strong>ChatGPT</strong></td>
-                  <td>GPT-5.3 Codex</td>
-                  <td>Código e Engenharia</td>
-                  <td>Refatoração profunda e arquitetura de sistemas</td>
-                </tr>
-                <tr>
-                  <td>GPT-5.1 Thinking</td>
-                  <td>Raciocínio lógico puro</td>
-                  <td>Problemas matemáticos e lógica complexa</td>
-                </tr>
-                <tr>
-                  <td>GPT-5.1 Instant</td>
-                  <td>Rapidez e Voz</td>
-                  <td>Conversas fluidas (Modo Voz Avançado) e tarefas rápidas</td>
-                </tr>
-                <tr>
-                  <td rowspan="3"><strong>Claude</strong></td>
-                  <td>Claude 4.6 Opus</td>
-                  <td>Premium / Criatividade</td>
-                  <td>Escrita sofisticada e análises de altíssima precisão</td>
-                </tr>
-                <tr>
-                  <td>Claude 4.6 Sonnet</td>
-                  <td>Agentes e Automação</td>
-                  <td>Fluxos de trabalho autônomos e "Computer Use"</td>
-                </tr>
-                <tr>
-                  <td>Claude 4.5 Haiku</td>
-                  <td>Eficiência</td>
-                  <td>Processamento de grandes volumes com baixo custo via API</td>
-                </tr>
-                <tr>
-                  <td rowspan="2"><strong>Gemini</strong></td>
-                  <td>Gemini 3.1 Pro</td>
-                  <td>Multimodalidade Total</td>
-                  <td>Vídeos longos, documentos imensos (2M+ tokens)</td>
-                </tr>
-                <tr>
-                  <td>Gemini 2.5 Flash</td>
-                  <td>Velocidade e API</td>
-                  <td>Integração em apps que exigem resposta imediata</td>
-                </tr>
-                <tr>
-                  <td><strong>Grok</strong></td>
-                  <td>Grok 4.20</td>
-                  <td>Tempo Real e Agentes</td>
-                  <td>Análise de tendências no X e múltiplos agentes paralelos</td>
-                </tr>
-                <tr>
-                  <td><strong>DeepSeek</strong></td>
-                  <td>DeepSeek V4 (Beta)</td>
-                  <td>Matemática e STEM</td>
-                  <td>Pesquisa científica e custo-benefício extremo (atenção à privacidade)</td>
-                </tr>
-              </tbody>
+              <tbody id="modelos-tbody"></tbody>
             </table>
           </div>
 
           <div class="callout callout-warning">
             <div class="callout-title">⚠️ Modelos evoluem muito rápido</div>
-            <p>Esta tabela reflete o cenário de fevereiro de 2026. Novos modelos são lançados a cada poucos meses — às vezes semanas. O importante é entender a lógica: cada ferramenta oferece modelos com diferentes equilíbrios entre velocidade, capacidade e custo. A escolha certa depende da tarefa, não do nome mais novo.</p>
+            <p>Esta tabela reflete o cenário de abril de 2026. Novos modelos são lançados a cada poucos meses — às vezes semanas. O importante é entender a lógica: cada ferramenta oferece modelos com diferentes equilíbrios entre velocidade, capacidade e custo. A escolha certa depende da tarefa, não do nome mais novo.</p>
           </div>
         </div>
 
@@ -293,6 +235,29 @@
   <div id="footer-placeholder"></div>
   <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
 
+  <script>
+    (function() {
+      document.getElementById('modelos-intro').textContent =
+        'Esta tabela apresenta os principais modelos disponíveis em ' + modelosData.atualizacao +
+        '. Use como referência ao escolher qual modelo selecionar dentro de cada ferramenta:';
+
+      const tbody = document.getElementById('modelos-tbody');
+      let html = '';
+      modelosData.modelos.forEach(function(f) {
+        f.itens.forEach(function(item, idx) {
+          html += '<tr>';
+          if (idx === 0) {
+            html += '<td rowspan="' + f.itens.length + '"><strong>' + f.ferramenta + '</strong></td>';
+          }
+          html += '<td>' + item.modelo + '</td>';
+          html += '<td>' + item.foco + '</td>';
+          html += '<td>' + item.quando_usar + '</td>';
+          html += '</tr>';
+        });
+      });
+      tbody.innerHTML = html;
+    })();
+  </script>
   <script src="../../../js/auth.js"></script>
   <script src="../../js/utils.js"></script>
   <script src="../../js/main.js"></script>
