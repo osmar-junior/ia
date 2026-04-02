@@ -219,7 +219,7 @@
 
           <div class="callout callout-warning">
             <div class="callout-title">⚠️ Modelos evoluem muito rápido</div>
-            <p>Esta tabela reflete o cenário de abril de 2026. Novos modelos são lançados a cada poucos meses — às vezes semanas. O importante é entender a lógica: cada ferramenta oferece modelos com diferentes equilíbrios entre velocidade, capacidade e custo. A escolha certa depende da tarefa, não do nome mais novo.</p>
+            <p>Esta tabela reflete o cenário de <span id="modelos-cenario"></span>. Novos modelos são lançados a cada poucos meses — às vezes semanas. O importante é entender a lógica: cada ferramenta oferece modelos com diferentes equilíbrios entre velocidade, capacidade e custo. A escolha certa depende da tarefa, não do nome mais novo.</p>
           </div>
         </div>
 
@@ -237,6 +237,7 @@
 
   <script>
     (function() {
+      document.getElementById('modelos-cenario').textContent = modelosData.atualizacao;
       document.getElementById('modelos-intro').textContent =
         'Esta tabela apresenta os principais modelos disponíveis em ' + modelosData.atualizacao +
         '. Use como referência ao escolher qual modelo selecionar dentro de cada ferramenta:';
