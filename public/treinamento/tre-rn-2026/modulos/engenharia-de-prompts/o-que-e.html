@@ -27,7 +27,7 @@
         <div class="sb-topics"></div>
         <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
         <div class="sb-topics open">
-          <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
+          <a href="./o-que-e.html" class="sb-topic active" data-topico="ep-01">O que é?</a>
           <a href="./metodologia-rcts.html" class="sb-topic" data-topico="ep-02">Metodologia RCTS+E</a>
           <a href="./exemplos-por-area.html" class="sb-topic" data-topico="ep-03">Exemplos por Área</a>
           <a href="./tecnicas-avancadas.html" class="sb-topic" data-topico="ep-04">Técnicas Avançadas</a>
@@ -72,13 +72,13 @@
             <h2>Conceito</h2>
           </div>
           <p><strong>Engenharia de Prompts</strong> é a arte e a técnica de formular instruções claras e eficazes para obter os melhores resultados de uma IA. A qualidade da resposta depende diretamente da qualidade da sua pergunta.</p>
-          <p>Pense assim: se você pede a um colega "me ajuda com aquele documento", provavelmente receberá uma resposta vaga. Mas se pede "preciso que revise os parágrafos 3 a 5 do ofício nº 42, verificando se os artigos citados da Lei 9.504/97 estão corretos", o resultado será muito melhor. Com a IA funciona da mesma forma.</p>
+          <p>Imagine a seguinte situação. Se você pede a um colega "me ajuda com aquele documento", provavelmente receberá uma resposta vaga. Mas se pede "preciso que revise os parágrafos 3 a 5 do ofício nº 42 verificando a correta citação dos artigos da Lei 9.504/97", o resultado será muito superior. Com a IA ocorre exatamente a mesma dinâmica.</p>
         </div>
 
         <div class="topic-section">
           <div class="section-heading" id="qualidade">
             <span class="section-num">2</span>
-            <h2>Por que a qualidade do prompt importa?</h2>
+            <h2>O impacto estrutural da instrução</h2>
           </div>
           <div class="comparison">
             <div class="comparison-box comparison-bad">
@@ -87,10 +87,22 @@
             </div>
             <div class="comparison-box comparison-good">
               <div class="comparison-label">✅ Prompt estruturado</div>
-              <div class="comparison-text">"Atue como um analista judiciário do TRE-RN. Redija um ofício formal comunicando ao Cartório Eleitoral da 15ª Zona que o prazo para regularização do título de eleitor encerra em 08/05/2026, conforme Resolução TSE nº XX. O tom deve ser formal e direto, com no máximo 2 parágrafos."</div>
+              <div class="comparison-text">"Atue como um analista judiciário do TRE-RN. Redija um ofício formal comunicando ao Cartório Eleitoral da 15ª Zona que o prazo para regularização do título de eleitor encerra em 08/05/2026, conforme Resolução TSE nº XX. O tom deve ser formal e direto, contendo no máximo 2 parágrafos."</div>
             </div>
           </div>
-          <p>O primeiro prompt gera uma resposta genérica que exigirá muita edição. O segundo gera um texto que já está próximo do resultado final, economizando tempo e esforço.</p>
+          <p>O primeiro prompt resulta em um texto raso que exigirá pesada reescrita manual. A segunda instrução entrega um documento praticamente finalizado, poupando tempo e esforço produtivo.</p>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading" id="alucinacoes">
+            <span class="section-num">3</span>
+            <h2>O perigo silencioso das alucinações</h2>
+          </div>
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ Atenção Crítica</div>
+            <p>A Inteligência Artificial raramente admite ignorância. Diante de lacunas de informação, a máquina simplesmente inventa leis, resoluções e jurisprudências com aparência tecnicamente impecável. Esse erro sistêmico é conhecido como <strong>alucinação</strong>.</p>
+            <p>Como a precisão documental no Judiciário é inegociável, a checagem rigorosa de tudo que é gerado se torna indispensável. Um prompt bem estruturado reduz essas invenções drasticamente, mas a revisão do servidor continua sendo a única garantia real de segurança processual.</p>
+          </div>
         </div>
 
         <div class="topic-nav">

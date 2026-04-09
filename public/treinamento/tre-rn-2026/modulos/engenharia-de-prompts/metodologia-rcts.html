@@ -79,65 +79,96 @@
 
         <div class="topic-section">
           <div class="section-heading"><span class="section-num">1</span><h2>O framework</h2></div>
-          <p>Para facilitar a construção de prompts eficazes, adotamos a metodologia <strong>RCTS+E</strong> — um framework simples que garante que suas instruções contenham todos os elementos necessários para uma resposta de qualidade.</p>
+          <p>Para garantir que a Inteligência Artificial não precise adivinhar suas intenções, utilizamos a metodologia <strong>RCTS+E</strong>. Este framework estrutura o seu comando, garantindo que a máquina receba todas as variáveis necessárias para gerar uma resposta institucionalmente válida e tecnicamente precisa.</p>
           <div class="rcts-grid">
-            <div class="rcts-card"><div class="rcts-letter">R</div><h4>Role (Papel)</h4><p>Quem a IA deve "ser"</p></div>
-            <div class="rcts-card"><div class="rcts-letter">C</div><h4>Context (Contexto)</h4><p>Informações de fundo</p></div>
-            <div class="rcts-card"><div class="rcts-letter">T</div><h4>Task (Tarefa)</h4><p>O que deve ser feito</p></div>
-            <div class="rcts-card"><div class="rcts-letter">S</div><h4>Style (Estilo)</h4><p>Formato e tom desejado</p></div>
-            <div class="rcts-card"><div class="rcts-letter">+E</div><h4>Examples</h4><p>Exemplos de referência</p></div>
+            <div class="rcts-card"><div class="rcts-letter">R</div><h4>Role (Papel)</h4><p>A identidade ou especialidade que a IA deve assumir.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">C</div><h4>Context (Contexto)</h4><p>O cenário, os fatos ou o histórico do problema.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">T</div><h4>Task (Tarefa)</h4><p>A ordem clara e direta do que deve ser executado.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">S</div><h4>Style (Estilo)</h4><p>O tom, o formato e as restrições da resposta.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">+E</div><h4>Examples</h4><p>Referências de qualidade ou modelos prévios.</p></div>
           </div>
+          
           <div class="prompt-box">
             <div class="prompt-box-title">Exemplo Completo RCTS+E</div>
             <p>
-              <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista judiciário especializado em gestão de pessoas do TRE-RN, com experiência em redação de documentos administrativos.<br><br>
-              <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN está implementando um novo programa de avaliação de desempenho para os servidores, conforme Resolução CNJ nº 240/2016. Preciso comunicar as unidades sobre o cronograma e as etapas do processo.<br><br>
-              <span class="tag-t"><strong>[TASK]</strong></span> Elabore um memorando circular dirigido a todos os coordenadores de seção, informando sobre o programa, as datas-chave e as responsabilidades de cada gestor no processo de avaliação.<br><br>
-              <span class="tag-s"><strong>[STYLE]</strong></span> Linguagem formal e institucional, tom motivacional mas objetivo. Estruture com: cabeçalho institucional, introdução breve, lista de datas e responsabilidades, e fechamento. Máximo de 1 página.<br><br>
-              <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga o padrão de memorandos do TRE-RN, como: "MEMORANDO-CIRCULAR Nº XX/2025-SGP. Ao(À) Senhor(a) Coordenador(a)..."
+              <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista judiciário especializado em gestão de pessoas do TRE-RN, com profunda experiência em redação de atos administrativos.<br><br>
+              <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN está implementando um novo programa de avaliação de desempenho para os servidores, em conformidade com a Resolução CNJ nº 240/2016. Precisamos comunicar todas as unidades sobre as etapas do processo.<br><br>
+              <span class="tag-t"><strong>[TASK]</strong></span> Elabore um memorando circular informando sobre o programa, detalhando as datas-chave e as responsabilidades exclusivas de cada gestor no processo de avaliação.<br><br>
+              <span class="tag-s"><strong>[STYLE]</strong></span> Utilize linguagem estritamente formal e institucional. Estruture o documento com cabeçalho, introdução breve, lista em tópicos para as datas e fechamento padrão. Limite-se a uma página.<br><br>
+              <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga estritamente a estrutura abaixo na geração do documento:<br><br>
+              <i>"MEMORANDO-CIRCULAR Nº [XX]/2025-SGP<br>
+              Ao(À) Senhor(a) Coordenador(a) [Nome do Destinatário]<br>
+              Assunto: [Tema Principal do Documento]<br><br>
+              1. [Parágrafo inicial contendo a contextualização e fundamentação legal]<br><br>
+              2. Cronograma de Avaliação<br>
+              - [Data 1]: [Evento 1]<br>
+              - [Data 2]: [Evento 2]<br><br>
+              3. Responsabilidades da Chefia Imediata<br>
+              - [Responsabilidade técnica 1]<br>
+              - [Responsabilidade técnica 2]<br><br>
+              Atenciosamente,<br>
+              [Assinatura/Cargo]"</i>
             </p>
-          </div>
-          <div class="callout callout-info">
-            <div class="callout-title">💡 Nem todo prompt precisa de todos os elementos</div>
-            <p>Para perguntas simples do dia a dia, <strong>ROLE + TASK</strong> já são suficientes. Use o RCTS+E completo quando precisar de resultados mais sofisticados — documentos formais, análises complexas ou textos que exigem tom e formato específicos.</p>
           </div>
         </div>
 
         <div class="topic-section">
           <div class="section-heading"><span class="section-num">2</span><h2>Especificações Adicionais de Estilo</h2></div>
-          <p>A seção <strong>[STYLE]</strong> é onde muitos prompts ganham (ou perdem) qualidade. Quanto mais precisa for sua especificação de estilo, mais próximo do resultado ideal será a resposta da IA. Abaixo, uma referência completa de dimensões que você pode combinar livremente:</p>
+          <p>A seção <strong>[STYLE]</strong> é onde o seu prompt ganha precisão cirúrgica. Sem restrições claras de estilo, a IA tenderá a ser prolixa e a adotar um tom excessivamente professoral. Combine as dimensões abaixo conforme a sua necessidade.</p>
 
           <div class="table-wrapper">
             <table class="table">
-              <thead><tr><th>Dimensão</th><th>Opções</th><th>Quando usar</th></tr></thead>
+              <thead><tr><th>Dimensão</th><th>Opções e Exemplos</th><th>Quando usar</th></tr></thead>
               <tbody>
-                <tr><td><strong>🎙️ Tom</strong></td><td>Formal, técnico, didático, persuasivo, analítico, objetivo, motivacional, diplomático</td><td>Defina sempre. Um ofício exige tom formal; um material de capacitação pede tom didático; um parecer técnico requer tom analítico.</td></tr>
-                <tr><td><strong>📏 Tamanho</strong></td><td>"Máximo de 500 palavras", "3 parágrafos", "5 tópicos", "1 página", "em 2 linhas", "resposta curta"</td><td>Sempre que possível. Sem limites, a IA tende a ser prolixa. Limitar o tamanho gera respostas mais focadas e utilizáveis.</td></tr>
-                <tr><td><strong>👥 Público-alvo</strong></td><td>"Para servidores não técnicos", "para a chefia imediata", "para leigos", "para magistrados", "para estagiários"</td><td>Quando o destinatário não é óbvio. Isso ajusta vocabulário, profundidade e nível de explicação automaticamente.</td></tr>
-                <tr><td><strong>📝 Linguagem</strong></td><td>Simples e acessível, técnico-administrativa, jurídica formal, coloquial, institucional</td><td>Distingue o vocabulário. "Linguagem simples" para comunicações ao cidadão; "jurídica formal" para peças processuais.</td></tr>
-                <tr><td><strong>📐 Estrutura</strong></td><td>"Em formato de tabela", "com tópicos numerados", "com cabeçalho e rodapé", "dividido em seções", "formato de e-mail", "formato de memorando"</td><td>Quando você precisa de um formato específico. Definir a estrutura evita ter que reformatar depois.</td></tr>
-                <tr><td><strong>📚 Elementos obrigatórios</strong></td><td>"Incluir citações legais", "fundamentar com jurisprudência", "referenciar doutrina", "citar normas internas do TRE-RN", "incluir dados quantitativos", "adicionar conclusão com recomendação"</td><td>Em documentos técnicos, pareceres e análises. Garante que a IA não omita componentes essenciais.</td></tr>
-                <tr><td><strong>🚫 Restrições</strong></td><td>"Sem opiniões pessoais", "sem jargão técnico", "não usar listas", "evitar termos em inglês", "sem repetições"</td><td>Para evitar padrões indesejados que a IA tende a repetir (como excesso de listas ou anglicismos).</td></tr>
-                <tr><td><strong>🌍 Idioma e localização</strong></td><td>"Em português brasileiro formal", "usando terminologia do Judiciário brasileiro", "conforme padrão ABNT"</td><td>Importante para evitar que a IA use português de Portugal ou terminologia estrangeira inadvertidamente.</td></tr>
+                <tr><td><strong>🎙️ Tom</strong></td><td>Formal, técnico, didático, analítico, objetivo, diplomático.</td><td>Defina sempre. Um ofício exige tom formal; um material de capacitação pede tom didático.</td></tr>
+                <tr><td><strong>📏 Tamanho</strong></td><td>"Máximo de 300 palavras", "exatamente 3 parágrafos", "resposta curta".</td><td>Imprescindível. Sem limites, a IA gera blocos massivos de texto indesejado.</td></tr>
+                <tr><td><strong>👥 Público-alvo</strong></td><td>"Para a chefia imediata", "para cidadãos sem formação jurídica".</td><td>Ajusta automaticamente o nível de complexidade do vocabulário gerado.</td></tr>
+                <tr><td><strong>📐 Estrutura</strong></td><td>"Em formato de tabela", "tópicos numerados", "formato de memorando".</td><td>Sempre que você precisar de organização visual prévia, evitando retrabalho no Word.</td></tr>
+                <tr><td><strong>🚫 Restrições</strong></td><td>"Sem emitir juízo de valor", "não use listas pontuadas", "evite jargões".</td><td>Essencial para bloquear vícios da IA, como o uso excessivo de adjetivos.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">3</span><h2>Segurança e Fronteiras Institucionais</h2></div>
+          <div class="callout callout-success">
+            <div class="callout-title">🔒 Ambiente Corporativo Seguro</div>
+            <p>O TRE-RN utiliza o <strong>Google Workspace institucional</strong>. Sob esta licença, o Google garante contratualmente que os dados inseridos nos prompts não serão utilizados para treinamento de modelos de IA ou compartilhados com terceiros. Seus dados permanecem dentro do perímetro de segurança do Tribunal.</p>
+          </div>
+
+          <p>Apesar da proteção da ferramenta corporativa, a <strong>Resolução CNJ nº 615/2025</strong> impõe diretrizes claras sobre o tratamento de informações processuais e administrativas.</p>
+          
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Tipo de Dado</th><th>Uso no Gemini Institucional</th><th>Regra de Segurança</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Processos Públicos</strong></td><td>Liberado</td><td>Podem ser utilizados como contexto sem necessidade de anonimização prévia.</td></tr>
+                <tr><td><strong>Dados de Caráter Geral</strong></td><td>Liberado</td><td>Manuais, resoluções públicas e normativos internos do TRE-RN.</td></tr>
+                <tr><td><strong>Segredo de Justiça</strong></td><td>Restrito</td><td>É <strong>obrigatória</strong> a anonimização prévia de nomes, CPFs e dados sensíveis antes do uso.</td></tr>
+                <tr><td><strong>Credenciais e Senhas</strong></td><td>Proibido</td><td>Nunca forneça chaves de acesso ou senhas de sistemas judiciais.</td></tr>
               </tbody>
             </table>
           </div>
 
-          <h3>Combinando especificações</h3>
-          <p>Na prática, você combina 3 ou 4 dessas dimensões em uma única instrução de estilo. Veja como uma especificação completa fica muito mais precisa:</p>
+          <div class="callout callout-error">
+            <div class="callout-title">🚨 Veto a Modelos Não Institucionais</div>
+            <p>É expressamente proibido o uso de ferramentas de IA generativa em versões abertas, gratuitas ou pessoais (como o ChatGPT comum ou o Gemini pessoal) para processar qualquer dado do Tribunal, mesmo os públicos. Tais plataformas capturam o contexto para treinamento e violam a LGPD e a segurança processual.</p>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">4</span><h2>Anti-Padrões O que NÃO fazer</h2></div>
+          <p>Mesmo conhecendo o framework RCTS+E, é comum cometermos erros na formulação que confundem o modelo. Evite as seguintes armadilhas.</p>
           <div class="comparison">
             <div class="comparison-box comparison-bad">
-              <div class="comparison-label">❌ Estilo vago</div>
-              <div class="comparison-text">[STYLE] "Escreva bem."</div>
+              <div class="comparison-label">❌ Instruções conflitantes</div>
+              <div class="comparison-text">"Escreva um relatório detalhado e profundo sobre as falhas no sistema, mas seja bem breve e resuma tudo em 3 linhas." (A IA não sabe se prioriza a profundidade ou a brevidade).</div>
             </div>
-            <div class="comparison-box comparison-good">
-              <div class="comparison-label">✅ Estilo preciso</div>
-              <div class="comparison-text">[STYLE] "Tom formal e analítico, máximo 2 páginas, público: coordenadores de seção do TRE-RN. Linguagem técnico-administrativa, estruturado em seções com cabeçalhos. Incluir fundamentação legal e concluir com recomendação objetiva. Evitar jargões de TI."</div>
+            <div class="comparison-box comparison-bad">
+              <div class="comparison-label">❌ Personas incompatíveis</div>
+              <div class="comparison-text">"Atue como um Ministro do TSE, mas explique a lei como se estivesse falando com uma criança de 5 anos." (A mistura de papéis destrói a coerência do texto).</div>
             </div>
-          </div>
-          <div class="callout callout-success">
-            <div class="callout-title">💡 Regra prática</div>
-            <p>Sempre que montar um [STYLE], pergunte-se: <strong>"Se eu entregasse essa instrução a um colega, ele saberia exatamente como escrever?"</strong> Se a resposta for não, adicione mais especificações.</p>
           </div>
         </div>
 
