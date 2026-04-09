@@ -4,6 +4,41 @@
   <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
     .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
     .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
+
+    /* Ferramenta tabs */
+    .tool-tabs { display: flex; gap: 8px; margin-bottom: var(--space-xl); flex-wrap: wrap; }
+    .tool-tab { display: flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 8px; border: 2px solid var(--border-light); background: var(--bg-card); color: var(--text-secondary); cursor: pointer; font-size: 0.95rem; font-weight: 600; transition: all 0.2s; }
+    .tool-tab:hover { border-color: var(--azul-medio); color: var(--azul-medio); }
+    .tool-tab.active { border-color: var(--azul-medio); background: var(--azul-light); color: var(--azul-medio); }
+    .tool-tab .tool-logo { width: 22px; height: 22px; object-fit: contain; }
+
+    /* Tool panels */
+    .tool-panel { display: none; }
+    .tool-panel.active { display: block; }
+
+    /* Step list */
+    .step-list { list-style: none; padding: 0; margin: var(--space-lg) 0; counter-reset: steps; }
+    .step-list li { display: flex; gap: 16px; margin-bottom: var(--space-md); counter-increment: steps; }
+    .step-list li::before { content: counter(steps); display: flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; border-radius: 50%; background: var(--azul-medio); color: #fff; font-size: 0.85rem; font-weight: 700; flex-shrink: 0; margin-top: 2px; }
+    .step-list li p { margin: 0; padding-top: 4px; line-height: 1.6; }
+    .step-list li strong { color: var(--text); }
+
+    /* Tip box */
+    .tip-box { background: var(--bg-elevated); border-left: 4px solid var(--azul-medio); border-radius: 0 8px 8px 0; padding: var(--space-md) var(--space-lg); margin-top: var(--space-lg); }
+    .tip-box .tip-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.08em; color: var(--azul-medio); text-transform: uppercase; margin-bottom: 6px; }
+    .tip-box p { margin: 0; font-size: 0.95rem; color: var(--text-secondary); }
+
+    /* Workspace warning */
+    .workspace-warning { background: rgba(184,137,26,0.07); border: 1px solid rgba(184,137,26,0.25); border-radius: 10px; padding: var(--space-lg); margin-top: var(--space-xl); }
+    .workspace-warning .warn-title { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--dourado, #B8891A); margin-bottom: 10px; font-size: 0.95rem; }
+    .workspace-warning p { margin: 0 0 8px; font-size: 0.93rem; color: var(--text-secondary); }
+    .workspace-warning p:last-child { margin-bottom: 0; }
+
+    /* Profile preferences note */
+    .pref-note { background: var(--bg-elevated); border-radius: 8px; padding: var(--space-md) var(--space-lg); margin-top: var(--space-md); font-size: 0.92rem; color: var(--text-secondary); }
+
+    /* Memory badge */
+    .memory-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 0.78rem; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: rgba(26,138,90,0.1); color: var(--verde); border: 1px solid rgba(26,138,90,0.2); margin-left: 8px; vertical-align: middle; }
   </style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,21 +54,21 @@
 
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-inner">
-        <div class="sb-label">📚 Módulos</div>
-        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-label">Módulos</div>
+        <a href="../conceitos/" class="sb-module">Conceitos Essenciais</a>
         <div class="sb-topics"></div>
-        <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
+        <a href="../como-funciona/" class="sb-module active">Como a IA Funciona</a>
         <div class="sb-topics open">
           <a href="./tokens.html" class="sb-topic">Tokens e Janela de Contexto</a>
           <a href="./cuidados.html" class="sb-topic">Cuidados e Limitações</a>
           <a href="./personalizacao.html" class="sb-topic active">Personalização de Ferramentas</a>
         </div>
-        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <a href="../regulamentacao/" class="sb-module">Regulamentação</a>
         <div class="sb-topics"></div>
-        <a href="../../modulos/engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <a href="../../modulos/engenharia-de-prompts/" class="sb-module">Engenharia de Prompts</a>
         <div class="sb-topics"></div>
-                <hr class="sb-divider">
-        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <hr class="sb-divider">
+        <div class="sb-label">Oficinas Práticas</div>
         <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
         <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
         <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
@@ -57,7 +92,7 @@
       <section class="page-hero-compact">
         <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 03 de 03</div>
         <h1>Personalização de Ferramentas</h1>
-        <p>Configure estilo, contexto profissional e instruções permanentes para que as ferramentas respondam do jeito certo desde o início.</p>
+        <p>Configure memória, preferências e instruções permanentes para que as ferramentas respondam do jeito certo desde o início — sem precisar repetir o mesmo contexto a cada nova conversa.</p>
       </section>
 
       <nav class="breadcrumb">
@@ -73,58 +108,78 @@
         <div class="topic-section">
           <div class="section-heading" id="introducao">
             <span class="section-num">1</span>
-            <h2>Introdução</h2>
+            <h2>Por que personalizar?</h2>
           </div>
-          <p>Antes de começar a usar as ferramentas de IA no trabalho, vale investir alguns minutos para configurá-las. A maioria das ferramentas populares permite que você defina preferências de estilo, forneça contexto sobre seu perfil profissional e estabeleça instruções que valem para todas as conversas futuras.</p>
-          <p>Essa configuração é feita uma única vez e melhora significativamente a qualidade das respostas — sem precisar repetir as mesmas instruções a cada nova conversa.</p>
+          <p>Toda vez que você abre uma nova conversa com uma ferramenta de IA, ela começa do zero — sem saber quem você é, o que faz ou como prefere receber respostas. Isso significa repetir o mesmo contexto dezenas de vezes ao longo do tempo.</p>
+          <p>As principais ferramentas resolveram isso com recursos de <strong>memória</strong> e <strong>preferências permanentes</strong>: você configura uma única vez e a IA passa a considerá-las em todas as conversas futuras. O resultado é respostas mais precisas, no nível técnico certo e no tom que você prefere — sem esforço adicional.</p>
+          <p>Neste tópico você vai aprender a configurar três ferramentas: <strong>ChatGPT</strong>, <strong>Claude</strong> e <strong>Gemini</strong>, todas em contas gratuitas.</p>
         </div>
 
-        <!-- 2. O que é possível personalizar -->
+        <!-- 2. Passo a passo por ferramenta -->
         <div class="topic-section">
-          <div class="section-heading" id="o-que-personalizar">
+          <div class="section-heading" id="passo-a-passo">
             <span class="section-num">2</span>
-            <h2>O que é possível personalizar</h2>
+            <h2>Configurando cada ferramenta</h2>
           </div>
-          <p>As principais ferramentas oferecem quatro dimensões de personalização:</p>
-          <div class="config-grid">
-            <div class="config-card">
-              <div class="config-icon">🎭</div>
-              <h4>Estilo e tom de resposta</h4>
-              <p>Defina como a IA deve se comunicar com você — formal, técnico, direto, didático. Isso afeta todas as conversas futuras.</p>
-              <div class="config-how"><strong>Disponível em:</strong> ChatGPT (Configurações › Personalização), Claude (Preferências de Estilo), Gemini (Preferências)</div>
-            </div>
-            <div class="config-card">
-              <div class="config-icon">💼</div>
-              <h4>Contexto profissional</h4>
-              <p>Informe sua ocupação, área de atuação e tipo de demandas. A IA ajustará o nível técnico e o vocabulário automaticamente.</p>
-              <div class="config-how"><strong>Exemplo:</strong> "Sou servidor público federal no TRE-RN, atuo na Coordenação de Sistemas da Secretaria de TI."</div>
-            </div>
-            <div class="config-card">
-              <div class="config-icon">📋</div>
-              <h4>Instruções permanentes</h4>
-              <p>Estabeleça regras que a IA deve seguir sempre — citar fontes, evitar respostas genéricas, usar linguagem institucional.</p>
-              <div class="config-how"><strong>Exemplo:</strong> "Cite fontes sempre que possível. Se não houver fonte confiável, informe. Priorize clareza e objetividade."</div>
-            </div>
-            <div class="config-card">
-              <div class="config-icon">🔒</div>
-              <h4>Privacidade e treinamento</h4>
-              <p>Desative a opção de usar suas conversas para treinar os modelos. Especialmente importante para uso institucional.</p>
-              <div class="config-how"><strong>ChatGPT:</strong> Configurações › Controlar dados › Desativar "Melhorar o modelo para todo mundo"</div>
-            </div>
-          </div>
-        </div>
+          <p>Selecione a ferramenta que você usa e siga o passo a passo:</p>
 
-        <!-- 3. Modelo de instruções -->
-        <div class="topic-section">
-          <div class="section-heading" id="modelo-instrucoes">
-            <span class="section-num">3</span>
-            <h2>Modelo de instruções personalizadas</h2>
+          <div class="tool-tabs">
+            <button class="tool-tab active" onclick="showTool('chatgpt', this)">
+              <span style="font-size:1.2rem;">🤖</span> ChatGPT
+            </button>
+            <button class="tool-tab" onclick="showTool('claude', this)">
+              <span style="font-size:1.2rem;">✳️</span> Claude
+            </button>
+            <button class="tool-tab" onclick="showTool('gemini', this)">
+              <span style="font-size:1.2rem;">✦</span> Gemini
+            </button>
           </div>
-          <p>O bloco abaixo é um modelo de instruções personalizadas pensado para o contexto de servidor do TRE-RN. Copie, adapte ao seu estilo e cole na área de personalização da ferramenta que você usa.</p>
 
-          <div class="callout callout-info">
-            <div class="callout-title">📋 Instruções personalizadas — modelo para copiar</div>
-            <div class="code-block" id="instrucoes-modelo">- Responda com sinceridade e objetividade, usando, quando couber, um toque de ironia inteligente, como um colega experiente.
+          <!-- ChatGPT -->
+          <div class="tool-panel active" id="panel-chatgpt">
+            <h3 style="margin-top:0; color: var(--azul-medio);">ChatGPT <span class="memory-badge">✓ Memória disponível no plano gratuito</span></h3>
+            <p>O ChatGPT possui dois recursos complementares de personalização: <strong>Memória</strong> e <strong>Instruções Personalizadas</strong>. Juntos, permitem que ele aprenda sobre você ao longo do tempo e siga regras que você definiu.</p>
+
+            <h4 style="margin-top: var(--space-xl);">Parte A — Ativar e gerenciar a Memória</h4>
+            <p>A memória do ChatGPT funciona de duas formas: você pode dizer explicitamente o que quer que ele lembre, e ele também aprende automaticamente a partir das suas conversas.</p>
+            <ol class="step-list">
+              <li><p>Clique na sua <strong>foto de perfil</strong> no canto superior direito.</p></li>
+              <li><p>Selecione <strong>Configurações</strong> (Settings).</p></li>
+              <li><p>No menu lateral, clique em <strong>Personalização</strong> (Personalization).</p></li>
+              <li><p>Você verá a seção <strong>Memória</strong> (Memory) com dois controles:
+                <br>• <em>Memórias salvas</em> — o que você pediu explicitamente para ele lembrar.
+                <br>• <em>Histórico de conversas</em> — insights que ele aprende automaticamente (disponível no plano gratuito em versão leve).</p></li>
+              <li><p>Para ver tudo que ele sabe sobre você, clique em <strong>Gerenciar memórias</strong> (Manage memories). Ali você pode revisar, editar ou excluir itens específicos.</p></li>
+            </ol>
+
+            <div class="tip-box">
+              <div class="tip-label">💡 Dica</div>
+              <p>Você não precisa entrar nas configurações para gerenciar a memória. Basta digitar no chat: <em>"Lembre-se de que prefiro respostas diretas e sem listas"</em> ou <em>"Esqueça o que eu disse sobre trabalhar com marketing"</em>. O ChatGPT atualiza a memória instantaneamente.</p>
+            </div>
+
+            <h4 style="margin-top: var(--space-xl);">Parte B — Instruções Personalizadas</h4>
+            <p>As instruções personalizadas são regras fixas que o ChatGPT seguirá em todas as conversas — independentemente do assunto. É onde você define seu perfil e seu estilo preferido de resposta.</p>
+            <ol class="step-list">
+              <li><p>Em <strong>Configurações › Personalização</strong>, clique em <strong>Instruções personalizadas</strong> (Custom instructions).</p></li>
+              <li><p>Você verá dois campos de texto:
+                <br>• <em>"O que você gostaria que o ChatGPT soubesse sobre você?"</em> — cole aqui seu perfil profissional.
+                <br>• <em>"Como você gostaria que o ChatGPT respondesse?"</em> — cole aqui suas preferências de estilo.</p></li>
+              <li><p>Salve. As instruções passam a valer imediatamente em todos os novos chats.</p></li>
+            </ol>
+
+            <div class="callout callout-info" style="margin-top: var(--space-xl);">
+              <div class="callout-title">📋 Modelo de perfil para o campo "O que você gostaria que o ChatGPT soubesse sobre você?"</div>
+              <div class="code-block" id="chatgpt-perfil">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
+- Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
+- Atuo principalmente com [descreva suas atividades principais].
+- Minhas demandas exigem profundidade, contexto e praticidade.
+- Prefiro conversas construtivas que equilibrem técnica, clareza e criatividade.</div>
+              <button class="btn-copy" onclick="copyBlock('chatgpt-perfil', this)">📋 Copiar perfil</button>
+            </div>
+
+            <div class="callout callout-info" style="margin-top: var(--space-lg);">
+              <div class="callout-title">📋 Modelo de instruções para o campo "Como você gostaria que o ChatGPT respondesse?"</div>
+              <div class="code-block" id="chatgpt-instrucoes">- Responda com sinceridade e objetividade, usando, quando couber, um toque de ironia inteligente, como um colega experiente.
 - Gere respostas elaboradas, ricas em detalhes e com exemplos práticos, fazendo conexões criativas entre ideias.
 - Manifeste sua opinião sempre que achar que pode contribuir com a conversa.
 - Seja encorajador, mas sem dizer apenas o que acha que quero ouvir; traga o que preciso ouvir. Critique quando necessário.
@@ -132,26 +187,133 @@
 - Apresente seu raciocínio de forma clara, citando fontes sempre que possível.
 - Priorize clareza e objetividade.
 - Use um tom encorajador e profissional.</div>
-            <button class="btn-copy" onclick="copyBlock('instrucoes-modelo', this)">📋 Copiar instruções</button>
+              <button class="btn-copy" onclick="copyBlock('chatgpt-instrucoes', this)">📋 Copiar instruções</button>
+            </div>
           </div>
-        </div>
 
-        <!-- 4. Modelo de contexto profissional -->
-        <div class="topic-section">
-          <div class="section-heading" id="modelo-perfil">
-            <span class="section-num">4</span>
-            <h2>Modelo de contexto profissional</h2>
-          </div>
-          <p>O bloco abaixo é um modelo de perfil profissional para o campo "Sobre você" ou "Ocupação" das ferramentas. Substitua os campos entre colchetes pelas suas informações reais.</p>
+          <!-- Claude -->
+          <div class="tool-panel" id="panel-claude">
+            <h3 style="margin-top:0; color: var(--azul-medio);">Claude <span class="memory-badge">✓ Memória disponível no plano gratuito</span></h3>
+            <p>O Claude possui três camadas de personalização: <strong>Memória automática</strong> (aprende com suas conversas), <strong>Preferências de perfil</strong> (regras globais que você escreve) e <strong>Projetos</strong> (contexto específico por tarefa, disponível também no plano gratuito).</p>
 
-          <div class="callout callout-info">
-            <div class="callout-title">📋 Ocupação e perfil — modelo para copiar</div>
-            <div class="code-block" id="ocupacao-modelo">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
+            <h4 style="margin-top: var(--space-xl);">Parte A — Ativar e gerenciar a Memória</h4>
+            <p>A memória do Claude é gerada automaticamente: ele analisa suas conversas e cria um resumo do seu perfil, que fica disponível em todos os chats futuros.</p>
+            <ol class="step-list">
+              <li><p>Clique nas suas <strong>iniciais ou foto de perfil</strong> no canto inferior esquerdo.</p></li>
+              <li><p>Selecione <strong>Configurações</strong> (Settings).</p></li>
+              <li><p>Vá até a aba <strong>Capacidades</strong> (Capabilities) e role até a seção <strong>Memória</strong> (Memory).</p></li>
+              <li><p>Você verá o controle da memória com duas opções ao desativar:
+                <br>• <em>Pausar memória</em> — mantém o que já foi aprendido, mas para de aprender coisas novas.
+                <br>• <em>Redefinir memória</em> — apaga tudo permanentemente.</p></li>
+              <li><p>Para revisar e editar o que o Claude sabe sobre você, acesse <strong>Configurações › Memória</strong> e clique nos itens para editá-los ou excluí-los individualmente.</p></li>
+            </ol>
+
+            <div class="tip-box">
+              <div class="tip-label">💡 Dica</div>
+              <p>Assim como no ChatGPT, você pode instruir o Claude diretamente no chat: <em>"Guarde esta informação sobre meu trabalho: atuo na análise de contratos administrativos."</em> Ele incorporará o dado à sua memória no próximo ciclo de atualização (em até 24h).</p>
+            </div>
+
+            <h4 style="margin-top: var(--space-xl);">Parte B — Preferências de perfil</h4>
+            <p>As preferências de perfil funcionam como instruções fixas que o Claude aplica em todas as conversas. É o lugar certo para definir seu estilo de resposta ideal.</p>
+            <ol class="step-list">
+              <li><p>Clique nas suas iniciais no canto inferior esquerdo e vá em <strong>Configurações › Perfil</strong> (Profile).</p></li>
+              <li><p>Você verá um campo de texto chamado <strong>Preferências do usuário</strong> (User preferences). Cole aqui suas instruções — o Claude as seguirá em todos os chats.</p></li>
+              <li><p>Salve. As preferências passam a valer imediatamente.</p></li>
+            </ol>
+
+            <div class="pref-note">
+              <strong>Observação:</strong> No Claude, o perfil profissional e as preferências de estilo ficam no <em>mesmo campo</em> de texto. Combine os dois modelos abaixo em um único bloco antes de colar.
+            </div>
+
+            <div class="callout callout-info" style="margin-top: var(--space-lg);">
+              <div class="callout-title">📋 Modelo completo de preferências para o Claude</div>
+              <div class="code-block" id="claude-preferencias">SOBRE MIM:
+- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
 - Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
 - Atuo principalmente com [descreva suas atividades principais].
 - Minhas demandas exigem profundidade, contexto e praticidade.
-- Prefiro conversas construtivas que equilibrem técnica, clareza e criatividade.</div>
-            <button class="btn-copy" onclick="copyBlock('ocupacao-modelo', this)">📋 Copiar perfil</button>
+
+COMO PREFIRO QUE VOCÊ RESPONDA:
+- Responda com sinceridade e objetividade, com um toque de ironia inteligente quando couber.
+- Gere respostas elaboradas, ricas em detalhes e com exemplos práticos.
+- Manifeste sua opinião sempre que puder contribuir com a conversa.
+- Seja encorajador, mas traga o que preciso ouvir, não apenas o que é confortável.
+- Se houver incerteza, diga claramente. Não invente respostas.
+- Cite fontes sempre que possível.
+- Use tom encorajador e profissional.</div>
+              <button class="btn-copy" onclick="copyBlock('claude-preferencias', this)">📋 Copiar preferências</button>
+            </div>
+          </div>
+
+          <!-- Gemini -->
+          <div class="tool-panel" id="panel-gemini">
+            <h3 style="margin-top:0; color: var(--azul-medio);">Gemini <span class="memory-badge">✓ Disponível em contas Google pessoais</span></h3>
+            <p>O Gemini possui o recurso <strong>Informações Salvas</strong> (Saved Info), que funciona como um banco de memória persistente. Você pode adicionar informações manualmente ou deixar que o Gemini as aprenda com o tempo.</p>
+
+            <h4 style="margin-top: var(--space-xl);">Passo a passo — Informações Salvas</h4>
+            <ol class="step-list">
+              <li><p>No menu lateral esquerdo, vá até a parte inferior e clique no ícone de <strong>engrenagem</strong> (Configurações).</p></li>
+              <li><p>Selecione a opção <strong>Informações salvas</strong> (Saved Info).</p></li>
+              <li><p>Uma tela dedicada será aberta com todas as informações que o Gemini já memorizou sobre você.</p></li>
+              <li><p>No campo de texto no topo, você pode <strong>adicionar novas informações</strong> manualmente — por exemplo: seu cargo, área de atuação ou preferências de resposta.</p></li>
+              <li><p>Para excluir alguma informação existente, clique no <strong>ícone de lixeira</strong> ao lado do item.</p></li>
+            </ol>
+
+            <div class="tip-box">
+              <div class="tip-label">💡 Dica</div>
+              <p>Você também pode gerenciar a memória conversando: basta dizer <em>"Salve que prefiro respostas curtas e diretas"</em> ou <em>"Não precisa guardar informações sobre meu estilo de escrita"</em>.</p>
+            </div>
+
+            <div class="callout callout-info" style="margin-top: var(--space-xl);">
+              <div class="callout-title">📋 Modelo de informações para adicionar no Gemini</div>
+              <div class="code-block" id="gemini-info">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
+- Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
+- Atuo principalmente com [descreva suas atividades principais].
+- Prefiro respostas objetivas, bem estruturadas e com exemplos práticos.
+- Quando houver incerteza, prefiro que você me avise em vez de supor.
+- Use um tom profissional e direto.</div>
+              <button class="btn-copy" onclick="copyBlock('gemini-info', this)">📋 Copiar informações</button>
+            </div>
+
+            <!-- Workspace warning -->
+            <div class="workspace-warning">
+              <div class="warn-title">⚠️ Atenção: conta Google Workspace (institucional)</div>
+              <p>Se você acessa o Gemini com uma <strong>conta institucional</strong> (como a do TRE-RN, que termina em @tre-rn.jus.br ou domínio similar), as opções de personalização são <strong>significativamente mais limitadas</strong> — ou podem não estar disponíveis.</p>
+              <p><strong>Por quê?</strong> O Google restringe esses recursos em contas Workspace por razões de segurança e conformidade corporativa. O administrador de TI da organização controla quais funcionalidades ficam disponíveis. Isso significa que memória contínua, instruções personalizadas e histórico de conversas podem não funcionar — ou podem ser desativados por política interna.</p>
+              <p>Neste caso, a alternativa é <strong>incluir seu contexto no início de cada conversa</strong> — cole as informações do modelo acima diretamente no primeiro prompt de cada sessão. É mais trabalhoso, mas garante que o Gemini tenha o contexto necessário para responder bem.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Privacidade -->
+        <div class="topic-section">
+          <div class="section-heading" id="privacidade">
+            <span class="section-num">3</span>
+            <h2>Privacidade e uso dos dados</h2>
+          </div>
+          <p>Ao configurar a memória das ferramentas, suas informações são armazenadas nos servidores de cada empresa. Algumas orientações importantes:</p>
+
+          <div class="config-grid">
+            <div class="config-card">
+              <div class="config-icon">🔒</div>
+              <h4>Não inclua dados sigilosos</h4>
+              <p>Limite-se a informações equivalentes ao que estaria em um crachá funcional: cargo, área de atuação, preferências de comunicação. Nunca inclua dados de processos, informações pessoais de terceiros ou documentos institucionais.</p>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">📊</div>
+              <h4>Desative o uso para treinamento</h4>
+              <p>No ChatGPT: <em>Configurações › Controlar dados › desative "Melhorar o modelo para todo mundo"</em>. No Claude e Gemini, verifique as configurações de privacidade nas suas respectivas contas.</p>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">👁️</div>
+              <h4>Revise periodicamente</h4>
+              <p>As ferramentas podem aprender informações incorretas ou desatualizadas. Reserve alguns minutos a cada mês para revisar o que cada uma sabe sobre você e excluir o que não se aplica mais.</p>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">🕶️</div>
+              <h4>Use o modo incógnito quando necessário</h4>
+              <p>Tanto o ChatGPT quanto o Claude oferecem um modo de chat temporário (sem memória). Use-o para conversas que não devem ser armazenadas — como pesquisas sobre casos sensíveis.</p>
+            </div>
           </div>
 
           <div class="callout callout-warning" style="margin-top: var(--space-xl);">
@@ -179,6 +341,13 @@
     function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
     function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+    function showTool(tool, btn) {
+      document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.tool-tab').forEach(b => b.classList.remove('active'));
+      document.getElementById('panel-' + tool).classList.add('active');
+      btn.classList.add('active');
+    }
 
     function copyBlock(id, btn) {
       const text = document.getElementById(id).textContent;

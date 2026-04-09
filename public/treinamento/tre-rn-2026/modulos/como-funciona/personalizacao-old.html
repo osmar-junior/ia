@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
+    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personalização de Ferramentas — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics open">
+          <a href="./tokens.html" class="sb-topic">Tokens e Janela de Contexto</a>
+          <a href="./cuidados.html" class="sb-topic">Cuidados e Limitações</a>
+          <a href="./personalizacao.html" class="sb-topic active">Personalização de Ferramentas</a>
+        </div>
+        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../../modulos/engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+                <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 03 de 03</div>
+        <h1>Personalização de Ferramentas</h1>
+        <p>Configure estilo, contexto profissional e instruções permanentes para que as ferramentas respondam do jeito certo desde o início.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../como-funciona/">Como a IA Funciona</a><span class="sep">›</span>
+        <span class="current">Personalização de Ferramentas</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. Introdução -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>Introdução</h2>
+          </div>
+          <p>Antes de começar a usar as ferramentas de IA no trabalho, vale investir alguns minutos para configurá-las. A maioria das ferramentas populares permite que você defina preferências de estilo, forneça contexto sobre seu perfil profissional e estabeleça instruções que valem para todas as conversas futuras.</p>
+          <p>Essa configuração é feita uma única vez e melhora significativamente a qualidade das respostas — sem precisar repetir as mesmas instruções a cada nova conversa.</p>
+        </div>
+
+        <!-- 2. O que é possível personalizar -->
+        <div class="topic-section">
+          <div class="section-heading" id="o-que-personalizar">
+            <span class="section-num">2</span>
+            <h2>O que é possível personalizar</h2>
+          </div>
+          <p>As principais ferramentas oferecem quatro dimensões de personalização:</p>
+          <div class="config-grid">
+            <div class="config-card">
+              <div class="config-icon">🎭</div>
+              <h4>Estilo e tom de resposta</h4>
+              <p>Defina como a IA deve se comunicar com você — formal, técnico, direto, didático. Isso afeta todas as conversas futuras.</p>
+              <div class="config-how"><strong>Disponível em:</strong> ChatGPT (Configurações › Personalização), Claude (Preferências de Estilo), Gemini (Preferências)</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">💼</div>
+              <h4>Contexto profissional</h4>
+              <p>Informe sua ocupação, área de atuação e tipo de demandas. A IA ajustará o nível técnico e o vocabulário automaticamente.</p>
+              <div class="config-how"><strong>Exemplo:</strong> "Sou servidor público federal no TRE-RN, atuo na Coordenação de Sistemas da Secretaria de TI."</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">📋</div>
+              <h4>Instruções permanentes</h4>
+              <p>Estabeleça regras que a IA deve seguir sempre — citar fontes, evitar respostas genéricas, usar linguagem institucional.</p>
+              <div class="config-how"><strong>Exemplo:</strong> "Cite fontes sempre que possível. Se não houver fonte confiável, informe. Priorize clareza e objetividade."</div>
+            </div>
+            <div class="config-card">
+              <div class="config-icon">🔒</div>
+              <h4>Privacidade e treinamento</h4>
+              <p>Desative a opção de usar suas conversas para treinar os modelos. Especialmente importante para uso institucional.</p>
+              <div class="config-how"><strong>ChatGPT:</strong> Configurações › Controlar dados › Desativar "Melhorar o modelo para todo mundo"</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Modelo de instruções -->
+        <div class="topic-section">
+          <div class="section-heading" id="modelo-instrucoes">
+            <span class="section-num">3</span>
+            <h2>Modelo de instruções personalizadas</h2>
+          </div>
+          <p>O bloco abaixo é um modelo de instruções personalizadas pensado para o contexto de servidor do TRE-RN. Copie, adapte ao seu estilo e cole na área de personalização da ferramenta que você usa.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">📋 Instruções personalizadas — modelo para copiar</div>
+            <div class="code-block" id="instrucoes-modelo">- Responda com sinceridade e objetividade, usando, quando couber, um toque de ironia inteligente, como um colega experiente.
+- Gere respostas elaboradas, ricas em detalhes e com exemplos práticos, fazendo conexões criativas entre ideias.
+- Manifeste sua opinião sempre que achar que pode contribuir com a conversa.
+- Seja encorajador, mas sem dizer apenas o que acha que quero ouvir; traga o que preciso ouvir. Critique quando necessário.
+- Responda apenas quando tiver certeza. Se houver incerteza, explique-a.
+- Apresente seu raciocínio de forma clara, citando fontes sempre que possível.
+- Priorize clareza e objetividade.
+- Use um tom encorajador e profissional.</div>
+            <button class="btn-copy" onclick="copyBlock('instrucoes-modelo', this)">📋 Copiar instruções</button>
+          </div>
+        </div>
+
+        <!-- 4. Modelo de contexto profissional -->
+        <div class="topic-section">
+          <div class="section-heading" id="modelo-perfil">
+            <span class="section-num">4</span>
+            <h2>Modelo de contexto profissional</h2>
+          </div>
+          <p>O bloco abaixo é um modelo de perfil profissional para o campo "Sobre você" ou "Ocupação" das ferramentas. Substitua os campos entre colchetes pelas suas informações reais.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">📋 Ocupação e perfil — modelo para copiar</div>
+            <div class="code-block" id="ocupacao-modelo">- Sou servidor público federal do Tribunal Regional Eleitoral do Rio Grande do Norte (TRE-RN).
+- Meu cargo é [seu cargo], lotado na [sua seção/coordenadoria].
+- Atuo principalmente com [descreva suas atividades principais].
+- Minhas demandas exigem profundidade, contexto e praticidade.
+- Prefiro conversas construtivas que equilibrem técnica, clareza e criatividade.</div>
+            <button class="btn-copy" onclick="copyBlock('ocupacao-modelo', this)">📋 Copiar perfil</button>
+          </div>
+
+          <div class="callout callout-warning" style="margin-top: var(--space-xl);">
+            <div class="callout-title">⚠️ Atenção ao configurar</div>
+            <p>Não inclua informações sigilosas ou institucionais sensíveis na configuração do perfil. Limite-se a dados sobre sua função, área de atuação e preferências de comunicação — informações equivalentes ao que estaria em um crachá funcional.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./cuidados.html" class="btn btn-secondary">← Anterior: Cuidados e Limitações</a>
+          <a href="../regulamentacao/" class="btn btn-primary">Próximo módulo: Regulamentação →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+
+    function copyBlock(id, btn) {
+      const text = document.getElementById(id).textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const original = btn.textContent;
+        btn.textContent = '✅ Copiado!';
+        btn.style.background = 'var(--verde)';
+        btn.style.color = '#fff';
+        btn.style.borderColor = 'var(--verde)';
+        setTimeout(() => {
+          btn.textContent = original;
+          btn.style.background = '';
+          btn.style.color = '';
+          btn.style.borderColor = '';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

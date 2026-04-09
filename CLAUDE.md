@@ -29,22 +29,26 @@ npm run lint      # ESLint
 ```
 public/
   treinamento/
+    js/                   # JS compartilhado entre todos os cursos
+      auth.js             # Sistema de autenticação (sessionStorage + Supabase)
+    login.html            # Página de login (entrada de CPF → busca turma)
     tre-rn-2026/          # Curso principal (estrutura modular)
       index.html          # Índice do curso
-      main.js             # JS compartilhado do curso
+      js/
+        main.js           # App: getBasePath(), loadLayout(), navbar, highlight
+        topicos.js        # Progresso de tópicos (localStorage) e badges de módulo
+        utils.js          # Toast, helpers
+      components/
+        header.html       # Navbar injetada via fetch + loadComponent()
+        footer.html
       modulos/
-        modulo-1/
+        <modulo>/
           index.html      # Índice do módulo
-          topico-1.html
-          topico-2.html
-          ...
-        modulo-2/
-          ...
+          topico-N.html
+          *-data.js       # Dados externos usados pela página (ex: ferramentas-data.js)
       oficinas/
-        oficina-1/
-          index.html
-          ...
-    adv-flavio-macedo/    # Curso jurídico (ainda não migrado para estrutura modular)
+        oficina-NN-nome.html   # Arquivos planos, sem subpasta
+    adv-flavio-macedo/    # Curso jurídico (estrutura similar, ainda não migrado)
   admin/
     index.html            # Painel administrativo (CRUD de usuários, cursos e turmas)
 ```
@@ -52,8 +56,17 @@ public/
 ## Convenções críticas
 
 ### getBasePath() em main.js
-Páginas de módulos ficam sempre **dois níveis abaixo da raiz do curso**.
-A função deve retornar `'../../'` para qualquer caminho contendo `/modulos/` ou `/oficinas/`.
+Retorna o caminho relativo até a raiz do curso (`tre-rn-2026/`):
+- `/oficinas/` → `'../'` (oficinas são arquivos planos, um nível abaixo)
+- `/modulos/` → `'../../'` (módulos ficam em `/modulos/<submodulo>/`)
+- raiz do curso → `'./'`
+
+`auth.js` tem sua própria `getBasePath()` com lógica ligeiramente diferente (inclui o caso da raiz `/treinamento/`). Não confundir as duas.
+
+### Progresso e sessionStorage
+- `topicos.js` persiste progresso em **localStorage** com chave `trern-topicos-concluidos` (array de IDs).
+- `auth.js` persiste sessão do usuário em **sessionStorage** com chaves `treinamento_turma`, `treinamento_subpasta`, `treinamento_curso`, `treinamento_user_id`, `treinamento_user_name`.
+- `getCurrentSubpasta()` em `auth.js` extrai o slug do curso do pathname para isolar sessões entre cursos.
 
 ### Variável do cliente Supabase
 Usar sempre `sb` (não `supabase` — conflita com o global do CDN).
@@ -104,6 +117,8 @@ Políticas RLS na tabela `usuario` **não devem referenciar `usuario` em subcons
 - Helper `cn()` (clsx + tailwind-merge) para classes condicionais
 
 **Animações:** Framer Motion — reveals escalonados, spring physics em cards.
+
+**Rotas atuais:** `/` (Home) e `/trilha-juridica` (TrilhaJuridica). Novas rotas são adicionadas em `src/App.jsx` dentro do `<Route path="/" element={<Layout />}>`.
 
 ## Padrões de desenvolvimento
 
