@@ -15,7 +15,7 @@
     .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
     .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
     .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
+    .material-table{width:100%;border-collapse:collapse;margin:var(--space-xl) 0}.material-table th{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:10px var(--space-md);border-bottom:2px solid var(--border);text-align:left}.material-table td{padding:12px var(--space-md);border-bottom:1px solid var(--border-light);font-size:.97rem;vertical-align:middle}.material-table tr:last-child td{border-bottom:none}.material-table tr:hover td{background:var(--bg-elevated)}.mat-link{font-size:.88rem;font-weight:600}
     .style-tags{display:flex;flex-wrap:wrap;gap:var(--space-xs);margin:var(--space-sm) 0}.style-tag{padding:4px 10px;border-radius:4px;font-size:.82rem;font-weight:600;background:var(--azul-light);color:var(--azul-medio);border:1px solid rgba(46,92,154,.15)}
     @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
   
@@ -158,13 +158,16 @@
         </ul>
         <h3>📦 Material de Apoio</h3>
         <p>Baixe os arquivos abaixo. Você vai carregá-los no NotebookLM durante a oficina.</p>
-        <div class="material-grid">
-          <div class="material-card"><div class="mat-icon">📄</div><div><h4>Resolução TRE-RN nº 49/2021</h4><p>Institui o PEJERN 2021–2026</p><a href="../materiais/of-02-resolucao-tre-rn-49-2021.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
-          <div class="material-card"><div class="mat-icon">📄</div><div><h4>Anexo I — PEJERN 2021–2026</h4><p>Objetivos, iniciativas e indicadores</p><a href="../materiais/of-02-pejern-2021-2026-anexo-i.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
-          <div class="material-card"><div class="mat-icon">📄</div><div><h4>Anexo II — Glossário de Indicadores</h4><p>Definições e fórmulas de cálculo</p><a href="../materiais/of-02-pejern-2021-2026-anexo-ii-glossario.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
-          <div class="material-card"><div class="mat-icon">📄</div><div><h4>Mapa Estratégico 2021–2026</h4><p>Visão gráfica da estratégia</p><a href="../materiais/of-02-mapa-estrategico-tre-rn-2021-2026.pdf" download class="mat-link">⬇ Baixar PDF</a></div></div>
-          <div class="material-card"><div class="mat-icon">🌐</div><div><h4>Resolução CNJ nº 325/2020</h4><p>Estratégia Nacional do Poder Judiciário</p><a href="https://atos.cnj.jus.br/atos/detalhar/3365" target="_blank" class="mat-link">🔗 Abrir na web ↗</a></div></div>
-        </div>
+        <table class="material-table">
+          <thead><tr><th>Arquivo</th><th>Descrição</th><th>Link</th></tr></thead>
+          <tbody>
+            <tr><td>📄 Resolução TRE-RN nº 49/2021</td><td>Institui o PEJERN 2021–2026</td><td><a href="../materiais/of-02-resolucao-tre-rn-49-2021.pdf" download class="mat-link">⬇ Baixar PDF</a></td></tr>
+            <tr><td>📄 Anexo I — PEJERN 2021–2026</td><td>Objetivos, iniciativas e indicadores</td><td><a href="../materiais/of-02-pejern-2021-2026-anexo-i.pdf" download class="mat-link">⬇ Baixar PDF</a></td></tr>
+            <tr><td>📄 Anexo II — Glossário de Indicadores</td><td>Definições e fórmulas de cálculo</td><td><a href="../materiais/of-02-pejern-2021-2026-anexo-ii-glossario.pdf" download class="mat-link">⬇ Baixar PDF</a></td></tr>
+            <tr><td>📄 Mapa Estratégico 2021–2026</td><td>Visão gráfica da estratégia</td><td><a href="../materiais/of-02-mapa-estrategico-tre-rn-2021-2026.pdf" download class="mat-link">⬇ Baixar PDF</a></td></tr>
+            <tr><td>🌐 Resolução CNJ nº 325/2020</td><td>Estratégia Nacional do Poder Judiciário</td><td><a href="https://atos.cnj.jus.br/atos/detalhar/3365" target="_blank" class="mat-link">🔗 Abrir na web ↗</a></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -237,8 +240,76 @@
         <!-- VÍDEO -->
         <h3>🎬 Resumo em Vídeo</h3>
         <p>Gera vídeos explicativos usando o modelo <strong>NanoBanana</strong> do Google para ilustrações — um diferencial que produz visuais ricos sem habilidade em design. Formatos: <strong>Vídeo explicativo</strong> (narração detalhada) e <strong>Resumo</strong> (versão condensada).</p>
-        <p><strong>Estilos visuais:</strong></p>
-        <div class="style-tags"><span class="style-tag">Clássico</span><span class="style-tag">Quadro Branco</span><span class="style-tag">Kawaii</span><span class="style-tag">Anime</span><span class="style-tag">Aquarela</span><span class="style-tag">Impressão retrô</span><span class="style-tag">Retrô</span><span class="style-tag">Dobradura</span><span class="style-tag">Personalizado</span></div>
+        <p><strong>Estilos visuais disponíveis:</strong> escolha o que melhor combina com o público e a finalidade do vídeo.</p>
+
+        <style>
+          .style-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:14px;margin:var(--space-lg) 0 var(--space-xl)}
+          .style-card{background:var(--bg-card);border:1.5px solid var(--border-light);border-radius:10px;overflow:hidden;text-align:center;transition:box-shadow .2s,transform .2s;cursor:default}
+          .style-card:hover{box-shadow:var(--shadow-md);transform:translateY(-2px);border-color:var(--azul-medio)}
+          .style-thumb{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+          .style-thumb-svg{width:100%;aspect-ratio:4/3;display:block;background:var(--bg-elevated)}
+          .style-label{font-size:.85rem;font-weight:700;color:var(--text-secondary);padding:7px 8px 8px;line-height:1.2}
+          .style-desc{font-size:.78rem;color:var(--text-muted);padding:0 8px 9px;line-height:1.4}
+        </style>
+
+        <div class="style-grid">
+
+          <!-- Clássico -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-classico.png" alt="Estilo Clássico" loading="lazy">
+            <div class="style-label">Clássico</div>
+          </div>
+
+          <!-- Quadro branco -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-quadro-branco.png" alt="Estilo Quadro Branco" loading="lazy">
+            <div class="style-label">Quadro branco</div>
+          </div>
+
+          <!-- Kawaii -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-kawaii.png" alt="Estilo Kawaii" loading="lazy">
+            <div class="style-label">Kawaii</div>
+          </div>
+
+          <!-- Anime -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-anime.png" alt="Estilo Anime" loading="lazy">
+            <div class="style-label">Anime</div>
+          </div>
+
+        </div>
+
+        <div class="style-grid">
+
+          <!-- Aquarela -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-aquarela.png" alt="Estilo Aquarela" loading="lazy">
+            <div class="style-label">Aquarela</div>
+          </div>
+
+          <!-- Impressão retrô -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-impressao-retro.png" alt="Estilo Impressão Retrô" loading="lazy">
+            <div class="style-label">Impressão retrô</div>
+          </div>
+
+          <!-- Retrô -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-retro.png" alt="Estilo Retrô" loading="lazy">
+            <div class="style-label">Retrô</div>
+          </div>
+
+          <!-- Dobradura -->
+          <div class="style-card">
+            <img class="style-thumb" src="../assets/video-estilo-dobradura.png" alt="Estilo Dobradura" loading="lazy">
+            <div class="style-label">Dobradura</div>
+          </div>
+
+        </div>
+
+
+
         <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Resumo em Vídeo</div><div class="tool-hint">Formato <strong>"Vídeo explicativo"</strong>, estilo <strong>"Clássico"</strong> (ou <strong>"Aquarela"</strong>). Personalize o foco.</div></div></div>
         <div class="checkpoint"><div class="checkpoint-title">🎬 Testou o Resumo em Vídeo?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Um vídeo explicativo gerado por IA a partir de PDFs burocráticos — pense nisso por um segundo. O NanoBanana do Google cria as ilustrações do zero. Você não precisou abrir o Canva, PowerPoint, nem contratar ninguém. Esse recurso é perfeito para apresentações em reuniões gerenciais, material de capacitação e até comunicação interna nas redes sociais do Tribunal. Experimente outros estilos visuais — o 'Aquarela' e o 'Dobradura' costumam surpreender.">Impressionante!</button>
