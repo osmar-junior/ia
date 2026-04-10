@@ -18,6 +18,15 @@
     .material-table{width:100%;border-collapse:collapse;margin:var(--space-xl) 0}.material-table th{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:10px var(--space-md);border-bottom:2px solid var(--border);text-align:left}.material-table td{padding:12px var(--space-md);border-bottom:1px solid var(--border-light);font-size:.97rem;vertical-align:middle}.material-table tr:last-child td{border-bottom:none}.material-table tr:hover td{background:var(--bg-elevated)}.mat-link{font-size:.88rem;font-weight:600}
     .style-tags{display:flex;flex-wrap:wrap;gap:var(--space-xs);margin:var(--space-sm) 0}.style-tag{padding:4px 10px;border-radius:4px;font-size:.82rem;font-weight:600;background:var(--azul-light);color:var(--azul-medio);border:1px solid rgba(46,92,154,.15)}
     @media(max-width:768px){.etapa-header{flex-direction:column;gap:var(--space-sm)}.material-grid{grid-template-columns:1fr}.oficina-hero h1{font-size:2rem}.checkpoint-options{flex-direction:column}}
+
+    .lc-group{font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted);margin:var(--space-lg) 0 var(--space-sm)}
+    .lc-list{display:flex;flex-direction:column;gap:8px;margin:0 0 var(--space-md)}
+    .lc-item{display:flex;align-items:flex-start;gap:12px;background:var(--bg-card);border:0.5px solid var(--border-light);border-radius:var(--radius-md);padding:12px 14px}
+    .lc-num{width:22px;height:22px;border-radius:50%;background:var(--bg-elevated);border:1px solid var(--border-light);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:var(--text-muted);flex-shrink:0;margin-top:1px}
+    .lc-title{font-size:1rem;font-weight:600;color:var(--text);margin:0 0 2px;line-height:1.35}
+    .lc-title a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--azul-medio)}
+    .lc-title a:hover{color:var(--azul-medio);border-bottom-style:solid}
+    .lc-hint{font-size:.92rem;color:var(--text-secondary);margin:0;line-height:1.55}
   
     /* === TEMA CLARO — overrides === */
     .progress-bar { background: var(--bg-card); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); }
@@ -175,14 +184,22 @@
     <div class="etapa" id="etapa1">
       <div class="etapa-header"><div class="etapa-num">01</div><div><h2>Criar o Caderno e Adicionar Fontes</h2><div class="etapa-sub">Montando sua base de conhecimento</div></div></div>
       <div class="etapa-body">
-        <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></div><div class="tool-hint">Faça login com sua conta Google</div></div></div>
-        <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Crie um novo caderno</div><div class="tool-hint">Clique em <strong>"Criar"</strong> e nomeie como <strong>"PEJERN 2021-2026 — TRE-RN"</strong></div></div></div>
-        <h3>Adicionando fontes manualmente (upload de PDFs)</h3>
-        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Clique em "Adicionar fonte" (ícone ➕)</div><div class="tool-hint">Selecione <strong>"Fazer upload"</strong> e carregue os 4 PDFs</div></div></div>
-        <h3>Adicionando fonte da web</h3>
-        <div class="tool-instruction"><div class="tool-icon">4️⃣</div><div><div class="tool-name">Adicione a Resolução CNJ nº 325</div><div class="tool-hint">Selecione <strong>"Site"</strong> e cole: <code>https://atos.cnj.jus.br/atos/detalhar/3365</code></div></div></div>
-        <h3>Renomeando as fontes</h3>
-        <div class="tool-instruction"><div class="tool-icon">5️⃣</div><div><div class="tool-name">Renomeie cada fonte</div><div class="tool-hint">Clique nos <strong>⋮</strong> ao lado de cada fonte → <strong>"Renomear"</strong>. Sugestões: "Resolução 49/2021", "Objetivos e Indicadores", "Glossário", "Mapa Estratégico", "Resolução CNJ 325"</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">1</div><div><p class="lc-title"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></p><p class="lc-hint">Faça login com sua conta Google</p></div></div>
+          <div class="lc-item"><div class="lc-num">2</div><div><p class="lc-title">Crie um novo caderno</p><p class="lc-hint">Clique em <strong>"Criar"</strong> e nomeie como <strong>"PEJERN 2021-2026 — TRE-RN"</strong></p></div></div>
+        </div>
+        <div class="lc-group">Upload de PDFs</div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">3</div><div><p class="lc-title">Adicionar fonte (ícone ➕)</p><p class="lc-hint">Selecione <strong>"Fazer upload"</strong> e carregue os 4 PDFs</p></div></div>
+        </div>
+        <div class="lc-group">Fonte da web</div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">4</div><div><p class="lc-title">Adicione a Resolução CNJ nº 325</p><p class="lc-hint">Selecione <strong>"Site"</strong> e cole: <code>https://atos.cnj.jus.br/atos/detalhar/3365</code></p></div></div>
+        </div>
+        <div class="lc-group">Renomear fontes</div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">5</div><div><p class="lc-title">Renomeie cada fonte</p><p class="lc-hint">Clique nos <strong>⋮</strong> ao lado de cada fonte → <strong>"Renomear"</strong>. Sugestões: "Resolução 49/2021", "Objetivos e Indicadores", "Glossário", "Mapa Estratégico", "Resolução CNJ 325"</p></div></div>
+        </div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📚 Você conseguiu carregar todas as 5 fontes?</div>
@@ -206,7 +223,9 @@
         <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 3 — Análise cruzada</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Compare os objetivos estratégicos do PEJERN 2021-2026 com as diretrizes da Resolução CNJ nº 325/2020. Existem objetivos locais do TRE-RN que vão além do que o CNJ determina? Quais são?</div></div>
         <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 4 — Diagnóstico</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Analise o mapa estratégico do TRE-RN e identifique quais perspectivas possuem mais objetivos vinculados. O que isso revela sobre as prioridades do Tribunal?</div></div>
         <h3>Salvando respostas importantes</h3>
-        <div class="tool-instruction"><div class="tool-icon">💾</div><div><div class="tool-name">Salve as respostas nas Observações</div><div class="tool-hint">Clique em <strong>"Salvar nas observações"</strong> para guardar as respostas mais úteis para consulta futura</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">💾</div><div><p class="lc-title">Salve nas Observações</p><p class="lc-hint">Clique em <strong>"Salvar nas observações"</strong> para guardar as respostas mais úteis para consulta futura</p></div></div>
+        </div>
         <div class="callout callout-success"><div class="callout-title">💡 Dica</div><p>Salve pelo menos as respostas dos prompts 1 e 2. Elas serão úteis no Estúdio.</p></div>
 
         <div class="checkpoint">
@@ -229,7 +248,9 @@
         <!-- ÁUDIO -->
         <h3>🎙️ Resumo em Áudio</h3>
         <p>Gera um áudio (estilo podcast) dos documentos. Formatos: <strong>Análise detalhada</strong> (cobertura completa), <strong>Resumo</strong> (pontos principais), <strong>Crítica</strong> (pontos fortes/fracos) e <strong>Debate</strong> (perspectivas opostas). Configure idioma e duração (curto/padrão).</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Resumo em Áudio</div><div class="tool-hint">Formato <strong>"Resumo"</strong>, idioma <strong>"Português"</strong>, duração <strong>"Curto"</strong>. Na personalização:</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere um Resumo em Áudio</p><p class="lc-hint">Formato <strong>"Resumo"</strong>, idioma <strong>"Português"</strong>, duração <strong>"Curto"</strong>. Na personalização:</p></div></div>
+        </div>
         <div class="prompt-box"><div class="prompt-box-label"><span>Personalização do áudio</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Foque nos objetivos estratégicos relacionados à inovação tecnológica e à transformação digital do TRE-RN. Destaque como esses objetivos se conectam com as diretrizes do CNJ. O público-alvo são servidores da área de TI.</div></div>
         <div class="checkpoint"><div class="checkpoint-title">🎙️ Testou o Resumo em Áudio?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Planejamento estratégico virou podcast! Seus colegas vão achar que o TRE-RN contratou um produtor de conteúdo profissional. Esse recurso é ouro para capacitação: servidores podem estudar normas e resoluções enquanto caminham, dirigem ou fazem tarefas rotineiras. Experimente os outros formatos (Crítica e Debate) quando tiver tempo — eles trazem perspectivas que você não teria sozinho.">Testei e impressionou!</button>
@@ -310,7 +331,9 @@
 
 
 
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Resumo em Vídeo</div><div class="tool-hint">Formato <strong>"Vídeo explicativo"</strong>, estilo <strong>"Clássico"</strong> (ou <strong>"Aquarela"</strong>). Personalize o foco.</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere um Resumo em Vídeo</p><p class="lc-hint">Formato <strong>"Vídeo explicativo"</strong>, estilo <strong>"Clássico"</strong> (ou <strong>"Aquarela"</strong>). Personalize o foco.</p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">🎬 Testou o Resumo em Vídeo?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="positive" data-msg="Um vídeo explicativo gerado por IA a partir de PDFs burocráticos — pense nisso por um segundo. O NanoBanana do Google cria as ilustrações do zero. Você não precisou abrir o Canva, PowerPoint, nem contratar ninguém. Esse recurso é perfeito para apresentações em reuniões gerenciais, material de capacitação e até comunicação interna nas redes sociais do Tribunal. Experimente outros estilos visuais — o 'Aquarela' e o 'Dobradura' costumam surpreender.">Impressionante!</button>
           <button class="checkpoint-opt" onclick="ck(this,3)" data-tone="neutral" data-msg="O resultado depende bastante do estilo visual e da personalização. Se ficou razoável com 'Clássico', experimente 'Aquarela' ou 'Quadro Branco' para um visual diferente. Também ajuda ser mais específico na personalização: em vez de 'sobre o plano estratégico', tente 'Explique os 5 macrodesafios do CNJ e como o TRE-RN os endereça'. Outra opção: selecione apenas 1 ou 2 fontes antes de gerar — menos contexto gera vídeos mais focados e coesos.">Razoável</button>
@@ -319,7 +342,9 @@
         <!-- MAPA MENTAL -->
         <h3>🧠 Mapa Mental</h3>
         <p>Gera um mapa visual conectando conceitos dos documentos. Excelente para compreender relações entre objetivos, indicadores e macrodesafios.</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Mapa Mental</div><div class="tool-hint">Clique em <strong>"Mapa mental"</strong> — geração automática</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere um Mapa Mental</p><p class="lc-hint">Clique em <strong>"Mapa mental"</strong> — geração automática</p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">🧠 Testou o Mapa Mental?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="positive" data-msg="Mapas mentais gerados por IA são resumos visuais instantâneos — não substituem o mapa artesanal que você faria com carinho, mas adiantam 80% do trabalho em segundos. Perfeito para entender rapidamente como os objetivos estratégicos se conectam entre si. Dica: use esse mapa como ponto de partida para apresentações ou para explicar a estratégia a novos servidores. Um visual vale mais que mil parágrafos de resolução.">Ficou bem organizado</button>
           <button class="checkpoint-opt" onclick="ck(this,4)" data-tone="neutral" data-msg="Quando o mapa fica poluído, geralmente é porque há muitas fontes selecionadas. Tente selecionar apenas 1 ou 2 fontes antes de gerar — por exemplo, apenas o 'Mapa Estratégico' e o 'Anexo I'. Menos fontes = mapa mais focado e legível. Outra dica: se o mapa ficou com muitos nós, ele provavelmente tem informação demais para ser útil em uma apresentação, mas funciona bem como ferramenta de estudo pessoal.">Poluído demais</button>
@@ -328,7 +353,9 @@
         <!-- RELATÓRIOS -->
         <h3>📝 Relatórios</h3>
         <p>Modelos pré-formatados: <strong>Crie do zero</strong> (livre), <strong>Documento de resumo</strong> (síntese executiva), <strong>Guia de estudo</strong> (material didático) e <strong>Post de blog</strong> (artigo para divulgação).</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Documento de Resumo</div><div class="tool-hint">Selecione <strong>"Documento de resumo"</strong> para uma síntese executiva do planejamento</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere um Documento de Resumo</p><p class="lc-hint">Selecione <strong>"Documento de resumo"</strong> para uma síntese executiva do planejamento</p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">📝 Testou os Relatórios?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="positive" data-msg="Se a resposta foi 'usável', parabéns — mas tome cuidado. Mesmo relatórios bons merecem revisão. Se foi 'bom rascunho', você entendeu perfeitamente o papel da IA: ela adianta 80% do trabalho, mas os 20% finais (revisão, adequação ao tom institucional, verificação de dados) são seus. O formato 'Guia de estudo' é ouro para quem precisa preparar material de capacitação sobre normas internas. Experimente!">Usável como está / Bom rascunho</button>
           <button class="checkpoint-opt" onclick="ck(this,5)" data-tone="neutral" data-msg="Relatórios que precisam de muita edição geralmente indicam que as fontes não cobrem bem o tema pedido, ou que o formato escolhido não era o mais adequado. Tente 'Crie do zero' com instruções mais específicas — por exemplo: 'Gere um relatório executivo de 2 páginas sobre os indicadores de desempenho do TRE-RN, organizado por perspectiva estratégica'. Quanto mais direcionamento, melhor o resultado. Outro truque: use 'Guia de estudo' quando precisa de algo didático, e 'Documento de resumo' quando precisa de algo gerencial.">Precisaria de muita edição</button>
@@ -337,7 +364,9 @@
         <!-- CARTÕES -->
         <h3>🃏 Cartões de Estudo</h3>
         <p>Flashcards automáticos. Configure <strong>número de cards</strong>, <strong>nível de dificuldade</strong> (fácil/médio/difícil) e personalize via prompt.</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere Cartões de Estudo</div><div class="tool-hint"><strong>10 cartões</strong>, nível <strong>"Médio"</strong>. Personalize: <em>"Foque nos indicadores de desempenho e suas fórmulas de cálculo"</em></div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere Cartões de Estudo</p><p class="lc-hint"><strong>10 cartões</strong>, nível <strong>"Médio"</strong>. Personalize: <em>"Foque nos indicadores de desempenho e suas fórmulas de cálculo"</em></p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">🃏 Testou os Cartões de Estudo?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="positive" data-msg="Flashcards de planejamento estratégico gerados automaticamente! Seu 'eu' de 5 anos atrás não acreditaria. Esses cartões são perfeitos para preparação de servidores recém-empossados, revisão antes de reuniões estratégicas, ou até treinamento de equipes sobre indicadores institucionais. Dica: exporte e compartilhe com sua equipe — conhecimento institucional não deveria ser privilégio de quem leu a resolução inteira.">Ótimos para revisão</button>
           <button class="checkpoint-opt" onclick="ck(this,6)" data-tone="neutral" data-msg="Se ficaram fáceis ou difíceis demais, ajuste o nível de dificuldade. Mas o verdadeiro poder está na personalização via prompt. Peça 'perguntas que exijam relacionar indicadores com objetivos estratégicos' para um desafio melhor, ou 'perguntas sobre as fórmulas de cálculo' para foco técnico. Você pode gerar múltiplos conjuntos com focos diferentes e combinar os melhores cartões. Pense nisso como um Anki turbinado com IA.">Fáceis/difíceis demais</button>
@@ -346,7 +375,9 @@
         <!-- TESTES -->
         <h3>📋 Testes</h3>
         <p>Questionários de múltipla escolha ou discursivos. Configure <strong>número de questões</strong>, <strong>dificuldade</strong> e personalize via prompt.</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Teste</div><div class="tool-hint"><strong>5 questões</strong>, nível <strong>"Médio"</strong>. Personalize: <em>"Questões sobre a relação entre os macrodesafios do CNJ e os objetivos do TRE-RN"</em></div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere um Teste</p><p class="lc-hint"><strong>5 questões</strong>, nível <strong>"Médio"</strong>. Personalize: <em>"Questões sobre a relação entre os macrodesafios do CNJ e os objetivos do TRE-RN"</em></p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">📋 Testou os Testes?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,7)" data-tone="positive" data-msg="Se acertou tudo, você é um mestre do planejamento estratégico (ou leu a cola antes — sem julgamentos). Se errou algumas, ótimo: agora sabe exatamente o que precisa estudar. A beleza dos testes gerados por IA é que eles não são genéricos — são baseados no conteúdo real dos documentos do TRE-RN. Imagine usar isso para capacitar novos servidores ou avaliar o nível de conhecimento da equipe sobre a estratégia institucional.">Acertei tudo / Errei algumas</button>
           <button class="checkpoint-opt" onclick="ck(this,7)" data-tone="encouraging" data-msg="Volte lá e tente responder! O valor do teste está justamente em se testar. A IA já fez a parte difícil (criar as questões), agora é sua vez de exercitar o conhecimento. Mesmo que você erre tudo, o aprendizado está no processo de pensar sobre as respostas. E o melhor: como as questões são baseadas nos documentos reais do TRE-RN, o que você aprende aqui tem aplicação direta no seu trabalho.">Só gerei, não respondi</button>
@@ -355,7 +386,9 @@
         <!-- INFOGRÁFICO -->
         <h3>📊 Infográfico</h3>
         <p>Representação visual compacta dos dados e conceitos. Ideal para comunicação interna, murais e apresentações rápidas.</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere um Infográfico</div><div class="tool-hint">Clique em <strong>"Infográfico"</strong> e observe como ele organiza as informações visualmente</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere um Infográfico</p><p class="lc-hint">Clique em <strong>"Infográfico"</strong> e observe como ele organiza as informações visualmente</p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">📊 Testou o Infográfico?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,8)" data-tone="positive" data-msg="Infográfico em segundos, direto dos documentos do planejamento estratégico. Perfeito para colar na parede da sala, mandar no grupo da equipe, ou incluir num relatório de gestão. Não é trabalho de designer gráfico profissional? Não. Mas é 100x melhor do que não ter nenhum infográfico — e no serviço público, onde orçamento para design é raridade, isso é um recurso transformador.">Visual muito bom / Útil</button>
           <button class="checkpoint-opt" onclick="ck(this,8)" data-tone="neutral" data-msg="Infográficos gerados por IA ainda são uma funcionalidade em evolução. Se o resultado ficou aquém, considere usá-lo como base e melhorá-lo no Canva ou no PowerPoint. O NotebookLM extrai e organiza as informações — a parte criativa e visual pode ser refinada manualmente. Outra opção: selecione apenas 1 fonte antes de gerar — menos dados = infográfico mais limpo e focado.">Precisa melhorar</button>
@@ -364,7 +397,9 @@
         <!-- SLIDES -->
         <h3>📽️ Apresentação de Slides</h3>
         <p>Formatos: <strong>Apresentação detalhada</strong> (conteúdo expandido, pronta para reuniões) e <strong>Slides do apresentador</strong> (enxutos, com notas). Configure idioma, duração e personalize via prompt.</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere uma Apresentação Detalhada</div><div class="tool-hint"><strong>"Apresentação detalhada"</strong>, idioma <strong>"Português"</strong>. Personalize: <em>"Objetivos de inovação tecnológica do PEJERN para reunião com gestores"</em></div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere uma Apresentação Detalhada</p><p class="lc-hint"><strong>"Apresentação detalhada"</strong>, idioma <strong>"Português"</strong>. Personalize: <em>"Objetivos de inovação tecnológica do PEJERN para reunião com gestores"</em></p></div></div>
+        </div>
         <div class="checkpoint"><div class="checkpoint-title">📽️ Testou os Slides?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,9)" data-tone="positive" data-msg="Apresentação sobre planejamento estratégico gerada em menos tempo do que você levaria para abrir o PowerPoint e escolher o template. Imagine a economia de tempo: em vez de gastar uma tarde montando slides para uma reunião gerencial, você gasta 2 minutos e depois investe o tempo restante refinando o conteúdo. Esse é o verdadeiro ganho de produtividade que a IA traz — não substituir o trabalho, mas eliminar a parte mecânica para você focar no que importa.">Pronta para reunião / Precisa de ajustes</button>
           <button class="checkpoint-opt" onclick="ck(this,9)" data-tone="encouraging" data-msg="Se os slides não ficaram bons, experimente ser mais específico na personalização. Em vez de um tema amplo, peça algo como: 'Apresentação de 10 slides sobre os indicadores de desempenho da perspectiva Sociedade, com dados quantitativos e metas'. O formato 'Slides do apresentador' gera conteúdo mais enxuto com notas de apoio — pode ser mais útil se a 'Apresentação detalhada' ficou densa demais.">Não ficaram como esperava</button>
@@ -373,7 +408,9 @@
         <!-- TABELA -->
         <h3>📈 Tabela de Dados</h3>
         <p>Extrai e organiza dados dos documentos em formato tabular. Útil para consolidar indicadores, metas e resultados.</p>
-        <div class="tool-instruction"><div class="tool-icon">▶️</div><div><div class="tool-name">Gere uma Tabela de Dados</div><div class="tool-hint">Use o prompt abaixo para direcionar a extração:</div></div></div>
+        <div class="lc-list">
+          <div class="lc-item"><div class="lc-num">▶</div><div><p class="lc-title">Gere uma Tabela de Dados</p><p class="lc-hint">Use o prompt abaixo para direcionar a extração:</p></div></div>
+        </div>
         <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Tabela de Dados</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Crie uma tabela com: Perspectiva Estratégica, Objetivo Estratégico, Indicador Associado, Fórmula de Cálculo e Meta. Organize por perspectiva (Sociedade, Processos Internos, Aprendizado e Crescimento, Recursos).</div></div>
         <div class="checkpoint"><div class="checkpoint-title">📈 Testou a Tabela de Dados?</div><div class="checkpoint-options">
           <button class="checkpoint-opt" onclick="ck(this,10)" data-tone="positive" data-msg="Extrair dados estruturados de PDFs é uma das tarefas mais chatas e demoradas da administração pública — e você acabou de terceirizar isso para a IA em segundos. Essa tabela pode ser copiada diretamente para uma planilha Excel para análise posterior, ou incluída em relatórios de gestão. Imagine fazer isso com os relatórios de indicadores de todos os trimestres. A economia de tempo é brutal. Você dominou o Estúdio! 🏆 Se alguém te disser que IA generativa é 'só chatbot', envie o link desta oficina.">Dados bem extraídos</button>
