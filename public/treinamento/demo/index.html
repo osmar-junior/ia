@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Workshop — IA na prática aplicada ao TRE/RN</title>
+  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="./css/components.css">
+  <link rel="stylesheet" href="./css/responsive.css">
+  <style>
+    /* ─── Hero ─── */
+    .hero {
+      min-height: 480px; display: flex; align-items: center;
+      padding: calc(var(--navbar-height) + 48px) var(--space-2xl) var(--space-2xl);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+    .hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(rgba(20,40,80,0.45), rgba(20,40,80,0.45)),
+        linear-gradient(to right,
+          rgba(20,40,80,0.98) 0%, rgba(20,40,80,0.95) 20%,
+          rgba(20,40,80,0.80) 45%, rgba(20,40,80,0.40) 70%,
+          rgba(20,40,80,0.10) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; max-width: 820px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; background: var(--dourado-dim); border: 1px solid rgba(200,164,92,0.25);
+      border-radius: var(--radius-full); font-size: 0.92rem; font-weight: 600;
+      color: var(--dourado); letter-spacing: 0.06em; text-transform: uppercase;
+      margin-bottom: 32px; animation: fadeInUp 0.8s ease;
+    }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--verde); animation: pulse 2s infinite; }
+    .hero h1 {
+      font-family: var(--font-display); font-size: 4.2rem; font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em; color: #fff !important;
+      margin-bottom: 28px; animation: fadeInUp 0.8s ease 0.1s both;
+    }
+    .hero h1 .line-gold { display: block; color: #e8c97a !important; }
+    .hero-content > p {
+      font-size: 1.35rem; line-height: 1.7; font-weight: 300; color: rgba(255,255,255,0.88) !important;
+      max-width: 640px; margin-bottom: 48px; animation: fadeInUp 0.8s ease 0.2s both;
+    }
+    .hero-actions { display: flex; gap: 16px; animation: fadeInUp 0.8s ease 0.3s both; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+    /* ─── Área de conteúdo ─── */
+    .page-content-area {
+      max-width: var(--content-max-width);
+      margin: 0 auto;
+      padding: var(--space-3xl) var(--space-2xl) var(--space-4xl);
+    }
+
+    /* ─── Cabeçalho de bloco ─── */
+    .block-header {
+      display: flex; align-items: center; gap: var(--space-md);
+      margin-bottom: var(--space-xl);
+      padding-bottom: var(--space-md);
+      border-bottom: 2px solid var(--border-light);
+    }
+    .block-icon {
+      width: 46px; height: 46px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .block-icon.modulos  { background: var(--azul-light); }
+    .block-icon.oficinas { background: var(--verde-light); }
+    .block-header-text h2 {
+      font-family: var(--font-display); font-size: 1.7rem; font-weight: 700;
+      color: var(--azul); margin: 0; line-height: 1.2;
+    }
+    .block-header-text p { font-size: 0.97rem; color: var(--text-muted); margin: 3px 0 0; }
+    .block-separator { margin: var(--space-3xl) 0; border: none; border-top: 1px solid var(--border-light); }
+
+    /* ─── Grid de módulos ─── */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--space-md);
+    }
+    .module-card {
+      display: flex; flex-direction: column;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+      text-decoration: none; position: relative; overflow: hidden;
+      transition: all 0.2s ease;
+    }
+    .module-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--azul-medio), transparent);
+      opacity: 0; transition: opacity 0.2s;
+    }
+    .module-card:hover { border-color: rgba(46,92,154,0.3); box-shadow: var(--shadow-md); transform: translateY(-2px); }
+    .module-card:hover::before { opacity: 1; }
+    .module-num { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: var(--space-sm); }
+    .module-title { font-family: var(--font-display); font-size: 1.2rem; font-weight: 700; color: var(--text); margin-bottom: var(--space-sm); line-height: 1.3; }
+    .module-card:hover .module-title { color: var(--azul-medio); }
+    .module-desc { font-size: 0.95rem; color: var(--text-muted); line-height: 1.65; flex: 1; margin-bottom: var(--space-md); }
+    .module-footer { display: flex; align-items: center; justify-content: space-between; }
+    .module-tag { font-size: 0.78rem; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+    .module-arrow { color: var(--azul-medio); font-size: 1.1rem; font-weight: 700; }
+
+    /* ─── Grid de oficinas ─── */
+    .oficinas-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: var(--space-sm);
+    }
+    .oficina-index-card {
+      display: flex; align-items: flex-start; gap: var(--space-md);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-md); padding: var(--space-md) var(--space-lg);
+      text-decoration: none; transition: all 0.2s ease;
+    }
+    .oficina-index-card:hover { border-color: rgba(26,138,90,0.3); box-shadow: var(--shadow-sm); transform: translateY(-1px); }
+    .oficina-n {
+      font-family: var(--font-display); font-size: 1.5rem; font-weight: 800;
+      color: var(--border-hover); line-height: 1; min-width: 36px; padding-top: 2px;
+    }
+    .oficina-index-card:hover .oficina-n { color: var(--verde); }
+    .oficina-body { flex: 1; }
+    .oficina-name { font-size: 0.97rem; font-weight: 600; color: var(--text); display: block; margin-bottom: 2px; line-height: 1.3; }
+    .oficina-index-card:hover .oficina-name { color: var(--verde); }
+    .oficina-tools-list { font-size: 0.82rem; color: var(--text-muted); }
+
+    /* ─── Responsivo ─── */
+    @media (max-width: 768px) {
+      .hero { padding: calc(var(--navbar-height) + 32px) var(--space-md) var(--space-3xl); min-height: auto; }
+      .hero h1 { font-size: 2.6rem; }
+      .hero-actions { flex-direction: column; }
+      .hero-bg::after {
+        background:
+          linear-gradient(rgba(20,40,80,0.60), rgba(20,40,80,0.60)),
+          linear-gradient(to right, rgba(20,40,80,0.98) 0%, rgba(20,40,80,0.92) 40%, rgba(20,40,80,0.65) 70%, rgba(20,40,80,0.30) 100%);
+      }
+      .page-content-area { padding: var(--space-2xl) var(--space-md) var(--space-3xl); }
+      .modules-grid, .oficinas-grid { grid-template-columns: 1fr; }
+    }
+    
+
+    /* ═══ SEÇÃO DE OFICINAS com dashboard ═══ */
+    .of-dashboard {
+      display: grid; grid-template-columns: 160px 1fr;
+      gap: var(--space-xl); padding: var(--space-xl);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); margin-bottom: var(--space-2xl);
+    }
+    .of-ring-area { display:flex; flex-direction:column; align-items:center; justify-content:center; gap:var(--space-sm); }
+    .of-ring-wrap { position:relative; width:120px; height:120px; }
+    .of-ring-wrap svg { width:100%; height:100%; transform:rotate(-90deg); }
+    .of-ring-bg   { fill:none; stroke:var(--border); stroke-width:9; }
+    .of-ring-fill { fill:none; stroke:var(--azul-medio); stroke-width:9; stroke-linecap:round; transition:stroke-dashoffset .8s ease; }
+    .of-ring-pct  { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.7rem; font-weight:800; color:var(--azul); }
+    .of-ring-label { font-size:.85rem; color:var(--text-muted); font-weight:600; text-align:center; }
+    .of-details { display:flex; flex-direction:column; justify-content:center; gap:12px; }
+    .of-grupo-row { display:flex; align-items:center; gap:10px; font-size:.88rem; color:var(--text-secondary); }
+    .of-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+    .of-bar-track { flex:1; height:5px; background:var(--border-light); border-radius:3px; overflow:hidden; }
+    .of-bar-fill { height:100%; border-radius:3px; transition:width .6s ease; width:0; }
+    .of-count { font-size:.8rem; font-weight:700; color:var(--text-muted); min-width:28px; text-align:right; }
+
+    .of-tema-label { display:flex; align-items:center; gap:10px; margin:var(--space-xl) 0 var(--space-md); }
+    .of-tema-dot { width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+    .of-tema-label span { font-size:0.78rem; font-weight:700; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-muted); }
+    .of-tema-line { flex:1; height:1px; background:var(--border-light); }
+
+    .of-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px,1fr)); gap:var(--space-md); }
+    .of-card-wrap { display:block; cursor:pointer; }
+    .of-card {
+      background:var(--bg-card); border:1px solid var(--border);
+      border-radius:var(--radius-lg); padding:var(--space-lg);
+      transition:box-shadow .18s, transform .18s;
+      height:100%; display:flex; flex-direction:column;
+    }
+    .of-card:hover { box-shadow:var(--shadow-md); transform:translateY(-2px); }
+    .of-card[data-grupo="intro"]    { border-top:3px solid #C8A45C; }
+    .of-card[data-grupo="notebook"] { border-top:3px solid #4A90D9; }
+    .of-card[data-grupo="gemini"]   { border-top:3px solid #34A853; }
+    .of-card[data-grupo="gems"]     { border-top:3px solid #AB47BC; }
+    .of-card[data-grupo="multi"]    { border-top:3px solid #E8710A; }
+    .of-num { font-family:var(--font-display); font-size:1.4rem; font-weight:800; line-height:1; margin-bottom:10px; color:var(--border-hover); }
+    .of-card[data-grupo="intro"]    .of-num { color:#C8A45C; }
+    .of-card[data-grupo="notebook"] .of-num { color:#4A90D9; }
+    .of-card[data-grupo="gemini"]   .of-num { color:#34A853; }
+    .of-card[data-grupo="gems"]     .of-num { color:#AB47BC; }
+    .of-card[data-grupo="multi"]    .of-num { color:#E8710A; }
+    .of-title { font-size:0.97rem; font-weight:700; color:var(--text); line-height:1.35; margin-bottom:6px; }
+    .of-card:hover .of-title { color:var(--azul-medio); }
+    .of-subtitle { font-size:0.83rem; color:var(--text-muted); line-height:1.4; flex:1; margin-bottom:var(--space-md); }
+    .of-btn-concluir {
+      display:inline-flex; align-items:center; justify-content:center; gap:6px;
+      padding:6px 14px; margin-top:auto;
+      font-size:.82rem; font-weight:700;
+      border-radius:var(--radius-md); border:1px solid var(--border);
+      background:var(--bg); color:var(--text-muted);
+      cursor:pointer; transition:all .2s ease; width:100%;
+    }
+    .of-btn-concluir:hover { border-color:rgba(26,138,90,.4); color:var(--verde); background:var(--verde-light); }
+    .of-btn-concluir.done { border-color:rgba(26,138,90,.4); background:var(--verde-bg); color:var(--verde); }
+    .of-btn-concluir.done:hover { border-color:rgba(192,57,43,.3); background:#FEF2F2; color:#B91C1C; }
+    .of-card.concluida { opacity:.72; }
+    @media (max-width:760px) {
+      .of-dashboard { grid-template-columns:1fr; text-align:center; }
+      .of-details { align-items:stretch; }
+      .of-grid { grid-template-columns:1fr; }
+    }
+
+    /* Módulo concluído */
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <main>
+
+    <section class="hero">
+      <div class="hero-bg">
+        <img src="./assets/heroes/hero-index.jpg" alt="" loading="eager">
+      </div>
+      <div class="hero-content">
+        <div class="hero-badge"><span class="dot"></span> Workshop TRE/RN 2026</div>
+        <h1>Inteligência Artificial<span class="line-gold">na prática</span></h1>
+        <p>Domine as ferramentas de IA generativa e transforme sua rotina no Tribunal Regional Eleitoral do Rio Grande do Norte.</p>
+        <div class="hero-actions">
+          <a href="./modulos/conceitos/" class="btn btn-primary btn-lg">Iniciar Workshop</a>
+          <a href="./index.html#oficinas-section" class="btn btn-secondary btn-lg">Ver Oficinas</a>
+        </div>
+      </div>
+    </section>
+
+    <div class="page-content-area" id="modulos-section">
+
+      <!-- Módulos -->
+      <div class="block-header">
+        <div class="block-icon modulos">📚</div>
+        <div class="block-header-text">
+          <h2>Módulos de conteúdo</h2>
+          <p>Teoria e conceitos fundamentais para o uso profissional de IA</p>
+        </div>
+      </div>
+
+      <div class="modules-grid">
+        <div data-modulo="1" class="module-card animate-on-scroll" onclick="navegarModulo(event,'./modulos/conceitos/')" style="cursor:pointer">
+          <div class="module-num">Módulo 01</div>
+          <div class="module-title">Conceitos Essenciais</div>
+          <div class="module-desc">O que é IA generativa, como surgiram os LLMs, panorama das principais ferramentas disponíveis em 2026 e o impacto na rotina profissional.</div>
+          <div class="module-footer"><span class="module-tag tag-teoria">Teoria</span><span class="module-arrow">→</span></div>
+        </div>
+        <div data-modulo="2" class="module-card animate-on-scroll" onclick="navegarModulo(event,'./modulos/como-funciona/')" style="cursor:pointer">
+          <div class="module-num">Módulo 02</div>
+          <div class="module-title">Como a IA Funciona</div>
+          <div class="module-desc">Tokens, janela de contexto, alucinações, vieses, confidencialidade de dados e como configurar as ferramentas para uso profissional.</div>
+          <div class="module-footer"><span class="module-tag tag-teoria">Teoria</span><span class="module-arrow">→</span></div>
+        </div>
+        <div data-modulo="3" class="module-card animate-on-scroll" onclick="navegarModulo(event,'./modulos/regulamentacao/')" style="cursor:pointer">
+          <div class="module-num">Módulo 03</div>
+          <div class="module-title">Regulamentação</div>
+          <div class="module-desc">Resolução CNJ nº 615/2025, classificação de riscos, responsabilidade ética e os marcos normativos para uso de IA no Judiciário.</div>
+          <div class="module-footer"><span class="module-tag tag-legal">Legal</span><span class="module-arrow">→</span></div>
+        </div>
+        <div data-modulo="4" class="module-card animate-on-scroll" onclick="navegarModulo(event,'./modulos/engenharia-de-prompts/')" style="cursor:pointer">
+          <div class="module-num">Módulo 04</div>
+          <div class="module-title">Engenharia de Prompts</div>
+          <div class="module-desc">Metodologia RCTS+E, especificações de estilo, técnicas avançadas, exemplos por área do TRE-RN e gerador interativo de prompts.</div>
+          <div class="module-footer"><span class="module-tag tag-tecnica">Técnica</span><span class="module-arrow">→</span></div>
+        </div>
+      </div>
+
+      <hr class="block-separator">
+
+      <!-- Oficinas -->
+      <div id="oficinas-section">
+        <div class="block-header">
+          <div class="block-icon oficinas">🛠️</div>
+          <div class="block-header-text">
+            <h2>Oficinas práticas</h2>
+            <p>12 atividades mão na massa — marque cada uma conforme for concluindo</p>
+          </div>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="of-dashboard">
+          <div class="of-ring-area">
+            <div class="of-ring-wrap">
+              <svg viewBox="0 0 120 120">
+                <circle class="of-ring-bg"   cx="60" cy="60" r="50"/>
+                <circle class="of-ring-fill"  cx="60" cy="60" r="50"
+                  id="ofRingFill" stroke-dasharray="314" stroke-dashoffset="314"/>
+              </svg>
+              <div class="of-ring-pct" id="ofRingPct">0%</div>
+            </div>
+            <div class="of-ring-label" id="ofRingLabel">0 de 12 concluídas</div>
+          </div>
+          <div class="of-details">
+            <div class="of-grupo-row"><div class="of-dot" style="background:#C8A45C"></div><span>Introdução</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-intro" style="background:#C8A45C"></div></div><span class="of-count" id="ofCnt-intro">0/1</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#4A90D9"></div><span>NotebookLM</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-notebook" style="background:#4A90D9"></div></div><span class="of-count" id="ofCnt-notebook">0/3</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#34A853"></div><span>Gemini Workspace</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-gemini" style="background:#34A853"></div></div><span class="of-count" id="ofCnt-gemini">0/3</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#AB47BC"></div><span>Gems</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-gems" style="background:#AB47BC"></div></div><span class="of-count" id="ofCnt-gems">0/2</span></div>
+            <div class="of-grupo-row"><div class="of-dot" style="background:#E8710A"></div><span>Multimídia</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-multi" style="background:#E8710A"></div></div><span class="of-count" id="ofCnt-multi">0/3</span></div>
+          </div>
+        </div>
+
+        <!-- Tema: Introdução -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#C8A45C"></div><span>Introdução</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-01-primeiro-contato.html')"><div class="of-card" data-oficina="1" data-grupo="intro"><div class="of-num">01</div><div class="of-title">Primeiro Contato</div><div class="of-subtitle">Familiarização com as principais ferramentas de IA disponíveis</div><button class="of-btn-concluir" onclick="ofToggle(event,1)" type="button">◯ Marcar como concluída</button></div></div>
+        </div>
+
+        <!-- Tema: NotebookLM -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#4A90D9"></div><span>NotebookLM</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-02-notebooklm-fundamentos.html')"><div class="of-card" data-oficina="2" data-grupo="notebook"><div class="of-num">02</div><div class="of-title">NotebookLM — Fundamentos</div><div class="of-subtitle">Crie cadernos, carregue documentos e faça perguntas cruzadas entre múltiplas fontes</div><button class="of-btn-concluir" onclick="ofToggle(event,2)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-03-relatorio-eventos.html')"><div class="of-card" data-oficina="3" data-grupo="notebook"><div class="of-num">03</div><div class="of-title">NotebookLM — Relatório de Eventos</div><div class="of-subtitle">De gravação de áudio a relatório institucional com NotebookLM e Estúdio</div><button class="of-btn-concluir" onclick="ofToggle(event,3)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-04-notebooklm-videos.html')"><div class="of-card" data-oficina="4" data-grupo="notebook"><div class="of-num">04</div><div class="of-title">NotebookLM — Vídeos como Fontes</div><div class="of-subtitle">Do YouTube ao relatório de sessões plenárias e eventos institucionais</div><button class="of-btn-concluir" onclick="ofToggle(event,4)" type="button">◯ Marcar como concluída</button></div></div>
+        </div>
+
+        <!-- Tema: Gemini com Google Workspace -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#34A853"></div><span>Gemini com Google Workspace</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-05-gemini-ferramentas.html')"><div class="of-card" data-oficina="5" data-grupo="gemini"><div class="of-num">05</div><div class="of-title">Gemini nas Ferramentas do Google</div><div class="of-subtitle">Use o Gemini dentro do Planilhas, Documentos e Gmail para análise e redação</div><button class="of-btn-concluir" onclick="ofToggle(event,5)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-06-gemini-canvas.html')"><div class="of-card" data-oficina="6" data-grupo="gemini"><div class="of-num">06</div><div class="of-title">Uso do Canvas no Gemini</div><div class="of-subtitle">Gere e transforme textos, crie páginas web e infográficos, exporte para Docs</div><button class="of-btn-concluir" onclick="ofToggle(event,6)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-07-gemini-integracoes.html')"><div class="of-card" data-oficina="7" data-grupo="gemini"><div class="of-num">07</div><div class="of-title">Integrações do Gemini com o Workspace</div><div class="of-subtitle">Conecte Gmail, Agenda e Drive ao chat e configure ações automatizadas recorrentes</div><button class="of-btn-concluir" onclick="ofToggle(event,7)" type="button">◯ Marcar como concluída</button></div></div>
+        </div>
+
+        <!-- Tema: Criação de Gems -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#AB47BC"></div><span>Criação de Gems</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-08-gems-lgpd.html')"><div class="of-card" data-oficina="8" data-grupo="gems"><div class="of-num">08</div><div class="of-title">Especialista em LGPD</div><div class="of-subtitle">Crie um Gem alimentado por documentos oficiais de LGPD para orientar servidores</div><button class="of-btn-concluir" onclick="ofToggle(event,8)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-09-gems-agentes.html')"><div class="of-card" data-oficina="9" data-grupo="gems"><div class="of-num">09</div><div class="of-title">Orquestrador de Agentes</div><div class="of-subtitle">Gem que gerencia agentes cooperativos para resolver problemas complexos</div><button class="of-btn-concluir" onclick="ofToggle(event,9)" type="button">◯ Marcar como concluída</button></div></div>
+        </div>
+
+        <!-- Tema: Multimídia com IA -->
+        <div class="of-tema-label"><div class="of-tema-dot" style="background:#E8710A"></div><span>Multimídia com IA</span><div class="of-tema-line"></div></div>
+        <div class="of-grid">
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-10-imagens-prompts.html')"><div class="of-card" data-oficina="10" data-grupo="multi"><div class="of-num">10</div><div class="of-title">Imagens com IA</div><div class="of-subtitle">Crie imagens profissionais com prompts descritivos no Gemini, Grok e Whisk</div><button class="of-btn-concluir" onclick="ofToggle(event,10)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-11-video-imagens.html')"><div class="of-card" data-oficina="11" data-grupo="multi"><div class="of-num">11</div><div class="of-title">Vídeos a partir de Imagens</div><div class="of-subtitle">Transforme imagens estáticas em vídeos animados explorando técnicas de movimento</div><button class="of-btn-concluir" onclick="ofToggle(event,11)" type="button">◯ Marcar como concluída</button></div></div>
+          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-12-restauracao-similares.html')"><div class="of-card" data-oficina="12" data-grupo="multi"><div class="of-num">12</div><div class="of-title">Restauração de Fotos Antigas</div><div class="of-subtitle">Restaure fotografias danificadas e gere variações de fotos existentes com IA visual</div><button class="of-btn-concluir" onclick="ofToggle(event,12)" type="button">◯ Marcar como concluída</button></div></div>
+        </div>
+
+      </div><!-- /oficinas-section -->
+
+    </div>
+  </main>
+
+  <div id="footer-placeholder"></div>
+  <script>
+    // Página demo — acesso livre, sem validação de login
+    sessionStorage.setItem('treinamento_turma',     'demo');
+    sessionStorage.setItem('treinamento_subpasta',  'demo');
+    sessionStorage.setItem('treinamento_curso',     'demo');
+    sessionStorage.setItem('treinamento_user_id',   'visitante');
+    sessionStorage.setItem('treinamento_user_name', 'VISITANTE');
+    sessionStorage.setItem('treinamento_auth_time', Date.now().toString());
+  </script>
+  <script src="../js/auth.js"></script>
+  <script src="./js/utils.js"></script>
+  <script src="./js/main.js"></script>
+  <script>
+    // ═══ Oficinas — progresso ═══════════════════════════════════════════
+    (function() {
+      const TOTAL = 12;
+      const STORAGE_KEY = 'trern-oficinas-concluidas';
+      const GRUPOS = {
+        intro:    { total:1, bar:'ofBar-intro',    cnt:'ofCnt-intro' },
+        notebook: { total:3, bar:'ofBar-notebook', cnt:'ofCnt-notebook' },
+        gemini:   { total:3, bar:'ofBar-gemini',   cnt:'ofCnt-gemini' },
+        gems:     { total:2, bar:'ofBar-gems',     cnt:'ofCnt-gems' },
+        multi:    { total:3, bar:'ofBar-multi',    cnt:'ofCnt-multi' },
+      };
+      function getState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; } catch{return[];} }
+      function saveState(a) { localStorage.setItem(STORAGE_KEY,JSON.stringify(a)); }
+      window.ofToggle = function(e,num) {
+        e.preventDefault(); e.stopPropagation();
+        const s=getState(), i=s.indexOf(num);
+        if(i===-1) s.push(num); else s.splice(i,1);
+        saveState(s); renderOf();
+        if(window.App&&App.updateProgressBadge) App.updateProgressBadge();
+      };
+      function renderOf() {
+        const s=getState(), done=s.length, pct=Math.round(done/TOTAL*100), circ=314;
+        const rf=document.getElementById('ofRingFill');
+        if(rf) rf.style.strokeDashoffset=circ-(circ*pct/100);
+        const rp=document.getElementById('ofRingPct'); if(rp) rp.textContent=pct+'%';
+        const rl=document.getElementById('ofRingLabel'); if(rl) rl.textContent=done+' de '+TOTAL+' concluídas';
+        const gc={};Object.keys(GRUPOS).forEach(g=>gc[g]=0);
+        document.querySelectorAll('[data-oficina]').forEach(card=>{
+          const num=parseInt(card.dataset.oficina),grupo=card.dataset.grupo,isDone=s.includes(num);
+          const btn=card.querySelector('.of-btn-concluir');
+          card.classList.toggle('concluida',isDone);
+          if(btn){btn.classList.toggle('done',isDone);btn.textContent=isDone?'✓ Concluída':'◯ Marcar como concluída';}
+          if(isDone&&grupo) gc[grupo]++;
+        });
+        Object.keys(GRUPOS).forEach(g=>{
+          const{total,bar,cnt}=GRUPOS[g],c=gc[g]||0;
+          const b=document.getElementById(bar); if(b) b.style.width=Math.round(c/total*100)+'%';
+          const n=document.getElementById(cnt); if(n) n.textContent=c+'/'+total;
+        });
+      }
+            window.navegarModulo = function(e, url) {
+        window.location.href = url;
+      };
+      window.navegarOficina = function(e, url) {
+        if (e.target.closest('.of-btn-concluir')) return;
+        window.location.href = url;
+      };
+      document.addEventListener('DOMContentLoaded', renderOf);
+    })();
+  </script>
+</body>
+</html>

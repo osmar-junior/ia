@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conceitos Essenciais — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <style>
+    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: 300px; flex-shrink: 0;
+      background: var(--bg-card); border-right: 1px solid var(--border-light);
+      position: sticky; top: var(--navbar-height);
+      height: calc(100vh - var(--navbar-height));
+      overflow-y: auto; display: flex; flex-direction: column; z-index: 10;
+    }
+    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
+    
+
+    /* ─── Conteúdo ─── */
+    .main-content { flex: 1; min-width: 0; background: var(--bg); }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; min-height: 320px;
+      display: flex; align-items: flex-end;
+      padding: var(--space-3xl) var(--space-2xl) var(--space-xl); overflow: hidden;
+    }
+    .page-hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .page-hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+    .page-hero-bg::after {
+      content: ''; position: absolute; inset: 0;
+      background:
+        linear-gradient(rgba(20,40,80,0.45), rgba(20,40,80,0.45)),
+        linear-gradient(to right, rgba(20,40,80,0.98) 0%, rgba(20,40,80,0.92) 30%, rgba(20,40,80,0.65) 60%, rgba(20,40,80,0.15) 100%);
+    }
+    .hero-text { position: relative; z-index: 2; max-width: 640px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dourado-light); background: rgba(184,137,26,0.2); border: 1px solid rgba(184,137,26,0.3); border-radius: 99px; padding: 5px 14px; margin-bottom: var(--space-md); }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dourado-light); }
+    .page-hero h1 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.15; }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.85); line-height: 1.6; }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: var(--border-hover); }
+    .breadcrumb .current { color: var(--text); font-weight: 500; }
+
+    /* ─── Corpo ─── */
+    .page-body { padding: var(--space-2xl); }
+
+    /* ─── Metadados ─── */
+    .module-meta { display: flex; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-2xl); padding: var(--space-md) var(--space-lg); background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); }
+    .meta-item { display: flex; align-items: center; gap: 7px; font-size: 0.87rem; color: var(--text-secondary); }
+    .meta-item strong { color: var(--text); font-weight: 600; }
+
+    /* ─── Resumo ─── */
+    .module-summary { margin-bottom: var(--space-3xl); }
+    .module-summary h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-md); }
+    .module-summary p { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--space-md); }
+
+    /* ─── Cards de tópicos ─── */
+    .topics-section h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg); }
+    .topics-list { display: flex; flex-direction: column; gap: var(--space-md); }
+    .topic-card {
+      display: flex; align-items: flex-start; gap: var(--space-lg);
+      padding: var(--space-lg) var(--space-xl);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-left: 4px solid var(--azul-medio);
+      border-radius: var(--radius-lg); text-decoration: none;
+      transition: all 0.18s ease;
+    }
+    .topic-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); border-color: var(--azul-medio); }
+    .topic-num { font-size: 1.5rem; font-weight: 800; color: var(--azul-light-text, var(--border-hover)); min-width: 32px; padding-top: 2px; line-height: 1; }
+    .topic-body { flex: 1; }
+    .topic-title { font-size: 1.12rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 5px; }
+    .topic-card:hover .topic-title { color: var(--azul-medio); }
+    .topic-desc { font-size: 0.97rem; color: var(--text-muted); line-height: 1.55; }
+    .topic-meta { display: flex; gap: var(--space-md); margin-top: var(--space-sm); }
+    .topic-tag { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); background: var(--bg-elevated); border: 1px solid var(--border-light); border-radius: 99px; padding: 2px 10px; }
+    .topic-arrow { color: var(--azul-medio); font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; align-self: center; }
+
+    /* ─── Separador ─── */
+    .divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-3xl) 0; }
+
+    /* ─── O que você vai aprender ─── */
+    .outcomes-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-md); margin-top: var(--space-lg); }
+    .outcome-card { background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: var(--space-lg); }
+    .outcome-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+    .outcome-card p { font-size: 1rem; color: var(--text-secondary); line-height: 1.55; }
+
+    /* ─── Mobile ─── */
+
+    @media (max-width: 960px) {
+      .page-hero { padding: var(--space-2xl) var(--space-md) var(--space-lg); min-height: 240px; }
+      .page-hero h1 { font-size: 1.8rem; }
+      .breadcrumb { padding: 8px var(--space-md); }
+      .page-body { padding: var(--space-lg) var(--space-md); }
+      .topic-card { padding: var(--space-md) var(--space-lg); gap: var(--space-md); }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+
+        <div class="sb-label">Módulos</div>
+
+        <a href="../conceitos/" class="sb-module active">Conceitos Essenciais</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic">O que é Inteligência Artificial?</a>
+          <a href="./ferramentas.html" class="sb-topic">Ferramentas de LLM</a>
+          <a href="./modelos.html" class="sb-topic">Modelos de LLM</a>
+          <a href="./personalizacao.html" class="sb-topic">Personalização de Ferramentas</a>
+        </div>
+
+        <a href="../como-funciona/" class="sb-module">Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+
+        <a href="../regulamentacao/" class="sb-module">Regulamentação</a>
+        <div class="sb-topics"></div>
+
+        <a href="../engenharia-de-prompts/" class="sb-module">Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+
+                <hr class="sb-divider">
+        <div class="sb-label">Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+
+      </div>
+      <div class="sb-footer">
+        <a href="../../index.html">↩ Início do curso</a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- ══ CONTEÚDO ══ -->
+    <main class="main-content">
+
+      <section class="page-hero">
+        <div class="page-hero-bg">
+          <img src="../../assets/heroes/hero-conceitos.jpg" alt="" loading="eager">
+        </div>
+        <div class="hero-text">
+          <div class="eyebrow"><span class="dot"></span> Módulo 01</div>
+          <h1>Conceitos Essenciais de IA</h1>
+          <p>Fundamentos para compreender a revolução da Inteligência Artificial generativa e suas aplicações no Judiciário.</p>
+        </div>
+      </section>
+
+      <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="../../index.html">Início</a>
+        <span class="sep">›</span>
+        <a href="../">Módulos</a>
+        <span class="sep">›</span>
+        <span class="current">Conceitos Essenciais</span>
+      </nav>
+
+      <div class="page-body">
+
+        <div class="module-meta">
+          <div class="meta-item">⏱️ <span><strong>~50 min</strong> no total</span></div>
+          <div class="meta-item">📄 <span><strong>4 tópicos</strong></span></div>
+          <div class="meta-item">🏷️ <span>Teoria + Referência</span></div>
+          <div class="meta-item">📶 <span>Nível introdutório</span></div>
+        </div>
+
+        <!-- Resumo -->
+        <div class="module-summary">
+          <h2>Sobre este módulo</h2>
+          <p>
+            Antes de usar qualquer ferramenta de IA com competência, é preciso entender o terreno. Este módulo apresenta os fundamentos conceituais que sustentam todo o restante do workshop: o que é IA, como ela evoluiu, qual a diferença entre a IA tradicional e a IA generativa, e quais ferramentas e modelos estão disponíveis hoje.
+          </p>
+          <p>
+            Não se trata de teoria pela teoria. Saber distinguir uma ferramenta de um modelo, entender por que o ChatGPT e o Claude funcionam de formas diferentes, ou reconhecer o que o DeepSeek representa em termos de segurança da informação — tudo isso tem impacto direto no seu trabalho como servidor do TRE-RN.
+          </p>
+          <p>
+            O módulo encerra com um guia prático de quando usar cada ferramenta e um mapa atualizado dos principais modelos disponíveis em 2026, com orientações claras sobre seus pontos fortes, limitações e riscos.
+          </p>
+        </div>
+
+        <hr class="divider">
+
+        <!-- O que você vai aprender -->
+        <div style="margin-bottom: var(--space-3xl);">
+          <h2 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-lg);">O que você vai aprender</h2>
+          <div class="outcomes-grid">
+            <div class="outcome-card">
+              <div class="outcome-icon">💡</div>
+              <p>O que é Inteligência Artificial, como ela surgiu e qual a diferença fundamental entre IA tradicional e IA generativa.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">🛠️</div>
+              <p>Quais são as principais ferramentas de LLM disponíveis, suas diferenças práticas e como escolher a certa para cada tarefa.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">⚙️</div>
+              <p>O que são modelos de LLM, a diferença entre proprietários e open-source, e quais modelos usar em cada situação.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">🔐</div>
+              <p>Riscos de segurança específicos de certas ferramentas e como proteger dados institucionais na escolha da plataforma.</p>
+            </div>
+            <div class="outcome-card">
+              <div class="outcome-icon">⚙️</div>
+              <p>Como configurar memória e instruções permanentes no ChatGPT, Claude e Gemini para respostas mais precisas desde a primeira mensagem.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Tópicos -->
+        <div class="topics-section">
+          <h2>Tópicos do módulo</h2>
+          <div class="topics-list">
+
+            <a href="./o-que-e.html" class="topic-card">
+              <span class="topic-num">01</span>
+              <div class="topic-body">
+                <span class="topic-title">O que é Inteligência Artificial?</span>
+                <span class="topic-desc">Definição, breve linha do tempo desde Alan Turing até a Resolução CNJ 615/2025, e a distinção fundamental entre IA Preditiva e IA Generativa — com exemplos do contexto eleitoral e judicial.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~10 min</span>
+                  <span class="topic-tag">Teoria</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./ferramentas.html" class="topic-card">
+              <span class="topic-num">02</span>
+              <div class="topic-body">
+                <span class="topic-title">Ferramentas de LLM</span>
+                <span class="topic-desc">Análise detalhada de ChatGPT, Claude, Gemini, Perplexity, NotebookLM, Copilot, DeepSeek e Grok — com características, planos, preços (fev/2026), pontos fortes, limitações e alertas de segurança. Inclui guia rápido de qual usar em cada situação.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~20 min</span>
+                  <span class="topic-tag">Referência</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./modelos.html" class="topic-card">
+              <span class="topic-num">03</span>
+              <div class="topic-body">
+                <span class="topic-title">Modelos de LLM</span>
+                <span class="topic-desc">A diferença entre ferramenta e modelo, proprietários vs. open-source, multimodalidade e uma tabela de referência dos principais modelos por ferramenta em 2026 — com foco e indicação de uso prático.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~10 min</span>
+                  <span class="topic-tag">Referência</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+            <a href="./personalizacao.html" class="topic-card">
+              <span class="topic-num">04</span>
+              <div class="topic-body">
+                <span class="topic-title">Personalização de Ferramentas</span>
+                <span class="topic-desc">Configure memória, preferências e instruções permanentes para que as ferramentas respondam do jeito certo desde o início — sem precisar repetir o mesmo contexto a cada nova conversa.</span>
+                <div class="topic-meta">
+                  <span class="topic-tag">⏱ ~10 min</span>
+                  <span class="topic-tag">Prático</span>
+                </div>
+              </div>
+              <span class="topic-arrow">→</span>
+            </a>
+
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

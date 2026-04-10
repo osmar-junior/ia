@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
+    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metodologia RCTS+E — Workshop IA TRE/RN</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    .rcts-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:var(--space-md); margin:var(--space-xl) 0; }
+    .rcts-card { background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius-lg); padding:var(--space-lg); text-align:center; transition:all var(--transition-base); }
+    .rcts-card:hover { border-color:var(--border-hover); box-shadow:var(--shadow-glow); }
+    .rcts-letter { font-family:var(--font-display); font-size:2.4rem; font-weight:800; color:var(--dourado); line-height:1; margin-bottom:var(--space-sm); }
+    .rcts-card h4 { font-size:1rem; font-weight:700; color:var(--text); margin-bottom:var(--space-xs); }
+    .rcts-card p { font-size:0.9rem; text-align:center; color:var(--text-muted); }
+    .prompt-box { background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-lg); padding:var(--space-xl); margin:var(--space-lg) 0; font-size:1rem; line-height:1.85; position:relative; }
+    .prompt-box-title { position:absolute; top:-12px; left:20px; background:var(--bg); padding:2px 12px; font-size:0.82rem; font-weight:700; color:var(--dourado); text-transform:uppercase; letter-spacing:0.06em; border:1px solid var(--border); border-radius:6px; }
+    .tag-r{color:#E85C5C} .tag-c{color:var(--azul-medio)} .tag-t{color:var(--verde)} .tag-s{color:var(--roxo)} .tag-e{color:var(--dourado)}
+    @media(max-width:600px){.rcts-grid{grid-template-columns:repeat(2,1fr);}}
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="./" class="sb-module active">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic" data-topico="ep-01">O que é?</a>
+          <a href="./metodologia-rcts.html" class="sb-topic active" data-topico="ep-02">Metodologia RCTS+E</a>
+          <a href="./exemplos-por-area.html" class="sb-topic" data-topico="ep-03">Exemplos por Área</a>
+          <a href="./gerador.html" class="sb-topic" data-topico="ep-05">Gerador RCTS+E</a>
+        </div>
+                <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">✍️ Engenharia de Prompts · Tópico 02 de 04</div>
+        <h1>Metodologia RCTS+E</h1>
+      </section>
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="./">Engenharia de Prompts</a><span class="sep">›</span>
+        <span class="current">Metodologia RCTS+E</span>
+      </nav>
+
+      <div class="page-body">
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">1</span><h2>O framework</h2></div>
+          <p>Para garantir que a Inteligência Artificial não precise adivinhar suas intenções, utilizamos a metodologia <strong>RCTS+E</strong>. Este framework estrutura o seu comando, garantindo que a máquina receba todas as variáveis necessárias para gerar uma resposta institucionalmente válida e tecnicamente precisa.</p>
+          <div class="rcts-grid">
+            <div class="rcts-card"><div class="rcts-letter">R</div><h4>Role (Papel)</h4><p>A identidade ou especialidade que a IA deve assumir.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">C</div><h4>Context (Contexto)</h4><p>O cenário, os fatos ou o histórico do problema.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">T</div><h4>Task (Tarefa)</h4><p>A ordem clara e direta do que deve ser executado.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">S</div><h4>Style (Estilo)</h4><p>O tom, o formato e as restrições da resposta.</p></div>
+            <div class="rcts-card"><div class="rcts-letter">+E</div><h4>Examples</h4><p>Referências de qualidade ou modelos prévios.</p></div>
+          </div>
+          
+          <div class="prompt-box">
+            <div class="prompt-box-title">Exemplo Completo RCTS+E</div>
+            <p>
+              <span class="tag-r"><strong>[ROLE]</strong></span> Atue como um analista judiciário especializado em gestão de pessoas do TRE-RN, com profunda experiência em redação de atos administrativos.<br><br>
+              <span class="tag-c"><strong>[CONTEXT]</strong></span> O TRE-RN está implementando um novo programa de avaliação de desempenho para os servidores, em conformidade com a Resolução CNJ nº 240/2016. Precisamos comunicar todas as unidades sobre as etapas do processo.<br><br>
+              <span class="tag-t"><strong>[TASK]</strong></span> Elabore um memorando circular informando sobre o programa, detalhando as datas-chave e as responsabilidades exclusivas de cada gestor no processo de avaliação.<br><br>
+              <span class="tag-s"><strong>[STYLE]</strong></span> Utilize linguagem estritamente formal e institucional. Estruture o documento com cabeçalho, introdução breve, lista em tópicos para as datas e fechamento padrão. Limite-se a uma página.<br><br>
+              <span class="tag-e"><strong>[EXAMPLE]</strong></span> Siga estritamente a estrutura abaixo na geração do documento:<br><br>
+              <i>"MEMORANDO-CIRCULAR Nº [XX]/2025-SGP<br>
+              Ao(À) Senhor(a) Coordenador(a) [Nome do Destinatário]<br>
+              Assunto: [Tema Principal do Documento]<br><br>
+              1. [Parágrafo inicial contendo a contextualização e fundamentação legal]<br><br>
+              2. Cronograma de Avaliação<br>
+              - [Data 1]: [Evento 1]<br>
+              - [Data 2]: [Evento 2]<br><br>
+              3. Responsabilidades da Chefia Imediata<br>
+              - [Responsabilidade técnica 1]<br>
+              - [Responsabilidade técnica 2]<br><br>
+              Atenciosamente,<br>
+              [Assinatura/Cargo]"</i>
+            </p>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">2</span><h2>Especificações Adicionais de Estilo</h2></div>
+          <p>A seção <strong>[STYLE]</strong> é onde o seu prompt ganha precisão cirúrgica. Sem restrições claras de estilo, a IA tenderá a ser prolixa e a adotar um tom excessivamente professoral. Combine as dimensões abaixo conforme a sua necessidade.</p>
+
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Dimensão</th><th>Opções e Exemplos</th><th>Quando usar</th></tr></thead>
+              <tbody>
+                <tr><td><strong>🎙️ Tom</strong></td><td>Formal, técnico, didático, analítico, objetivo, diplomático.</td><td>Defina sempre. Um ofício exige tom formal; um material de capacitação pede tom didático.</td></tr>
+                <tr><td><strong>📏 Tamanho</strong></td><td>"Máximo de 300 palavras", "exatamente 3 parágrafos", "resposta curta".</td><td>Imprescindível. Sem limites, a IA gera blocos massivos de texto indesejado.</td></tr>
+                <tr><td><strong>👥 Público-alvo</strong></td><td>"Para a chefia imediata", "para cidadãos sem formação jurídica".</td><td>Ajusta automaticamente o nível de complexidade do vocabulário gerado.</td></tr>
+                <tr><td><strong>📐 Estrutura</strong></td><td>"Em formato de tabela", "tópicos numerados", "formato de memorando".</td><td>Sempre que você precisar de organização visual prévia, evitando retrabalho no Word.</td></tr>
+                <tr><td><strong>🚫 Restrições</strong></td><td>"Sem emitir juízo de valor", "não use listas pontuadas", "evite jargões".</td><td>Essencial para bloquear vícios da IA, como o uso excessivo de adjetivos.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">3</span><h2>Segurança e Fronteiras Institucionais</h2></div>
+          <div class="callout callout-success">
+            <div class="callout-title">🔒 Ambiente Corporativo Seguro</div>
+            <p>O TRE-RN utiliza o <strong>Google Workspace institucional</strong>. Sob esta licença, o Google garante contratualmente que os dados inseridos nos prompts não serão utilizados para treinamento de modelos de IA ou compartilhados com terceiros. Seus dados permanecem dentro do perímetro de segurança do Tribunal.</p>
+          </div>
+
+          <p>Apesar da proteção da ferramenta corporativa, a <strong>Resolução CNJ nº 615/2025</strong> impõe diretrizes claras sobre o tratamento de informações processuais e administrativas.</p>
+          
+          <div class="table-wrapper">
+            <table class="table">
+              <thead><tr><th>Tipo de Dado</th><th>Uso no Gemini Institucional</th><th>Regra de Segurança</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Processos Públicos</strong></td><td>Liberado</td><td>Podem ser utilizados como contexto sem necessidade de anonimização prévia.</td></tr>
+                <tr><td><strong>Dados de Caráter Geral</strong></td><td>Liberado</td><td>Manuais, resoluções públicas e normativos internos do TRE-RN.</td></tr>
+                <tr><td><strong>Segredo de Justiça</strong></td><td>Restrito</td><td>É <strong>obrigatória</strong> a anonimização prévia de nomes, CPFs e dados sensíveis antes do uso.</td></tr>
+                <tr><td><strong>Credenciais e Senhas</strong></td><td>Proibido</td><td>Nunca forneça chaves de acesso ou senhas de sistemas judiciais.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-error">
+            <div class="callout-title">🚨 Veto a Modelos Não Institucionais</div>
+            <p>É expressamente proibido o uso de ferramentas de IA generativa em versões abertas, gratuitas ou pessoais (como o ChatGPT comum ou o Gemini pessoal) para processar qualquer dado do Tribunal, mesmo os públicos. Tais plataformas capturam o contexto para treinamento e violam a LGPD e a segurança processual.</p>
+          </div>
+        </div>
+
+        <div class="topic-section">
+          <div class="section-heading"><span class="section-num">4</span><h2>Anti-Padrões O que NÃO fazer</h2></div>
+          <p>Mesmo conhecendo o framework RCTS+E, é comum cometermos erros na formulação que confundem o modelo. Evite as seguintes armadilhas.</p>
+          <div class="comparison">
+            <div class="comparison-box comparison-bad">
+              <div class="comparison-label">❌ Instruções conflitantes</div>
+              <div class="comparison-text">"Escreva um relatório detalhado e profundo sobre as falhas no sistema, mas seja bem breve e resuma tudo em 3 linhas." (A IA não sabe se prioriza a profundidade ou a brevidade).</div>
+            </div>
+            <div class="comparison-box comparison-bad">
+              <div class="comparison-label">❌ Personas incompatíveis</div>
+              <div class="comparison-text">"Atue como um Ministro do TSE, mas explique a lei como se estivesse falando com uma criança de 5 anos." (A mistura de papéis destrói a coerência do texto).</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./o-que-e.html" class="btn btn-secondary">← Anterior: O que é?</a>
+          <a href="./exemplos-por-area.html" class="btn btn-primary">Próximo: Exemplos por Área →</a>
+        </div>
+      </div>
+    </main>
+  </div>
+  <div id="footer-placeholder"></div>
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>function closeSidebar(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sidebarOverlay').classList.remove('open');}</script>
+</body>
+</html>

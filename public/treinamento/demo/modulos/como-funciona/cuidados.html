@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
+    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuidados e Limitações — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module active">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics open">
+          <a href="./tokens.html" class="sb-topic">Tokens e Janela de Contexto</a>
+          <a href="./cuidados.html" class="sb-topic active">Cuidados e Limitações</a>
+        </div>
+        <a href="../regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../../modulos/engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+                <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚙️ Como a IA Funciona · Tópico 02 de 02</div>
+        <h1>Cuidados e Limitações da IA Generativa</h1>
+        <p>Alucinações, vieses e riscos à confidencialidade — o que você precisa saber antes de usar IA em contexto institucional.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../como-funciona/">Como a IA Funciona</a><span class="sep">›</span>
+        <span class="current">Cuidados e Limitações</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. Introdução -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>Introdução</h2>
+          </div>
+          <p>A IA generativa é uma ferramenta poderosa — mas não é infalível, e seus erros costumam ser silenciosos. Ao contrário de uma planilha com fórmula quebrada, que exibe um aviso de erro, a IA entrega respostas incorretas com o mesmo tom confiante de respostas corretas. Isso torna o senso crítico do usuário indispensável.</p>
+          <p>Este tópico apresenta as principais limitações que todo servidor precisa conhecer antes de incorporar IA ao trabalho institucional: alucinações, vieses, riscos de confidencialidade e os limites do papel da IA como ferramenta de apoio.</p>
+        </div>
+
+        <!-- 2. Alucinações -->
+        <div class="topic-section">
+          <div class="section-heading" id="alucinacoes">
+            <span class="section-num">2</span>
+            <h2>Alucinações</h2>
+          </div>
+          <p>O termo "alucinação" descreve quando a IA gera informações <strong>falsas ou inventadas com aparência convincente</strong>. Ela pode citar leis que não existem, inventar jurisprudência, ou apresentar dados fabricados — tudo com um tom confiante que dificulta a percepção do erro.</p>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real nos EUA</div>
+            <p>Em 2023, um advogado nos Estados Unidos utilizou o ChatGPT para pesquisar jurisprudência e incluiu em sua petição seis casos judiciais completamente fictícios, com nomes de partes, números de processos e ementas inventadas pela IA. O juiz aplicou multa de US$ 5.000 por má-fé processual.</p>
+          </div>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real no Brasil</div>
+            <p>Em 2024, um juiz do TJMS publicou uma sentença contendo referências a jurisprudência inexistente, geradas por inteligência artificial. O CNJ abriu procedimento administrativo e o caso acendeu o debate sobre responsabilidade de magistrados ao usar IA. Outros tribunais estaduais reportaram episódios semelhantes com súmulas e processos que nunca existiram.</p>
+          </div>
+        </div>
+
+        <!-- 3. Vieses e discriminação -->
+        <div class="topic-section">
+          <div class="section-heading" id="vieses">
+            <span class="section-num">3</span>
+            <h2>Vieses e discriminação</h2>
+          </div>
+          <p>Os modelos são treinados com dados da internet, que contêm preconceitos históricos. Isso pode fazer com que as respostas reproduzam vieses de gênero, raça, classe social ou região — muitas vezes de forma sutil.</p>
+          <p>No contexto do Judiciário, isso é especialmente grave: uma IA que sugira tratamentos diferenciados com base em perfis demográficos viola princípios fundamentais de justiça. Use sempre senso crítico ao avaliar sugestões que envolvam pessoas ou grupos.</p>
+
+          <div class="callout callout-danger">
+            <div class="callout-title">🚨 Caso real no Brasil</div>
+            <p>Em 2022, um homem negro foi preso injustamente em Salvador (BA) após uma falha no sistema de reconhecimento facial operado por inteligência artificial, que apontou 95% de similaridade entre ele e um foragido. O trabalhador ficou detido por 26 dias até que a Defensoria Pública provasse o erro técnico por meio de perícia das digitais. O episódio acendeu o debate sobre o "racismo algorítmico" e a responsabilidade do Estado ao utilizar IA na segurança pública. Outros estados também reportaram episódios semelhantes de falsos positivos, que afetam desproporcionalmente a população negra devido a bases de dados de treinamento enviesadas.</p>
+          </div>
+        </div>
+
+        <!-- 4. Confidencialidade de dados -->
+        <div class="topic-section">
+          <div class="section-heading" id="confidencialidade">
+            <span class="section-num">4</span>
+            <h2>Confidencialidade de dados</h2>
+          </div>
+
+          <div class="security-alert">
+            <div class="alert-title">🔐 Regra de ouro para servidores do TRE-RN</div>
+            <p><strong>Nunca cole dados sensíveis, sigilosos ou protegidos por segredo de justiça em ferramentas de IA públicas.</strong> Tudo o que você digita pode ser armazenado nos servidores da empresa e, em alguns casos, usado para treinar futuros modelos. Isso vale para nomes de partes, CPFs, números de processos sigilosos e qualquer informação institucional não pública.</p>
+          </div>
+
+          <p>Essa regra se aplica a todas as ferramentas de uso geral disponíveis publicamente: ChatGPT, Claude, Gemini, Copilot e similares. Ferramentas corporativas contratadas pelo tribunal com cláusulas de privacidade específicas podem ter regras diferentes — consulte a Secretaria de TI antes de usar qualquer ferramenta para processar dados institucionais sensíveis.</p>
+        </div>
+
+        <!-- 5. IA como apoio -->
+        <div class="topic-section">
+          <div class="section-heading" id="apoio">
+            <span class="section-num">5</span>
+            <h2>IA como ferramenta de apoio, não de substituição</h2>
+          </div>
+          <p>A inteligência artificial é uma assistente — não substitui o julgamento humano, a experiência profissional e o conhecimento institucional do servidor. O resultado gerado por IA deve ser sempre tratado como um <strong>rascunho inicial</strong> que precisa de revisão, validação e personalização.</p>
+
+          <div class="callout callout-success">
+            <div class="callout-title">✅ Checklist antes de usar qualquer saída de IA</div>
+            <p>
+              <strong>1.</strong> A informação está correta? Verifiquei as fontes?<br>
+              <strong>2.</strong> Não incluí dados sigilosos no prompt?<br>
+              <strong>3.</strong> O tom e a linguagem estão adequados ao contexto institucional?<br>
+              <strong>4.</strong> Personalizei o conteúdo para a situação específica?<br>
+              <strong>5.</strong> Estou assinando algo que revisei criticamente, e não apenas repassando saída de IA?
+            </p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./tokens.html" class="btn btn-secondary">← Anterior: Tokens e Janela de Contexto</a>
+          <a href="../regulamentacao/" class="btn btn-primary">Próximo módulo: Regulamentação →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

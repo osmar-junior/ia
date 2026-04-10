@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
+    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Uso de IA Generativa — Regulamentação IA</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Grid pode/não pode */
+    .resumo-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg); margin: var(--space-xl) 0;
+    }
+    .resumo-col { padding: var(--space-xl); border-radius: var(--radius-lg); }
+    .resumo-pode { background: rgba(26,138,90,0.06); border: 1px solid rgba(26,138,90,0.2); }
+    .resumo-naopode { background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.2); }
+    .resumo-col h3 { margin-top: 0; margin-bottom: var(--space-md); font-size: 1.1rem; }
+    .resumo-pode h3 { color: var(--verde); }
+    .resumo-naopode h3 { color: var(--vermelho); }
+    .resumo-col p { font-size: 0.97rem; color: var(--text-secondary); margin-bottom: var(--space-md); }
+    .resumo-col ul { margin: 0; padding-left: var(--space-lg); }
+    .resumo-col li { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-sm); }
+    .resumo-col li strong { color: var(--text); }
+
+    /* Grid de exemplos */
+    .exemplos-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: var(--space-md); margin: var(--space-lg) 0;
+    }
+    .exemplo-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-lg);
+    }
+    .exemplo-card.permitido { border-left: 4px solid var(--verde); }
+    .exemplo-card.vedado { border-left: 4px solid var(--vermelho); }
+    .exemplo-label {
+      font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em;
+      margin-bottom: var(--space-sm);
+    }
+    .exemplo-card.permitido .exemplo-label { color: var(--verde); }
+    .exemplo-card.vedado .exemplo-label { color: var(--vermelho); }
+    .exemplo-card p { font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+    @media (max-width: 768px) {
+      .resumo-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module active">⚖️ Regulamentação</a>
+        <div class="sb-topics open">
+          <a href="./principios.html" class="sb-topic">Princípios Fundamentais</a>
+          <a href="./uso-ia-generativa.html" class="sb-topic active">Uso de IA Generativa</a>
+          <a href="./responsabilidade.html" class="sb-topic">Responsabilidade Profissional</a>
+          <a href="./comite.html" class="sb-topic">Comitê Nacional de IA</a>
+        </div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+                <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚖️ Regulamentação · Tópico 02 de 04</div>
+        <h1>Uso de IA Generativa (Art. 19)</h1>
+        <p>O que é permitido e o que é vedado ao usar ChatGPT, Claude, Gemini e similares no serviço público judicial.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../regulamentacao/">Regulamentação</a><span class="sep">›</span>
+        <span class="current">Uso de IA Generativa</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. O artigo mais importante -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>O artigo mais relevante para o seu dia a dia</h2>
+          </div>
+          <p>O Art. 19 da <a href="https://atos.cnj.jus.br/files/original1555302025031467d4517244566.pdf" target="_blank">Resolução nº 615</a> trata especificamente do uso de ferramentas como ChatGPT, Claude, Gemini e similares por servidores do Judiciário. É o artigo com maior impacto prático para quem trabalha no TRE-RN e quer usar IA no cotidiano.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Foco do artigo</div>
+            <p>O Art. 19 não proíbe o uso de IA generativa por servidores — ele <strong>regula</strong> esse uso, estabelecendo condições para que ele seja legítimo e responsável. A pergunta não é "posso usar IA?" — a resposta é sim, com condições. A pergunta certa é: "estou usando corretamente?"</p>
+          </div>
+        </div>
+
+        <!-- 2. O que é permitido e vedado -->
+        <div class="topic-section">
+          <div class="section-heading" id="pode-nao-pode">
+            <span class="section-num">2</span>
+            <h2>O que é PERMITIDO e o que é VEDADO</h2>
+          </div>
+
+          <div class="resumo-grid">
+            <div class="resumo-col resumo-pode">
+              <h3>✅ O que é PERMITIDO</h3>
+              <p>Servidores <strong>podem</strong> usar LLMs como ferramentas de apoio, desde que:</p>
+              <ul>
+                <li>Realizem <strong>capacitação específica</strong> sobre riscos, limitações e uso ético de IA generativa (como este workshop)</li>
+                <li>Usem como <strong>apoio à decisão</strong>, nunca como instrumento autônomo ou substituto do raciocínio próprio</li>
+                <li>Escolham <strong>fornecedores que respeitem proteção de dados</strong> (conformidade com a LGPD)</li>
+                <li>Evitem compartilhar <strong>dados sigilosos</strong> sem anonimização prévia e completa</li>
+                <li>Informem à <strong>chefia sobre o uso</strong> quando aplicável e quando a norma interna exigir</li>
+              </ul>
+            </div>
+            <div class="resumo-col resumo-naopode">
+              <h3>❌ O que é VEDADO (§3º)</h3>
+              <p>É <strong>proibido</strong> utilizar IA generativa para:</p>
+              <ul>
+                <li>Inserir <strong>dados sigilosos</strong> ou protegidos por segredo de justiça em IA externa sem anonimização</li>
+                <li>Usar em aplicações de <strong>alto risco</strong> (valoração de provas, tipificação de crimes) sem as salvaguardas exigidas</li>
+                <li>Contratar serviços que <strong>usem seus dados para treinar modelos</strong> sem autorização expressa do órgão</li>
+                <li>Compartilhar dados com terceiros sem garantir eliminação do histórico e proteção adequada</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Exemplos práticos -->
+        <div class="topic-section">
+          <div class="section-heading" id="exemplos">
+            <span class="section-num">3</span>
+            <h2>Exemplos práticos de uso</h2>
+          </div>
+          <p>Para deixar mais claro o que o Art. 19 permite e veda no contexto específico do TRE-RN:</p>
+
+          <div class="exemplos-grid">
+            <div class="exemplo-card permitido">
+              <div class="exemplo-label">✅ Permitido</div>
+              <p>Usar ChatGPT para rascunhar o texto de um ofício de comunicação interna, revisando e personalizando antes de assinar.</p>
+            </div>
+            <div class="exemplo-card vedado">
+              <div class="exemplo-label">❌ Vedado</div>
+              <p>Colar o texto de um processo sigiloso no ChatGPT para que a IA "decida" qual despacho emitir.</p>
+            </div>
+            <div class="exemplo-card permitido">
+              <div class="exemplo-label">✅ Permitido</div>
+              <p>Usar o Perplexity para pesquisar jurisprudência recente do TSE, verificando as fontes antes de citar no documento.</p>
+            </div>
+            <div class="exemplo-card vedado">
+              <div class="exemplo-label">❌ Vedado</div>
+              <p>Inserir nome completo, CPF e dados processuais de uma parte no Gemini para analisar o mérito do caso.</p>
+            </div>
+            <div class="exemplo-card permitido">
+              <div class="exemplo-label">✅ Permitido</div>
+              <p>Usar o NotebookLM para estudar resoluções do CNJ, gerando resumos e FAQs para consulta da equipe.</p>
+            </div>
+            <div class="exemplo-card vedado">
+              <div class="exemplo-label">❌ Vedado</div>
+              <p>Usar IA para "avaliar a credibilidade" de uma testemunha com base no texto do depoimento (categoria AR2 — alto risco).</p>
+            </div>
+            <div class="exemplo-card permitido">
+              <div class="exemplo-label">✅ Permitido</div>
+              <p>Reformular um texto técnico com Claude para torná-lo mais claro, depois revisar e adaptar antes de publicar.</p>
+            </div>
+            <div class="exemplo-card vedado">
+              <div class="exemplo-label">❌ Vedado</div>
+              <p>Copiar e assinar um documento gerado por IA sem qualquer revisão ou personalização para o caso concreto.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Exceção: anonimização -->
+        <div class="topic-section">
+          <div class="section-heading" id="anonimizacao">
+            <span class="section-num">4</span>
+            <h2>A exceção da anonimização</h2>
+          </div>
+          <p>O Art. 19 permite uma exceção importante: você pode usar IA com dados que de outra forma seriam sigilosos — desde que os dados sejam devidamente <strong>anonimizados antes de ser inseridos</strong> na ferramenta.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Como anonimizar corretamente</div>
+            <p>Antes de inserir qualquer texto em ferramenta de IA externa, remova ou substitua: <strong>nomes completos</strong> das partes, <strong>CPFs e outros documentos</strong>, <strong>números de processos sigilosos</strong>, <strong>endereços identificáveis</strong> e qualquer informação que permita identificar diretamente as pessoas envolvidas. Substitua por termos genéricos: "Parte A", "Parte B", "Empresa X", etc.</p>
+          </div>
+
+          <h3>Exemplo de anonimização</h3>
+          <p><strong>Texto original (NÃO cole em IA externa):</strong></p>
+          <div class="code-block">João da Silva Ferreira, CPF 123.456.789-00, residente na Rua das Flores, 45, Natal/RN, interpôs recurso no Processo nº 0000123-45.2025.6.20.0000...</div>
+
+          <p><strong>Texto anonimizado (pode ser inserido em IA para apoio à redação):</strong></p>
+          <div class="code-block">A Parte A interpôs recurso alegando [descrever apenas o conteúdo jurídico relevante, sem dados pessoais]...</div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./principios.html" class="btn btn-secondary">← Anterior: Princípios Fundamentais</a>
+          <a href="./responsabilidade.html" class="btn btn-primary">Próximo: Responsabilidade Profissional →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

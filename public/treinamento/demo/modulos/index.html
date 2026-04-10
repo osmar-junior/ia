@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trilha de Módulos — IA no Judiciário | TRE-RN</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/topic.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    .layout { display: flex; min-height: 100vh; padding-top: var(--navbar-height); }
+
+    /* ─── Sidebar ─── */
+    .sidebar {
+      width: 260px; flex-shrink: 0;
+      background: var(--bg-card); border-right: 1px solid var(--border-light);
+      position: sticky; top: var(--navbar-height);
+      height: calc(100vh - var(--navbar-height));
+      overflow-y: auto; display: flex; flex-direction: column; z-index: 10;
+    }
+    .sidebar-inner { padding: var(--space-lg) 0; flex: 1; }
+    .sb-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); padding: var(--space-md) var(--space-md) var(--space-xs); margin-top: var(--space-sm); }
+    .sb-label:first-child { margin-top: 0; }
+    .sb-divider { border: none; border-top: 1px solid var(--border-light); margin: var(--space-sm) var(--space-md); }
+    .sb-module { display: flex; align-items: center; gap: 8px; padding: 9px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-module:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-module.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-topics { overflow: hidden; max-height: 0; transition: max-height 0.28s ease; }
+    .sb-topics.open { max-height: 500px; }
+    .sb-topic { display: flex; align-items: flex-start; gap: 5px; padding: 7px var(--space-md) 7px calc(var(--space-md) + 16px); font-size: 0.9rem; color: var(--text-muted); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.35; }
+    .sb-topic::before { content: '↳'; font-size: 0.75rem; margin-top: 2px; flex-shrink: 0; opacity: 0.55; }
+    .sb-topic:hover { color: var(--azul-medio); background: var(--azul-light); border-left-color: rgba(46,92,154,0.35); }
+    .sb-topic.active { color: var(--azul-medio); font-weight: 600; background: var(--azul-light); border-left-color: var(--azul-medio); }
+    .sb-oficina { display: flex; align-items: center; gap: 8px; padding: 8px var(--space-md); font-size: 0.9rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; }
+    .sb-oficina:hover { color: var(--verde); background: var(--verde-light); border-left-color: var(--verde); }
+    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
+    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); min-width: 22px; flex-shrink: 0; }
+    .sb-footer { padding: var(--space-sm) var(--space-md); border-top: 1px solid var(--border-light); }
+    .sb-footer a { font-size: 0.9rem; color: var(--text-muted); text-decoration: none; padding: 6px 0; display: block; transition: color 0.15s; }
+    .sb-footer a:hover { color: var(--azul-medio); }
+
+    /* ─── Conteúdo ─── */
+    .main-content { flex: 1; min-width: 0; background: var(--bg); }
+
+    /* ─── Hero ─── */
+    .page-hero {
+      position: relative; min-height: 280px;
+      display: flex; align-items: flex-end;
+      padding: var(--space-3xl) var(--space-2xl) var(--space-xl); overflow: hidden;
+      background: linear-gradient(135deg, var(--azul) 0%, #0F2347 100%);
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse at 80% 50%, rgba(46,92,154,0.4) 0%, transparent 60%),
+        radial-gradient(ellipse at 20% 80%, rgba(184,137,26,0.12) 0%, transparent 50%);
+    }
+    .hero-text { position: relative; z-index: 2; max-width: 640px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 6px; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--dourado-light, #F5E6C0); background: rgba(184,137,26,0.2); border: 1px solid rgba(184,137,26,0.3); border-radius: 99px; padding: 5px 14px; margin-bottom: var(--space-md); }
+    .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--dourado-light, #F5E6C0); }
+    .page-hero h1 { font-family: var(--font-display); font-size: 2.4rem; font-weight: 800; color: #fff; margin-bottom: 8px; line-height: 1.15; }
+    .page-hero p { font-size: 1.05rem; color: rgba(255,255,255,0.82); line-height: 1.6; }
+
+    /* ─── Breadcrumb ─── */
+    .breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 6px; padding: 10px var(--space-2xl); font-size: 0.83rem; color: var(--text-muted); background: var(--bg-card); border-bottom: 1px solid var(--border-light); }
+    .breadcrumb a { color: var(--azul-medio); text-decoration: none; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    .breadcrumb .sep { color: var(--border-hover); }
+    .breadcrumb .current { color: var(--text); font-weight: 500; }
+
+    /* ─── Corpo ─── */
+    .page-body { padding: var(--space-2xl); }
+
+    /* ─── Intro ─── */
+    .intro-section { margin-bottom: var(--space-3xl); }
+    .intro-section h2 { font-family: var(--font-display); font-size: 1.6rem; color: var(--azul); margin-bottom: var(--space-md); }
+    .intro-section p { font-size: 1.02rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: var(--space-md); }
+    .intro-section p:last-child { margin-bottom: 0; }
+
+    /* ─── Grid de módulos ─── */
+    .modulos-grid { display: grid; gap: var(--space-lg); }
+    .modulo-card {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: center; gap: var(--space-lg);
+      padding: var(--space-xl);
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-left: 4px solid var(--azul-medio);
+      border-radius: var(--radius-lg); text-decoration: none;
+      transition: all 0.18s ease;
+    }
+    .modulo-card:hover { box-shadow: var(--shadow-md); transform: translateX(4px); border-color: var(--azul-medio); }
+    .modulo-num {
+      width: 52px; height: 52px; border-radius: var(--radius-md);
+      background: var(--azul-light, rgba(46,92,154,0.10));
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 800;
+      color: var(--azul-medio); flex-shrink: 0;
+    }
+    .modulo-body {}
+    .modulo-title { font-size: 1.15rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 4px; }
+    .modulo-card:hover .modulo-title { color: var(--azul-medio); }
+    .modulo-desc { font-size: 0.97rem; color: var(--text-muted); line-height: 1.5; display: block; margin-bottom: var(--space-sm); }
+    .modulo-meta { display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+    .modulo-tag { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); background: var(--bg); border: 1px solid var(--border-light); border-radius: 99px; padding: 2px 10px; }
+    .modulo-arrow { color: var(--azul-medio); font-size: 1.2rem; flex-shrink: 0; }
+
+    /* ─── Banner de acesso rápido ─── */
+    .banner-oficinas {
+      margin-top: var(--space-3xl);
+      padding: var(--space-xl) var(--space-2xl);
+      background: linear-gradient(135deg, rgba(26,138,90,0.06), rgba(46,92,154,0.06));
+      border: 1px solid rgba(26,138,90,0.2);
+      border-radius: var(--radius-xl);
+      display: flex; align-items: center; gap: var(--space-lg);
+    }
+    .banner-icon { font-size: 2.5rem; flex-shrink: 0; }
+    .banner-text h3 { font-family: var(--font-display); font-size: 1.2rem; color: var(--azul); margin-bottom: 4px; }
+    .banner-text p { font-size: 0.97rem; color: var(--text-muted); }
+    .banner-link {
+      margin-left: auto; flex-shrink: 0;
+      padding: 10px 22px; border-radius: var(--radius-md);
+      background: var(--verde); color: #fff; font-weight: 700; font-size: 0.95rem;
+      text-decoration: none; transition: background 0.15s;
+    }
+    .banner-link:hover { background: #15724A; }
+
+    /* ─── Mobile ─── */
+    .sidebar-toggle { display: none; position: fixed; bottom: var(--space-lg); right: var(--space-lg); width: 52px; height: 52px; border-radius: 50%; background: var(--azul-medio); color: #fff; border: none; font-size: 1.3rem; cursor: pointer; z-index: 200; box-shadow: var(--shadow-lg); align-items: center; justify-content: center; }
+    .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(20,40,80,0.4); z-index: 150; }
+
+    @media (max-width: 960px) {
+      .sidebar { position: fixed; top: 0; left: -280px; width: 260px; height: 100vh; z-index: 160; transition: left 0.3s ease; padding-top: var(--navbar-height); }
+      .sidebar.open { left: 0; }
+      .sidebar-overlay.open { display: block; }
+      .sidebar-toggle { display: flex; }
+      .page-hero { padding: var(--space-2xl) var(--space-md) var(--space-lg); min-height: 220px; }
+      .page-hero h1 { font-size: 1.8rem; }
+      .breadcrumb { padding: 8px var(--space-md); }
+      .page-body { padding: var(--space-lg) var(--space-md); }
+      .modulo-card { grid-template-columns: auto 1fr; gap: var(--space-md); padding: var(--space-lg); }
+      .modulo-arrow { display: none; }
+      .banner-oficinas { flex-direction: column; align-items: flex-start; }
+      .banner-link { margin-left: 0; width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+
+  <div class="layout">
+
+    <!-- ══ SIDEBAR ══ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+
+        <div class="sb-label">📚 Módulos</div>
+
+        <a href="./conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+
+        <a href="./como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+
+        <a href="./regulamentacao/" class="sb-module">⚖️ Regulamentação</a>
+        <div class="sb-topics"></div>
+
+        <a href="./engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+
+        <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+
+      </div>
+      <div class="sb-footer">
+        <a href="../index.html">↩ Início do curso</a>
+      </div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <!-- ══ CONTEÚDO ══ -->
+    <main class="main-content">
+
+      <section class="page-hero">
+        <div class="hero-text">
+          <div class="eyebrow"><span class="dot"></span> Trilha de Aprendizado</div>
+          <h1>Módulos de Conteúdo</h1>
+          <p>Fundamentos teóricos e práticos para o uso profissional de IA no contexto do Judiciário Eleitoral.</p>
+        </div>
+      </section>
+
+      <nav class="breadcrumb" aria-label="Navegação estrutural">
+        <a href="../index.html">Início</a>
+        <span class="sep">›</span>
+        <span class="current">Módulos</span>
+      </nav>
+
+      <div class="page-body">
+
+        <div class="intro-section">
+          <h2>Sobre a trilha</h2>
+          <p>
+            A trilha de módulos reúne o conteúdo teórico e conceitual do treinamento. São quatro módulos organizados em sequência lógica: do entendimento básico do que é IA até a prática avançada de engenharia de prompts.
+          </p>
+          <p>
+            Cada módulo é dividido em tópicos independentes. Você pode navegar livremente entre eles, acompanhar seu progresso pelo menu lateral e retomar de onde parou a qualquer momento. O conteúdo dos módulos é o fundamento para as Oficinas práticas.
+          </p>
+        </div>
+
+        <div class="modulos-grid">
+
+          <a href="./conceitos/" class="modulo-card">
+            <div class="modulo-num">01</div>
+            <div class="modulo-body">
+              <span class="modulo-title">💡 Conceitos Essenciais</span>
+              <span class="modulo-desc">O que é IA generativa, como as principais ferramentas se comparam e qual o panorama atual dos modelos disponíveis para uso profissional.</span>
+              <div class="modulo-meta">
+                <span class="modulo-tag">3 tópicos</span>
+                <span class="modulo-tag">⏱ ~30 min</span>
+                <span class="modulo-tag">Iniciante</span>
+              </div>
+            </div>
+            <span class="modulo-arrow">→</span>
+          </a>
+
+          <a href="./como-funciona/" class="modulo-card">
+            <div class="modulo-num">02</div>
+            <div class="modulo-body">
+              <span class="modulo-title">⚙️ Como a IA Funciona</span>
+              <span class="modulo-desc">Tokens, janela de contexto, limitações e alucinações. Como a IA processa texto, o que ela não consegue fazer e como configurar as ferramentas para uso institucional.</span>
+              <div class="modulo-meta">
+                <span class="modulo-tag">3 tópicos</span>
+                <span class="modulo-tag">⏱ ~35 min</span>
+                <span class="modulo-tag">Intermediário</span>
+              </div>
+            </div>
+            <span class="modulo-arrow">→</span>
+          </a>
+
+          <a href="./regulamentacao/" class="modulo-card">
+            <div class="modulo-num">03</div>
+            <div class="modulo-body">
+              <span class="modulo-title">⚖️ Regulamentação</span>
+              <span class="modulo-desc">O marco legal da IA no Brasil, as resoluções do CNJ aplicáveis ao Judiciário e as responsabilidades do servidor no uso de ferramentas automatizadas.</span>
+              <div class="modulo-meta">
+                <span class="modulo-tag">4 tópicos</span>
+                <span class="modulo-tag">⏱ ~40 min</span>
+                <span class="modulo-tag">Intermediário</span>
+              </div>
+            </div>
+            <span class="modulo-arrow">→</span>
+          </a>
+
+          <a href="./engenharia-de-prompts/" class="modulo-card">
+            <div class="modulo-num">04</div>
+            <div class="modulo-body">
+              <span class="modulo-title">✍️ Engenharia de Prompts</span>
+              <span class="modulo-desc">A metodologia RCTS+E para construção de prompts eficazes, exemplos práticos por área de atuação, técnicas avançadas e o gerador interativo de prompts.</span>
+              <div class="modulo-meta">
+                <span class="modulo-tag">5 tópicos</span>
+                <span class="modulo-tag">⏱ ~50 min</span>
+                <span class="modulo-tag">Avançado</span>
+              </div>
+            </div>
+            <span class="modulo-arrow">→</span>
+          </a>
+
+        </div>
+
+        <div class="banner-oficinas">
+          <div class="banner-icon">🛠️</div>
+          <div class="banner-text">
+            <h3>Pronto para as Oficinas?</h3>
+            <p>As 12 oficinas práticas aplicam o conteúdo dos módulos em tarefas reais do TRE-RN, com ferramentas e prompts prontos para uso.</p>
+          </div>
+          <a href="../index.html#oficinas-section" class="banner-link">Ver as Oficinas →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../js/auth.js"></script>
+  <script src="../js/utils.js"></script>
+  <script src="../js/main.js"></script>
+  <script>
+    function toggleSidebar() {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('open');
+    }
+    function closeSidebar() {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('open');
+    }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>
