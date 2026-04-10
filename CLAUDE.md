@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code when working with this repository.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
@@ -48,7 +48,7 @@ public/
           *-data.js       # Dados externos usados pela página (ex: ferramentas-data.js)
       oficinas/
         oficina-NN-nome.html   # Arquivos planos, sem subpasta
-    adv-flavio-macedo/    # Curso jurídico (estrutura similar, ainda não migrado)
+    adv-flavio-macedo/    # Curso jurídico (estrutura própria — conteúdo na raiz do curso, sem subpasta modulos/)
   admin/
     index.html            # Painel administrativo (CRUD de usuários, cursos e turmas)
 ```
@@ -56,10 +56,11 @@ public/
 ## Convenções críticas
 
 ### getBasePath() em main.js
-Retorna o caminho relativo até a raiz do curso (`tre-rn-2026/`):
-- `/oficinas/` → `'../'` (oficinas são arquivos planos, um nível abaixo)
-- `/modulos/` → `'../../'` (módulos ficam em `/modulos/<submodulo>/`)
-- raiz do curso → `'./'`
+Cada curso tem seu próprio `main.js` com `getBasePath()` adaptada à estrutura de pastas:
+
+**tre-rn-2026** (3 níveis): `/oficinas/` → `'../'` | `/modulos/` → `'../../'` | raiz → `'./'`
+
+**adv-flavio-macedo** (2 níveis): `/oficinas/` → `'../'` | raiz → `'./'` (sem subpasta modulos/)
 
 `auth.js` tem sua própria `getBasePath()` com lógica ligeiramente diferente (inclui o caso da raiz `/treinamento/`). Não confundir as duas.
 
