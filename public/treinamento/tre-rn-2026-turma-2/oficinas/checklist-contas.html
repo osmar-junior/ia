@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checklist — Criação de Contas nas Ferramentas de IA</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/responsive.css">
+  <style>
+    body { background: var(--bg); }
+    .checklist-page { max-width: 860px; margin: 0 auto; padding: var(--space-2xl) var(--space-xl); }
+    .checklist-page h1 { font-size: 2.4rem; margin-bottom: var(--space-sm); }
+    .checklist-page > p { font-size: 1.08rem; line-height: 1.85; margin-bottom: var(--space-2xl); }
+
+    .tool-card {
+      background: var(--bg-elevated); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: var(--space-xl);
+      margin-bottom: var(--space-xl);
+    }
+    .tool-card h2 { font-size: 1.5rem; margin: 0 0 var(--space-sm); }
+    .tool-desc { font-size: 1rem; color: var(--text-secondary); margin-bottom: var(--space-lg); line-height: 1.7; }
+
+    .tool-steps { list-style: none; padding: 0; margin: 0 0 var(--space-lg); }
+    .tool-steps li {
+      display: flex; gap: var(--space-sm); align-items: baseline;
+      padding: var(--space-sm) 0;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 1rem; line-height: 1.65; color: var(--text-secondary);
+    }
+    .tool-steps li:last-child { border-bottom: none; }
+    .tool-steps li::before {
+      content: '→'; color: var(--dourado); font-weight: 700; flex-shrink: 0;
+    }
+
+    .tool-link-btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 22px;
+      background: var(--dourado-dim); color: var(--dourado);
+      border: 1px solid rgba(200,164,92,0.25); border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 0.95rem; transition: all var(--transition-base);
+    }
+    .tool-link-btn:hover { background: rgba(200,164,92,0.25); }
+
+    .checklist-footer {
+      text-align: center; padding: var(--space-2xl) 0;
+      border-top: 1px solid var(--border-light);
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="checklist-page">
+    <h1>📋 Checklist de Contas</h1>
+    <p>Siga o passo a passo abaixo para criar suas contas gratuitas nas ferramentas de IA que utilizaremos na Oficina 01.</p>
+
+    <!-- ChatGPT -->
+    <div class="tool-card">
+      <h2>1. ChatGPT</h2>
+      <div class="tool-desc">A ferramenta de IA mais popular do mundo. Desenvolvida pela OpenAI. Versão gratuita já é bastante funcional.</div>
+      <ul class="tool-steps">
+        <li>Acesse <a href="https://chatgpt.com/" target="_blank" class="tool-link-btn">chatgpt.com ↗</a></li>
+        <li>Clique em <strong>"Cadastrar-se"</strong> (ou "Sign up")</li>
+        <li>Crie a conta usando seu e-mail pessoal ou conta Google</li>
+        <li>Confirme o e-mail (verifique sua caixa de entrada e spam)</li>
+        <li>Acesse o chat e envie uma mensagem de teste: <strong>"Olá, estou testando!"</strong></li>
+      </ul>
+    </div>
+
+    <!-- Claude -->
+    <div class="tool-card">
+      <h2>2. Claude</h2>
+      <div class="tool-desc">Desenvolvido pela Anthropic. Excelente para análise de documentos longos e respostas estruturadas. Menos propenso a alucinações.</div>
+      <ul class="tool-steps">
+        <li>Acesse <a href="https://claude.ai/" target="_blank" class="tool-link-btn">claude.ai ↗</a></li>
+        <li>Clique em <strong>"Sign up"</strong> (Cadastrar-se)</li>
+        <li>Crie a conta usando e-mail ou conta Google</li>
+        <li>Envie uma mensagem de teste para confirmar que está funcionando</li>
+      </ul>
+    </div>
+
+    <!-- Gemini -->
+    <div class="tool-card">
+      <h2>3. Gemini</h2>
+      <div class="tool-desc">IA do Google com integração nativa ao Gmail, Drive e Docs. Se você já tem conta Google, é só acessar.</div>
+      <ul class="tool-steps">
+        <li>Acesse <a href="https://gemini.google.com/" target="_blank" class="tool-link-btn">gemini.google.com ↗</a></li>
+        <li>Faça login com sua conta Google (se já tiver, basta clicar em "Entrar")</li>
+        <li>Aceite os termos de uso quando solicitado</li>
+        <li>Envie uma mensagem de teste para confirmar o acesso</li>
+      </ul>
+    </div>
+
+    <!-- Perplexity -->
+    <div class="tool-card">
+      <h2>4. Perplexity</h2>
+      <div class="tool-desc">Ferramenta de busca inteligente que cita fontes para cada resposta. Excelente para pesquisa jurídica e administrativa.</div>
+      <ul class="tool-steps">
+        <li>Acesse <a href="https://www.perplexity.ai/" target="_blank" class="tool-link-btn">perplexity.ai ↗</a></li>
+        <li>Clique em <strong>"Sign up"</strong> e crie a conta (Google ou e-mail)</li>
+        <li>Teste fazendo uma busca: <strong>"Qual a última resolução do CNJ sobre inteligência artificial?"</strong></li>
+      </ul>
+    </div>
+
+    <div class="checklist-footer">
+      <p>Tudo pronto? Vamos começar a explorar! 🚀</p>
+    </div>
+  </div>
+
+  <script>
+    document.documentElement.classList.add('page-revealed');
+  </script>
+</body>
+</html>

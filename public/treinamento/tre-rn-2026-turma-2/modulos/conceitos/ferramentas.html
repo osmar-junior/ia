@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ferramentas de LLM — IA no Judiciário</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <script src="ferramentas-data.js"></script>
+  <style>
+    /* Card de ferramenta */
+    .ferramenta-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+      scroll-margin-top: calc(var(--navbar-height) + 16px);
+    }
+    .ferramenta-header {
+      display: flex; align-items: flex-start; gap: var(--space-md);
+      margin-bottom: var(--space-lg); flex-wrap: wrap;
+    }
+    .ferramenta-header-text { flex: 1; min-width: 200px; }
+    .ferramenta-header h3 {
+      font-family: var(--font-display); font-size: 1.45rem; font-weight: 700;
+      color: var(--text); margin: 0 0 4px;
+    }
+    .ferramenta-empresa {
+      font-size: 0.9rem; color: var(--text-muted); line-height: 1.4;
+    }
+    .ferramenta-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-top: var(--space-sm); }
+
+    /* Colunas internas */
+    .ferramenta-cols {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-lg);
+    }
+    .ferramenta-cols h4 {
+      font-family: var(--font-body); font-size: 0.82rem; font-weight: 700;
+      color: var(--azul-medio); text-transform: uppercase; letter-spacing: 0.07em;
+      margin-bottom: var(--space-sm);
+    }
+    .ferramenta-cols ul { margin: 0; padding-left: var(--space-lg); }
+    .ferramenta-cols li {
+      font-size: 0.95rem; color: var(--text-secondary);
+      line-height: 1.65; margin-bottom: 4px;
+    }
+    .ferramenta-cols li strong { color: var(--text); }
+
+    /* Link de acesso */
+    .ferramenta-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: var(--space-lg);
+      font-weight: 700; font-size: 0.93rem; color: var(--azul-medio);
+      text-decoration: none; border-bottom: 1.5px solid transparent;
+      transition: border-color 0.15s;
+    }
+    .ferramenta-link:hover { border-bottom-color: var(--azul-medio); }
+    .ferramenta-link::after { content: ' ↗'; font-size: 0.8em; }
+
+    /* Tabela de preços compacta */
+    .table-compact td, .table-compact th { padding: 9px 12px; font-size: 0.88rem; }
+
+    /* Alerta de segurança */
+    .security-alert {
+      background: rgba(192,57,43,0.06);
+      border: 1px solid rgba(192,57,43,0.22);
+      border-left: 4px solid var(--vermelho);
+      border-radius: var(--radius-md);
+      padding: var(--space-lg);
+      margin: var(--space-lg) 0;
+    }
+    .security-alert .alert-title {
+      font-weight: 700; color: var(--vermelho); font-size: 0.97rem; margin-bottom: 6px;
+    }
+    .security-alert p { font-size: 0.95rem; color: var(--text-secondary); margin: 0; }
+
+    /* Separador de ferramenta */
+    .ferramenta-divider {
+      border: none; border-top: 2px dashed var(--border-light);
+      margin: var(--space-lg) 0;
+    }
+
+    @media (max-width: 768px) {
+      .ferramenta-cols { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">Módulos</div>
+        <a href="../conceitos/" class="sb-module active">Conceitos Essenciais</a>
+        <div class="sb-topics open">
+          <a href="./o-que-e.html" class="sb-topic">O que é Inteligência Artificial?</a>
+          <a href="./ferramentas.html" class="sb-topic active">Ferramentas de LLM</a>
+          <a href="./modelos.html" class="sb-topic">Modelos de LLM</a>
+          <a href="./personalizacao.html" class="sb-topic">Personalização de Ferramentas</a>
+        </div>
+        <a href="../como-funciona/" class="sb-module">Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module">Regulamentação</a>
+        <div class="sb-topics"></div>
+        <a href="../engenharia-de-prompts/" class="sb-module">Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+                <hr class="sb-divider">
+        <div class="sb-label">Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">Conceitos Essenciais · Tópico 02 de 04</div>
+        <h1>Ferramentas de LLM</h1>
+        <p>Análise comparativa das principais plataformas de IA generativa: características, preços, pontos fortes, limitações e alertas de segurança.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../conceitos/">Conceitos Essenciais</a><span class="sep">›</span>
+        <span class="current">Ferramentas de LLM</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. O que são ferramentas de LLM -->
+        <div class="topic-section">
+          <div class="section-heading" id="introducao">
+            <span class="section-num">1</span>
+            <h2>O que são ferramentas de LLM</h2>
+          </div>
+          <p>Ferramentas de LLM são ambientes que possibilitam a interação do usuário com a IA de forma simples e funcional. Pense nelas como "interfaces" que permitem conversar com os modelos de inteligência artificial sem nenhum conhecimento técnico.</p>
+          <p>A distinção importante: a <strong>ferramenta</strong> é o aplicativo que você usa (ChatGPT, Gemini, Claude); o <strong>modelo</strong> é o sistema matemático que processa e gera as respostas. Uma mesma ferramenta pode oferecer múltiplos modelos com capacidades diferentes. Isso será detalhado no próximo tópico.</p>
+          <p>O infográfico abaixo ilustra essa relação: a ferramenta é como o carro que você dirige — a interface com que você interage — enquanto o modelo é o motor por baixo do capô, responsável por processar e gerar as respostas.</p>
+          <img src="../../assets/ferramenta-modelo.jpg" alt="Infográfico: ferramenta (ChatGPT) usa o modelo (motor com GPT-5.2, GPT-5.3, GPT-5 mini)" style="width:100%;max-width:680px;display:block;margin:var(--space-lg) 0;">
+        </div>
+
+        <!-- 2. Ferramentas em detalhe -->
+        <div class="topic-section">
+          <div class="section-heading" id="ferramentas">
+            <span class="section-num">2</span>
+            <h2>As principais ferramentas</h2>
+          </div>
+          <p>Dados de abril de 2026. Preços e planos mudam com frequência — verifique os sites oficiais antes de contratar.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:6px 16px;margin-bottom:var(--space-lg);padding-bottom:var(--space-md);border-bottom:1px solid var(--border-light);">
+            <span style="font-size:0.8rem;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.08em;align-self:center;">Ir para:</span>
+            <a href="#chatgpt" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">ChatGPT</a>
+            <a href="#claude" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">Claude</a>
+            <a href="#gemini" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">Gemini</a>
+            <a href="#perplexity" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">Perplexity</a>
+            <a href="#notebooklm" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">NotebookLM</a>
+            <a href="#copilot" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">Copilot</a>
+            <a href="#deepseek" style="font-size:0.9rem;color:var(--azul-medio);text-decoration:none;border-bottom:1px solid transparent;transition:border-color 0.15s;" onmouseover="this.style.borderBottomColor='var(--azul-medio)'" onmouseout="this.style.borderBottomColor='transparent'">DeepSeek</a>
+          </div>
+
+          <div id="ferramentas-container"></div>
+        </div>
+
+        <!-- 3. Guia rápido -->
+        <div class="topic-section">
+          <div class="section-heading" id="guia-rapido">
+            <span class="section-num">3</span>
+            <h2>Guia rápido: qual ferramenta usar?</h2>
+          </div>
+          <p>Na dúvida, use esta tabela como ponto de partida:</p>
+          <div class="table-wrapper">
+            <table class="table">
+              <thead>
+                <tr><th>Situação</th><th>Ferramenta Recomendada</th><th>Por quê?</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Redigir ofícios, minutas e despachos</td><td><strong>ChatGPT</strong> ou <strong>Claude</strong></td><td>Melhor geração de texto em português formal</td></tr>
+                <tr><td>Analisar documentos longos e complexos</td><td><strong>Claude</strong></td><td>Janela de 200k tokens, respostas estruturadas</td></tr>
+                <tr><td>Pesquisar legislação e jurisprudência</td><td><strong>Perplexity</strong></td><td>Cita fontes verificáveis, acesso em tempo real</td></tr>
+                <tr><td>Estudar múltiplos documentos do TRE-RN</td><td><strong>NotebookLM</strong></td><td>Análise cruzada de até 50 docs, gratuito</td></tr>
+                <tr><td>Integrar IA ao Gmail, Docs e Drive</td><td><strong>Gemini</strong></td><td>Integração nativa com Google Workspace</td></tr>
+                <tr><td>Produtividade no Office (Word, Excel)</td><td><strong>Copilot</strong></td><td>IA dentro do ecossistema Microsoft</td></tr>
+                <tr><td>Experimentação sem custo</td><td><strong>DeepSeek</strong></td><td>Gratuito (atenção à privacidade dos dados)</td></tr>
+                <tr><td>Informações em tempo real</td><td><strong>Grok</strong> ou <strong>Perplexity</strong></td><td>Acesso a dados atualizados da web</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Plataformas agregadoras</div>
+            <p>Existem plataformas que reúnem múltiplos modelos de empresas diferentes em um mesmo ambiente, permitindo compará-los facilmente: <a href="https://lmarena.ai/" target="_blank">LMArena</a> e <a href="https://adapta.org/" target="_blank">Adapta</a>.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./o-que-e.html" class="btn btn-secondary">← Anterior: O que é IA?</a>
+          <a href="./modelos.html" class="btn btn-primary">Próximo: Modelos de LLM →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script>
+    (function() {
+      const badgeClass = {
+        'Popular':     'badge-gold',
+        'Recomendado': 'badge-green',
+        'Google':      'badge-purple',
+        'Microsoft':   'badge-purple',
+        'Pesquisa':    'badge-gold',
+        'Gratuito':    'badge-green',
+        'Atenção':     'badge-red',
+      };
+
+      function list(items) {
+        return '<ul>' + items.map(i => `<li>${i}</li>`).join('') + '</ul>';
+      }
+
+      function planosTable(planos) {
+        const rows = planos.map(p =>
+          `<tr><td><strong>${p.nome}</strong></td><td>${p.preco}</td><td>${p.destaques}</td></tr>`
+        ).join('');
+        return `<div class="table-wrapper">
+          <table class="table table-compact">
+            <thead><tr><th>Plano</th><th>Preço</th><th>Destaques</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>`;
+      }
+
+      function renderCard(f) {
+        const badges = f.badges.map(b =>
+          `<span class="badge ${badgeClass[b] || 'badge-blue'}">${b}</span>`
+        ).join('') + `<span class="badge badge-blue">${f.tipo}</span>`;
+
+        const aviso = f.aviso ? `
+          <div class="security-alert">
+            <div class="alert-title">⚠️ Aviso de Segurança</div>
+            <p>${f.aviso}</p>
+          </div>` : '';
+
+        return `
+          <div class="ferramenta-card" id="${f.id}">
+            <div class="ferramenta-header">
+              <div class="ferramenta-header-text">
+                <h3>${f.nome}</h3>
+                <div class="ferramenta-empresa">${f.empresa} — ${f.slogan}</div>
+                <div class="ferramenta-badges">${badges}</div>
+              </div>
+            </div>
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✨ Características</h4>
+                ${list(f.caracteristicas)}
+              </div>
+              <div>
+                <h4>💰 Versões e Preços</h4>
+                ${planosTable(f.planos)}
+              </div>
+            </div>
+            <hr class="ferramenta-divider">
+            <div class="ferramenta-cols">
+              <div>
+                <h4>✅ Pontos Fortes</h4>
+                ${list(f.pontos_fortes)}
+              </div>
+              <div>
+                <h4>⚠️ Limitações</h4>
+                ${list(f.limitacoes)}
+              </div>
+            </div>
+            ${aviso}
+            <a href="${f.link_acesso}" target="_blank" class="ferramenta-link">Acessar ${f.nome}</a>
+          </div>`;
+      }
+
+      const container = document.getElementById('ferramentas-container');
+      container.innerHTML = ferramentasData.ferramentas.map(renderCard).join('') +
+        `<p style="font-size:0.88rem;color:var(--text-muted);margin-top:var(--space-lg);">
+          Informações atualizadas em ${ferramentasData.atualizacao}. ${ferramentasData.nota}
+        </p>`;
+    })();
+  </script>
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>

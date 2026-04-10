@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <style>html{visibility:hidden}html.page-revealed{visibility:visible}    .sb-oficina-item { display: flex; align-items: center; gap: 8px; padding: 7px var(--space-md); font-size: 0.97rem; font-weight: 500; color: var(--text-secondary); text-decoration: none; border-left: 3px solid transparent; transition: all 0.15s; line-height: 1.3; }
+    .sb-oficina-item:hover { color: var(--verde); background: rgba(26,138,90,.07); border-left-color: var(--verde); }
+    .sb-num { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); min-width: 20px; flex-shrink: 0; }
+  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comitê Nacional de IA — Regulamentação IA</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/components.css">
+  <link rel="stylesheet" href="../../css/responsive.css">
+  <link rel="stylesheet" href="../../css/topic.css">
+  <style>
+    /* Cards de composição */
+    .composicao-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: var(--space-md); margin: var(--space-xl) 0;
+    }
+    .composicao-card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: var(--space-lg); text-align: center;
+    }
+    .composicao-icon { font-size: 2rem; margin-bottom: var(--space-sm); }
+    .composicao-card h4 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .composicao-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.6; margin: 0; }
+
+    /* Resumo final pode/não pode */
+    .resumo-final {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: var(--space-lg); margin: var(--space-xl) 0;
+    }
+    .resumo-col { padding: var(--space-xl); border-radius: var(--radius-lg); }
+    .resumo-pode { background: rgba(26,138,90,0.06); border: 1px solid rgba(26,138,90,0.2); }
+    .resumo-naopode { background: rgba(192,57,43,0.06); border: 1px solid rgba(192,57,43,0.2); }
+    .resumo-col h3 { margin-top: 0; margin-bottom: var(--space-md); font-size: 1.1rem; }
+    .resumo-pode h3 { color: var(--verde); }
+    .resumo-naopode h3 { color: var(--vermelho); }
+    .resumo-col ul { margin: 0; padding-left: var(--space-lg); }
+    .resumo-col li { font-size: 0.97rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: var(--space-sm); }
+
+    @media (max-width: 768px) {
+      .resumo-final { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div id="header-placeholder"></div>
+  <div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-inner">
+        <div class="sb-label">📚 Módulos</div>
+        <a href="../conceitos/" class="sb-module">💡 Conceitos Essenciais</a>
+        <div class="sb-topics"></div>
+        <a href="../como-funciona/" class="sb-module">⚙️ Como a IA Funciona</a>
+        <div class="sb-topics"></div>
+        <a href="../regulamentacao/" class="sb-module active">⚖️ Regulamentação</a>
+        <div class="sb-topics open">
+          <a href="./principios.html" class="sb-topic">Princípios Fundamentais</a>
+          <a href="./uso-ia-generativa.html" class="sb-topic">Uso de IA Generativa</a>
+          <a href="./responsabilidade.html" class="sb-topic">Responsabilidade Profissional</a>
+          <a href="./comite.html" class="sb-topic active">Comitê Nacional de IA</a>
+        </div>
+        <a href="../engenharia-de-prompts/" class="sb-module">✍️ Engenharia de Prompts</a>
+        <div class="sb-topics"></div>
+                <hr class="sb-divider">
+        <div class="sb-label">🛠️ Oficinas Práticas</div>
+        <a href="../../oficinas/oficina-01-primeiro-contato.html" class="sb-oficina-item"><span class="sb-num">01</span>Primeiro Contato</a>
+        <a href="../../oficinas/oficina-02-notebooklm-fundamentos.html" class="sb-oficina-item"><span class="sb-num">02</span>NotebookLM — Fundamentos</a>
+        <a href="../../oficinas/oficina-03-relatorio-eventos.html" class="sb-oficina-item"><span class="sb-num">03</span>NotebookLM — Relatório de Eventos</a>
+        <a href="../../oficinas/oficina-04-notebooklm-videos.html" class="sb-oficina-item"><span class="sb-num">04</span>NotebookLM — Vídeos como Fontes</a>
+        <a href="../../oficinas/oficina-05-gemini-ferramentas.html" class="sb-oficina-item"><span class="sb-num">05</span>Gemini nas Ferramentas do Google</a>
+        <a href="../../oficinas/oficina-06-gemini-canvas.html" class="sb-oficina-item"><span class="sb-num">06</span>Uso do Canvas no Gemini</a>
+        <a href="../../oficinas/oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
+        <a href="../../oficinas/oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
+        <a href="../../oficinas/oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
+        <a href="../../oficinas/oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
+        <a href="../../oficinas/oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
+        <a href="../../oficinas/oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
+      </div>
+      <div class="sb-footer"><a href="../../index.html">↩ Início do curso</a></div>
+    </aside>
+
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+    <main class="main-content">
+
+      <section class="page-hero-compact">
+        <div class="topic-eyebrow">⚖️ Regulamentação · Tópico 04 de 04</div>
+        <h1>Comitê Nacional de IA do Judiciário</h1>
+        <p>Composição, competências e o resumo final do que você pode e não pode fazer — síntese prática para consulta.</p>
+      </section>
+
+      <nav class="breadcrumb">
+        <a href="../../index.html">Início</a><span class="sep">›</span>
+        <a href="../">Módulos</a><span class="sep">›</span>
+        <a href="../regulamentacao/">Regulamentação</a><span class="sep">›</span>
+        <span class="current">Comitê Nacional de IA</span>
+      </nav>
+
+      <div class="page-body">
+
+        <!-- 1. O que é o Comitê -->
+        <div class="topic-section">
+          <div class="section-heading" id="o-que-e">
+            <span class="section-num">1</span>
+            <h2>O que é o Comitê Nacional de IA</h2>
+          </div>
+          <p>A Resolução 615/2025 não apenas estabeleceu regras — ela criou um órgão permanente para fazer essas regras evoluírem junto com a tecnologia. O <strong>Comitê Nacional de Inteligência Artificial do Judiciário</strong> é composto por <strong>14 membros titulares</strong> e tem papel central na governança de IA em todo o Poder Judiciário brasileiro.</p>
+
+          <div class="callout callout-info">
+            <div class="callout-title">💡 Por que o Comitê importa para você</div>
+            <p>As regras da Resolução 615/2025 serão atualizadas pelo Comitê. A classificação de riscos muda anualmente. O que é "baixo risco" hoje pode ser reclassificado. Manter-se informado sobre as publicações do Comitê é parte do dever de capacitação contínua exigido pela própria Resolução.</p>
+          </div>
+        </div>
+
+        <!-- 2. Composição -->
+        <div class="topic-section">
+          <div class="section-heading" id="composicao">
+            <span class="section-num">2</span>
+            <h2>Composição</h2>
+          </div>
+
+          <div class="composicao-grid">
+            <div class="composicao-card">
+              <div class="composicao-icon">⚖️</div>
+              <h4>Magistrados</h4>
+              <p>Conselheiros CNJ, juízes auxiliares e desembargadores com voto deliberativo.</p>
+            </div>
+            <div class="composicao-card">
+              <div class="composicao-icon">👥</div>
+              <h4>Atores do Sistema</h4>
+              <p>Servidores, Ministério Público e Defensoria Pública — com voz, sem voto.</p>
+            </div>
+            <div class="composicao-card">
+              <div class="composicao-icon">🎓</div>
+              <h4>Especialistas</h4>
+              <p>Representantes da sociedade civil com expertise em IA, tecnologia e direitos humanos.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Competências -->
+        <div class="topic-section">
+          <div class="section-heading" id="competencias">
+            <span class="section-num">3</span>
+            <h2>Principais Competências (Art. 16)</h2>
+          </div>
+
+          <ul>
+            <li>Atualizar a classificação de riscos <strong>anualmente</strong> — refletindo o estado da arte das tecnologias</li>
+            <li>Estabelecer normas de governança, transparência e auditoria para sistemas de IA</li>
+            <li>Avaliar uso de ferramentas de mercado (ChatGPT, Claude, Gemini, etc.) no contexto judicial</li>
+            <li>Determinar auditorias e monitoramento de soluções de IA em produção</li>
+            <li>Criar protocolos técnicos padronizados para adoção segura de IA</li>
+            <li>Elaborar <strong>manual de boas práticas</strong> (Art. 19, §4º) para uso de IA generativa pelos servidores</li>
+          </ul>
+
+          <div class="callout callout-info">
+            <div class="callout-title">📚 Para saber mais</div>
+            <p>Texto completo da <a href="https://atos.cnj.jus.br/files/original1555302025031467d4517244566.pdf" target="_blank">Resolução CNJ nº 615/2025</a>. Acompanhe também as publicações do Comitê Nacional de IA no portal do CNJ para diretrizes atualizadas e o manual de boas práticas quando publicado.</p>
+          </div>
+        </div>
+
+        <!-- 4. Resumo final -->
+        <div class="topic-section">
+          <div class="section-heading" id="resumo">
+            <span class="section-num">4</span>
+            <h2>Resumo final: o que você precisa saber</h2>
+          </div>
+          <p>Use este quadro como referência rápida sempre que tiver dúvida sobre o uso de IA no seu trabalho:</p>
+
+          <div class="resumo-final">
+            <div class="resumo-col resumo-pode">
+              <h3>✅ PODE</h3>
+              <ul>
+                <li>Usar IA generativa como ferramenta de apoio ao trabalho</li>
+                <li>Gerar rascunhos, pesquisar legislação, estruturar argumentos</li>
+                <li>Usar em tarefas de baixo risco (BR1 a BR8) com supervisão</li>
+                <li>Ser informado quando IA for usada em seus processos</li>
+                <li>Acessar relatórios de auditoria e questionar resultados</li>
+                <li>Usar dados anonimizados em ferramentas externas de IA</li>
+              </ul>
+            </div>
+            <div class="resumo-col resumo-naopode">
+              <h3>❌ NÃO PODE</h3>
+              <ul>
+                <li>Inserir dados sigilosos em IA externa sem anonimização prévia</li>
+                <li>Usar IA para valorar provas ou aplicar normas sem supervisão adequada</li>
+                <li>Confiar cegamente em jurisprudência ou legislação citada por IA</li>
+                <li>Copiar e colar conteúdo sem revisão técnica criteriosa</li>
+                <li>Delegar decisões finais à IA — a responsabilidade é sempre sua</li>
+                <li>Usar ferramentas que armazenam dados institucionais para treino de modelos sem autorização</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="callout callout-warning">
+            <div class="callout-title">⚠️ Lembre-se sempre</div>
+            <p>Capacitação sobre IA é <strong>obrigatória e contínua</strong>. A Resolução 615/2025 será atualizada pelo Comitê Nacional — mantenha-se informado. A IA é ferramenta, não substituta do servidor. A responsabilidade final é, e sempre será, sua.</p>
+          </div>
+        </div>
+
+        <div class="topic-nav">
+          <a href="./responsabilidade.html" class="btn btn-secondary">← Anterior: Responsabilidade Profissional</a>
+          <a href="../engenharia-de-prompts/" class="btn btn-primary">Próximo módulo: Engenharia de Prompts →</a>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-placeholder"></div>
+  <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">☰</button>
+
+  <script src="../../../js/auth.js"></script>
+  <script src="../../js/utils.js"></script>
+  <script src="../../js/main.js"></script>
+  <script>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('open'); document.getElementById('sidebarOverlay').classList.toggle('open'); }
+    function closeSidebar() { document.getElementById('sidebar').classList.remove('open'); document.getElementById('sidebarOverlay').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSidebar(); });
+  </script>
+</body>
+</html>
