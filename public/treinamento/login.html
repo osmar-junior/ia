@@ -591,11 +591,11 @@
 
     const root = getTreinamentoRoot();
 
-    // Agrupar por curso (pode ter múltiplas turmas no mesmo curso)
+    // Agrupar por turma — cada turma tem sua própria subpasta (= código da turma)
     const cursoMap = {};
     acessos.forEach(a => {
-      if (!cursoMap[a.subpasta]) cursoMap[a.subpasta] = { curso: a.curso, subpasta: a.subpasta, turmas: [] };
-      cursoMap[a.subpasta].turmas.push(a);
+      if (!cursoMap[a.turma]) cursoMap[a.turma] = { curso: a.curso, subpasta: a.turma, turmas: [] };
+      cursoMap[a.turma].turmas.push(a);
     });
     const cursosUnicos = Object.values(cursoMap);
 
