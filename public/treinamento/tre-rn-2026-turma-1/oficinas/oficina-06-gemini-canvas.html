@@ -116,9 +116,6 @@
         <a href="./oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
         <a href="./oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
         <a href="./oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
-        <a href="./oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
-        <a href="./oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
-        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
       </div>
       <div class="sb-footer"><a href="../index.html">↩ Início do curso</a></div>
     </aside>
@@ -127,7 +124,7 @@
     <main class="main-content">
         <div class="oficina-hero-header">
     <div class="oficina-hero">
-      <div class="oficina-badge">⚡ Oficina 06 de 12</div>
+      <div class="oficina-badge">⚡ Oficina 06 de 9</div>
       <h1>Gemini com Workspace — Uso do Canvas</h1>
       <p class="oficina-desc">Descubra o Canvas do Gemini: um espaço de trabalho visual para gerar, editar e transformar textos. Ajuste tamanho e tom, crie páginas web e infográficos, e exporte para o Google Documentos.</p>
       <div class="oficina-meta">
@@ -153,15 +150,13 @@
         <h3>Gerando um texto com Canvas</h3>
         <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Abra o Gemini ↗</a></div><div class="tool-hint">Inicie um novo chat. Em <strong>"Ferramentas"</strong>, ative a opção <strong>"Canvas"</strong>.</div></div></div>
 
-        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Texto institucional com Canvas (RCTS+E)</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um consultor especialista na adoção de IA por órgãos públicos.
+        <div class="prompt-box"><div class="prompt-box-label"><span>Prompt — Texto institucional com Canvas</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um consultor especialista na adoção de IA por órgãos públicos.
 
 [CONTEXT] O TRE-RN contratou o Google Workspace com Gemini e está capacitando seus servidores para utilização dos recursos de IA integrados.
 
 [TASK] Gere um documento apresentando as vantagens e diferenciais de negócio da utilização dos recursos de IA generativa por parte dos servidores do Tribunal. Inclua benefícios operacionais, ganhos de produtividade e impactos na prestação jurisdicional.
 
-[STYLE] Texto com estrutura de tópicos hierárquicos, aproximadamente 3000 caracteres, linguagem simples porém institucional.
-
-[EXAMPLE] Cada tópico deve ter um título curto e descritivo, seguido de 2-3 parágrafos de explicação com exemplos concretos do contexto judiciário.</div></div>
+[STYLE] Texto com estrutura de tópicos hierárquicos, aproximadamente 3000 caracteres, linguagem simples porém institucional. Cada tópico deve ter um título curto e descritivo, seguido de 2-3 parágrafos de explicação com exemplos concretos do contexto judiciário.</div></div>
 
         <h3>Explorando os recursos do Canvas</h3>
         <p>Com o texto gerado na área do Canvas, explore as ferramentas disponíveis:</p>
@@ -243,7 +238,7 @@
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>
-    const TOTAL=3,done=new Set();
+    const TOTAL=9,done=new Set();
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
     function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
   </script>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <style>html.page-revealed{visibility:visible}</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficina 01 — Primeiro Contato | Workshop IA TRE/RN</title>
+  <title>Oficina 01 — Primeiro Contato | Workshop IA — Versão Demo</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/responsive.css">
@@ -129,18 +129,18 @@
     </nav>
     <div class="oficina-body">
 
-    <div class="etapa" id="objetivos"><div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Objetivos e Preparação</h2></div></div><div class="etapa-body"><ul><li>Navegar e interagir com as 6 principais ferramentas de IA generativa</li><li>Identificar diferenças práticas entre respostas de cada ferramenta</li><li>Reconhecer pontos fortes e fracos para tarefas do TRE-RN</li><li>Usar o Perplexity como ferramenta de pesquisa com citação de fontes</li></ul><div class="material-apoio"><div class="material-icon">📋</div><div><h4>Checklist de Criação de Contas</h4><p>Certifique-se de que suas contas estão criadas em todas as ferramentas antes de começar.</p><a href="./checklist-contas.html" target="_blank" class="btn btn-sm btn-primary">Abrir Checklist ↗</a></div></div></div></div>
+    <div class="etapa" id="objetivos"><div class="etapa-header"><div class="etapa-num">📌</div><div><h2>Objetivos e Preparação</h2></div></div><div class="etapa-body"><ul><li>Navegar e interagir com as 4 principais ferramentas de IA generativa</li><li>Identificar diferenças práticas entre respostas de cada ferramenta</li><li>Reconhecer pontos fortes e fracos para tarefas do TRE-RN</li><li>Usar o Perplexity como ferramenta de pesquisa com citação de fontes</li></ul><div class="material-apoio"><div class="material-icon">📋</div><div><h4>Checklist de Criação de Contas</h4><p>Certifique-se de que suas contas estão criadas em todas as ferramentas antes de começar.</p><a href="./checklist-contas.html" target="_blank" class="btn btn-sm btn-primary">Abrir Checklist ↗</a></div></div></div></div>
 
     <!-- ETAPA 1 -->
     <div class="etapa" id="etapa1"><div class="etapa-header"><div class="etapa-num">01</div><div><h2>Redação Institucional: ChatGPT vs Claude</h2><div class="etapa-sub">Quem escreve melhor um ofício?</div></div></div><div class="etapa-body">
       <p>Vamos começar com algo que todo servidor faz: redigir documentos. Copie o prompt abaixo e execute-o no <strong>ChatGPT</strong> e no <strong>Claude</strong>.</p>
-      <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://chatgpt.com/" target="_blank">Envie para o ChatGPT ↗</a></div><div class="tool-hint">Cole o prompt e aguarde a resposta completa</div></div></div>
-      <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name"><a href="https://claude.ai/" target="_blank">Agora envie para o Claude ↗</a></div><div class="tool-hint">Cole o mesmo texto e compare</div></div></div>
       <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 1 — Redação institucional</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Atue como um servidor público experiente do Tribunal Regional Eleitoral do Rio Grande do Norte.
 
 [TASK] Redija um e-mail institucional para os servidores de todas as zonas eleitorais do RN, comunicando a abertura do período de recadastramento biométrico obrigatório para as eleições de 2026.
 
 [STYLE] Tom formal mas acolhedor, linguagem institucional acessível, máximo 3 parágrafos. Inclua: período (01/03 a 30/06/2026), locais (cartórios eleitorais), documentos necessários e consequência de não comparecer. Finalize com frase motivacional sobre a importância do voto.</div></div>
+      <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://chatgpt.com/" target="_blank">Envie para o ChatGPT ↗</a></div><div class="tool-hint">Cole o prompt e aguarde a resposta completa</div></div></div>
+      <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name"><a href="https://claude.ai/" target="_blank">Agora envie para o Claude ↗</a></div><div class="tool-hint">Cole o mesmo texto e compare</div></div></div>
       <div class="checkpoint"><div class="checkpoint-title">📝 O que você observou na redação?</div><div class="checkpoint-options">
         <button class="checkpoint-opt" onclick="selectCheckpoint(this,0)" data-tone="positive" data-msg="Ótima percepção! Você identificou uma das diferenças mais consistentes entre essas ferramentas. O ChatGPT tende a ser mais expressivo e florido na escrita, com frases que soam bem. O Claude prioriza precisão e estrutura, seguindo instruções com mais rigor — incluindo limites de parágrafos. No contexto do TRE-RN, para documentos que exigem fidelidade a formato, o Claude tende a ser mais confiável. Para redações criativas, o ChatGPT pode surpreender. Guarde essa percepção — ela vai te acompanhar em todas as oficinas.">ChatGPT mais criativo, Claude mais estruturado</button>
         <button class="checkpoint-opt" onclick="selectCheckpoint(this,0)" data-tone="positive" data-msg="Observação muito relevante para quem trabalha no Judiciário! O Claude geralmente é mais conservador com citações legais: ele evita inventar referências que não tem certeza. O ChatGPT pode fabricar artigos de lei com naturalidade assustadora. Regra de ouro: nunca confie em citações legais de nenhuma IA sem conferir. Mas saber que uma é mais cuidadosa que a outra já é uma vantagem enorme.">Claude citou melhor a fundamentação legal</button>
@@ -150,10 +150,8 @@
     </div></div>
 
     <!-- ETAPA 2 -->
-    <div class="etapa" id="etapa2"><div class="etapa-header"><div class="etapa-num">02</div><div><h2>Brainstorming Estratégico: Gemini vs Grok</h2><div class="etapa-sub">Quem gera ideias mais aplicáveis?</div></div></div><div class="etapa-body">
-      <p>Agora vamos testar ideias concretas. Execute o prompt no <strong>Gemini</strong> e no <strong>Grok</strong>.</p>
-      <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Envie para o Gemini ↗</a></div><div class="tool-hint">Observe a fundamentação das sugestões</div></div></div>
-      <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name"><a href="https://grok.com/" target="_blank">Envie para o Grok ↗</a></div><div class="tool-hint">Compare abordagem e detalhe</div></div></div>
+    <div class="etapa" id="etapa2"><div class="etapa-header"><div class="etapa-num">02</div><div><h2>Brainstorming Estratégico: Gemini vs Claude</h2><div class="etapa-sub">Quem gera ideias mais aplicáveis?</div></div></div><div class="etapa-body">
+      <p>Agora vamos testar ideias concretas. Execute o prompt no <strong>Gemini</strong> e no <strong>Claude</strong>.</p>
       <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 2 — Brainstorming estratégico</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">[ROLE] Consultor de inovação em gestão pública e transformação digital no Poder Judiciário.
 
 [CONTEXT] O TRE-RN está revisando seu planejamento estratégico e quer incorporar iniciativas de IA viáveis com recursos limitados e equipe enxuta.
@@ -161,28 +159,32 @@
 [TASK] Sugira 5 iniciativas concretas de uso de IA implementáveis em 12 meses. Para cada: nome, descrição (2 linhas), ferramenta sugerida, complexidade e impacto esperado.
 
 [STYLE] Formato tabela, linguagem objetiva, foco em viabilidade.</div></div>
+      <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Envie para o Gemini ↗</a></div><div class="tool-hint">Observe a fundamentação das sugestões</div></div></div>
+      <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name"><a href="https://claude.ai/" target="_blank">Agora envie para o Claude ↗</a></div><div class="tool-hint">Compare abordagem e nível de detalhe</div></div></div>
+
       <div class="checkpoint"><div class="checkpoint-title">💡 Qual ferramenta gerou sugestões mais aplicáveis?</div><div class="checkpoint-options">
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,1)" data-tone="positive" data-msg="O Gemini tem acesso à busca do Google — ele traz referências a ferramentas reais, projetos de outros tribunais e dados atualizados. É como pedir conselho a alguém que leu as últimas notícias versus alguém que leu um livro há dois anos. Para brainstorming com contexto atualizado, o Gemini entrega mais valor.">Gemini mais fundamentado</button>
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,1)" data-tone="positive" data-msg="O Grok tem esse perfil! Criado pela xAI, vai direto ao ponto sem firulas. Para brainstorming rápido, essa objetividade é vantagem: menos filtragem, mais ação. A desvantagem é pular detalhes. Use-o como colega que dá respostas no corredor, não como quem escreve o relatório final.">Grok mais direto e prático</button>
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,1)" data-tone="neutral" data-msg="Quando ambas ficam genéricas, o problema geralmente está no prompt. Adicione contexto: 'O TRE-RN tem 67 zonas eleitorais, equipe de TI de X pessoas, usa SEI'. Quanto mais contexto real, mais as respostas se diferenciam. Esse é o segredo da engenharia de prompts: contexto específico gera resultado específico!">Ambas genéricas</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,1)" data-tone="positive" data-msg="O Gemini tem acesso à busca do Google — ele traz referências a ferramentas reais, projetos de outros tribunais e dados atualizados. É como pedir conselho a alguém que leu as últimas notícias. Para brainstorming com contexto atual, o Gemini entrega mais valor.">Gemini mais contextualizado</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,1)" data-tone="positive" data-msg="O Claude se destaca em raciocínio estruturado: organiza as iniciativas com critérios claros e segue as instruções de formato com rigor. Para planejamentos que precisam de coerência interna e linguagem institucional precisa, o Claude tende a ir mais fundo em cada item.">Claude mais estruturado</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,1)" data-tone="neutral" data-msg="Quando ambas ficam genéricas, o problema geralmente está no prompt. Adicione contexto real: 'O TRE-RN tem 67 zonas eleitorais, equipe de TI de X pessoas, usa SEI'. Quanto mais contexto específico, mais as respostas se diferenciam. Esse é o segredo da engenharia de prompts!">Ambas genéricas</button>
       </div><div class="checkpoint-response" id="ckr-1"></div></div>
     </div></div>
 
     <!-- ETAPA 3 -->
-    <div class="etapa" id="etapa3"><div class="etapa-header"><div class="etapa-num">03</div><div><h2>Raciocínio Lógico: ChatGPT vs DeepSeek</h2><div class="etapa-sub">Quem pensa melhor?</div></div></div><div class="etapa-body">
-      <p>Este prompt contém uma pegadinha lógica. Execute no <strong>ChatGPT</strong> e no <strong>DeepSeek</strong>.</p>
-      <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://chatgpt.com/" target="_blank">Envie para o ChatGPT ↗</a></div><div class="tool-hint">Observe se identifica a inconsistência</div></div></div>
-      <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name"><a href="https://chat.deepseek.com/" target="_blank">Envie para o DeepSeek ↗</a></div><div class="tool-hint">Compare o raciocínio</div></div></div>
+    <div class="etapa" id="etapa3"><div class="etapa-header"><div class="etapa-num">03</div><div><h2>Raciocínio Lógico: ChatGPT vs Gemini</h2><div class="etapa-sub">Quem pensa melhor?</div></div></div><div class="etapa-body">
+      <p>Este prompt contém uma pegadinha lógica. Execute no <strong>ChatGPT</strong> e no <strong>Gemini</strong>.</p>
       <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 3 — Raciocínio lógico</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Pense passo a passo antes de responder.
 
 Uma zona eleitoral tem 15.000 eleitores cadastrados. Na última eleição, 12.000 compareceram para votar. Desses, 9.500 votaram no candidato A, 4.200 no candidato B, e 800 votaram em branco ou nulo.
 
 A soma dos votos confere? Se não, o que está errado? Calcule a abstenção real e o percentual de votos válidos de cada candidato.</div></div>
+      <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://chatgpt.com/" target="_blank">Envie para o ChatGPT ↗</a></div><div class="tool-hint">Observe se identifica a inconsistência</div></div></div>
+      <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name"><a href="https://gemini.google.com/" target="_blank">Agora envie para o Gemini ↗</a></div><div class="tool-hint">Compare o raciocínio passo a passo</div></div></div>
+
       <div class="callout callout-info"><div class="callout-title">🧩 A pegadinha</div><p>9.500 + 4.200 + 800 = 14.500, mas apenas 12.000 compareceram. Os números não fecham!</p></div>
       <div class="checkpoint"><div class="checkpoint-title">🧮 Quem raciocinou melhor?</div><div class="checkpoint-options">
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="positive" data-msg="O DeepSeek foi construído com ênfase em raciocínio lógico-matemático (modelo R1). Não surpreende que identifique inconsistências com clareza. Para tarefas com cálculos ou dados eleitorais, ter uma segunda ferramenta para conferir salva de erros sérios. ⚠️ Lembre: DeepSeek tem servidores na China — nunca envie dados sensíveis do TRE-RN.">DeepSeek pegou, ChatGPT não</button>
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="positive" data-msg="Os modelos recentes melhoraram bastante! O 'Pense passo a passo' (chain-of-thought prompting) provavelmente ajudou — força raciocínio sequencial. Anote: sempre use essa técnica em prompts com cálculos. É como pedir ao colega 'não responda de cabeça, calcula direito'.">ChatGPT acertou, DeepSeek errou</button>
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="positive" data-msg="Excelente! O prompt bem construído com 'Pense passo a passo' nivelou. Para verificar dados eleitorais, calcular metas ou conferir indicadores no TRE-RN, essa técnica é o diferencial entre resposta confiável e erro em relatório oficial.">Ambos acertaram</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="positive" data-msg="Interessante! O Gemini às vezes se apoia na busca para confirmar conceitos matemáticos, o que pode ajudar na identificação de inconsistências. O 'Pense passo a passo' é a chave: força raciocínio sequencial em vez de resposta imediata. Anote essa técnica para qualquer cálculo eleitoral ou conferência de dados.">Gemini pegou, ChatGPT não</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="positive" data-msg="Os modelos recentes melhoraram bastante no raciocínio! O 'Pense passo a passo' (chain-of-thought prompting) provavelmente ajudou — força raciocínio sequencial. Anote: sempre use essa técnica em prompts com cálculos. É como pedir ao colega 'não responda de cabeça, calcula direito'.">ChatGPT acertou, Gemini não</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="positive" data-msg="Excelente! O prompt bem construído com 'Pense passo a passo' nivelou os dois. Para verificar dados eleitorais, calcular metas ou conferir indicadores no TRE-RN, essa técnica é o diferencial entre resposta confiável e erro em relatório oficial.">Ambos acertaram</button>
         <button class="checkpoint-opt" onclick="selectCheckpoint(this,2)" data-tone="encouraging" data-msg="Isso demonstra por que a revisão humana é obrigatória — nunca opcional. Nunca confie cegamente em números de IA. A boa notícia: você percebeu o erro, seu senso crítico está afiado! Dica: aponte o erro diretamente ('Os votos somam 14.500 mas só 12.000 compareceram') e a IA se corrige.">Nenhum percebeu</button>
       </div><div class="checkpoint-response" id="ckr-2"></div></div>
     </div></div>
@@ -190,12 +192,13 @@ A soma dos votos confere? Se não, o que está errado? Calcule a abstenção rea
     <!-- ETAPA 4 -->
     <div class="etapa" id="etapa4"><div class="etapa-header"><div class="etapa-num">04</div><div><h2>Pesquisa com Fontes: O Superpoder do Perplexity</h2><div class="etapa-sub">Quando precisa de fontes, não de achismo</div></div></div><div class="etapa-body">
       <p>O Perplexity <strong>pesquisa a web em tempo real e cita as fontes</strong>. Fundamental para pesquisa jurídica.</p>
-      <div class="tool-instruction"><div class="tool-icon">🔍</div><div><div class="tool-name"><a href="https://www.perplexity.ai/" target="_blank">Envie para o Perplexity ↗</a></div><div class="tool-hint">Observe as fontes com links clicáveis</div></div></div>
       <div class="prompt-box"><div class="prompt-box-label"><span>Prompt 4 — Pesquisa jurídica</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Quais são as principais obrigações dos Tribunais Regionais Eleitorais brasileiros quanto ao uso de Inteligência Artificial, de acordo com a Resolução CNJ nº 615/2025?
 
 Liste as obrigações mais relevantes, indicando o artigo correspondente, e informe se já existem tribunais que publicaram regulamentação complementar própria.
 
 Cite todas as fontes consultadas.</div></div>
+      <div class="tool-instruction"><div class="tool-icon">🔍</div><div><div class="tool-name"><a href="https://www.perplexity.ai/" target="_blank">Envie para o Perplexity ↗</a></div><div class="tool-hint">Observe as fontes com links clicáveis</div></div></div>
+      
       <div class="callout callout-info"><div class="callout-title">💡 Agora envie o mesmo prompt para o ChatGPT</div><p>Compare: o Perplexity trouxe fontes verificáveis? O ChatGPT citou artigos reais? Qual usaria para embasar um parecer?</p></div>
       <div class="checkpoint"><div class="checkpoint-title">🔍 Qual a grande vantagem do Perplexity?</div><div class="checkpoint-options">
         <button class="checkpoint-opt" onclick="selectCheckpoint(this,3)" data-tone="neutral" data-msg="Texto bem escrito o ChatGPT e o Claude fazem tão bem quanto. A revolução do Perplexity é outra: ele mostra de onde tirou cada informação, com links clicáveis. No TRE-RN, onde você precisa fundamentar pareceres com legislação real, isso é a diferença entre documento confiável e alucinação disfarçada. Clique nos links que o Perplexity forneceu — você vai entender imediatamente.">Texto melhor escrito</button>
@@ -211,14 +214,12 @@ Cite todas as fontes consultadas.</div></div>
         <tr><td><strong>Claude</strong></td><td>Estrutura e precisão</td><td>Análise de documentos</td></tr>
         <tr><td><strong>Gemini</strong></td><td>Dados atualizados</td><td>Pesquisa contextualizada</td></tr>
         <tr><td><strong>Perplexity</strong></td><td>Fontes verificáveis</td><td>Pesquisa jurídica</td></tr>
-        <tr><td><strong>Grok</strong></td><td>Respostas diretas</td><td>Consultas rápidas</td></tr>
-        <tr><td><strong>DeepSeek</strong></td><td>Raciocínio lógico</td><td>Dados (⚠️ privacidade)</td></tr>
       </tbody></table></div>
       <div class="checkpoint"><div class="checkpoint-title">🏆 Se pudesse escolher 2 ferramentas para o dia a dia no TRE-RN?</div><div class="checkpoint-options">
         <button class="checkpoint-opt" onclick="selectCheckpoint(this,4)" data-tone="positive" data-msg="Combinação clássica! ChatGPT para redigir com fluência, Perplexity para pesquisar com fontes. Cobre 80% das demandas cotidianas, ambas com versões gratuitas competentes. Nas próximas oficinas, o NotebookLM entra no arsenal — e o jogo muda de nível.">ChatGPT + Perplexity</button>
         <button class="checkpoint-opt" onclick="selectCheckpoint(this,4)" data-tone="positive" data-msg="Escolha de profundidade! Claude é excepcional para documentos longos, Perplexity complementa com pesquisa em tempo real. Para pareceres e análises de normas, difícil bater. O NotebookLM se integra perfeitamente com essa dupla.">Claude + Perplexity</button>
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,4)" data-tone="positive" data-msg="Prática! Se vive no ecossistema Google, o Gemini se integra nativamente. ChatGPT complementa em redação criativa. Só adicione o Perplexity quando precisar de fontes jurídicas — é insubstituível para isso.">Gemini + ChatGPT</button>
-        <button class="checkpoint-opt" onclick="selectCheckpoint(this,4)" data-tone="positive" data-msg="Não existe resposta errada! A melhor combinação é a que resolve seus problemas reais. Agora você tem repertório para escolher com propriedade. Recomendação: uma para redação (ChatGPT/Claude), uma para pesquisa (Perplexity), e NotebookLM nas próximas oficinas. Tridente poderoso!">Outra combinação</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,4)" data-tone="positive" data-msg="Prática! Se vive no ecossistema Google, o Gemini se integra nativamente ao Gmail, Drive e Docs. Só adicione o Perplexity quando precisar de fontes jurídicas — é insubstituível para isso.">Gemini + Perplexity</button>
+        <button class="checkpoint-opt" onclick="selectCheckpoint(this,4)" data-tone="positive" data-msg="Não existe resposta errada! A melhor combinação é a que resolve seus problemas reais. Agora você tem repertório para escolher com propriedade. Recomendação: uma para redação (ChatGPT ou Claude), uma para pesquisa (Perplexity), e NotebookLM nas próximas oficinas.">Outra combinação</button>
       </div><div class="checkpoint-response" id="ckr-4"></div></div>
       <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 02 — NotebookLM Fundamentos</strong>, você vai carregar documentos do TRE-RN e fazer a IA cruzar informações entre múltiplos arquivos.</p></div>
     </div></div>
@@ -230,7 +231,6 @@ Cite todas as fontes consultadas.</div></div>
     </main>
   </div><!-- layout -->
   <div id="footer-placeholder"></div>
-  <script src="../../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>

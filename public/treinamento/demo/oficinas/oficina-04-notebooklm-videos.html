@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <style>html.page-revealed{visibility:visible}</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficina 04 — Vídeos como Fontes | Workshop IA TRE/RN</title>
+  <title>Oficina 04 — Vídeos como Fontes | Workshop IA — Versão Demo</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/responsive.css">
@@ -170,7 +170,7 @@
 
         <div class="callout callout-success">
           <div class="callout-title">🎯 Escolhendo uma Sessão Plenária</div>
-          <p>Acesse o <a href="https://www.youtube.com/@justicaeleitoralrn" target="_blank">canal do TRE-RN</a> e escolha o vídeo de uma Sessão Plenária recente. Copie a URL completa do vídeo (ex: <code>https://www.youtube.com/watch?v=XXXXX</code>). Prefira sessões com duração entre 30 minutos e 2 horas para melhores resultados na primeira tentativa.</p>
+          <p>Acesse o <a href="https://www.youtube.com/@justicaeleitoralrn" target="_blank">canal do TRE-RN</a> e escolha o vídeo de uma Sessão Plenária recente. Copie a URL completa do vídeo (ex: <code>https://www.youtube.com/watch?v=XXXXX</code>). Prefira sessões com duração de até 3 horas para melhores resultados na primeira tentativa.</p>
         </div>
       </div>
     </div>
@@ -181,7 +181,7 @@
       <div class="etapa-body">
         <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></div><div class="tool-hint">Crie um novo caderno chamado <strong>"Sessão Plenária TRE-RN"</strong></div></div></div>
         <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Adicione o vídeo como fonte</div><div class="tool-hint">Clique em <strong>"Adicionar fonte" → "YouTube"</strong> e cole a URL do vídeo da Sessão Plenária que você escolheu</div></div></div>
-        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Verifique a transcrição</div><div class="tool-hint">Clique na fonte adicionada e confira se a transcrição foi extraída corretamente. Observe os timestamps.</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Verifique a transcrição</div><div class="tool-hint">Clique na fonte adicionada e confira a transcrição automática que foi extraída do vídeo.</div></div></div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📺 Vídeo importado e transcrição disponível?</div>
@@ -206,15 +206,16 @@
 [CONTEXT] A fonte fornecida é o vídeo de uma Sessão do Pleno do TRE-RN, disponibilizada no YouTube. O público-alvo do relatório são servidores e gestores do Tribunal que não puderam acompanhar a sessão ao vivo.
 
 [TASK] Gere um relatório estruturado da Sessão Plenária contendo:
-a) Identificação da sessão: data, tipo (ordinária/extraordinária) e composição da mesa (se identificável).
+a) Identificação da sessão: data, tipo (ordinária/extraordinária) e composição da mesa (utilizando os cargos oficiais listados no contexto).
 b) Pauta: lista dos processos e temas deliberados, na ordem em que foram tratados.
-c) Síntese das deliberações: para cada processo ou tema, inclua número do processo, relator(a), resumo do caso, argumentos principais, resultado da votação e eventuais destaques.
+c) Síntese das deliberações: para cada processo ou tema, inclua número do processo, relator(a) com a devida qualificação (Cargo Oficial), resumo do caso, argumentos principais, resultado da votação e eventuais destaques.
 d) Decisões administrativas: comunicações, informes ou providências administrativas tratadas na sessão.
 e) Destaques e observações: debates relevantes, divergências significativas ou temas que mereçam acompanhamento.
 
-[STYLE] Linguagem técnico-jurídica acessível, terceira pessoa, parágrafos objetivos. Usar numeração para os processos e estrutura hierárquica (H1, H2, H3). Evitar redundâncias e travessões.
+[STYLE] Linguagem técnico-jurídica acessível, terceira pessoa, parágrafos objetivos. Formatação em markdown, hierárquica. Usar quebras de linhas entre as seções e subseções para garantir legibilidade. Evitar redundâncias e travessões.
 
-[EXAMPLE] Para cada processo: "O Processo nº XXXX, relatado pelo(a) Desembargador(a) [Nome], tratou de [tema]. O relator apresentou voto no sentido de [decisão]. O Pleno, por unanimidade/maioria, decidiu [resultado]."</div></div>
+[EXAMPLE] Para cada processo:
+"1.1. Processo nº XXXX: Relatado pelo(a) [Cargo Oficial - Ex: Juíza de Direito] [Nome], tratou de [tema]. O(A) relator(a) apresentou voto no sentido de [decisão]. O Pleno, por unanimidade/maioria, decidiu [resultado]."</div></div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📋 O relatório identificou processos e decisões?</div>
@@ -297,14 +298,15 @@ e) Destaques e observações: debates relevantes, divergências significativas o
 
         <h3>Sugestões contextualizadas para o Estúdio</h3>
         <ul>
-          <li><strong>Resumo em Áudio (formato Resumo, 5 min):</strong> Gere um podcast com os destaques da sessão. Perfeito para gestores que precisam se atualizar rapidamente sobre as deliberações sem assistir ao vídeo inteiro.</li>
+          <li><strong>Resumo em Áudio (formato Resumo):</strong> Gere um podcast com os destaques da sessão. Perfeito para gestores que precisam se atualizar rapidamente sobre as deliberações sem assistir ao vídeo inteiro.</li>
           <li><strong>Resumo em Vídeo (estilo Clássico):</strong> Crie um vídeo resumo visual da sessão para publicação na intranet ou redes sociais do TRE-RN.</li>
           <li><strong>Mapa Mental:</strong> Visualize as conexões entre os processos tratados, identificando temas recorrentes e relações entre deliberações.</li>
-          <li><strong>Relatório → Documento de Resumo:</strong> Uma síntese executiva de 1 página da sessão, ideal para encaminhar à presidência ou publicar em boletim informativo.</li>
-          <li><strong>Cartões de Estudo (8 cards, nível médio):</strong> Personalize com "Foque nas decisões tomadas e seus fundamentos jurídicos". Útil para capacitação de servidores recém-empossados sobre jurisprudência do tribunal.</li>
-          <li><strong>Teste (5 questões):</strong> Personalize com "Questões sobre as deliberações, os votos dos magistrados e os fundamentos apresentados". Material de estudo para assessores.</li>
-          <li><strong>Apresentação de Slides (detalhada):</strong> "Apresentação de 10 minutos para reunião de coordenadoria sobre as principais decisões da última Sessão Plenária".</li>
-          <li><strong>Tabela de Dados:</strong> "Tabela consolidando: processo, relator, tema, resultado, fundamento principal".</li>
+          <li><strong>Relatório (Documento de Resumo):</strong> Uma síntese executiva de 1 página da sessão, ideal para encaminhar à presidência ou publicar em boletim informativo.</li>
+          <li><strong>Cartões de Estudo:</strong> Personalize com <i>"Foque nas decisões tomadas e seus fundamentos jurídicos"</i>. Útil para capacitação de servidores recém-empossados sobre jurisprudência do tribunal.</li>
+          <li><strong>Teste:</strong> Personalize com <i>"Questões sobre as deliberações, os votos dos magistrados e os fundamentos apresentados"</i>. Material de estudo para assessores.</li>
+          <li><strong>Apresentação de Slides:</strong> "Apresentação para reunião de coordenadoria sobre as principais decisões da última Sessão Plenária".</li>
+          <li><strong>Infográfico:</strong> Resumo esquematizado dos principais temas tratados no vídeo.</li>
+          <li><strong>Tabela de Dados:</strong> Tabela consolidando: processo, relator, tema, resultado, fundamento principal.</li>
         </ul>
 
         <div class="checkpoint">
@@ -431,7 +433,6 @@ d) Volume e complexidade: comparar a quantidade de processos e o tempo dedicado 
   </div><!-- layout -->
 
   <div id="footer-placeholder"></div>
-  <script src="../../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>

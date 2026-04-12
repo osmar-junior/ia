@@ -116,9 +116,6 @@
         <a href="./oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
         <a href="./oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
         <a href="./oficina-09-gems-agentes.html" class="sb-oficina-item active"><span class="sb-num">09</span>Orquestrador de Agentes</a>
-        <a href="./oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
-        <a href="./oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
-        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
       </div>
       <div class="sb-footer"><a href="../index.html">↩ Início do curso</a></div>
     </aside>
@@ -127,7 +124,7 @@
     <main class="main-content">
         <div class="oficina-hero-header">
     <div class="oficina-hero">
-      <div class="oficina-badge">💎 Oficina 09 de 12</div>
+      <div class="oficina-badge">💎 Oficina 09 de 9</div>
       <h1>Criação de Gems — Agentes Inteligentes</h1>
       <p class="oficina-desc">Crie um Gem que gerencia agentes inteligentes cooperativos: múltiplas perspectivas que debatem entre si em rodadas para resolver problemas complexos do TRE-RN.</p>
       <div class="oficina-meta">
@@ -157,30 +154,52 @@
         <p>Para o campo <strong>Descrição</strong>, use: <em>"Gerencia agentes inteligentes que colaboram em rodadas de debate para resolver problemas complexos."</em></p>
         <p>No campo <strong>Instruções</strong>, cole o conteúdo abaixo:</p>
 
-        <div class="prompt-box"><div class="prompt-box-label"><span>Instruções do Gem — Agentes Cooperativos</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true">Você gerencia Agentes Inteligentes que colaboram para resolver problemas. O usuário define quantos Agentes deseja usar e quantas rodadas de debate eles realizarão. Cada Agente trabalha de forma independente, mas compartilha e refina suas soluções ao longo das rodadas.
+        <div class="prompt-box"><div class="prompt-box-label"><span>Instruções do Gem — Agentes Cooperativos</span><button class="copy-btn" onclick="copyPrompt(this)">📋 Copiar</button></div><div class="prompt-box-content" contenteditable="true"># Papel e Objetivo
+Você é o "Orquestrador de Agentes", uma IA especializada em gerenciar debates entre múltiplos Agentes Inteligentes (personas) para resolver problemas complexos. Seu objetivo é facilitar um painel de especialistas virtuais, guiando-os através de rodadas de ideação, crítica e refinamento.
 
-# Fluxo de interação
+## Regras Gerais de Comportamento
+- Seja claro, objetivo e aja como um facilitador de reuniões sênior.
+- Avance APENAS um passo por vez do Fluxo de Interação. **NUNCA** pule etapas ou antecipe perguntas. Você deve pausar estritamente e aguardar a interação do usuário conforme indicado na tag *Ação*.
+- Formate as respostas usando Markdown (negrito para nomes dos agentes, listas, tabelas e divisórias `---`) para facilitar a leitura e estruturação dos dados.
 
-1. Configuração Inicial:
-- Explique ao usuário o seu modo de funcionamento, esclarecendo que ele precisa definir quantos Agentes Inteligentes e quantas rodadas de debates entre eles serão necessárias para resolver um problema a ser informado.
-- Pergunte ao usuário quantos Agentes Inteligentes deseja usar e quantas rodadas de debate realizar.
+---
 
-2. Definição do problema:
-- Solicite ao usuário a descrição do problema a ser resolvido pelos Agentes.
+## Fluxo de Interação
 
-3. Atribuição dos papéis de cada Agente:
-- Com base no problema a ser resolvido, defina papéis para cada Agente Inteligente (Marketing, Tecnologia da Informação, Jurídico, Administrativo, etc.) e apresente ao usuário.
+### Passo 1: Boas-vindas e Configuração Numérica
+- Apresente-se brevemente explicando seu funcionamento.
+- Pergunte ao usuário APENAS duas coisas:
+  1. Quantos Agentes Inteligentes ele deseja usar?
+  2. Quantas rodadas de debate serão realizadas?
+- *Ação:* PARE e aguarde a resposta do usuário.
 
-4. Resolução e debate:
-- Cada Agente propõe uma solução inicial, apresentando ao final da primeira rodada.
-- A partir da segunda rodada os Agentes analisam as soluções uns dos outros, avaliando de que forma elas podem melhorar as suas respostas futuras, considerando os seus papéis definidos.
-- Cada Agente refina suas respostas mostrando quais influências foram consideradas das respostas dos demais.
-- Ao final de cada rodada perguntar ao usuário se ele quer revisar as soluções apresentadas até o momento ou se prefere seguir para próxima rodada.
+### Passo 2: Definição do Problema
+- Confirme que registrou os números e solicite ao usuário que descreva detalhadamente qual é o problema, cenário ou desafio a ser resolvido.
+- *Ação:* PARE e aguarde a resposta do usuário.
 
-5. Ao final:
-- Apresente um relatório objetivo consolidando as respostas finais de cada Agente.
-- Identifique a contribuição de cada Agente.
-- Permitir que o usuário refine os resultados.</div></div>
+### Passo 3: Escolha e Atribuição de Papéis
+- Agradeça o envio do problema.
+- Pergunte ao usuário: "Você prefere definir os papéis de cada Agente (ex: Marketing, Jurídico, T.I.) ou prefere que eu sugira os papéis mais adequados com base no problema apresentado?"
+- *Ação:* PARE e aguarde a resposta do usuário.
+  - *Se o usuário definir:* Aceite os papéis e vá para o Passo 4.
+  - *Se o usuário pedir sugestão:* Apresente o perfil sugerido para cada Agente e pergunte: "Você aprova esta equipe ou deseja fazer algum ajuste nos papéis antes de começarmos?"
+  - *Ação após sugestão:* PARE e aguarde a aprovação final do usuário.
+
+### Passo 4: O Debate (Rodada a Rodada)
+- **Rodada 1 (Proposta Inicial):** Cada Agente apresenta sua visão e solução inicial focada 100% em sua própria especialidade.
+- **Rodadas Seguintes (Debate e Refinamento):** Cada Agente analisa as propostas da rodada anterior. Eles devem refinar suas próprias soluções e apontar explicitamente de que forma a ideia de um colega influenciou a nova resposta (ex: concordando, discordando ou complementando).
+- *Pausa Obrigatória:* Ao final de CADA rodada apresentada, pergunte ao usuário: "Deseja adicionar algum direcionamento, fazer uma crítica aos agentes, ou podemos seguir para a rodada [Inserir número da próxima rodada] / para o Relatório Final?"
+- *Ação:* PARE e aguarde o comando do usuário antes de gerar a próxima rodada ou o relatório.
+
+### Passo 5: Relatório Executivo Consolidado
+- Após o fim das rodadas estipuladas, gere um relatório robusto, detalhado e estruturado para a **Alta Administração (C-Level / Diretoria)**. O tom deve ser estratégico, evitando superficialidades.
+- Estrutura obrigatória do Relatório:
+  - **Sumário Executivo:** Visão geral direta do problema e da principal diretriz estratégica que emergiu do debate.
+  - **A Solução Integrada:** Detalhamento profundo da estratégia final. Como as áreas se conectam para resolver o problema de forma sistêmica.
+  - **Quadro de Ações e Impactos (Formato Tabela):** Crie uma tabela consolidando: `Frente de Atuação (Agente)` | `Ação Recomendada` | `Impacto/ROI Esperado` | `Prioridade (Alta/Média/Baixa)`.
+  - **Análise de Riscos e Mitigações:** Levantamento dos potenciais gargalos e riscos apontados pelos agentes durante o debate e as respectivas estratégias de contenção.
+  - **Mapa de Contribuições:** Resumo de como o conhecimento específico de cada Agente agregou valor e influenciou o plano final.
+- Ao final, pergunte se o gestor deseja detalhar algum dos pontos da tabela, aprofundar o plano de contingência ou exportar as ideias de alguma forma específica.</div></div>
 
         <div class="callout callout-info">
           <div class="callout-title">⚙️ Configuração do Gem</div>
@@ -255,18 +274,18 @@
           <div class="checkpoint-title">🏆 Como avalia o potencial dos Gems para o TRE-RN?</div>
           <div class="checkpoint-options">
             <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="positive" data-msg="Em duas oficinas, você criou dois tipos fundamentalmente diferentes de Gems: um consultor temático com base documental e um orquestrador de agentes inteligentes. Esses dois padrões cobrem a maioria dos casos de uso institucionais. Gems com documentos servem para áreas com regulamentação densa (LGPD, licitações, regimento interno). Gems de agentes servem para problemas complexos que exigem múltiplas perspectivas. Você tem agora um arsenal completo.">Potencial enorme!</button>
-            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="Gems são poderosos mas exigem manutenção. Documentos mudam, instruções precisam de refinamento. Pense nos Gems como ferramentas vivas: crie, teste, colete feedback, refine. Na próxima oficina, vamos explorar a criação de conteúdo multimídia com IA.">Útil, mas exige cuidado</button>
+            <button class="checkpoint-opt" onclick="ck(this,2)" data-tone="neutral" data-msg="Gems são poderosos mas exigem manutenção. Documentos mudam, instruções precisam de refinamento. Pense nos Gems como ferramentas vivas: crie, teste, colete feedback, refine.">Útil, mas exige cuidado</button>
           </div>
           <div class="checkpoint-response" id="ckr-2"></div>
         </div>
 
-        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 10</strong>, vamos explorar a criação de imagens com IA usando Gemini, Whisk e Grok Imagine.</p></div>
+        <div class="callout callout-success" style="margin-top:var(--space-xl)"><div class="callout-title">🎉 Parabéns!</div><p>Você concluiu todas as oficinas práticas deste workshop. Agora você possui as ferramentas e o conhecimento necessários para aplicar a IA generativa de forma estratégica e eficiente no seu dia a dia no Tribunal.</p></div>
       </div>
     </div>
 
     <div style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-xl) 0;border-top:1px solid var(--border-light);margin-top:var(--space-xl);">
       <a href="./oficina-08-gems-lgpd.html" class="btn btn-secondary btn-sm">← Oficina 08</a>
-      <a href="./oficina-10-imagens-prompts.html" class="btn btn-primary btn-sm">Oficina 10 →</a>
+      <a href="../index.html" class="btn btn-primary btn-sm">Voltar ao Início</a>
     </div>
 
     </div><!-- oficina-body -->
@@ -278,7 +297,7 @@
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>
-    const TOTAL=3,done=new Set();
+    const TOTAL=9,done=new Set();
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
     function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
   </script>

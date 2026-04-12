@@ -110,9 +110,6 @@
         <a href="./oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
         <a href="./oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
         <a href="./oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
-        <a href="./oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
-        <a href="./oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
-        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
       </div>
       <div class="sb-footer"><a href="../index.html">↩ Início do curso</a></div>
     </aside>
@@ -120,7 +117,7 @@
 
     <main class="main-content">
         <div class="oficina-hero-header">
-    <div class="oficina-hero"><div class="oficina-badge">🔬 Oficina 01 de 12</div><h1>Primeiro Contato</h1><p class="oficina-desc">Nesta oficina, você vai navegar pelas principais ferramentas de IA, disparar os mesmos prompts em ferramentas diferentes, comparar resultados e descobrir qual combina melhor com cada tipo de tarefa.</p><div class="oficina-meta"><div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 45–60 min</div><div class="oficina-meta-item">🎯 <strong>Nível:</strong> Iniciante</div><div class="oficina-meta-item">💻 <strong>Requisito:</strong> Contas criadas</div></div></div>
+    <div class="oficina-hero"><div class="oficina-badge">🔬 Oficina 01 de 9</div><h1>Primeiro Contato</h1><p class="oficina-desc">Nesta oficina, você vai navegar pelas principais ferramentas de IA, disparar os mesmos prompts em ferramentas diferentes, comparar resultados e descobrir qual combina melhor com cada tipo de tarefa.</p><div class="oficina-meta"><div class="oficina-meta-item">⏱️ <strong>Duração:</strong> 45–60 min</div><div class="oficina-meta-item">🎯 <strong>Nível:</strong> Iniciante</div><div class="oficina-meta-item">💻 <strong>Requisito:</strong> Contas criadas</div></div></div>
     </div>
     <nav class="oficina-breadcrumb">
       <a href="../index.html">Início</a><span class="sep">›</span>
@@ -235,7 +232,7 @@ Cite todas as fontes consultadas.</div></div>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>
-    const TOTAL=5,done=new Set();
+    const TOTAL=9,done=new Set();
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
     function selectCheckpoint(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
   </script>

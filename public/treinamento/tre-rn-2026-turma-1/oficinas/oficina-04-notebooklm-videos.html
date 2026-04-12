@@ -116,9 +116,6 @@
         <a href="./oficina-07-gemini-integracoes.html" class="sb-oficina-item"><span class="sb-num">07</span>Integrações do Gemini com o Workspace</a>
         <a href="./oficina-08-gems-lgpd.html" class="sb-oficina-item"><span class="sb-num">08</span>Especialista em LGPD</a>
         <a href="./oficina-09-gems-agentes.html" class="sb-oficina-item"><span class="sb-num">09</span>Orquestrador de Agentes</a>
-        <a href="./oficina-10-imagens-prompts.html" class="sb-oficina-item"><span class="sb-num">10</span>Imagens com IA</a>
-        <a href="./oficina-11-video-imagens.html" class="sb-oficina-item"><span class="sb-num">11</span>Vídeos a partir de Imagens</a>
-        <a href="./oficina-12-restauracao-similares.html" class="sb-oficina-item"><span class="sb-num">12</span>Restauração de Fotos Antigas</a>
       </div>
       <div class="sb-footer"><a href="../index.html">↩ Início do curso</a></div>
     </aside>
@@ -127,7 +124,7 @@
     <main class="main-content">
         <div class="oficina-hero-header">
     <div class="oficina-hero">
-      <div class="oficina-badge">🎬 Oficina 04 de 12</div>
+      <div class="oficina-badge">🎬 Oficina 04 de 9</div>
       <h1>Vídeos como Fontes</h1>
       <p class="oficina-desc">Descubra como o NotebookLM transforma vídeos do YouTube em fontes analisáveis. Nesta oficina, você vai usar as Sessões Plenárias do TRE-RN para gerar relatórios de deliberações, identificar votos, mapear decisões e produzir sínteses institucionais a partir do que antes era apenas uma transmissão ao vivo.</p>
       <div class="oficina-meta">
@@ -170,7 +167,7 @@
 
         <div class="callout callout-success">
           <div class="callout-title">🎯 Escolhendo uma Sessão Plenária</div>
-          <p>Acesse o <a href="https://www.youtube.com/@justicaeleitoralrn" target="_blank">canal do TRE-RN</a> e escolha o vídeo de uma Sessão Plenária recente. Copie a URL completa do vídeo (ex: <code>https://www.youtube.com/watch?v=XXXXX</code>). Prefira sessões com duração entre 30 minutos e 2 horas para melhores resultados na primeira tentativa.</p>
+          <p>Acesse o <a href="https://www.youtube.com/@justicaeleitoralrn" target="_blank">canal do TRE-RN</a> e escolha o vídeo de uma Sessão Plenária recente. Copie a URL completa do vídeo (ex: <code>https://www.youtube.com/watch?v=XXXXX</code>). Prefira sessões com duração de até 3 horas para melhores resultados na primeira tentativa.</p>
         </div>
       </div>
     </div>
@@ -181,7 +178,7 @@
       <div class="etapa-body">
         <div class="tool-instruction"><div class="tool-icon">1️⃣</div><div><div class="tool-name"><a href="https://notebooklm.google.com/" target="_blank">Acesse o NotebookLM ↗</a></div><div class="tool-hint">Crie um novo caderno chamado <strong>"Sessão Plenária TRE-RN"</strong></div></div></div>
         <div class="tool-instruction"><div class="tool-icon">2️⃣</div><div><div class="tool-name">Adicione o vídeo como fonte</div><div class="tool-hint">Clique em <strong>"Adicionar fonte" → "YouTube"</strong> e cole a URL do vídeo da Sessão Plenária que você escolheu</div></div></div>
-        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Verifique a transcrição</div><div class="tool-hint">Clique na fonte adicionada e confira se a transcrição foi extraída corretamente. Observe os timestamps.</div></div></div>
+        <div class="tool-instruction"><div class="tool-icon">3️⃣</div><div><div class="tool-name">Verifique a transcrição</div><div class="tool-hint">Clique na fonte adicionada e confira a transcrição automática que foi extraída do vídeo.</div></div></div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📺 Vídeo importado e transcrição disponível?</div>
@@ -206,15 +203,16 @@
 [CONTEXT] A fonte fornecida é o vídeo de uma Sessão do Pleno do TRE-RN, disponibilizada no YouTube. O público-alvo do relatório são servidores e gestores do Tribunal que não puderam acompanhar a sessão ao vivo.
 
 [TASK] Gere um relatório estruturado da Sessão Plenária contendo:
-a) Identificação da sessão: data, tipo (ordinária/extraordinária) e composição da mesa (se identificável).
+a) Identificação da sessão: data, tipo (ordinária/extraordinária) e composição da mesa (utilizando os cargos oficiais listados no contexto).
 b) Pauta: lista dos processos e temas deliberados, na ordem em que foram tratados.
-c) Síntese das deliberações: para cada processo ou tema, inclua número do processo, relator(a), resumo do caso, argumentos principais, resultado da votação e eventuais destaques.
+c) Síntese das deliberações: para cada processo ou tema, inclua número do processo, relator(a) com a devida qualificação (Cargo Oficial), resumo do caso, argumentos principais, resultado da votação e eventuais destaques.
 d) Decisões administrativas: comunicações, informes ou providências administrativas tratadas na sessão.
 e) Destaques e observações: debates relevantes, divergências significativas ou temas que mereçam acompanhamento.
 
-[STYLE] Linguagem técnico-jurídica acessível, terceira pessoa, parágrafos objetivos. Usar numeração para os processos e estrutura hierárquica (H1, H2, H3). Evitar redundâncias e travessões.
+[STYLE] Linguagem técnico-jurídica acessível, terceira pessoa, parágrafos objetivos. Formatação em markdown, hierárquica. Usar quebras de linhas entre as seções e subseções para garantir legibilidade. Evitar redundâncias e travessões.
 
-[EXAMPLE] Para cada processo: "O Processo nº XXXX, relatado pelo(a) Desembargador(a) [Nome], tratou de [tema]. O relator apresentou voto no sentido de [decisão]. O Pleno, por unanimidade/maioria, decidiu [resultado]."</div></div>
+[EXAMPLE] Para cada processo:
+"1.1. Processo nº XXXX: Relatado pelo(a) [Cargo Oficial - Ex: Juíza de Direito] [Nome], tratou de [tema]. O(A) relator(a) apresentou voto no sentido de [decisão]. O Pleno, por unanimidade/maioria, decidiu [resultado]."</div></div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📋 O relatório identificou processos e decisões?</div>
@@ -297,14 +295,15 @@ e) Destaques e observações: debates relevantes, divergências significativas o
 
         <h3>Sugestões contextualizadas para o Estúdio</h3>
         <ul>
-          <li><strong>Resumo em Áudio (formato Resumo, 5 min):</strong> Gere um podcast com os destaques da sessão. Perfeito para gestores que precisam se atualizar rapidamente sobre as deliberações sem assistir ao vídeo inteiro.</li>
+          <li><strong>Resumo em Áudio (formato Resumo):</strong> Gere um podcast com os destaques da sessão. Perfeito para gestores que precisam se atualizar rapidamente sobre as deliberações sem assistir ao vídeo inteiro.</li>
           <li><strong>Resumo em Vídeo (estilo Clássico):</strong> Crie um vídeo resumo visual da sessão para publicação na intranet ou redes sociais do TRE-RN.</li>
           <li><strong>Mapa Mental:</strong> Visualize as conexões entre os processos tratados, identificando temas recorrentes e relações entre deliberações.</li>
-          <li><strong>Relatório → Documento de Resumo:</strong> Uma síntese executiva de 1 página da sessão, ideal para encaminhar à presidência ou publicar em boletim informativo.</li>
-          <li><strong>Cartões de Estudo (8 cards, nível médio):</strong> Personalize com "Foque nas decisões tomadas e seus fundamentos jurídicos". Útil para capacitação de servidores recém-empossados sobre jurisprudência do tribunal.</li>
-          <li><strong>Teste (5 questões):</strong> Personalize com "Questões sobre as deliberações, os votos dos magistrados e os fundamentos apresentados". Material de estudo para assessores.</li>
-          <li><strong>Apresentação de Slides (detalhada):</strong> "Apresentação de 10 minutos para reunião de coordenadoria sobre as principais decisões da última Sessão Plenária".</li>
-          <li><strong>Tabela de Dados:</strong> "Tabela consolidando: processo, relator, tema, resultado, fundamento principal".</li>
+          <li><strong>Relatório (Documento de Resumo):</strong> Uma síntese executiva de 1 página da sessão, ideal para encaminhar à presidência ou publicar em boletim informativo.</li>
+          <li><strong>Cartões de Estudo:</strong> Personalize com <i>"Foque nas decisões tomadas e seus fundamentos jurídicos"</i>. Útil para capacitação de servidores recém-empossados sobre jurisprudência do tribunal.</li>
+          <li><strong>Teste:</strong> Personalize com <i>"Questões sobre as deliberações, os votos dos magistrados e os fundamentos apresentados"</i>. Material de estudo para assessores.</li>
+          <li><strong>Apresentação de Slides:</strong> "Apresentação para reunião de coordenadoria sobre as principais decisões da última Sessão Plenária".</li>
+          <li><strong>Infográfico:</strong> Resumo esquematizado dos principais temas tratados no vídeo.</li>
+          <li><strong>Tabela de Dados:</strong> Tabela consolidando: processo, relator, tema, resultado, fundamento principal.</li>
         </ul>
 
         <div class="checkpoint">
@@ -435,7 +434,7 @@ d) Volume e complexidade: comparar a quantidade de processos e o tempo dedicado 
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>
-    const TOTAL=8,done=new Set();
+    const TOTAL=9,done=new Set();
     function copyPrompt(b){const t=b.closest('.prompt-box').querySelector('.prompt-box-content');navigator.clipboard.writeText((t.textContent||t.innerText).trim()).then(()=>{b.textContent='✅ Copiado!';setTimeout(()=>b.textContent='📋 Copiar',2000)})}
     function ck(b,i){b.closest('.checkpoint').querySelectorAll('.checkpoint-opt').forEach(o=>o.classList.remove('selected'));b.classList.add('selected');const r=document.getElementById('ckr-'+i);r.className='checkpoint-response visible '+b.dataset.tone;r.textContent=b.dataset.msg;done.add(i);const p=Math.round(done.size/TOTAL*100);document.getElementById('progressFill').style.width=p+'%';document.getElementById('progressPct').textContent=p+'%'}
   </script>

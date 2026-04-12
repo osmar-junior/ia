@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <style>html{visibility:hidden}html.page-revealed{visibility:visible}</style>
+  <style>html.page-revealed{visibility:visible}</style>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Oficina 03 — Relatório de Eventos | Workshop IA TRE/RN</title>
+  <title>Oficina 03 — Relatório de Eventos | Workshop IA — Versão Demo</title>
   <link rel="stylesheet" href="../css/styles.css">
   <link rel="stylesheet" href="../css/components.css">
   <link rel="stylesheet" href="../css/responsive.css">
@@ -14,6 +14,7 @@
     .etapa{padding:var(--space-3xl) 0;border-bottom:1px solid var(--border-light)}.etapa:last-of-type{border-bottom:none}.etapa-header{display:flex;align-items:center;gap:var(--space-md);margin-bottom:var(--space-xl)}.etapa-num{flex-shrink:0;width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:1.5rem;font-weight:800;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25)}.etapa-header h2{font-size:1.8rem;margin:0}.etapa-header .etapa-sub{font-size:1rem;color:var(--text-muted);margin-top:4px}.etapa-body p{font-size:1.18rem;line-height:1.95;margin-bottom:var(--space-md)}.etapa-body h3{margin-top:var(--space-xl);margin-bottom:var(--space-md);color:var(--dourado);font-size:1.35rem}.etapa-body ul,.etapa-body ol{margin:var(--space-md) 0;padding-left:var(--space-lg)}.etapa-body li{font-size:1.12rem;line-height:1.9;color:var(--text-secondary);margin-bottom:var(--space-sm)}.etapa-body li strong{color:var(--text)}
     .prompt-box{position:relative;margin:var(--space-lg) 0;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}.prompt-box-label{display:flex;align-items:center;justify-content:space-between;padding:10px 18px;background:rgba(200,164,92,.08);border-bottom:1px solid var(--border-light);font-size:.88rem;font-weight:700;color:var(--dourado);text-transform:uppercase;letter-spacing:.06em}.prompt-box-label .copy-btn{padding:5px 14px;border-radius:6px;font-size:.85rem;font-weight:600;background:var(--dourado-dim);color:var(--dourado);border:1px solid rgba(200,164,92,.25);cursor:pointer;transition:all var(--transition-base)}.prompt-box-label .copy-btn:hover{background:rgba(200,164,92,.25)}.prompt-box-content{padding:var(--space-lg) var(--space-xl);font-family:'Courier New',Courier,monospace;font-size:1.02rem;line-height:1.8;color:var(--text-secondary);white-space:pre-wrap;outline:none}
     .tool-instruction{display:flex;align-items:flex-start;gap:var(--space-md);padding:var(--space-md);background:var(--bg-elevated);border:1px solid var(--border-light);border-radius:var(--radius-md);margin:var(--space-md) 0}.tool-instruction .tool-icon{font-size:1.6rem}.tool-instruction .tool-name{font-weight:700;color:var(--text);font-size:1.08rem}.tool-instruction .tool-name a{color:inherit;text-decoration:none;border-bottom:1px dashed var(--dourado);transition:all var(--transition-base)}.tool-instruction .tool-name a:hover{color:var(--dourado);border-bottom-style:solid}.tool-instruction .tool-hint{font-size:.95rem;color:var(--text-muted)}
+    .material-table{width:100%;border-collapse:collapse;margin:var(--space-xl) 0}.material-table th{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);padding:10px var(--space-md);border-bottom:2px solid var(--border);text-align:left}.material-table td{padding:12px var(--space-md);border-bottom:1px solid var(--border-light);font-size:.97rem;vertical-align:middle}.material-table tr:last-child td{border-bottom:none}.material-table tr:hover td{background:var(--bg-elevated)}.mat-link{font-size:.88rem;font-weight:600}
     .checkpoint{margin:var(--space-2xl) 0;background:linear-gradient(135deg,rgba(200,164,92,.06),rgba(46,92,154,.08));border:1px solid rgba(200,164,92,.2);border-left:4px solid var(--dourado);border-radius:0 var(--radius-xl) var(--radius-xl) 0;padding:var(--space-xl) var(--space-xl) var(--space-xl) var(--space-lg)}.checkpoint-title{font-family:var(--font-display);font-size:1.2rem;color:var(--dourado);margin-bottom:var(--space-lg)}.checkpoint-options{display:flex;flex-wrap:wrap;gap:var(--space-sm)}.checkpoint-opt{padding:12px 22px;border-radius:var(--radius-md);font-size:1rem;font-weight:600;background:var(--bg-card);color:var(--text-secondary);border:1px solid var(--border);cursor:pointer;transition:all var(--transition-base)}.checkpoint-opt:hover{border-color:var(--dourado);color:var(--dourado);transform:translateY(-1px)}.checkpoint-opt.selected{background:var(--dourado-dim);color:var(--dourado);border-color:rgba(200,164,92,.4);pointer-events:none}.checkpoint-response{display:none;margin-top:var(--space-lg);padding:var(--space-lg);border-radius:var(--radius-lg);font-size:1.08rem;line-height:1.9;animation:fadeSlideIn .4s ease}.checkpoint-response.visible{display:block}.checkpoint-response.positive{background:rgba(76,175,130,.08);border:1px solid rgba(76,175,130,.2)}.checkpoint-response.neutral{background:rgba(200,164,92,.08);border:1px solid rgba(200,164,92,.2)}.checkpoint-response.encouraging{background:rgba(46,92,154,.08);border:1px solid rgba(46,92,154,.2)}@keyframes fadeSlideIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     .material-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-md);margin:var(--space-xl) 0}.material-card{background:var(--bg-elevated);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg);display:flex;align-items:flex-start;gap:var(--space-md)}.material-card .mat-icon{font-size:2rem;flex-shrink:0}.material-card h4{font-family:var(--font-body);font-size:1.02rem;font-weight:700;color:var(--text);margin-bottom:4px}.material-card p{font-size:.92rem;margin-bottom:var(--space-sm)}.material-card a.mat-link{font-size:.88rem;font-weight:600}
     .destaque-canva{background:linear-gradient(135deg,rgba(0,195,169,.06),rgba(121,87,213,.06));border:1px solid rgba(0,195,169,.2);border-radius:var(--radius-xl);padding:var(--space-xl);margin:var(--space-xl) 0}.destaque-canva h4{color:#00C3A9;font-size:1.15rem;margin-bottom:var(--space-md)}.destaque-canva .exemplos-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:var(--space-md);margin-top:var(--space-md)}.destaque-canva .exemplo-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:var(--space-lg)}.destaque-canva .exemplo-card h5{font-family:var(--font-body);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:var(--space-sm)}
@@ -158,16 +159,22 @@
         </ul>
 
         <h3>📦 Material de Apoio</h3>
-        <div class="material-grid">
-          <div class="material-card"><div class="mat-icon">🎙️</div><div><h4>Áudio — CPSI na Prática (CONIP)</h4><p>Palestra sobre transformação digital no setor público</p><a href="https://drive.google.com/file/d/1_GjkV4fcUOrd3R-9_lRgL2NTOLG5bWQi/" target="_blank" download class="mat-link">⬇ Baixar áudio</a></div></div>
-          <div class="material-card"><div class="mat-icon">🎙️</div><div><h4>Áudio — Jornada para Nuvem (CONIP)</h4><p>Palestra sobre migração para nuvem no setor público</p><a href="https://drive.google.com/file/d/1ek1cLs5Dy3nCh7yhg0Qx4iw5c5pDaExA/" target="_blank" ßdownload class="mat-link">⬇ Baixar áudio</a></div></div>
-        </div>
+        <p>Baixe os arquivos de áudio abaixo para carregar no NotebookLM durante a oficina.</p>
+        <table class="material-table">
+          <thead><tr><th>Arquivo</th><th>Descrição</th><th>Link</th></tr></thead>
+          <tbody>
+            <tr><td>🎙️ CPSI na Prática (CONIP)</td><td>Palestra sobre transformação digital no setor público</td><td><a href="../materiais/of-03-audio-cpsi-pratica-conip.m4a" target="_blank" download class="mat-link">⬇ Baixar áudio</a></td></tr>
+            <tr><td>🎙️ Jornada para Nuvem (CONIP)</td><td>Palestra sobre migração para nuvem no setor público</td><td><a href="../materiais/of-03-audio-jornada-nuvem-conip.m4a" target="_blank" download class="mat-link">⬇ Baixar áudio</a></td></tr>
+          </tbody>
+        </table>
 
         <div class="callout callout-info">
           <div class="callout-title">💡 Dicas sobre gravação de áudios em eventos</div>
-          <p><strong>Formatos aceitos:</strong> Android grava em .M4A, iPhone/iPad em .opus. Ambos são suportados pelo NotebookLM.</p>
-          <p style="margin-top:var(--space-sm)"><strong>Tamanho máximo:</strong> Arquivos acima de 200MB não são aceitos. Para eventos longos, grave um arquivo separado por palestra. Se precisar fracionar, use o <a href="https://www.audacityteam.org/download/" target="_blank">Audacity</a> (gratuito). Para MP3, instale o <a href="https://lame.buanzo.org/ffmpeg.php" target="_blank">FFmpeg</a>.</p>
-          <p style="margin-top:var(--space-sm)"><strong>Dica prática:</strong> Sempre gere um arquivo de áudio separado por palestra. Facilita a organização e evita problemas de tamanho.</p>
+          <ul>
+            <li><p><strong>Formatos aceitos:</strong> Android geralmente grava no formato <strong>.M4A</strong>, equanto iPhone e iPad gravam no formato <strong>.opus</strong>. Ambos os padrões são suportados pelo NotebookLM.</p></li>
+            <li><p style="margin-top:var(--space-sm)"><strong>Tamanho máximo:</strong> Arquivos <strong>acima de 200MB não são aceitos</strong>. Para eventos longos, grave um arquivo separado por palestra. Se precisar fracionar, use o software <a href="https://www.audacityteam.org/download/" target="_blank"><strong>Audacity</strong></a> (gratuito). Para editar arquivos MP3, instale a extensão <a href="https://lame.buanzo.org/ffmpeg.php" target="_blank"><strong>FFmpeg</strong></a>.</p></li>
+            <li><p style="margin-top:var(--space-sm)"><strong>Dica prática:</strong> Sempre gere um arquivo de áudio separado por palestra. Facilita a organização e evita problemas de tamanho.</p></li>
+          </ul>
         </div>
       </div>
     </div>
@@ -195,7 +202,7 @@
     <div class="etapa" id="etapa2">
       <div class="etapa-header"><div class="etapa-num">02</div><div><h2>Gerando Relatórios a partir dos Áudios</h2><div class="etapa-sub">De palestra a documento institucional</div></div></div>
       <div class="etapa-body">
-        <p>Agora vamos usar um prompt estruturado (RCTS+E) para transformar as transcrições em relatórios profissionais. Selecione <strong>apenas um áudio por vez</strong> no painel de fontes antes de enviar o prompt.</p>
+        <p>Agora vamos usar um prompt estruturado (RCTS+E) para transformar as transcrições em relatórios profissionais. Selecione <strong>apenas um áudio por vez</strong> no painel de fontes antes de enviar o prompt para a seção <i>Conversa</i> do NotebookLM.</p>
 
         <div class="tool-instruction"><div class="tool-icon">📌</div><div><div class="tool-name">Selecione apenas a fonte "CPSI na Prática"</div><div class="tool-hint">No painel de fontes, desmarque as demais e deixe apenas esta selecionada</div></div></div>
 
@@ -212,8 +219,12 @@ e) Propostas de aplicação no TRE-RN: sugestões de como os conceitos apresenta
 f) Considerações finais: resumo reforçando importância dos temas e impactos institucionais.
 
 [STYLE] Redigido em terceira pessoa, linguagem objetiva e clara, adequada a público técnico e jurídico. Estrutura hierárquica (H1, H2, H3). Parágrafos curtos e conectados. Evitar redundâncias, adjetivos excessivos e travessões. Equilibrar síntese e explicação contextual.
+</div></div>
 
-[EXAMPLE] A síntese de cada palestra deve incluir: o que foi dito, por quem, os exemplos concretos citados, e qual a relevância para o setor público.</div></div>
+        <div class="callout callout-info">
+          <div class="callout-title">💾 Importante: Salve o resultado</div>
+          <p>Após a IA gerar o relatório na aba de conversa, clique no botão <strong>"Salvar nas observações"</strong> (ícone de marcador/pin). Isso é fundamental para as próximas etapas da oficina.</p>
+        </div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📄 Gerou o relatório da primeira palestra?</div>
@@ -226,6 +237,11 @@ f) Considerações finais: resumo reforçando importância dos temas e impactos 
 
         <h3>Agora, repita para a segunda palestra</h3>
         <div class="tool-instruction"><div class="tool-icon">📌</div><div><div class="tool-name">Selecione apenas "Jornada para Nuvem"</div><div class="tool-hint">Desmarque a primeira e selecione esta. Execute o mesmo prompt.</div></div></div>
+
+        <div class="callout callout-info">
+          <div class="callout-title">💾 Salve este segundo relatório</div>
+          <p>Não esqueça de clicar em <strong>"Salvar nas observações"</strong> para este segundo relatório também. Você deve terminar esta etapa com dois relatórios salvos no seu painel lateral.</p>
+        </div>
 
         <div class="checkpoint">
           <div class="checkpoint-title">📄 Gerou o relatório da segunda palestra?</div>
@@ -251,14 +267,15 @@ f) Considerações finais: resumo reforçando importância dos temas e impactos 
         <h3>Exercitando o Estúdio com os relatórios</h3>
         <p>Com as novas fontes selecionadas, explore o Estúdio:</p>
         <ul>
-          <li><strong>Resumo em Áudio (Debate):</strong> Gere um debate sobre os temas das palestras — perfeito para compartilhar com colegas que não foram ao evento.</li>
-          <li><strong>Resumo em Vídeo (Quadro Branco):</strong> Vídeo resumindo as conclusões do congresso para apresentar em reunião de equipe.</li>
+          <li><strong>Resumo em Áudio:</strong> Escolha o formato <strong>Debate</strong> e gere um áudio sobre os temas das palestras — perfeito para compartilhar com colegas que não foram ao evento.</li>
+          <li><strong>Resumo em Vídeo:</strong> Escolha o formato <strong>Resumo</strong> e o estilo visual de sua preferência. Gere em seguida o vídeo resumindo as conclusões do congresso para apresentar em reunião de equipe.</li>
           <li><strong>Mapa Mental:</strong> Visualize como os temas das duas palestras se conectam entre si.</li>
-          <li><strong>Relatório → Guia de Estudo:</strong> Material didático para capacitação da equipe sobre os temas abordados.</li>
-          <li><strong>Cartões de Estudo (10, nível médio):</strong> Personalize com "Foque nas propostas de aplicação para o TRE-RN".</li>
-          <li><strong>Teste (5 questões):</strong> Personalize com "Questões sobre tendências tecnológicas apresentadas e como aplicá-las no Judiciário".</li>
-          <li><strong>Apresentação de Slides (detalhada):</strong> "Apresentação de 15 minutos para a Diretoria do TRE-RN sobre os aprendizados do congresso".</li>
-          <li><strong>Tabela de Dados:</strong> Tabela comparando: tema, palestrante, ideias principais, propostas para o TRE-RN.</li>
+          <li><strong>Relatório:</strong> Escolha o formato <strong>Guia de Estudo</strong> e gere um material didático para capacitação da equipe sobre os temas abordados.</li>
+          <li><strong>Cartões didáticos:</strong> Escolha o volume de questões e o nível de dificuldade, e personalize com <i>"Foque nas propostas de aplicação para o TRE-RN."</i>.</li>
+          <li><strong>Teste:</strong> Escolha o volume de questões e o nível de dificuldade, e personalize com <i>"Questões sobre tendências tecnológicas apresentadas e como aplicá-las no Judiciário."</i>.</li>
+          <li><strong>Apresentação de Slides:</strong> Escolha o formato <strong>Apresentação detalhada</strong> e a duração estimada. Personalize com <i>"Apresentação voltada para a Alta Administração mostrando os pontos principais das palestras e as formas como os temas podem ser aplicados no TRE-RN."</i>.</li>
+          <li><strong>Infográfico:</strong> Escolha a orientação, o estilo visual e o nível de detalhamento desejado. Personalize com <i>"Gere um infográfico relacionando as propostas de aplicação das palestras ao Plano de Transformação Digital do TRE-RN."</i>.</li>
+          <li><strong>Tabela de Dados:</strong> Deixe o NotebookLM apresentar os dados que ele identificou a partir das fontes.</li>
         </ul>
 
         <div class="checkpoint">
@@ -328,7 +345,7 @@ f) Considerações finais: resumo reforçando importância dos temas e impactos 
 
 [TASK] Gere uma versão aprimorada do relatório, mantendo a estrutura em seções (H1, H2, H3) e todo o conteúdo factual. Esclareça ou complemente informações onde necessário. Melhore a coesão textual, elimine repetições e garanta fluidez na leitura.
 
-[STYLE] Terceira pessoa, linguagem objetiva e clara, parágrafos curtos e bem conectados. Evitar redundâncias, adjetivos excessivos e travessões. Manter equilíbrio entre síntese e explicação contextual.
+[STYLE] Terceira pessoa, linguagem objetiva e clara, parágrafos curtos e bem conectados. Evitar redundâncias, adjetivos excessivos e travessões. Manter equilíbrio entre síntese e explicação contextual. Use uma estrutura numerada hierárquica para organização do relatório (1., 2., 2.1., etc.). O público alvo é a Alta Administração do TRE-RN.
 
 [EXAMPLE] Se o original diz "o palestrante falou sobre cloud", a versão refinada deve contextualizar: "O palestrante abordou a migração para computação em nuvem como estratégia de modernização da infraestrutura de TI no setor público".
 
@@ -371,7 +388,7 @@ Texto a ser refinado:
           <div class="checkpoint-response" id="ckr-6"></div>
         </div>
 
-        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 04</strong>, vamos explorar novos cenários de uso da IA aplicada ao trabalho do TRE-RN.</p></div>
+        <div class="callout callout-info" style="margin-top:var(--space-xl)"><div class="callout-title">🚀 Próxima oficina</div><p>Na <strong>Oficina 04</strong>, vamos explorar o uso de vídeos como fontes no NotebookLM.</p></div>
       </div>
     </div>
 
@@ -385,7 +402,6 @@ Texto a ser refinado:
   </div><!-- layout -->
 
   <div id="footer-placeholder"></div>
-  <script src="../../js/auth.js"></script>
   <script src="../js/utils.js"></script>
   <script src="../js/main.js"></script>
   <script>

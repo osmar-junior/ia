@@ -144,9 +144,9 @@ const App = (() => {
     if (!el) return;
     try {
       const done = (JSON.parse(localStorage.getItem('trern-oficinas-concluidas')) || []).length;
-      el.textContent = done + '/12';
+      el.textContent = done + '/9';
       const badge = document.getElementById('navProgress');
-      if (badge) badge.title = done + ' de 12 oficinas concluídas';
+      if (badge) badge.title = done + ' de 9 oficinas concluídas';
     } catch (e) { /* silencioso */ }
   }
 

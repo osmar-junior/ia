@@ -9,7 +9,7 @@ const App = (() => {
     const path = window.location.pathname;
     if (path.includes('/oficinas/')) return '../';
     // Dentro de /modulos/ o arquivo está sempre em /modulos/<submodulo>/
-    // então o basePath para tre-rn-2026/ é sempre ../../
+    // então o basePath para demo/ é sempre ../../
     if (path.includes('/modulos/')) return '../../';
     return './';
   }
@@ -34,8 +34,7 @@ const App = (() => {
       // Preenche nome do curso no footer dinamicamente
       const footerCurso = document.getElementById('footerCurso');
       if (footerCurso) {
-        const curso = sessionStorage.getItem('treinamento_curso');
-        if (curso) footerCurso.textContent = curso;
+        footerCurso.textContent = "Workshop IA — Versão Demo";
       }
     } catch (error) {
       console.error(`Erro ao carregar componente ${elementId}:`, error);
@@ -53,15 +52,6 @@ const App = (() => {
     // Após carregar, inicializa funcionalidades da navbar
     initNavbar();
     highlightCurrentPage();
-    Auth.updateTurmaDisplay?.() || updateTurmaFromSession();
-  }
-
-  // Atualiza turma na navbar (fallback)
-  function updateTurmaFromSession() {
-    const turmaEl = document.getElementById('turmaDisplay');
-    if (turmaEl && Auth) {
-      turmaEl.textContent = Auth.getTurma();
-    }
   }
 
   // Marca link ativo na navbar
@@ -126,15 +116,6 @@ const App = (() => {
       });
     }
 
-    // Botões de logout (desktop e mobile)
-    const logoutBtns = document.querySelectorAll('#btnLogout, #btnLogoutMobile');
-    logoutBtns.forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        Auth.logout();
-      });
-    });
-
     // Badge de progresso das oficinas
     updateProgressBadge();
   }
@@ -143,7 +124,7 @@ const App = (() => {
     const el = document.getElementById('navProgressText');
     if (!el) return;
     try {
-      const done = (JSON.parse(localStorage.getItem('trern-oficinas-concluidas')) || []).length;
+      const done = (JSON.parse(localStorage.getItem('ia-demo-oficinas-concluidas')) || []).length;
       el.textContent = done + '/12';
       const badge = document.getElementById('navProgress');
       if (badge) badge.title = done + ' de 12 oficinas concluídas';
@@ -247,20 +228,28 @@ const App = (() => {
     });
   }
 
+  function revealPage() {
+    document.documentElement.classList.add('page-revealed');
+  }
+
   // Inicialização geral (chamado em todas as páginas exceto login)
   async function init() {
-    // Verifica autenticação
-    if (!Auth.initPageGuard()) return;
+    // Revela a página imediatamente para evitar tela branca/preta na demo
+    revealPage();
 
-    // Carrega layout (header + footer)
-    await loadLayout();
+    try {
+      // Carrega layout (header + footer)
+      await loadLayout();
 
-    // Inicializa funcionalidades
-    initSmoothScroll();
-    initScrollTop();
-    initAccordions();
-    initScrollAnimations();
-    initNavbarScroll();
+      // Inicializa funcionalidades
+      initSmoothScroll();
+      initScrollTop();
+      initAccordions();
+      initScrollAnimations();
+      initNavbarScroll();
+    } catch (e) {
+      console.error("Erro na inicialização da demo:", e);
+    }
   }
 
   // API pública

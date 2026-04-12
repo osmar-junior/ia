@@ -277,7 +277,7 @@
           <div class="block-icon oficinas">🛠️</div>
           <div class="block-header-text">
             <h2>Oficinas práticas</h2>
-            <p>12 atividades mão na massa — marque cada uma conforme for concluindo</p>
+            <p>9 atividades mão na massa — marque cada uma conforme for concluindo</p>
           </div>
         </div>
 
@@ -292,14 +292,13 @@
               </svg>
               <div class="of-ring-pct" id="ofRingPct">0%</div>
             </div>
-            <div class="of-ring-label" id="ofRingLabel">0 de 12 concluídas</div>
+            <div class="of-ring-label" id="ofRingLabel">0 de 9 concluídas</div>
           </div>
           <div class="of-details">
             <div class="of-grupo-row"><div class="of-dot" style="background:#C8A45C"></div><span>Introdução</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-intro" style="background:#C8A45C"></div></div><span class="of-count" id="ofCnt-intro">0/1</span></div>
             <div class="of-grupo-row"><div class="of-dot" style="background:#4A90D9"></div><span>NotebookLM</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-notebook" style="background:#4A90D9"></div></div><span class="of-count" id="ofCnt-notebook">0/3</span></div>
             <div class="of-grupo-row"><div class="of-dot" style="background:#34A853"></div><span>Gemini Workspace</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-gemini" style="background:#34A853"></div></div><span class="of-count" id="ofCnt-gemini">0/3</span></div>
             <div class="of-grupo-row"><div class="of-dot" style="background:#AB47BC"></div><span>Gems</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-gems" style="background:#AB47BC"></div></div><span class="of-count" id="ofCnt-gems">0/2</span></div>
-            <div class="of-grupo-row"><div class="of-dot" style="background:#E8710A"></div><span>Multimídia</span><div class="of-bar-track"><div class="of-bar-fill" id="ofBar-multi" style="background:#E8710A"></div></div><span class="of-count" id="ofCnt-multi">0/3</span></div>
           </div>
         </div>
 
@@ -332,14 +331,6 @@
           <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-09-gems-agentes.html')"><div class="of-card" data-oficina="9" data-grupo="gems"><div class="of-num">09</div><div class="of-title">Orquestrador de Agentes</div><div class="of-subtitle">Gem que gerencia agentes cooperativos para resolver problemas complexos</div><button class="of-btn-concluir" onclick="ofToggle(event,9)" type="button">◯ Marcar como concluída</button></div></div>
         </div>
 
-        <!-- Tema: Multimídia com IA -->
-        <div class="of-tema-label"><div class="of-tema-dot" style="background:#E8710A"></div><span>Multimídia com IA</span><div class="of-tema-line"></div></div>
-        <div class="of-grid">
-          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-10-imagens-prompts.html')"><div class="of-card" data-oficina="10" data-grupo="multi"><div class="of-num">10</div><div class="of-title">Imagens com IA</div><div class="of-subtitle">Crie imagens profissionais com prompts descritivos no Gemini, Grok e Whisk</div><button class="of-btn-concluir" onclick="ofToggle(event,10)" type="button">◯ Marcar como concluída</button></div></div>
-          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-11-video-imagens.html')"><div class="of-card" data-oficina="11" data-grupo="multi"><div class="of-num">11</div><div class="of-title">Vídeos a partir de Imagens</div><div class="of-subtitle">Transforme imagens estáticas em vídeos animados explorando técnicas de movimento</div><button class="of-btn-concluir" onclick="ofToggle(event,11)" type="button">◯ Marcar como concluída</button></div></div>
-          <div class="of-card-wrap" onclick="navegarOficina(event,'./oficinas/oficina-12-restauracao-similares.html')"><div class="of-card" data-oficina="12" data-grupo="multi"><div class="of-num">12</div><div class="of-title">Restauração de Fotos Antigas</div><div class="of-subtitle">Restaure fotografias danificadas e gere variações de fotos existentes com IA visual</div><button class="of-btn-concluir" onclick="ofToggle(event,12)" type="button">◯ Marcar como concluída</button></div></div>
-        </div>
-
       </div><!-- /oficinas-section -->
 
     </div>
@@ -352,14 +343,13 @@
   <script>
     // ═══ Oficinas — progresso ═══════════════════════════════════════════
     (function() {
-      const TOTAL = 12;
+      const TOTAL = 9;
       const STORAGE_KEY = 'trern-oficinas-concluidas';
       const GRUPOS = {
         intro:    { total:1, bar:'ofBar-intro',    cnt:'ofCnt-intro' },
         notebook: { total:3, bar:'ofBar-notebook', cnt:'ofCnt-notebook' },
         gemini:   { total:3, bar:'ofBar-gemini',   cnt:'ofCnt-gemini' },
         gems:     { total:2, bar:'ofBar-gems',     cnt:'ofCnt-gems' },
-        multi:    { total:3, bar:'ofBar-multi',    cnt:'ofCnt-multi' },
       };
       function getState() { try { return JSON.parse(localStorage.getItem(STORAGE_KEY))||[]; } catch{return[];} }
       function saveState(a) { localStorage.setItem(STORAGE_KEY,JSON.stringify(a)); }
