@@ -32,25 +32,41 @@
 
     body {
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       min-height: 100vh;
-      padding: 2rem;
-      text-align: center;
+      padding: 1.5rem;
     }
 
-    /* ── animated 404 number ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2rem 2.5rem 1.75rem;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 4px 24px rgba(29,58,110,0.07);
+      animation: fadeUp 0.5s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
     .big-num {
-      font-size: clamp(7rem, 22vw, 14rem);
+      font-size: clamp(4rem, 14vw, 7rem);
       font-weight: 800;
       line-height: 1;
       letter-spacing: -0.04em;
       color: transparent;
-      -webkit-text-stroke: 3px var(--azul-med);
+      -webkit-text-stroke: 2.5px var(--azul-med);
       position: relative;
       user-select: none;
+      margin-bottom: 0.5rem;
       animation: drift 6s ease-in-out infinite;
+      display: inline-block;
     }
 
     .big-num::after {
@@ -64,8 +80,8 @@
     }
 
     @keyframes drift {
-      0%, 100% { transform: translateY(0px) rotate(-0.5deg); }
-      50%       { transform: translateY(-12px) rotate(0.5deg); }
+      0%, 100% { transform: translateY(0px) rotate(-0.4deg); }
+      50%       { transform: translateY(-6px) rotate(0.4deg); }
     }
 
     @keyframes reveal {
@@ -73,155 +89,7 @@
       100% { clip-path: inset(0 0% 0 0); }
     }
 
-    /* ── card ── */
-    .card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      padding: 2.5rem 3rem;
-      max-width: 560px;
-      width: 100%;
-      margin-top: 2rem;
-      box-shadow: 0 4px 24px rgba(29,58,110,0.07);
-      animation: fadeUp 0.6s ease both;
-      animation-delay: 0.2s;
-    }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--azul-med);
-      background: var(--azul-light);
-      border: 1px solid rgba(46,92,154,.2);
-      padding: 5px 14px;
-      border-radius: 999px;
-      margin-bottom: 1.25rem;
-    }
-
-    h1 {
-      font-size: 1.55rem;
-      font-weight: 800;
-      color: var(--azul);
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-
-    .subtitle {
-      font-size: 1rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 0.75rem;
-    }
-
-    .subtitle strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    /* ── snarky quote block ── */
-    .quote {
-      background: var(--verde-bg);
-      border-left: 3px solid var(--verde);
-      border-radius: 0 10px 10px 0;
-      padding: 0.85rem 1.1rem;
-      margin: 1.5rem 0;
-      text-align: left;
-      font-size: 0.9rem;
-      color: #0e5436;
-      line-height: 1.6;
-    }
-
-    .quote cite {
-      display: block;
-      margin-top: 0.4rem;
-      font-size: 0.78rem;
-      font-style: normal;
-      font-weight: 700;
-      color: var(--verde);
-      letter-spacing: 0.04em;
-    }
-
-    /* ── rotating messages ── */
-    .rotating-msg {
-      font-size: 0.88rem;
-      color: var(--muted);
-      min-height: 1.4em;
-      margin-bottom: 1.75rem;
-      font-style: italic;
-      transition: opacity 0.4s ease;
-    }
-
-    /* ── buttons ── */
-    .btn-group {
-      display: flex;
-      gap: 10px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 11px 22px;
-      border-radius: 10px;
-      font-size: 0.92rem;
-      font-weight: 600;
-      font-family: var(--font);
-      text-decoration: none;
-      cursor: pointer;
-      border: none;
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .btn:hover { transform: translateY(-2px); }
-    .btn:active { transform: translateY(0); }
-
-    .btn-primary {
-      background: var(--azul-med);
-      color: #fff;
-      box-shadow: 0 3px 12px rgba(46,92,154,.3);
-    }
-
-    .btn-primary:hover { box-shadow: 0 6px 20px rgba(46,92,154,.35); }
-
-    .btn-secondary {
-      background: var(--bg);
-      color: var(--azul-med);
-      border: 1px solid rgba(46,92,154,.25);
-    }
-
-    .btn-secondary:hover { background: var(--azul-light); }
-
-    /* ── footer note ── */
-    .foot-note {
-      margin-top: 2.5rem;
-      font-size: 0.78rem;
-      color: var(--muted);
-      animation: fadeUp 0.6s ease both;
-      animation-delay: 0.5s;
-    }
-
-    .foot-note a {
-      color: var(--azul-med);
-      text-decoration: none;
-      border-bottom: 1px dashed var(--azul-med);
-    }
-
-    /* ── glitch on hover of big-num ── */
-    .big-num:hover {
-      animation: glitch 0.4s steps(2) infinite;
-    }
+    .big-num:hover { animation: glitch 0.4s steps(2) infinite; }
 
     @keyframes glitch {
       0%   { text-shadow:  2px 0 #1A8A5A, -2px 0 var(--azul-med); }
@@ -231,18 +99,128 @@
       100% { text-shadow:  2px 0 #1A8A5A, -2px 0 var(--azul-med); }
     }
 
-    @media (max-width: 540px) {
-      .card { padding: 2rem 1.5rem; }
-      h1 { font-size: 1.3rem; }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--azul-med);
+      background: var(--azul-light);
+      border: 1px solid rgba(46,92,154,.2);
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 0.9rem;
+    }
+
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: var(--azul);
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+    }
+
+    .subtitle {
+      font-size: 0.93rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    .subtitle strong { color: var(--text); font-weight: 600; }
+
+    .quote {
+      background: var(--verde-bg);
+      border-left: 3px solid var(--verde);
+      border-radius: 0 8px 8px 0;
+      padding: 0.7rem 1rem;
+      margin: 1rem 0;
+      text-align: left;
+      font-size: 0.87rem;
+      color: #0e5436;
+      line-height: 1.55;
+    }
+
+    .quote cite {
+      display: block;
+      margin-top: 0.3rem;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 700;
+      color: var(--verde);
+      letter-spacing: 0.04em;
+    }
+
+    .rotating-msg {
+      font-size: 0.83rem;
+      color: var(--muted);
+      min-height: 1.3em;
+      margin-bottom: 1.1rem;
+      font-style: italic;
+      transition: opacity 0.4s ease;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      font-family: var(--font);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn:hover  { transform: translateY(-2px); }
+    .btn:active { transform: translateY(0); }
+
+    .btn-primary {
+      background: var(--azul-med);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(46,92,154,.28);
+    }
+    .btn-primary:hover { box-shadow: 0 5px 16px rgba(46,92,154,.35); }
+
+    .btn-secondary {
+      background: var(--bg);
+      color: var(--azul-med);
+      border: 1px solid rgba(46,92,154,.25);
+    }
+    .btn-secondary:hover { background: var(--azul-light); }
+
+    .foot-note {
+      margin-top: 1.25rem;
+      font-size: 0.74rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 480px) {
+      .card { padding: 1.5rem 1.25rem; }
+      h1 { font-size: 1.15rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="big-num" title="Passe o mouse aqui se quiser piorar a situação">404</div>
-
   <div class="card">
-    <div class="badge">⚠️ Erro 404</div>
+
+    <div class="big-num" title="Passe o mouse aqui se quiser piorar a situação">404</div>
+
+    
 
     <h1>Ops. Esta página não existe.</h1>
 
@@ -257,7 +235,7 @@
       <cite>— Diagnóstico técnico oficial</cite>
     </div>
 
-    <p class="rotating-msg" id="rotMsg">Verificando se a culpa é sua ou do link…</p>
+    <p class="rotating-msg" id="rotMsg">O endereço digitado não existe neste site.</p>
 
     <div class="btn-group">
       <a href="/treinamento/tre-rn-2026/" class="btn btn-primary">
@@ -267,12 +245,13 @@
         ← Página anterior
       </a>
     </div>
-  </div>
 
-  <p class="foot-note">
-    Link quebrado? Fale com o responsável pelo curso. Erro de digitação? Acontece com todo mundo —
-    até a IA comete enganos, mas ao menos ela assume&nbsp;;-)
-  </p>
+    <p class="foot-note">
+      Link quebrado? Fale com o responsável pelo curso. Erro de digitação? Acontece com todo mundo —
+      até a IA comete enganos, mas ao menos ela assume&nbsp;;-)
+    </p>
+
+  </div>
 
   <script>
     const msgs = [
