@@ -1,25 +1,33 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '../ui/Button';
-import { MessageCircle, Send } from 'lucide-react';
+import { MessageCircle, Send, Loader2 } from 'lucide-react';
 
 export function CTASection() {
     const [form, setForm] = useState({ name: '', organ: '', email: '', message: '' });
-    const [sent, setSent] = useState(false);
+    const [status, setStatus] = useState('idle'); // idle | loading | success | error
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Monta o mailto com os dados do formulário
-        const subject = encodeURIComponent(`Proposta Workshop IA na Prática — ${form.organ}`);
-        const body = encodeURIComponent(
-            `Nome: ${form.name}\nÓrgão: ${form.organ}\nE-mail: ${form.email}\n\nMensagem:\n${form.message}`
-        );
-        window.location.href = `mailto:contato@iamaster.com.br?subject=${subject}&body=${body}`;
-        setSent(true);
+        setStatus('loading');
+        try {
+            const res = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form),
+            });
+            if (res.ok) {
+                setStatus('success');
+            } else {
+                setStatus('error');
+            }
+        } catch {
+            setStatus('error');
+        }
     };
 
     const whatsappLink = 'https://wa.me/5584999621996?text=Ol%C3%A1%2C%20Osmar%21%20Tenho%20interesse%20no%20Workshop%20IA%20na%20Pr%C3%A1tica%20para%20o%20meu%20%C3%B3rg%C3%A3o.';
@@ -57,13 +65,13 @@ export function CTASection() {
                     >
                         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
 
-                        {sent ? (
+                        {status === 'success' ? (
                             <div className="text-center py-8">
                                 <div className="w-16 h-16 rounded-full bg-neon/20 border border-neon/30 flex items-center justify-center mx-auto mb-4">
                                     <Send className="w-8 h-8 text-neon" />
                                 </div>
                                 <h3 className="text-white font-bold text-xl mb-2">Mensagem enviada!</h3>
-                                <p className="text-gray-400">Seu cliente de e-mail foi aberto com os dados preenchidos. Em breve entrarei em contato.</p>
+                                <p className="text-gray-400">Recebi sua solicitação e entrarei em contato em breve.</p>
                             </div>
                         ) : (
                             <form onSubmit={handleSubmit} className="space-y-5">
@@ -116,9 +124,25 @@ export function CTASection() {
                                         className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm resize-none"
                                     />
                                 </div>
-                                <Button type="submit" size="lg" fullWidth>
-                                    <Send className="w-4 h-4 mr-2" />
-                                    Enviar mensagem
+
+                                {status === 'error' && (
+                                    <p className="text-red-400 text-sm text-center">
+                                        Ocorreu um erro ao enviar. Tente novamente ou use o WhatsApp.
+                                    </p>
+                                )}
+
+                                <Button type="submit" size="lg" fullWidth disabled={status === 'loading'}>
+                                    {status === 'loading' ? (
+                                        <>
+                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                                            Enviando...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Send className="w-4 h-4 mr-2" />
+                                            Enviar mensagem
+                                        </>
+                                    )}
                                 </Button>
                             </form>
                         )}
