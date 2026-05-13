@@ -2,27 +2,31 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '../ui/GlassCard';
 
+// Substitua estes dados pelos depoimentos reais quando disponíveis
 const testimonials = [
     {
         id: 1,
-        name: 'Dr. Carlos Mendes',
-        role: 'ADVOGADO',
-        quote: '"A implementação de IA no escritório reduziu o tempo de triagem documental em 70%. Hoje focamos na estratégia, enquanto a IA cuida do braçal."',
-        avatar: '👨‍⚖️', // Placeholder
+        name: 'Servidor do TRE-RN',
+        role: 'Área Administrativa',
+        quote: 'Depoimento real em breve.',
+        placeholder: true,
     },
     {
         id: 2,
-        name: 'Ana Beatriz',
-        role: 'GESTORA PÚBLICA',
-        quote: '"O treinamento trouxe clareza sobre como utilizar a IA de forma ética no setor público. Automatizamos fluxos que antes levavam semanas."',
-        avatar: '👩‍💼', // Placeholder
-    }
+        name: 'Servidor do TRE-RN',
+        role: 'Assessoria Técnica',
+        quote: 'Depoimento real em breve.',
+        placeholder: true,
+    },
 ];
 
 export function TestimonialsSection() {
+    // Não renderiza a seção enquanto todos os depoimentos forem placeholder
+    const hasRealTestimonials = testimonials.some(t => !t.placeholder);
+    if (!hasRealTestimonials) return null;
+
     return (
         <section className="py-24 relative overflow-hidden">
-            {/* Background Decor */}
             <div className="absolute top-0 right-0 w-96 h-96 bg-neon/5 rounded-full blur-[100px] pointer-events-none" />
 
             <div className="container mx-auto px-4 z-10 relative">
@@ -34,15 +38,15 @@ export function TestimonialsSection() {
                     className="text-center max-w-3xl mx-auto mb-16"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                        Histórias de<br />Transformação
+                        O que dizem os participantes
                     </h2>
                     <p className="text-xl text-gray-400">
-                        Resultados reais de quem já implementou o método Inteligência Artificial
+                        Relatos de servidores que participaram do Workshop IA na Prática no TRE-RN.
                     </p>
                 </motion.div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                    {testimonials.map((testimonial, index) => (
+                    {testimonials.filter(t => !t.placeholder).map((testimonial, index) => (
                         <motion.div
                             key={testimonial.id}
                             initial={{ opacity: 0, y: 30 }}
@@ -52,18 +56,16 @@ export function TestimonialsSection() {
                         >
                             <GlassCard className="p-8 h-full">
                                 <div className="flex items-center gap-4 mb-6">
-                                    <div className="w-14 h-14 rounded-full bg-dark flex items-center justify-center text-2xl border border-neon/30 p-1 relative overflow-hidden">
-                                        {/* Placeholder Avatar */}
-                                        <span className="relative z-10">{testimonial.avatar}</span>
-                                        <div className="absolute inset-0 bg-neon/10" />
+                                    <div className="w-12 h-12 rounded-full bg-neon/10 border border-neon/30 flex items-center justify-center text-neon font-bold text-lg">
+                                        {testimonial.name.charAt(0)}
                                     </div>
                                     <div>
-                                        <h4 className="text-white font-bold text-lg">{testimonial.name}</h4>
+                                        <h4 className="text-white font-bold">{testimonial.name}</h4>
                                         <p className="text-neon text-xs font-bold tracking-wider uppercase">{testimonial.role}</p>
                                     </div>
                                 </div>
-                                <p className="text-gray-300 italic leading-relaxed text-lg">
-                                    {testimonial.quote}
+                                <p className="text-gray-300 italic leading-relaxed">
+                                    "{testimonial.quote}"
                                 </p>
                             </GlassCard>
                         </motion.div>

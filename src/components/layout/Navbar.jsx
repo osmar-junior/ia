@@ -9,14 +9,13 @@ export function Navbar() {
     const location = useLocation();
 
     const navLinks = [
-        { name: 'Trilhas', path: '/#trilhas' },
-        { name: 'Metodologia', path: '/#metodologia' },
+        { name: 'O Treinamento', path: '/#treinamento' },
+        { name: 'Formatos', path: '/#formatos' },
         { name: 'Instrutor', path: '/#instrutor' },
-        { name: 'In-Company', path: '/#in-company' },
+        { name: 'Contato', path: '/#contato' },
     ];
 
     const handleScroll = (e, path) => {
-        // Basic smooth scroll handling for hash links if we are on home page
         if (path.startsWith('/#') && location.pathname === '/') {
             e.preventDefault();
             const id = path.substring(2);
@@ -52,11 +51,9 @@ export function Navbar() {
                             </li>
                         ))}
                     </ul>
-                    {location.pathname !== '/trilha-juridica' && (
-                        <Link to="/trilha-juridica">
-                            <Button variant="outline" size="sm">Trilha Jurídica</Button>
-                        </Link>
-                    )}
+                    <a href="#contato" onClick={(e) => handleScroll(e, '/#contato')}>
+                        <Button variant="outline" size="sm">Solicitar proposta</Button>
+                    </a>
                 </div>
 
                 {/* Mobile menu button */}
@@ -87,11 +84,9 @@ export function Navbar() {
                                 {link.name}
                             </Link>
                         ))}
-                        {location.pathname !== '/trilha-juridica' && (
-                            <Link to="/trilha-juridica" onClick={() => setIsOpen(false)}>
-                                <Button variant="outline" className="w-full justify-start mt-2">Trilha Jurídica</Button>
-                            </Link>
-                        )}
+                        <a href="#contato" onClick={(e) => { handleScroll(e, '/#contato'); setIsOpen(false); }}>
+                            <Button variant="outline" className="w-full justify-start mt-2">Solicitar proposta</Button>
+                        </a>
                     </div>
                 </motion.div>
             )}
