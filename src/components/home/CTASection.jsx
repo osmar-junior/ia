@@ -31,8 +31,14 @@ export function CTASection() {
     };
 
     const whatsappLink = 'https://wa.me/5584999621996?text=Ol%C3%A1%2C%20Osmar%21%20Tenho%20interesse%20no%20Workshop%20IA%20na%20Pr%C3%A1tica%20para%20o%20meu%20%C3%B3rg%C3%A3o.';
-
     const inputClass = "w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm";
+
+    const Label = ({ children, required }) => (
+        <label className="block text-sm font-medium text-gray-300 mb-1.5">
+            {children}
+            {required && <span className="text-neon ml-1">*</span>}
+        </label>
+    );
 
     return (
         <section id="contato" className="py-24 relative overflow-hidden">
@@ -79,37 +85,38 @@ export function CTASection() {
                             <form onSubmit={handleSubmit} className="space-y-5">
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-1.5">Nome</label>
+                                        <Label required>Nome</Label>
                                         <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Seu nome" className={inputClass} />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-1.5">Órgão</label>
+                                        <Label required>Órgão</Label>
                                         <input type="text" name="organ" required value={form.organ} onChange={handleChange} placeholder="Nome do órgão" className={inputClass} />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-1.5">E-mail</label>
+                                        <Label required>E-mail</Label>
                                         <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="seu@email.gov.br" className={inputClass} />
                                     </div>
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-300 mb-1.5">
-                                            Telefone / WhatsApp <span className="text-gray-600 font-normal">(opcional)</span>
-                                        </label>
+                                        <Label>Telefone / WhatsApp <span className="text-gray-600 font-normal text-xs">(opcional)</span></Label>
                                         <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="(00) 00000-0000" className={inputClass} />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-1.5">Mensagem</label>
+                                    <Label required>Mensagem</Label>
                                     <textarea
                                         name="message"
                                         rows={4}
+                                        required
                                         value={form.message}
                                         onChange={handleChange}
                                         placeholder="Descreva brevemente o seu órgão, o número estimado de participantes e o formato de preferência (presencial ou remoto)."
                                         className={`${inputClass} resize-none`}
                                     />
                                 </div>
+
+                                <p className="text-gray-600 text-xs"><span className="text-neon">*</span> Campos obrigatórios</p>
 
                                 {status === 'error' && (
                                     <p className="text-red-400 text-sm text-center">

@@ -10,6 +10,7 @@ export function Navbar() {
 
     const navLinks = [
         { name: 'O Treinamento', path: '/#treinamento' },
+        { name: 'A Plataforma', path: '/#plataforma' },
         { name: 'Formatos', path: '/#formatos' },
         { name: 'Instrutor', path: '/#instrutor' },
         { name: 'Contato', path: '/#contato' },

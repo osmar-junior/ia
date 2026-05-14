@@ -2,6 +2,7 @@ import React from 'react';
 import { HeroSection } from '../components/home/HeroSection';
 import { WhyNowSection } from '../components/home/WhyNowSection';
 import { TrainingSection } from '../components/home/TrainingSection';
+import { PlatformSection } from '../components/home/PlatformSection';
 import { FormatsSection } from '../components/home/FormatsSection';
 import { ForWhoSection } from '../components/home/ForWhoSection';
 import { InstructorSection } from '../components/home/InstructorSection';
@@ -14,6 +15,7 @@ export function Home() {
             <HeroSection />
             <WhyNowSection />
             <TrainingSection />
+            <PlatformSection />
             <FormatsSection />
             <ForWhoSection />
             <InstructorSection />
