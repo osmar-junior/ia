@@ -7,32 +7,68 @@ const differentials = [
     {
         icon: BookOpen,
         title: 'Conteúdo aplicado',
-        description: 'Módulos teóricos e oficinas práticas com exemplos e exercícios construídos para o trabalho no serviço público. Sem teoria descolada da realidade.',
+        description: 'Módulos teóricos e oficinas práticas com exemplos e exercícios construídos para o trabalho no serviço público.',
     },
     {
         icon: Shield,
         title: 'Ferramentas gratuitas',
-        description: 'NotebookLM, ChatGPT, Claude, Gemini, Copilot e Perplexity. Nenhuma ferramenta exige contratação adicional. O investimento é só na capacitação.',
+        description: 'Todas as ferramentas utilizadas estão disponíveis gratuitamente. O investimento é exclusivamente na capacitação.',
     },
     {
         icon: Monitor,
         title: 'Plataforma própria',
-        description: 'Acesso ao conteúdo por plataforma web exclusiva com gestão de alunos, controle de acesso e disponibilidade do material após o treinamento.',
+        description: 'Acesso ao conteúdo por plataforma web exclusiva com gestão de alunos e disponibilidade do material após o treinamento.',
     },
     {
         icon: Settings,
         title: 'Adaptável ao seu órgão',
-        description: 'O programa é configurado considerando as ferramentas, o ecossistema tecnológico e as necessidades específicas do contratante.',
+        description: 'O programa é configurado considerando as ferramentas, o ecossistema e as necessidades específicas do contratante.',
     },
 ];
 
 const tools = [
-    { name: 'NotebookLM', desc: 'Análise de documentos' },
-    { name: 'ChatGPT', desc: 'Redação e síntese' },
-    { name: 'Claude', desc: 'Revisão e raciocínio' },
-    { name: 'Gemini', desc: 'Integração Google' },
-    { name: 'Copilot', desc: 'Ecossistema Microsoft' },
-    { name: 'Perplexity', desc: 'Pesquisa verificável' },
+    {
+        name: 'NotebookLM',
+        desc: 'Análise de documentos extensos com citação de fonte. A ferramenta de maior impacto imediato para o serviço público.',
+        color: 'from-blue-500/20 to-blue-600/10',
+        border: 'border-blue-500/30',
+        dot: 'bg-blue-400',
+    },
+    {
+        name: 'ChatGPT',
+        desc: 'Redação, síntese e produção textual. O modelo mais utilizado no mundo, com forte desempenho em conteúdo estruturado.',
+        color: 'from-green-500/20 to-green-600/10',
+        border: 'border-green-500/30',
+        dot: 'bg-green-400',
+    },
+    {
+        name: 'Claude',
+        desc: 'Revisão crítica e raciocínio longo. Indicado para análise de documentos e identificação de inconsistências.',
+        color: 'from-orange-500/20 to-orange-600/10',
+        border: 'border-orange-500/30',
+        dot: 'bg-orange-400',
+    },
+    {
+        name: 'Gemini',
+        desc: 'Integração nativa com o Google Workspace. Indicado para órgãos com contrato Google.',
+        color: 'from-purple-500/20 to-purple-600/10',
+        border: 'border-purple-500/30',
+        dot: 'bg-purple-400',
+    },
+    {
+        name: 'Copilot',
+        desc: 'Assistente do ecossistema Microsoft. Integração futura com Word, Excel e Outlook via licença corporativa.',
+        color: 'from-sky-500/20 to-sky-600/10',
+        border: 'border-sky-500/30',
+        dot: 'bg-sky-400',
+    },
+    {
+        name: 'Perplexity',
+        desc: 'Pesquisa com citação de fontes verificáveis. Substitui a busca tradicional para legislação e jurisprudência.',
+        color: 'from-teal-500/20 to-teal-600/10',
+        border: 'border-teal-500/30',
+        dot: 'bg-teal-400',
+    },
 ];
 
 export function TrainingSection() {
@@ -55,7 +91,7 @@ export function TrainingSection() {
                         </span>
                     </h2>
                     <p className="text-xl text-gray-400">
-                        Desenvolvido por um servidor público, para servidores públicos, a partir de necessidades reais de produtividade e segurança da informação no setor público.
+                        Desenvolvido por um servidor público, para servidores públicos, a partir de necessidades reais de produtividade e segurança da informação.
                     </p>
                 </motion.div>
 
@@ -123,16 +159,23 @@ export function TrainingSection() {
                     >
                         <GlassCard className="p-8 h-full">
                             <h3 className="text-white font-bold text-xl mb-2">Ferramentas cobertas</h3>
-                            <p className="text-gray-500 text-sm mb-6">Todas gratuitas. Nenhuma exige licença adicional.</p>
-                            <div className="grid grid-cols-2 gap-3">
+                            <p className="text-gray-500 text-sm mb-6">Todas gratuitas. Sem necessidade de licença adicional.</p>
+                            <div className="space-y-3">
                                 {tools.map((tool, i) => (
-                                    <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-white/5 border border-white/5 hover:border-neon/20 transition-colors">
-                                        <span className="w-2 h-2 rounded-full bg-neon flex-shrink-0" />
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, x: 10 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.3, delay: i * 0.07 }}
+                                        className={`flex items-start gap-3 p-3 rounded-lg bg-gradient-to-r ${tool.color} border ${tool.border} hover:brightness-110 transition-all`}
+                                    >
+                                        <span className={`w-2 h-2 rounded-full ${tool.dot} flex-shrink-0 mt-1.5`} />
                                         <div>
-                                            <p className="text-white text-sm font-medium">{tool.name}</p>
-                                            <p className="text-gray-500 text-xs">{tool.desc}</p>
+                                            <p className="text-white text-sm font-semibold">{tool.name}</p>
+                                            <p className="text-gray-400 text-xs leading-relaxed">{tool.desc}</p>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         </GlassCard>

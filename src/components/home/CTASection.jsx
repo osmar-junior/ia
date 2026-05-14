@@ -4,8 +4,8 @@ import { Button } from '../ui/Button';
 import { MessageCircle, Send, Loader2 } from 'lucide-react';
 
 export function CTASection() {
-    const [form, setForm] = useState({ name: '', organ: '', email: '', message: '' });
-    const [status, setStatus] = useState('idle'); // idle | loading | success | error
+    const [form, setForm] = useState({ name: '', organ: '', email: '', phone: '', message: '' });
+    const [status, setStatus] = useState('idle');
 
     const handleChange = (e) => {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,6 +31,8 @@ export function CTASection() {
     };
 
     const whatsappLink = 'https://wa.me/5584999621996?text=Ol%C3%A1%2C%20Osmar%21%20Tenho%20interesse%20no%20Workshop%20IA%20na%20Pr%C3%A1tica%20para%20o%20meu%20%C3%B3rg%C3%A3o.';
+
+    const inputClass = "w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm";
 
     return (
         <section id="contato" className="py-24 relative overflow-hidden">
@@ -78,40 +80,24 @@ export function CTASection() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-1.5">Nome</label>
-                                        <input
-                                            type="text"
-                                            name="name"
-                                            required
-                                            value={form.name}
-                                            onChange={handleChange}
-                                            placeholder="Seu nome"
-                                            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm"
-                                        />
+                                        <input type="text" name="name" required value={form.name} onChange={handleChange} placeholder="Seu nome" className={inputClass} />
                                     </div>
                                     <div>
                                         <label className="block text-sm font-medium text-gray-300 mb-1.5">Órgão</label>
-                                        <input
-                                            type="text"
-                                            name="organ"
-                                            required
-                                            value={form.organ}
-                                            onChange={handleChange}
-                                            placeholder="Nome do órgão"
-                                            className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm"
-                                        />
+                                        <input type="text" name="organ" required value={form.organ} onChange={handleChange} placeholder="Nome do órgão" className={inputClass} />
                                     </div>
                                 </div>
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-300 mb-1.5">E-mail</label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        required
-                                        value={form.email}
-                                        onChange={handleChange}
-                                        placeholder="seu@email.gov.br"
-                                        className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm"
-                                    />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-1.5">E-mail</label>
+                                        <input type="email" name="email" required value={form.email} onChange={handleChange} placeholder="seu@email.gov.br" className={inputClass} />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-300 mb-1.5">
+                                            Telefone / WhatsApp <span className="text-gray-600 font-normal">(opcional)</span>
+                                        </label>
+                                        <input type="tel" name="phone" value={form.phone} onChange={handleChange} placeholder="(00) 00000-0000" className={inputClass} />
+                                    </div>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-300 mb-1.5">Mensagem</label>
@@ -120,8 +106,8 @@ export function CTASection() {
                                         rows={4}
                                         value={form.message}
                                         onChange={handleChange}
-                                        placeholder="Descreva brevemente o seu órgão, o número estimado de participantes e o formato de preferência (presencial ou online)."
-                                        className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 text-white placeholder-gray-600 focus:outline-none focus:border-neon/50 focus:ring-1 focus:ring-neon/30 transition-colors text-sm resize-none"
+                                        placeholder="Descreva brevemente o seu órgão, o número estimado de participantes e o formato de preferência (presencial ou remoto)."
+                                        className={`${inputClass} resize-none`}
                                     />
                                 </div>
 
@@ -133,22 +119,15 @@ export function CTASection() {
 
                                 <Button type="submit" size="lg" fullWidth disabled={status === 'loading'}>
                                     {status === 'loading' ? (
-                                        <>
-                                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                                            Enviando...
-                                        </>
+                                        <><Loader2 className="w-4 h-4 mr-2 animate-spin" />Enviando...</>
                                     ) : (
-                                        <>
-                                            <Send className="w-4 h-4 mr-2" />
-                                            Enviar mensagem
-                                        </>
+                                        <><Send className="w-4 h-4 mr-2" />Enviar mensagem</>
                                     )}
                                 </Button>
                             </form>
                         )}
                     </motion.div>
 
-                    {/* WhatsApp */}
                     <motion.div
                         initial={{ opacity: 0 }}
                         whileInView={{ opacity: 1 }}

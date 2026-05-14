@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Users, BookOpen, Building2 } from 'lucide-react';
+import { Users, BookOpen, Clock } from 'lucide-react';
 import { Button } from '../ui/Button';
 
 export function HeroSection() {
@@ -11,7 +11,6 @@ export function HeroSection() {
 
     return (
         <section className="relative pt-32 pb-20 md:pt-48 md:pb-32 overflow-hidden">
-            {/* Background Glow */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-neon/10 rounded-full blur-[120px] pointer-events-none" />
 
             <div className="container mx-auto px-4 relative z-10">
@@ -23,7 +22,6 @@ export function HeroSection() {
                         transition={{ duration: 0.5 }}
                         className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-neon/30 bg-neon/10 text-neon text-sm font-medium mb-8"
                     >
-                        <Building2 className="w-4 h-4" />
                         <span>Capacitação para o Serviço Público</span>
                     </motion.div>
 
@@ -63,7 +61,6 @@ export function HeroSection() {
                         </Button>
                     </motion.div>
 
-                    {/* Stats */}
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -75,17 +72,15 @@ export function HeroSection() {
                             <h3 className="text-3xl font-bold text-white">150+</h3>
                             <p className="text-gray-400 text-sm uppercase tracking-wider">Servidores Capacitados</p>
                         </div>
-
                         <div className="flex flex-col items-center justify-center space-y-2">
                             <BookOpen className="w-8 h-8 text-neon mb-2" />
                             <h3 className="text-3xl font-bold text-white">6 turmas</h3>
                             <p className="text-gray-400 text-sm uppercase tracking-wider">Realizadas no TRE-RN</p>
                         </div>
-
                         <div className="flex flex-col items-center justify-center space-y-2">
-                            <Building2 className="w-8 h-8 text-neon mb-2" />
-                            <h3 className="text-3xl font-bold text-white">3 órgãos</h3>
-                            <p className="text-gray-400 text-sm uppercase tracking-wider">TRE-RN · TRT-21 · TJRN</p>
+                            <Clock className="w-8 h-8 text-neon mb-2" />
+                            <h3 className="text-3xl font-bold text-white">12 horas</h3>
+                            <p className="text-gray-400 text-sm uppercase tracking-wider">de conteúdo aplicado</p>
                         </div>
                     </motion.div>
 

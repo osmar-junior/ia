@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '../ui/GlassCard';
-import { MapPin, Video, Star } from 'lucide-react';
+import { MapPin, MonitorSmartphone, Star } from 'lucide-react';
 
 export function FormatsSection() {
     return (
@@ -27,7 +27,6 @@ export function FormatsSection() {
                     </p>
                 </motion.div>
 
-                {/* Dois formatos principais */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-8">
 
                     <motion.div
@@ -42,7 +41,7 @@ export function FormatsSection() {
                             </div>
                             <h3 className="text-white font-bold text-2xl mb-3">Presencial</h3>
                             <p className="text-gray-400 leading-relaxed">
-                                O instrutor vai até o órgão contratante. O treinamento é realizado nas instalações da instituição, com os equipamentos dos próprios participantes. Infraestrutura simples: computadores com acesso à internet e projetor.
+                                O instrutor vai até o órgão contratante. O treinamento é realizado nas instalações da instituição, com os equipamentos dos próprios participantes. Infraestrutura necessária: computadores com acesso à internet e projetor.
                             </p>
                         </GlassCard>
                     </motion.div>
@@ -55,18 +54,18 @@ export function FormatsSection() {
                     >
                         <GlassCard className="p-8 h-full">
                             <div className="w-12 h-12 rounded-xl bg-neon/10 border border-neon/30 flex items-center justify-center mb-6">
-                                <Video className="w-6 h-6 text-neon" />
+                                <MonitorSmartphone className="w-6 h-6 text-neon" />
                             </div>
-                            <h3 className="text-white font-bold text-2xl mb-3">Online síncrono</h3>
+                            <h3 className="text-white font-bold text-2xl mb-3">Remoto</h3>
                             <p className="text-gray-400 leading-relaxed">
-                                Mesma metodologia, sem deslocamento. O treinamento é realizado em tempo real por videoconferência, com interação direta entre instrutor e participantes. Atende órgãos em qualquer estado do Brasil.
+                                Mesma metodologia, sem deslocamento. O treinamento é realizado de forma síncrona por videoconferência, com interação direta entre instrutor e participantes em tempo real. Atende órgãos em qualquer estado do Brasil.
                             </p>
                         </GlassCard>
                     </motion.div>
 
                 </div>
 
-                {/* Box destaque Instrutoria Interna */}
+                {/* Box Instrutoria Interna */}
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -84,9 +83,9 @@ export function FormatsSection() {
                                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neon/30 bg-neon/10 text-neon text-xs font-semibold uppercase tracking-wider mb-3">
                                     Tribunais Federais
                                 </div>
-                                <h3 className="text-white font-bold text-xl mb-2">Contratação simplificada via Instrutoria Interna</h3>
+                                <h3 className="text-white font-bold text-xl mb-2">Contratação via Instrutoria Interna</h3>
                                 <p className="text-gray-400 leading-relaxed">
-                                    Servidores federais podem ministrar treinamentos em outros órgãos da Justiça Federal pela modalidade de Instrutoria Interna, sem necessidade de processo licitatório. Entre em contato para verificar a viabilidade para o seu Tribunal.
+                                    Para Tribunais Federais, a contratação pode ser feita pela modalidade de Instrutoria Interna — sem licitação, com processo simplificado. Entre em contato para verificar a viabilidade.
                                 </p>
                             </div>
                         </div>

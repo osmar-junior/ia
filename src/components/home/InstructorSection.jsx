@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { GlassCard } from '../ui/GlassCard';
+import fotoOsmar from '../../assets/foto-osmar.jpeg';
 
 const credentials = [
     'Mestre em Sistemas e Computação — UFRN',
@@ -12,7 +13,7 @@ const credentials = [
 const highlights = [
     { value: '30 anos', label: 'no serviço público de TI' },
     { value: '13 anos', label: 'de docência universitária' },
-    { value: 'Desde 2018', label: 'acompanha IA no setor público' },
+    { value: 'Desde 2018', label: 'dedicado a IA no setor público' },
 ];
 
 export function InstructorSection() {
@@ -29,11 +30,13 @@ export function InstructorSection() {
                         transition={{ duration: 0.6 }}
                         className="w-full lg:w-2/5"
                     >
-                        <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 group max-w-sm mx-auto">
-                            <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent z-10" />
-                            <div className="absolute inset-0 bg-white/5 flex flex-col items-center justify-center z-0">
-                                <span className="text-gray-500 font-medium">📷 Foto do instrutor</span>
-                            </div>
+                        <div className="relative aspect-square rounded-2xl overflow-hidden border border-white/10 max-w-sm mx-auto">
+                            <div className="absolute inset-0 bg-gradient-to-t from-dark/60 via-transparent to-transparent z-10" />
+                            <img
+                                src={fotoOsmar}
+                                alt="Osmar Fernandes"
+                                className="w-full h-full object-cover object-top"
+                            />
                             <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-neon/20 backdrop-blur-md rounded-full border border-neon/30 text-neon text-xs font-semibold uppercase tracking-wider">
                                 Especialista em IA
                             </div>
@@ -52,17 +55,17 @@ export function InstructorSection() {
                             <h2 className="text-4xl md:text-5xl font-bold text-white mb-2">
                                 Osmar Fernandes
                             </h2>
-                            <p className="text-neon font-medium text-sm tracking-widest uppercase mb-4">
+                            <p className="text-neon font-medium text-sm tracking-widest uppercase mb-1">
                                 Analista Judiciário · Coordenador de Sistemas Corporativos
                             </p>
                             <p className="text-gray-500 text-sm mb-4">Tribunal Regional Eleitoral do Rio Grande do Norte</p>
                             <div className="w-20 h-1 bg-neon rounded-full" />
                         </div>
 
-                        {/* Highlights numéricos */}
+                        {/* Highlights */}
                         <div className="grid grid-cols-3 gap-4">
                             {highlights.map((h, i) => (
-                                <GlassCard key={i} className="p-4 text-center" hoverEffect={false}>
+                                <GlassCard key={i} className="p-4 text-center">
                                     <p className="text-neon font-bold text-lg">{h.value}</p>
                                     <p className="text-gray-500 text-xs mt-1">{h.label}</p>
                                 </GlassCard>
@@ -71,10 +74,10 @@ export function InstructorSection() {
 
                         <div className="space-y-4 text-gray-400 leading-relaxed">
                             <p>
-                                30 anos de atuação no serviço público de TI, dos quais 13 como professor universitário na Universidade Potiguar. Acompanha IA aplicada ao setor público desde 2018, com participação no Fórum de IA na Administração Pública, no 2º Congresso Latino Americano de IA e Data Science e no 1º Encontro Nacional de Laboratórios de Inovação do Poder Judiciário.
+                                30 anos de atuação no serviço público de TI e 13 anos como professor universitário na Universidade Potiguar. Dedica-se ao estudo e à aplicação de Inteligência Artificial no setor público desde 2018, com foco em uso produtivo, responsável e alinhado à realidade das instituições públicas brasileiras.
                             </p>
                             <p>
-                                O Workshop IA na Prática foi concebido, desenvolvido e ministrado em 6 turmas no TRE-RN, com participação de servidores do TRT-21 e TJRN e de magistrados. Cada edição é adaptada à realidade tecnológica e institucional do órgão contratante.
+                                O Workshop IA na Prática foi concebido, desenvolvido e ministrado em 6 turmas no TRE-RN, com participação de servidores de outros órgãos e de magistrados. Cada edição é adaptada à realidade tecnológica e institucional do órgão contratante.
                             </p>
                         </div>
 

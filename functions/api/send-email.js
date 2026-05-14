@@ -1,7 +1,6 @@
 export async function onRequestPost(context) {
     const { request, env } = context;
 
-    // CORS
     const corsHeaders = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -9,9 +8,8 @@ export async function onRequestPost(context) {
     };
 
     try {
-        const { name, organ, email, message } = await request.json();
+        const { name, organ, email, phone, message } = await request.json();
 
-        // Validação básica
         if (!name || !organ || !email) {
             return new Response(JSON.stringify({ error: 'Campos obrigatórios ausentes.' }), {
                 status: 400,
@@ -35,7 +33,7 @@ export async function onRequestPost(context) {
                         <h2 style="color: #00E5FF;">Nova solicitação de proposta</h2>
                         <table style="width: 100%; border-collapse: collapse;">
                             <tr>
-                                <td style="padding: 8px 0; color: #666; width: 80px;"><strong>Nome</strong></td>
+                                <td style="padding: 8px 0; color: #666; width: 100px;"><strong>Nome</strong></td>
                                 <td style="padding: 8px 0;">${name}</td>
                             </tr>
                             <tr>
@@ -45,6 +43,10 @@ export async function onRequestPost(context) {
                             <tr>
                                 <td style="padding: 8px 0; color: #666;"><strong>E-mail</strong></td>
                                 <td style="padding: 8px 0;"><a href="mailto:${email}">${email}</a></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 8px 0; color: #666;"><strong>Telefone</strong></td>
+                                <td style="padding: 8px 0;">${phone || 'Não informado'}</td>
                             </tr>
                         </table>
                         <hr style="margin: 20px 0; border: none; border-top: 1px solid #eee;" />
