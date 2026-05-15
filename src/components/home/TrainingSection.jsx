@@ -56,13 +56,6 @@ const tools = [
         dot: 'bg-purple-400',
     },
     {
-        name: 'Copilot',
-        desc: 'Assistente do ecossistema Microsoft. Integração futura com Word, Excel e Outlook via licença corporativa.',
-        color: 'from-sky-500/20 to-sky-600/10',
-        border: 'border-sky-500/30',
-        dot: 'bg-sky-400',
-    },
-    {
         name: 'Perplexity',
         desc: 'Pesquisa com citação de fontes verificáveis. Substitui a busca tradicional para legislação e jurisprudência.',
         color: 'from-teal-500/20 to-teal-600/10',
