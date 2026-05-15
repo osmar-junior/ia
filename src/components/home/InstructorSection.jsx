@@ -13,7 +13,7 @@ const credentials = [
 const highlights = [
     { value: '30 anos', label: 'no serviço público de TI' },
     { value: '13 anos', label: 'de docência universitária' },
-    { value: 'Desde 2018', label: 'dedicado a IA no setor público' },
+    { value: '6 turmas', label: 'do Workshop IA na Prática ministradas' },
 ];
 
 export function InstructorSection() {
@@ -37,9 +37,6 @@ export function InstructorSection() {
                                 alt="Osmar Fernandes"
                                 className="w-full h-full object-cover object-top"
                             />
-                            <div className="absolute top-4 left-4 z-20 px-3 py-1 bg-neon/20 backdrop-blur-md rounded-full border border-neon/30 text-neon text-xs font-semibold uppercase tracking-wider">
-                                Especialista em IA
-                            </div>
                         </div>
                     </motion.div>
 
@@ -74,7 +71,7 @@ export function InstructorSection() {
 
                         <div className="space-y-4 text-gray-400 leading-relaxed">
                             <p>
-                                30 anos de atuação no serviço público de TI e 13 anos como professor universitário na Universidade Potiguar. Dedica-se ao estudo e à aplicação de Inteligência Artificial no setor público desde 2018, com foco em uso produtivo, responsável e alinhado à realidade das instituições públicas brasileiras.
+                                30 anos de atuação no serviço público de TI e 13 anos como professor universitário na Universidade Potiguar. Acompanha de perto o avanço da Inteligência Artificial e seu potencial para o setor público desde 2018, com foco em uso produtivo, responsável e alinhado à realidade das instituições públicas brasileiras.
                             </p>
                             <p>
                                 O Workshop IA na Prática foi concebido, desenvolvido e ministrado em 6 turmas no TRE-RN, com participação de servidores de outros órgãos e de magistrados. Cada edição é adaptada à realidade tecnológica e institucional do órgão contratante.

@@ -16,6 +16,7 @@ profissionais. O projeto tem duas partes distintas:
 - **Backend:** Supabase (projeto `hlfndpjmkpnwxiackvce`)
 - **Deploy:** Cloudflare Pages via GitHub (`osmar-junior/ia`)
 - **Domínio:** iamaster.com.br
+- **Email:** Resend API via Cloudflare Function (`functions/api/send-email.js`) — envia para `contato@iamaster.com.br`
 
 ## Comandos
 ```bash
@@ -29,28 +30,41 @@ npm run lint      # ESLint
 ```
 public/
   treinamento/
-    js/                   # JS compartilhado entre todos os cursos
-      auth.js             # Sistema de autenticação (sessionStorage + Supabase)
-    login.html            # Página de login (entrada de CPF → busca turma)
-    tre-rn-2026/          # Curso principal (estrutura modular)
-      index.html          # Índice do curso
+    js/                        # JS compartilhado entre todos os cursos
+      auth.js                  # Sistema de autenticação (sessionStorage + Supabase)
+    data/
+      turmas.csv               # Roster de turmas (slug, nome, curso)
+    login.html                 # Página de login (entrada de CPF → busca turma)
+    demo/                      # Turma demo — estrutura canônica do TRE-RN
+    tre-rn-2026-turma-1/       # Turma 1 TRE-RN 2026
+    tre-rn-2026-turma-2/       # Turma 2 TRE-RN 2026
+      index.html               # Índice do curso
       js/
-        main.js           # App: getBasePath(), loadLayout(), navbar, highlight
-        topicos.js        # Progresso de tópicos (localStorage) e badges de módulo
-        utils.js          # Toast, helpers
+        main.js                # App: getBasePath(), loadLayout(), navbar, highlight
+        topicos.js             # Progresso de tópicos (localStorage) e badges de módulo
+        utils.js               # Toast, helpers
       components/
-        header.html       # Navbar injetada via fetch + loadComponent()
+        header.html            # Navbar injetada via fetch + loadComponent()
         footer.html
       modulos/
         <modulo>/
-          index.html      # Índice do módulo
+          index.html           # Índice do módulo
           topico-N.html
-          *-data.js       # Dados externos usados pela página (ex: ferramentas-data.js)
+          *-data.js            # Dados externos (ex: ferramentas-data.js)
       oficinas/
         oficina-NN-nome.html   # Arquivos planos, sem subpasta
-    adv-flavio-macedo/    # Curso jurídico (estrutura própria — conteúdo na raiz do curso, sem subpasta modulos/)
+    adv-flavio-macedo/         # Curso jurídico (conteúdo na raiz, sem subpasta modulos/)
+      js/                      # main.js, utils.js
+      css/
+      components/              # header.html, footer.html
+      assets/heroes/
+      materiais/
+      oficinas/
   admin/
-    index.html            # Painel administrativo (CRUD de usuários, cursos e turmas)
+    index.html                 # Painel administrativo (CRUD de usuários, cursos e turmas)
+functions/
+  api/
+    send-email.js              # Cloudflare Function — envia e-mail via Resend API
 ```
 
 ## Convenções críticas
@@ -58,7 +72,7 @@ public/
 ### getBasePath() em main.js
 Cada curso tem seu próprio `main.js` com `getBasePath()` adaptada à estrutura de pastas:
 
-**tre-rn-2026** (3 níveis): `/oficinas/` → `'../'` | `/modulos/` → `'../../'` | raiz → `'./'`
+**tre-rn-2026-turma-N / demo** (3 níveis): `/oficinas/` → `'../'` | `/modulos/` → `'../../'` | raiz → `'./'`
 
 **adv-flavio-macedo** (2 níveis): `/oficinas/` → `'../'` | raiz → `'./'` (sem subpasta modulos/)
 
@@ -107,7 +121,7 @@ Políticas RLS na tabela `usuario` **não devem referenciar `usuario` em subcons
 
 **Hierarquia de componentes:**
 - `src/pages/` — componentes de rota completos
-- `src/components/home/` — seções da Home (Hero, Instructor, Tracks, Testimonials)
+- `src/components/home/` — seções da Home (HeroSection, WhyNowSection, TrainingSection, PlatformSection, FormatsSection, ForWhoSection, InstructorSection, TestimonialsSection, CTASection)
 - `src/components/track/` — seções de trilhas (TrackHero, Syllabus, Pricing, FAQ)
 - `src/components/layout/` — Navbar, Footer, Layout
 - `src/components/ui/` — primitivos reutilizáveis (Button, GlassCard)
